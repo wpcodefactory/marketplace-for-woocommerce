@@ -23,7 +23,7 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
     public static $classMap = array (
         'Alg_MP_WC_Core' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mp-wc-core.php',
         'Alg_MP_WC_Settings_Page' => __DIR__ . '/../..' . '/classes/marketplace/admin/class-alg-mp-wc-settings-page.php',
-        'Alg_WP_Plugin' => __DIR__ . '/../..' . '/classes/wordpress/class-alg_wp_plugin.php',
+        'Alg_WP_Plugin' => __DIR__ . '/../..' . '/classes/wordpress/class-alg-wp-plugin.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',

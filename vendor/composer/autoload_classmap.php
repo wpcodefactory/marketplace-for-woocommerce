@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Alg_MP_WC_Core' => $baseDir . '/classes/marketplace/class-alg-mp-wc-core.php',
     'Alg_MP_WC_Settings_Page' => $baseDir . '/classes/marketplace/admin/class-alg-mp-wc-settings-page.php',
-    'Alg_WP_Plugin' => $baseDir . '/classes/wordpress/class-alg_wp_plugin.php',
+    'Alg_WP_Plugin' => $baseDir . '/classes/wordpress/class-alg-wp-plugin.php',
     'Composer\\Installers\\AglInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AglInstaller.php',
     'Composer\\Installers\\AimeosInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
     'Composer\\Installers\\AnnotateCmsInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',
