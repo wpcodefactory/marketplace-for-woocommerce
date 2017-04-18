@@ -21,14 +21,14 @@ if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 	 *
 	 * @version 1.0.0
 	 * @since   1.0.0
-	 * @return  Alg_MP_WC_Core
+	 * @return  Alg_MPWC_Core
 	 */
 	function alg_marketplace_for_wc() {
-		$marketplace = Alg_MP_WC_Core::get_instance();
+		$marketplace = Alg_MPWC_Core::get_instance();
 		$marketplace->set_args( array(
 			'plugin_file_path' => __FILE__,
 			'translation'      => array(
-				'slug' => 'marketplace-for-woocommerce',
+				'text_domain' => 'marketplace-for-woocommerce',
 			),
 		) );
 
@@ -37,15 +37,15 @@ if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 }
 
 // Starts the plugin
-add_action( 'plugins_loaded', 'alg_mp_wc_start_plugin' );
-if ( ! function_exists( 'alg_mp_wc_start_plugin' ) ) {
+add_action( 'plugins_loaded', 'alg_mpwc_start_plugin' );
+if ( ! function_exists( 'alg_mpwc_start_plugin' ) ) {
 	/**
 	 * Starts the plugin
 	 *
 	 * @version 1.0.0
 	 * @since   1.0.0
 	 */
-	function alg_mp_wc_start_plugin() {
+	function alg_mpwc_start_plugin() {
 
 		// Includes composer dependencies and autoloads classes
 		require __DIR__ . '/vendor/autoload.php';

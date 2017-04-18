@@ -55,7 +55,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		protected function setup() {
 			$this->basename = plugin_basename( $this->args['plugin_file_path'] );
 			add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'action_links' ) );
-			$this->handle_localization();
+			add_action( 'init', array( $this, 'handle_localization' ) );
 		}
 
 		/**
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		 *
 		 * @param array $args
 		 */
-		public function init(){
+		public function init() {
 			$this->setup();
 		}
 
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		 */
 		public function handle_localization() {
 			$args        = $this->args;
-			$text_domain = sanitize_text_field( $args['translation']['slug'] );
+			$text_domain = sanitize_text_field( $args['translation']['text_domain'] );
 			$locale      = apply_filters( 'plugin_locale', get_locale(), $text_domain );
 			load_textdomain( $text_domain, WP_LANG_DIR . dirname( $this->basename ) . $text_domain . '-' . $locale . '.mo' );
 			load_plugin_textdomain( $text_domain, false, dirname( $this->basename ) . '/' . $args['translation']['folder'] . '/' );

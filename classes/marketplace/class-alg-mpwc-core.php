@@ -7,9 +7,9 @@
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MP_WC_Core' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 
-	class Alg_MP_WC_Core extends Alg_WP_Plugin {
+	class Alg_MPWC_Core extends Alg_WP_Plugin {
 
 		public function init() {
 			parent::init();

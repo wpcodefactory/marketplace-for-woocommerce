@@ -6,8 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Alg_MP_WC_Core' => $baseDir . '/classes/marketplace/class-alg-mp-wc-core.php',
-    'Alg_MP_WC_Settings_Page' => $baseDir . '/classes/marketplace/admin/class-alg-mp-wc-settings-page.php',
+    'Alg_MPWC_Core' => $baseDir . '/classes/marketplace/class-alg-mpwc-core.php',
+    'Alg_MPWC_Settings_Page' => $baseDir . '/classes/marketplace/admin/class-alg-mpwc-settings-page.php',
     'Alg_WP_Plugin' => $baseDir . '/classes/wordpress/class-alg-wp-plugin.php',
     'Composer\\Installers\\AglInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AglInstaller.php',
     'Composer\\Installers\\AimeosInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',

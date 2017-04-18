@@ -7,9 +7,9 @@
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MP_WC_Settings_Page' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Settings_Page' ) ) {
 
-	class Alg_MP_WC_Settings_Page extends WC_Settings_Page {
+	class Alg_MPWC_Settings_Page extends WC_Settings_Page {
 		/**
 		 * Constructor.
 		 *
