@@ -69,7 +69,22 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		 * @param array $args
 		 */
 		public function init() {
+			// Get plugin args
+			$args = $this->args;
+
+			// Setups the plugin (translation, action links, etc)
 			$this->setup();
+		}
+
+		/**
+		 * Called when plugin is enabled
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 */
+		public static function on_plugin_activation() {
+
 		}
 
 		/**

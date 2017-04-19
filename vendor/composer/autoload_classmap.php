@@ -7,7 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Alg_MPWC_Core' => $baseDir . '/classes/marketplace/class-alg-mpwc-core.php',
-    'Alg_MPWC_Settings_Page' => $baseDir . '/classes/marketplace/admin/class-alg-mpwc-settings-page.php',
+    'Alg_MPWC_Settings_General' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-general.php',
+    'Alg_MPWC_Settings_Page' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-page.php',
+    'Alg_MPWC_Settings_Section' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-section.php',
+    'Alg_MPWC_Settings_Vendor' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-vendor.php',
+    'Alg_MPWC_Shop_Manager_Role' => $baseDir . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-shop-manager.php',
+    'Alg_MPWC_Vendor_Role_Manager' => $baseDir . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-role-manager.php',
     'Alg_WP_Plugin' => $baseDir . '/classes/wordpress/class-alg-wp-plugin.php',
     'Composer\\Installers\\AglInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AglInstaller.php',
     'Composer\\Installers\\AimeosInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
