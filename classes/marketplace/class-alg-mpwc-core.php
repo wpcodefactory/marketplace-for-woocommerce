@@ -27,9 +27,23 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			// Init admin part
 			if ( is_admin() ) {
 				$this->init_admin();
-			}else{
-				$this->init_frontend();
+			} else {
+				if ( filter_var( get_option( Alg_MPWC_Settings_General::OPTION_ENABLE_PLUGIN ), FILTER_VALIDATE_BOOLEAN ) ) {
+					$this->init_frontend();
+				}
 			}
+
+			add_action( 'widgets_init', array( $this, 'create_widgets' ) );
+		}
+
+		/**
+		 * Creates widgets
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function create_widgets() {
+			register_widget( 'Alg_MPWC_Vendor_Products_Filter_Widget' );
 		}
 
 		/**
