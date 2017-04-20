@@ -44,27 +44,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 			}
 
-			/*
-			$users_with_role = implode( ",", get_users( array(
-				'fields' => 'id',
-				'role'   => Alg_MPWC_Vendor_Role_Manager_Adm::ROLE_VENDOR,
-			) ) );
-
-			wp_dropdown_users( array(
-				'show_option_none' => __( 'Select a vendor', 'marketplace-for-woocommerce' ),
-				//'selected' => ($_POST['user'] ? :    get_current_user_id()),
-				'include_selected' => true,
-				'include'          => $users_with_role,
-			) );
-			echo '<input type="hidden" name="alg_mpwc_vendor">';
-			*/
-
 			$filter = new Alg_MPWC_Vendor_Products_Filter();
 			echo $filter->get_html();
 
-
-
-			//echo esc_html__( 'Hello, World!', 'marketplace-for-woocommerce' );
 			echo $args['after_widget'];
 		}
 
