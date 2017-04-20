@@ -1,15 +1,15 @@
 <?php
 /**
- * Marketplace for WooCommerce - Vendor role
+ * Marketplace for WooCommerce - Vendor role (Admin)
  *
  * @version 1.0.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 
-	class Alg_MPWC_Vendor_Role_Manager {
+	class Alg_MPWC_Vendor_Role_Manager_Adm {
 
 		const ROLE_VENDOR = 'alg_mpwc_vendor';
 

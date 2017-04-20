@@ -12,6 +12,8 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 	class Alg_WP_Plugin {
 
 		public $basename;
+		public $dir_url;
+		public $dir;
 		public $args;
 
 		/**
@@ -53,7 +55,10 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		 * @since   1.0.0
 		 */
 		protected function setup() {
-			$this->basename = plugin_basename( $this->args['plugin_file_path'] );
+			$plugin_file_path = $this->args['plugin_file_path'];
+			$this->basename = plugin_basename( $plugin_file_path );
+			$this->dir_url = plugin_dir_url( $plugin_file_path );
+			$this->dir = untrailingslashit( plugin_dir_path( $plugin_file_path ) ) . DIRECTORY_SEPARATOR;
 			add_filter( 'plugin_action_links_' . $this->basename, array( $this, 'action_links' ) );
 			add_action( 'init', array( $this, 'handle_localization' ) );
 		}

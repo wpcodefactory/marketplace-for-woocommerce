@@ -21,13 +21,17 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
     );
 
     public static $classMap = array (
+        'Alg_MPWC_Admin' => __DIR__ . '/../..' . '/classes/marketplace/admin/class-alg-mpwc-admin.php',
         'Alg_MPWC_Core' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-core.php',
+        'Alg_MPWC_Frontend' => __DIR__ . '/../..' . '/classes/marketplace/frontend/class-alg-mpwc-frontend.php',
         'Alg_MPWC_Settings_General' => __DIR__ . '/../..' . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-general.php',
         'Alg_MPWC_Settings_Page' => __DIR__ . '/../..' . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-page.php',
         'Alg_MPWC_Settings_Section' => __DIR__ . '/../..' . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-section.php',
         'Alg_MPWC_Settings_Vendor' => __DIR__ . '/../..' . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-vendor.php',
-        'Alg_MPWC_Shop_Manager_Role' => __DIR__ . '/../..' . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-shop-manager.php',
-        'Alg_MPWC_Vendor_Role_Manager' => __DIR__ . '/../..' . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-role-manager.php',
+        'Alg_MPWC_Shop_Manager_Role_Adm' => __DIR__ . '/../..' . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-shop-manager-adm.php',
+        'Alg_MPWC_Vendor_Role_Manager' => __DIR__ . '/../..' . '/classes/marketplace/frontend/user_roles/class-alg-mpwc-vendor-role-manager.php',
+        'Alg_MPWC_Vendor_Role_Manager_Adm' => __DIR__ . '/../..' . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-role-manager-adm.php',
+        'Alg_MPWC_Vendor_Role_Profile' => __DIR__ . '/../..' . '/classes/marketplace/frontend/user_roles/vendor_role/class-alg-mpwc-vendor-role-profile.php',
         'Alg_WP_Plugin' => __DIR__ . '/../..' . '/classes/wordpress/class-alg-wp-plugin.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',

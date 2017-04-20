@@ -1,15 +1,15 @@
 <?php
 /**
- * Marketplace for WooCommerce - Shop manager role
+ * Marketplace for WooCommerce - Shop manager role (Admin)
  *
  * @version 1.0.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Shop_Manager_Role' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Shop_Manager_Role_Adm' ) ) {
 
-	class Alg_MPWC_Shop_Manager_Role {
+	class Alg_MPWC_Shop_Manager_Role_Adm {
 
 		const ROLE_SHOP_MANAGER = 'shop_manager';
 
