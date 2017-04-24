@@ -14,7 +14,7 @@ return array(
     'Alg_MPWC_Settings_Page' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-page.php',
     'Alg_MPWC_Settings_Section' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-section.php',
     'Alg_MPWC_Settings_Vendor' => $baseDir . '/classes/marketplace/admin/settings/class-alg-mpwc-settings-vendor.php',
-    'Alg_MPWC_Shop_Manager_Role_Adm' => $baseDir . '/classes/marketplace/admin/user_roles/class-alg-mpwc-vendor-shop-manager-adm.php',
+    'Alg_MPWC_Shop_Manager_Role_Adm' => $baseDir . '/classes/marketplace/admin/user_roles/class-alg-mpwc-shop-manager-role-adm.php',
     'Alg_MPWC_Vendor_Products_Filter' => $baseDir . '/classes/marketplace/frontend/class-alg-mpwc-vendor-products-filter.php',
     'Alg_MPWC_Vendor_Products_Filter_Widget' => $baseDir . '/classes/marketplace/widgets/class-alg-mpwc-vendor-products-filter-widget.php',
     'Alg_MPWC_Vendor_Role_Manager' => $baseDir . '/classes/marketplace/frontend/user_roles/class-alg-mpwc-vendor-role-manager.php',

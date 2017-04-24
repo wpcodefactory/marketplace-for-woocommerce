@@ -46,6 +46,31 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 			$id      = 'alg_mpwc';
 			$section = 'vendors';
 			add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'change_role_options' ) );
+
+			//Remove dashboard widgets
+			add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
+		}
+
+		/**
+		 * Removes dashboard widgets
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		function remove_dashboard_widgets() {
+			if ( !current_user_can( self::ROLE_VENDOR ) ) {
+				return;
+			}
+
+			remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
+			remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
+			remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
+			remove_meta_box( 'dashboard_secondary', 'dashboard', 'normal' );
+			remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
+			remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
+			remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
+			remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
+			remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
 		}
 
 		/**
