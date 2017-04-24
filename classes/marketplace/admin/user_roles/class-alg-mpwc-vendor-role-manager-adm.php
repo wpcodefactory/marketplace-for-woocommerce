@@ -47,8 +47,49 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 			$section = 'vendors';
 			add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'change_role_options' ) );
 
-			//Remove dashboard widgets
+			//Handle dashboard widgets
 			add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
+			add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
+		}
+
+		/**
+		 * Add dashboard widgets
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function add_dashboard_widgets() {
+			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
+				return;
+			}
+
+			$widget_id = 'alg_mpwc_main_widget';
+
+			wp_add_dashboard_widget(
+				$widget_id,         // Widget slug.
+				'Marketplace',         // Title.
+				array( $this, 'alg_mpwc_main_widget' ) // Display function.
+			);
+		}
+
+		/**
+		 * The main dashboard widget
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function alg_mpwc_main_widget() {
+			$user = wp_get_current_user();
+
+			// Display whatever it is you want to show.
+			echo __( 'Hello', 'marketplace-for-woocommerce' ) . ' <strong>' . $user->display_name . '</strong>, <br /><br />';
+
+			echo '<ul style="list-style: inside">';
+			echo '<li>' . sprintf( __( "Create/edit products by clicking on your left menu <strong><a href='%s'>Products</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'edit.php?post_type=product' ) ) . '</li>';
+			echo '<li>' . sprintf( __( "Edit your profile by clicking on your left menu <strong><a href='%s'>Profile</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'profile.php' ) ) . '</li>';
+			echo '</ul>';
+
+			//echo 'http://127.0.0.1/wp-tests/wp-admin/edit.php?post_type=product';
 		}
 
 		/**
@@ -58,7 +99,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 		 * @since   1.0.0
 		 */
 		function remove_dashboard_widgets() {
-			if ( !current_user_can( self::ROLE_VENDOR ) ) {
+			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
 				return;
 			}
 
