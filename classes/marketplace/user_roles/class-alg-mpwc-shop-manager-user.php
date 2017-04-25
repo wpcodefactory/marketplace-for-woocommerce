@@ -1,26 +1,26 @@
 <?php
 /**
- * Marketplace for WooCommerce - Shop manager role (Admin)
+ * Marketplace for WooCommerce - Shop manager user manager
  *
  * @version 1.0.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Shop_Manager_Role_Adm' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 
-	class Alg_MPWC_Shop_Manager_Role_Adm {
+	class Alg_MPWC_Shop_Manager_User {
 
 		const ROLE_SHOP_MANAGER = 'shop_manager';
 
 		/**
-		 * Setups the shop manager role manager
+		 * Constructor
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
 		 */
-		public function setup() {
+		function __construct() {
 			add_filter( 'manage_posts_columns', array( $this, 'add_author_column' ) );
 		}
 

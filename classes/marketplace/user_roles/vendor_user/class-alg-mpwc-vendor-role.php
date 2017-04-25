@@ -1,15 +1,15 @@
 <?php
 /**
- * Marketplace for WooCommerce - Vendor role (Admin)
+ * Marketplace for WooCommerce - Vendor role
  *
  * @version 1.0.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
-	class Alg_MPWC_Vendor_Role_Manager_Adm {
+	class Alg_MPWC_Vendor_Role {
 
 		const ROLE_VENDOR = 'alg_mpwc_vendor';
 
@@ -27,6 +27,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 			'level_0'                   => true,
 		);
 
+		private static $order_caps = array(
+			"edit_published_shop_orders" => true,
+			"edit_shop_orders"           => true,
+			"delete_shop_orders"         => true,
+			"read_shop_orders"           => true,
+			'create_shop_orders'         =>false,
+		);
+
 		/**
 		 * Initializes the vendor role manager
 		 *
@@ -36,21 +44,27 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 		 */
 		public function init() {
 
-			// Allows the vendor user to access wp-admin
-			add_filter( 'woocommerce_prevent_admin_access', array( $this, 'allow_admin_access' ) );
+			if ( is_admin() ) {
+				// Allows the vendor user to access wp-admin
+				add_filter( 'woocommerce_prevent_admin_access', array( $this, 'allow_admin_access' ) );
 
-			// Limits the vendor user to see only his own posts, media, etc
-			add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
+				// Limits the vendor user to see only his own posts, media, etc
+				add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
 
-			// Changes role options based on admin settings
-			$id      = 'alg_mpwc';
-			$section = 'vendors';
-			add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'change_role_options' ) );
+				// Changes role options based on admin settings
+				$id      = 'alg_mpwc';
+				$section = 'vendors';
+				add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'change_role_options' ) );
 
-			//Handle dashboard widgets
-			add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
-			add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
+				// Handle dashboard widgets
+				add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
+				add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
+			}
+
+
 		}
+
+
 
 		/**
 		 * Add dashboard widgets
@@ -237,6 +251,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Manager_Adm' ) ) {
 				'caps'         => self::$user_caps,
 				'display_name' => __( 'Marketplace vendor', 'marketplace-for-woocommerce' ),
 			) );
+
+			$args['caps'] = array_merge( $args['caps'], self::$order_caps );
 
 			if ( get_role( self::ROLE_VENDOR ) ) {
 				remove_role( self::ROLE_VENDOR );

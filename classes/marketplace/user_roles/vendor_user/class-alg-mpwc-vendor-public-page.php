@@ -1,17 +1,15 @@
 <?php
 /**
- * Marketplace for WooCommerce - Profile manager for vendor role
+ * Marketplace for WooCommerce - Vendor public page
  *
  * @version 1.0.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Profile' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 
-	class Alg_MPWC_Vendor_Role_Profile {
-
-		//const QUERY_VARS_VENDOR = 'alg_mpwc_vendor';
+	class Alg_MPWC_Vendor_Public_Page {
 
 		/**
 		 * Constructor
@@ -20,11 +18,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role_Profile' ) ) {
 		 * @since   1.0.0
 		 */
 		function __construct() {
-			add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
-			add_action( 'template_include', array( $this, 'template_include' ) );
-			add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
-			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
-			add_filter( 'document_title_parts', array( $this, 'document_title_parts' ) );
+			if ( ! is_admin() ) {
+				add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+				add_action( 'template_include', array( $this, 'template_include' ) );
+				add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
+				add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+				add_filter( 'document_title_parts', array( $this, 'document_title_parts' ) );
+			}
+			add_action( 'init', array( $this, 'rewrite_rules' ) );
 		}
 
 		/**

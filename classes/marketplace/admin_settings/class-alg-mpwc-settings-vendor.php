@@ -18,6 +18,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_ROLE_LABEL                    = 'alg_mpwc_opt_vendor_role_label';
 		const OPTION_PROFILE_PAGE_SLUG             = 'alg_mpwc_opt_profile_page_slug';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS = 'alg_mpwc_opt_vendor_caps_publish_posts';
+		const OPTION_COMISSIONS_BASE               = 'alg_mpwc_opt_comissions_base';
 
 		/**
 		 * Constructor.
@@ -93,6 +94,35 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_caps_opt',
+				),
+				array(
+					'title'       => __( 'Comissions', 'marketplace-for-woocommerce' ),
+					'type'        => 'title',
+					'id'          => 'alg_mpwc_comissions_opt',
+				),
+				array(
+					'title'       => __( 'Base', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'How vendors will receive their comissions for sales', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMISSIONS_BASE,
+					'default'     => 'percentage',
+					'options'     => array(
+						'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
+						'fixed_value' =>sprintf(  __( 'By fixed value (in %s)', 'marketplace-for-woocommerce' ), '<strong>'.get_woocommerce_currency().'</strong>'),
+					),
+					'type'        => 'select',
+					'class'       =>'chosen_select'
+				),
+				array(
+					'title'       => __( 'Value', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMISSIONS_BASE,
+					'default'     => '15',
+					'options'     => array( 'percentage' => 'By percentage', 'fixed_value' => 'By fixed value' ),
+					'type'        => 'number',
+				),
+				array(
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_comissions_opt',
 				),
 			);
 

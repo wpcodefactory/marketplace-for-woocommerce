@@ -24,7 +24,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		public function get_html() {
 			$users_with_role = implode( ",", get_users( array(
 				'fields' => 'id',
-				'role'   => Alg_MPWC_Vendor_Role_Manager_Adm::ROLE_VENDOR,
+				'role'   => Alg_MPWC_Vendor_Role::ROLE_VENDOR,
 			) ) );
 
 			$return_str = '';
@@ -98,7 +98,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			}
 
 			// Cancels if user is not a vendor
-			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role_Manager_Adm::ROLE_VENDOR, $user->roles ) ) {
+			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
 				return;
 			}
 

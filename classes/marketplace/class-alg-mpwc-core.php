@@ -26,14 +26,12 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 
 			// Init admin part
 			if ( is_admin() ) {
-				$this->init_admin();
-			} else {
-				if ( filter_var( get_option( Alg_MPWC_Settings_General::OPTION_ENABLE_PLUGIN ), FILTER_VALIDATE_BOOLEAN ) ) {
-					$this->init_frontend();
-				}
+				$this->init_admin_settings();
 			}
 
-			add_action( 'widgets_init', array( $this, 'create_widgets' ) );
+			if ( filter_var( get_option( Alg_MPWC_Settings_General::OPTION_ENABLE_PLUGIN ), FILTER_VALIDATE_BOOLEAN ) ) {
+				$this->setup_plugin();
+			}
 		}
 
 		/**
@@ -47,24 +45,49 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		}
 
 		/**
-		 * Initializes admin part
+		 * Initializes admin settings
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function init_admin() {
-			new Alg_MPWC_Admin();
+		public function init_admin_settings() {
+            new Alg_MPWC_Admin_Settings();
 		}
 
 		/**
-		 * Initializes frontend part
+		 * Setups the plugin
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function init_frontend() {
-			new Alg_MPWC_Frontend();
+		public function setup_plugin() {
+			new Alg_MPWC_Vendor_User();
+			new Alg_MPWC_Shop_Manager_User();
+			add_action( 'widgets_init', array( $this, 'create_widgets' ) );
+			add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
+			add_action( 'init', array($this,'create_post_types') );
 		}
+
+		/**
+		 * Create custom post types
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function create_post_types(){
+			$cpt = new Alg_MPWC_CPT_Comission();
+			$cpt->register();
+		}
+
+		/**
+		 * Create dashboard widgets
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function add_dashboard_widgets(){
+            new Alg_MPWC_Dashboard_Widgets();
+        }
 
 		/**
 		 * Called when plugin is enabled
@@ -77,7 +100,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			parent::on_plugin_activation();
 
 			// Adds the vendor role
-			Alg_MPWC_Vendor_Role_Manager_Adm::add_vendor_role();
+			Alg_MPWC_Vendor_Role::add_vendor_role();
 		}
 
 
