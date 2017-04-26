@@ -19,7 +19,9 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_PROFILE_PAGE_SLUG              = 'alg_mpwc_opt_profile_page_slug';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
 		const OPTION_COMISSIONS_BASE                = 'alg_mpwc_opt_commissions_base';
+		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
+
 
 		/**
 		 * Constructor.
@@ -119,7 +121,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'title'       => __( 'Value', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMISSIONS_BASE,
+					'id'          => self::OPTION_COMMISSIONS_BASE_VALUE,
 					'default'     => 15,
 					'type'        => 'number',
 				),
