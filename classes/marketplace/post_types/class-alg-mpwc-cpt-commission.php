@@ -114,7 +114,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
-			
 
 			// Only creates commissions automatically if the corresponding order has not been processed yet
 			$comissions_evaluated = filter_var( get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true ), FILTER_VALIDATE_BOOLEAN );
