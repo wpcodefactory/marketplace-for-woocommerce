@@ -21,6 +21,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 
 		}
 
+		/**
+		 * Creates the dropdown html.
+		 *
+		 * Besides filtering vendor products, redirects to shop page.
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
 		public function get_html() {
 			$users_with_role = get_users( array(
 				'fields' => 'id',
@@ -52,6 +60,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			return $return_str;
 		}
 
+		/**
+		 * Enqueues dropdown scripts
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
 		public function enqueue_scripts() {
 			$js = "
 				jQuery(document).ready(function($){
@@ -65,11 +79,23 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			wp_add_inline_script( 'jquery-migrate', $js );
 		}
 
+		/**
+		 * Setups the dropdown
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
 		public function setup() {
 			add_action( 'woocommerce_product_query', array( $this, 'woocommerce_product_query' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 
+		/**
+		 * Filters products from a specific vendor
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
 		public function woocommerce_product_query( $query ) {
 			if ( ! $query->query || ! isset( $query->query['post_type'] ) ) {
 				return;
