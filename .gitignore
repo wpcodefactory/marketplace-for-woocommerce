@@ -6,4 +6,9 @@
 tasks/node_modules
 tasks/node_modules/*
 
+vendor/webdevstudios/**/languages
+vendor/webdevstudios/**/tests
+vendor/webdevstudios/**/*.clover
+!vendor/webdevstudios/**/languages/*.pot
+
 **/*.log
