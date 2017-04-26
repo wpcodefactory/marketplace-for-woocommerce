@@ -25,6 +25,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			"assign_product_terms"      => true,
 			"upload_files"              => true,
 			'level_0'                   => true,
+			'edit_alg_mpwc_comission'   => true
 		);
 
 		private static $order_caps = array(

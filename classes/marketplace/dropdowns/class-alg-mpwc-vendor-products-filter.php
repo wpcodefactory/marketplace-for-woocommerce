@@ -22,22 +22,24 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		}
 
 		public function get_html() {
-			$users_with_role = implode( ",", get_users( array(
+			$users_with_role = get_users( array(
 				'fields' => 'id',
 				'role'   => Alg_MPWC_Vendor_Role::ROLE_VENDOR,
-			) ) );
+			) );
 
 			$return_str = '';
 
-			$return_str .= wp_dropdown_users( array(
+			$args = array(
 				'show_option_none' => __( 'Select a vendor', 'marketplace-for-woocommerce' ),
 				'class'            => 'alg-mpwc-vendor-products-filter',
-				//'show'=>'display_name_with_login',
 				'selected'         => isset( $_GET[ Alg_MPWC_Query_Vars::VENDOR ] ) ? $_GET[ Alg_MPWC_Query_Vars::VENDOR ] : - 1,
 				'include_selected' => true,
-				'include'          => $users_with_role,
 				'echo'             => false,
-			) );
+			);
+			if(is_array($users_with_role) && count($users_with_role)>0){
+				$args['include'] = $users_with_role;
+			}
+			$return_str .= wp_dropdown_users($args);
 
 			$shop_page_id = wc_get_page_id( 'shop' );
 
@@ -46,7 +48,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			$return_str .= '<input type="hidden" class="alg-mpwc-vendor-slug-input" name="' . Alg_MPWC_Query_Vars::VENDOR . '" value="">';
 			$return_str .= '</form>';
 			$return_str .= '<style>.alg-mpwc-vendor-products-filter{width:100%}</style>';
-
 
 			return $return_str;
 		}

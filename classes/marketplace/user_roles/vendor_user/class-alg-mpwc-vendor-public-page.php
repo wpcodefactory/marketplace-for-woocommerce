@@ -135,7 +135,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 
 			// Checks if user is vendor
 			$user = get_user_by( 'slug', $vendor );
-			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role_Manager_Adm::ROLE_VENDOR, $user->roles ) ) {
+			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
 				$query->set_404();
 				return;
 			}
@@ -186,7 +186,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			set_query_var( 'vendor_user', $user );
 
 			// Gets the template
-			$template = Alg_MPWC_Frontend::get_template( 'vendor-profile.php' );
+			$template = Alg_MPWC_Core::get_template( 'vendor-profile.php' );
 
 			return $template;
 		}

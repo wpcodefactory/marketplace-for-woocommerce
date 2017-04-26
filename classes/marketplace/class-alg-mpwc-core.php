@@ -75,7 +75,8 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 * @since   1.0.0
 		 */
 		public function create_post_types(){
-			$cpt = new Alg_MPWC_CPT_Comission();
+			$cpt = new Alg_MPWC_CPT_Commission();
+			$cpt->setup();
 			$cpt->register();
 		}
 
@@ -103,6 +104,23 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			Alg_MPWC_Vendor_Role::add_vendor_role();
 		}
 
+		/**
+		 * Gets the template
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public static function get_template( $template_name = '', $default_path = '', $template_path = 'woocommerce/alg-marketplace' ) {
+			$marketplace = alg_marketplace_for_wc();
+
+			if ( ! $default_path ) {
+				$default_path = $marketplace->dir . 'templates' . DIRECTORY_SEPARATOR;
+			} else {
+				$default_path = $marketplace->dir . 'templates' . $default_path;
+			}
+
+			return wc_locate_template( $template_name, $template_path, $default_path );
+		}
 
 	}
 }

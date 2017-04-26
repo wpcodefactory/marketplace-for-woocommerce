@@ -15,10 +15,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 	class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
-		const OPTION_ROLE_LABEL                    = 'alg_mpwc_opt_vendor_role_label';
-		const OPTION_PROFILE_PAGE_SLUG             = 'alg_mpwc_opt_profile_page_slug';
-		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS = 'alg_mpwc_opt_vendor_caps_publish_posts';
-		const OPTION_COMISSIONS_BASE               = 'alg_mpwc_opt_comissions_base';
+		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
+		const OPTION_PROFILE_PAGE_SLUG              = 'alg_mpwc_opt_profile_page_slug';
+		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
+		const OPTION_COMISSIONS_BASE                = 'alg_mpwc_opt_commissions_base';
+		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
 
 		/**
 		 * Constructor.
@@ -41,8 +42,12 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		 * @return string
 		 */
 		function get_profile_page_url_ex() {
-			$user = wp_get_current_user();
-			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PROFILE_PAGE_SLUG, 'marketplace-vendor' ) ) . '/' . $user->data->user_nicename . '</strong>';
+			$user     = wp_get_current_user();
+			$nicename = $user->data->user_login;
+			if ( property_exists( $user->data, 'user_nicename' ) ) {
+				$nicename = $user->data->user_nicename;
+			}
+			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PROFILE_PAGE_SLUG, 'marketplace-vendor' ) ) . '/' . $nicename . '</strong>';
 		}
 
 		/**
@@ -86,7 +91,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				),
 				array(
 					'title'       => __( 'Publish products', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Allows the vendors to publish products automatically, bypassing the pending status', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows vendors to publish products automatically, bypassing the pending status', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_CAPABILITIES_PUBLISH_PRODUCTS,
 					'default'     => 'no',
 					'type'        => 'checkbox',
@@ -116,9 +121,17 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'title'       => __( 'Value', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMISSIONS_BASE,
-					'default'     => '15',
-					'options'     => array( 'percentage' => 'By percentage', 'fixed_value' => 'By fixed value' ),
+					'default'     => 15,
 					'type'        => 'number',
+				),
+				array(
+					'title'       => __( 'Automatic creation', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'The moment comissions are created', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_AUTOMATIC_CREATION,
+					'default'     => 'order_complete',
+					'options'     => array( 'none'=>'Do not create automatically','order_complete' => 'On order complete', 'order_processing' => 'On order processing' ),
+					'type'        => 'select',
+					'class'       => 'chosen_select'
 				),
 				array(
 					'type'        => 'sectionend',
