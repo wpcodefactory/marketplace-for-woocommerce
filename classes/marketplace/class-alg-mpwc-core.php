@@ -78,8 +78,6 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			$cpt = new Alg_MPWC_CPT_Commission();
 			$cpt->setup();
 			$cpt->register();
-
-			//$cpt->create_commission_autommatically(226);
 		}
 
 		/**

@@ -10,12 +10,6 @@
 if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 	class Alg_MPWC_CPT_Commission {
 
-		// Custom Meta fields
-		const META_PRODUCT_IDS     = 'alg_mpwc_product_ids';
-		const META_AUTHOR_ID       = 'alg_mpwc_author_id';
-		const META_ORDER_ID        = 'alg_mpwc_order_id';
-		const META_COMISSION_VALUE = 'alg_mpwc_comission_value';
-
 		// Custom post type args
 		protected $labels;
 		protected $args;
@@ -72,8 +66,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 						$action = 'woocommerce_order_status_processing';
 					break;
 				}
-				if ( ! has_action( $action, array( $this, 'create_commission_autommatically' ) ) ) {
-					add_action( $action, array( $this, 'create_commission_autommatically' ), 10 );
+				if ( ! has_action( $action, array( $this, 'create_commission_automatically' ) ) ) {
+					add_action( $action, array( $this, 'create_commission_automatically' ), 10 );
 				}
 			}
 		}
@@ -114,12 +108,21 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		}
 
 		/**
-		 * Creates commission autommatically
+		 * Creates commission automatically
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function create_commission_autommatically( $order_id ) {
+		public function create_commission_automatically( $order_id ) {
+			
+
+			// Only creates commissions automatically if the corresponding order has not been processed yet
+			$comissions_evaluated = filter_var( get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true ), FILTER_VALIDATE_BOOLEAN );
+			if ( $comissions_evaluated ) {
+				return;
+			}
+
+			// An array of products from an order filtered by vendors
 			$products_by_vendor = $this->get_order_items_filtered_by_vendor($order_id);
 
 			foreach ( $products_by_vendor as $comissions ) {
@@ -163,13 +166,15 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 					'post_type'   => $this->id,
 					'post_status' => 'publish',
 					'meta_input'  => array(
-						self::META_AUTHOR_ID       => $vendor_id,
-						self::META_COMISSION_VALUE => $comission_value,
-						self::META_ORDER_ID        => $order_id,
-						self::META_PRODUCT_IDS     => $product_ids,
+						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID   => $vendor_id,
+						Alg_MPWC_Post_Metas::COMMISSION_VALUE       => $comission_value,
+						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID    => $order_id,
+						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS => $product_ids,
 					),
 				) );
 			}
+
+			update_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true );
 		}
 
 		/**
