@@ -37,11 +37,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function setup(){
+		public function setup() {
 			$this->set_args();
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
-			add_action( 'cmb2_admin_init', array($this,'handle_admin_settings'));
+			add_action( 'cmb2_admin_init', array( $this, 'handle_admin_settings' ) );
 		}
 
 		/**
@@ -50,10 +50,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function handle_admin_settings(){
+		public function handle_admin_settings() {
 			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
-			$admin_settings->set_args($this);
-			$admin_settings->add_cmb();
+			$admin_settings->set_args( $this );
+			$admin_settings->add_commission_details_cmb();
+			$admin_settings->add_commission_status_cmb();
 		}
 
 		/**
@@ -62,7 +63,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		protected function get_values_from_admin(){
+		protected function get_values_from_admin() {
 			$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMISSIONS_BASE ) );
 			$this->comission_value    = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE_VALUE ) );
 			$this->automatic_creation = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION ) );
@@ -75,9 +76,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		protected function handle_automatic_creation() {
-			$commissions_creator = new Alg_MPWC_CPT_Commission_Creator();
+			$commissions_creator     = new Alg_MPWC_CPT_Commission_Creator();
 			$this->comission_creator = $commissions_creator;
-			$commissions_creator->set_args($this);
+			$commissions_creator->set_args( $this );
 			$commissions_creator->handle_automatic_creation();
 		}
 
@@ -87,7 +88,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function set_args(){
+		public function set_args() {
 			$labels = array(
 				'name'               => __( 'Commissions', 'marketplace-for-woocommerce' ),
 				'singular_name'      => __( 'Commission', 'marketplace-for-woocommerce' ),

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2a2caa3c39f2ca650870143d2777551d",
-    "content-hash": "d6e2204ffcf38fe602732772bf2eca89",
+    "hash": "64ab78d947b62c37482852ab8e160816",
+    "content-hash": "52fd352cc083a5f4d1b086512bb49210",
     "packages": [
         {
             "name": "composer/installers",
@@ -122,6 +122,42 @@
             "time": "2017-04-24 06:37:16"
         },
         {
+            "name": "mustardBees/cmb-field-select2",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mustardBees/cmb-field-select2.git",
+                "reference": "67358fa33f7b949de444562cd6108da122c7d15f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mustardBees/cmb-field-select2/zipball/67358fa33f7b949de444562cd6108da122c7d15f",
+                "reference": "67358fa33f7b949de444562cd6108da122c7d15f",
+                "shasum": ""
+            },
+            "type": "wordpress-plugin",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Phil Wylie",
+                    "homepage": "http://www.philwylie.co.uk/"
+                }
+            ],
+            "description": "Select2 field type for CMB2",
+            "homepage": "https://github.com/mustardBees/cmb-field-select2",
+            "keywords": [
+                "plugin",
+                "wordpress"
+            ],
+            "support": {
+                "source": "https://github.com/mustardBees/cmb-field-select2/tree/v3.0.3",
+                "issues": "https://github.com/mustardBees/cmb-field-select2/issues"
+            },
+            "time": "2016-08-25 15:52:11"
+        },
+        {
             "name": "webdevstudios/cmb2",
             "version": "dev-trunk",
             "source": {
@@ -183,7 +219,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "webdevstudios/cmb2": 20
+        "webdevstudios/cmb2": 20,
+        "mustardbees/cmb-field-select2": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

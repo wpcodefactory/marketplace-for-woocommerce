@@ -8,6 +8,7 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
 {
     public static $files = array (
         'ca817e9f1cc80498955babb33c5fb8dd' => __DIR__ . '/..' . '/webdevstudios/cmb2/init.php',
+        'c8694b2f4fde35225b93debc1b3bd5ef' => __DIR__ . '/..' . '/mustardBees/cmb-field-select2/cmb-field-select2.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -29,6 +30,7 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
         'Alg_MPWC_CPT_Commission' => __DIR__ . '/../..' . '/classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php',
         'Alg_MPWC_CPT_Commission_Admin_Settings' => __DIR__ . '/../..' . '/classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php',
         'Alg_MPWC_CPT_Commission_Creator' => __DIR__ . '/../..' . '/classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-creator.php',
+        'Alg_MPWC_Commission_Status_Tax' => __DIR__ . '/../..' . '/classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php',
         'Alg_MPWC_Core' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-core.php',
         'Alg_MPWC_Dashboard_Widgets' => __DIR__ . '/../..' . '/classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php',
         'Alg_MPWC_Post_Metas' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-post-metas.php',

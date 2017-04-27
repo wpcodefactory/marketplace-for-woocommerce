@@ -15,6 +15,7 @@ if ( ! class_exists( 'Alg_MPWC_Post_Metas' ) ) {
 		const COMMISSION_AUTHOR_ID   = 'alg_mpwc_author_id';
 		const COMMISSION_ORDER_ID    = 'alg_mpwc_order_id';
 		const COMMISSION_VALUE       = 'alg_mpwc_comission_value';
+		const COMMISSION_STATUS      = 'alg_mpwc_status';
 
 		// Order Meta fields
 		const ORDER_COMISSIONS_EVALUATED = 'alg_mpwc_comissions_evaluated';
