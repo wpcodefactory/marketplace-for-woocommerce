@@ -21,7 +21,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 *
 		 */
 		function __construct() {
-			add_filter( 'manage_posts_columns', array( $this, 'add_author_column' ) );
+			add_filter( 'manage_product_posts_columns', array( $this, 'add_author_column' ) );
 		}
 
 		/**

@@ -39,6 +39,9 @@
 		}
 	},
 	"autoload": {
+		"files": [
+			"vendor/webdevstudios/cmb2/init.php"
+		],
 		"classmap": [
 			"classes/"
 		]
