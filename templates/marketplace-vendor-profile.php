@@ -73,6 +73,8 @@ get_header(); ?>
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
-<?php
 
+
+<?php
+get_sidebar('sidebar');
 get_footer();

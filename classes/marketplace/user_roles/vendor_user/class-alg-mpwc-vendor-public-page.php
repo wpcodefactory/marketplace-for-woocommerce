@@ -79,7 +79,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 
 			$vendor_from_query_string = sanitize_text_field( $wp_query->get( Alg_MPWC_Query_Vars::VENDOR ) );
 
-			$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PROFILE_PAGE_SLUG, 'marketplace-vendor' ) );
+			$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) );
 			if ( is_numeric( $vendor_from_query_string ) ) {
 				$user = get_user_by( 'id', $vendor_from_query_string );
 				if ( ! $user ) {
@@ -103,7 +103,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		 * @since   1.0.0
 		 */
 		public static function rewrite_rules() {
-			$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PROFILE_PAGE_SLUG, 'marketplace-vendor' ) );
+			$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) );
 			add_rewrite_rule(
 				'^' . $vendor_slug . '/([^/]*)?$',
 				'index.php?' . Alg_MPWC_Query_Vars::VENDOR . '=$matches[1]',
@@ -185,8 +185,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 
 			set_query_var( 'vendor_user', $user );
 
+			$template_from_admin_settings = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_TEMPLATE ) );
+
+			//error_log($template);
 			// Gets the template
-			$template = Alg_MPWC_Core::get_template( 'vendor-profile.php' );
+			$template = Alg_MPWC_Core::get_template( $template_from_admin_settings );
+			//$template = wc_locate_template( $template_from_admin_settings );
+			//error_log(print_r($template,true));
 
 			return $template;
 		}

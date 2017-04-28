@@ -37,10 +37,20 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 
 			$return_str = '';
 
+			$vendor_query_vars = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
+			if ( $vendor_query_vars ) {
+				if ( ! is_numeric( $vendor_query_vars ) ) {
+					$user              = get_user_by( 'slug', $vendor_query_vars );
+					$vendor_query_vars = $user->ID;
+				}
+			} else {
+				$vendor_query_vars = - 1;
+			}
+
 			$args = array(
 				'show_option_none' => __( 'Select a vendor', 'marketplace-for-woocommerce' ),
 				'class'            => 'alg-mpwc-vendor-products-filter',
-				'selected'         => isset( $_GET[ Alg_MPWC_Query_Vars::VENDOR ] ) ? $_GET[ Alg_MPWC_Query_Vars::VENDOR ] : - 1,
+				'selected'         => $vendor_query_vars,
 				'include_selected' => true,
 				'echo'             => false,
 			);

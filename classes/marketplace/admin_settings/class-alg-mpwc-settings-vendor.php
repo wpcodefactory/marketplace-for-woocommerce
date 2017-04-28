@@ -16,7 +16,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 	class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
 		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
-		const OPTION_PROFILE_PAGE_SLUG              = 'alg_mpwc_opt_profile_page_slug';
+		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
+		const OPTION_PUBLIC_PAGE_TEMPLATE           = 'alg_mpwc_opt_public_page_template';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
 		const OPTION_COMISSIONS_BASE                = 'alg_mpwc_opt_commissions_base';
 		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
@@ -49,7 +50,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 			if ( property_exists( $user->data, 'user_nicename' ) ) {
 				$nicename = $user->data->user_nicename;
 			}
-			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PROFILE_PAGE_SLUG, 'marketplace-vendor' ) ) . '/' . $nicename . '</strong>';
+			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/' . $nicename . '</strong>';
 		}
 
 		/**
@@ -63,6 +64,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'title'       => __( 'Vendors options', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
+					'desc'        => __( 'General options regardind vendors', 'marketplace-for-woocommerce' ),
 					'id'          => 'alg_mpwc_vendors_opt',
 				),
 				array(
@@ -74,19 +76,47 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'text',
 				),
 				array(
-					'title'       => __( 'Profile slug', 'marketplace-for-woocommerce' ),
-					'desc'        => sprintf( __( 'Slug for the individual vendor page. E.g: %s', 'marketplace-for-woocommerce' ), $this->get_profile_page_url_ex() ).'<br />'. '<span style="color:#999">'.sprintf(__( 'If it does not work on the first attempt, please go to <a href="%s">Permalink Settings </a> and save changes', 'marketplace-for-woocommerce' ), admin_url('options-permalink.php') ).'</span>',
-					'id'          => self::OPTION_PROFILE_PAGE_SLUG,
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_vendors_opt',
+				),
+
+				// Public page
+				array(
+					'title'       => __( 'Public page', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'The public page used to display vendor products', 'marketplace-for-woocommerce' ),
+					'type'        => 'title',
+					'id'          => 'alg_mpwc_vendors_pp_opt',
+				),
+				array(
+					'title'       => __( 'Page slug', 'marketplace-for-woocommerce' ),
+					'desc'        => sprintf( __( 'Slug for the public page of the vendor. E.g: %s', 'marketplace-for-woocommerce' ), $this->get_profile_page_url_ex() ).'<br />'. '<span style="color:#999">'.sprintf(__( 'If it does not work on the first attempt, please go to <a href="%s">Permalink Settings </a> and save changes', 'marketplace-for-woocommerce' ), admin_url('options-permalink.php') ).'</span>',
+					'id'          => self::OPTION_PUBLIC_PAGE_SLUG,
 					'default'     => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'placeholder' => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'type'        => 'text',
 				),
 				array(
-					'type'        => 'sectionend',
-					'id'          => 'alg_mpwc_vendors_opt',
+					'title'       => __( 'Page template', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Template used to display the vendor public page.', 'marketplace-for-woocommerce' ).'<br />'.sprintf( __( 'You can override it following this <a target="_blank" href="%s">WooCommerce guide</a>', 'marketplace-for-woocommerce' ), 'https://docs.woocommerce.com/document/template-structure/' ),
+					'desc_tip'    => __( 'Some templates are from WooCommerce itself. Others are from the Marketplace plugin.', 'marketplace-for-woocommerce' ).'<br /><br />'.__( 'If you intend to override some from Marketplace, you can copy them from from the plugin templates folder and paste in your theme/woocommerce/ folder.', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_PUBLIC_PAGE_TEMPLATE,
+					'default'     => 'marketplace-vendor-profile.php',
+					'options'     => array(
+						'marketplace-vendor-profile.php' => 'marketplace-vendor-profile.php (Marketplace)',
+						'archive-product.php' => 'archive-product.php (WooCommerce)'
+					),
+					'type'        => 'select',
+					'class'       => 'chosen_select'
 				),
 				array(
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_vendors_pp_opt',
+				),
+
+				// Capabilities
+				array(
 					'title'       => __( 'Capabilities', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'What vendors will be allowed to do', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_vendors_caps_opt',
 				),
@@ -101,8 +131,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_caps_opt',
 				),
+
+				// Commissions
 				array(
-					'title'       => __( 'Comissions', 'marketplace-for-woocommerce' ),
+					'title'       => __( 'Commissions', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Data about the money that vendors will receive from sales', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_comissions_opt',
 				),
