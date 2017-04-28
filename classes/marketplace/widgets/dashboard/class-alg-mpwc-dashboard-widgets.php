@@ -28,17 +28,19 @@ if ( ! class_exists( 'Alg_MPWC_Dashboard_Widgets' ) ) {
 		 * @since   1.0.0
 		 */
 		protected function handle_marketplace_widget() {
-			if ( ! current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
-				return;
-			}
+
 
 			$widget_id = 'alg_mpwc_main_widget';
 
-			wp_add_dashboard_widget(
-				$widget_id,         // Widget slug.
-				'Marketplace',         // Title.
-				array( $this, 'alg_mpwc_main_widget' ) // Display function.
-			);
+			$create_marketplace_main_widget = apply_filters( "alg_mpwc_dashboard_widget_{$widget_id}", false );
+
+			if ( $create_marketplace_main_widget ) {
+				wp_add_dashboard_widget(
+					$widget_id,         // Widget slug.
+					'Marketplace',         // Title.
+					array( $this, 'alg_mpwc_main_widget' ) // Display function.
+				);
+			}
 		}
 
 		/**

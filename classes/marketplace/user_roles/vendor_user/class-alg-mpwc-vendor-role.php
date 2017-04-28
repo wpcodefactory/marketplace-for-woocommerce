@@ -25,7 +25,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			"assign_product_terms"      => true,
 			"upload_files"              => true,
 			'level_0'                   => true,
-			'edit_alg_mpwc_commissions' => true
+			'edit_alg_mpwc_commissions' => true,
 		);
 
 		private static $order_caps = array(
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			"edit_shop_orders"           => true,
 			"delete_shop_orders"         => true,
 			"read_shop_orders"           => true,
-			'create_shop_orders'         =>false,
+			'create_shop_orders'         => false,
 		);
 
 		/**
@@ -59,11 +59,52 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 				// Handle dashboard widgets
 				add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
+				add_action( 'alg_mpwc_dashboard_widget_alg_mpwc_main_widget', array(
+					$this,
+					'display_marketplace_widget',
+				) );
 
 				// Change default view to all posts instead of mine
-				add_action( 'load-edit.php', array($this,'set_all_posts_instead_of_mine') );
+				add_action( 'load-edit.php', array( $this, 'set_all_posts_instead_of_mine' ) );
 			}
 
+			// Redirects user to dashboard instead of the profile page
+			add_action( 'wp_login', array( $this, 'redirect_to_dashboard_after_login' ), 10, 2 );
+		}
+
+		/**
+		 * Redirects user to dashboard instead of the profile page
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $redirect_to
+		 * @param $request
+		 *
+		 * @return string|void
+		 */
+		public function redirect_to_dashboard_after_login( $user_login, $user ) {
+			if ( in_array( self::ROLE_VENDOR, $user->roles ) ) {
+				exit( wp_redirect( admin_url( 'index.php' ) ) );
+			}
+		}
+
+		/**
+		 * Display the marketplace dashboard widget
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $display
+		 *
+		 * @return bool
+		 */
+		public function display_marketplace_widget( $display ) {
+			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				$display = true;
+			}
+
+			return $display;
 		}
 
 		/**
@@ -73,7 +114,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @since   1.0.0
 		 *
 		 */
-		public function set_all_posts_instead_of_mine(){
+		public function set_all_posts_instead_of_mine() {
 			global $typenow;
 
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
@@ -81,9 +122,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			}
 
 			// Only the Mine tab fills this conditions, redirect
-			if( !isset( $_GET['post_status'] ) && !isset( $_GET['all_posts'] ) )
-			{
-				wp_redirect( admin_url('edit.php?post_type='.$typenow.'&all_posts=1') );
+			if ( ! isset( $_GET['post_status'] ) && ! isset( $_GET['all_posts'] ) ) {
+				wp_redirect( admin_url( 'edit.php?post_type=' . $typenow . '&all_posts=1' ) );
 				exit();
 			}
 		}
@@ -190,8 +230,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @return mixed
 		 */
 		public function views_filter_for_own_posts( $views ) {
-			$post_type = get_query_var( 'post_type' );
-			$author    = get_current_user_id();
+			$post_type      = get_query_var( 'post_type' );
+			$author         = get_current_user_id();
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 
 			unset( $views['mine'] );
@@ -208,22 +248,23 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			foreach ( $new_views as $view => $name ) {
 
-				if($post_type!=$commission_cpt->id){
+				if ( $post_type != $commission_cpt->id ) {
 					$query = array(
 						'author'    => $author,
 						'post_type' => $post_type,
 					);
-				}else{
-					$user_id        = get_current_user_id();
-					$query = array(
+				} else {
+					$user_id = get_current_user_id();
+					$query   = array(
 						'post_type' => $post_type,
-						'meta_query', array(
+						'meta_query',
+						array(
 							array(
 								'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
 								'value'   => array( $user_id ),
 								'compare' => 'IN',
 							),
-						)
+						),
 					);
 				}
 

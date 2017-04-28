@@ -46,7 +46,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		 */
 		function get_profile_page_url_ex() {
 			$user     = wp_get_current_user();
-			$nicename = $user->data->user_login;
+			$nicename = isset($user->data->user_login) ? $user->data->user_login : '';
 			if ( property_exists( $user->data, 'user_nicename' ) ) {
 				$nicename = $user->data->user_nicename;
 			}
@@ -100,7 +100,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'desc'        => __( 'Template used to display the vendor public page.', 'marketplace-for-woocommerce' ).'<br />'.sprintf( __( 'You can override it following this <a target="_blank" href="%s">WooCommerce guide</a>', 'marketplace-for-woocommerce' ), 'https://docs.woocommerce.com/document/template-structure/' ),
 					'desc_tip'    => __( 'Some templates are from WooCommerce itself. Others are from the Marketplace plugin.', 'marketplace-for-woocommerce' ).'<br /><br />'.__( 'If you intend to override some from Marketplace, you can copy them from from the plugin templates folder and paste in your theme/woocommerce/ folder.', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_PUBLIC_PAGE_TEMPLATE,
-					'default'     => 'marketplace-vendor-profile.php',
+					'default'     => 'archive-product.php',
 					'options'     => array(
 						'marketplace-vendor-profile.php' => 'marketplace-vendor-profile.php (Marketplace)',
 						'archive-product.php' => 'archive-product.php (WooCommerce)'
@@ -132,9 +132,9 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'id'          => 'alg_mpwc_vendors_caps_opt',
 				),
 
-				// Commissions
+				// Comi
 				array(
-					'title'       => __( 'Commissions', 'marketplace-for-woocommerce' ),
+					'title'       => __( 'Comissions', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Data about the money that vendors will receive from sales', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_comissions_opt',

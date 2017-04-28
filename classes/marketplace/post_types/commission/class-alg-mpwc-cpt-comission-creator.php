@@ -21,7 +21,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function set_args(Alg_MPWC_CPT_Commission $commission_manager){
+		public function set_args( Alg_MPWC_CPT_Commission $commission_manager ) {
 			$this->commission_manager = $commission_manager;
 		}
 
@@ -93,6 +93,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
+			$status_tax            = new Alg_MPWC_Commission_Status_Tax();
+			$status_unpaid_term = get_term_by( 'slug', 'unpaid', $status_tax->id );
 
 			// Only creates commissions automatically if the corresponding order has not been processed yet
 			$comissions_evaluated = filter_var( get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true ), FILTER_VALIDATE_BOOLEAN );
@@ -101,17 +103,15 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 			}
 
 			// An array of products from an order filtered by vendors
-			$products_by_vendor = $this->get_order_items_filtered_by_vendor($order_id);
+			$products_by_vendor = $this->get_order_items_filtered_by_vendor( $order_id );
 
 			foreach ( $products_by_vendor as $comissions ) {
 
 				// Sets comission vars
 				$subtotal        = 0;
-				$vendor_id       = '';
 				$product_ids     = array();
 				$order_id        = '';
 				$title_arr       = array();
-				$title           = '';
 				$vendor_id       = '';
 				$comission_value = 0;
 				foreach ( $comissions as $comission ) {
@@ -130,7 +130,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				// Calculates comission value
 				switch ( $this->commission_manager->comission_base ) {
 					case 'percentage':
-						$comission_value = $subtotal * ((float)$this->commission_manager->comission_value/100);
+						$comission_value = $subtotal * ( (float) $this->commission_manager->comission_value / 100 );
 					break;
 					case 'fixed_value':
 						$comission_value = $this->commission_manager->comission_value;
@@ -148,6 +148,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 						Alg_MPWC_Post_Metas::COMMISSION_VALUE       => $comission_value,
 						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID    => $order_id,
 						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS => $product_ids,
+					),
+					'tax_input'   => array(
+						$status_tax->id => array( $status_unpaid_term->term_id ),
 					),
 				) );
 			}
