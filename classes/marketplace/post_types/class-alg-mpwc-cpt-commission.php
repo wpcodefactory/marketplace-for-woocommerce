@@ -42,6 +42,18 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
 			add_action( 'cmb2_admin_init', array( $this, 'handle_admin_settings' ) );
+			add_action('admin_init',array($this,'remove_add_new_from_menu'));
+		}
+
+		/**
+		 * Removes add new from menu
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function remove_add_new_from_menu(){
+			global $submenu;
+			unset($submenu['edit.php?post_type='.$this->id.''][10]);
 		}
 
 		/**
@@ -123,6 +135,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				'has_archive'        => false,
 				'hierarchical'       => false,
 				'menu_position'      => null,
+				'menu_icon'=>'dashicons-cart',
 				'supports'           => array( 'title' ),
 			);
 
