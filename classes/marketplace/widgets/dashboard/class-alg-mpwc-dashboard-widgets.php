@@ -53,6 +53,7 @@ if ( ! class_exists( 'Alg_MPWC_Dashboard_Widgets' ) ) {
 			echo '<ul style="list-style: inside">';
 			echo '<li>' . sprintf( __( "Create/edit products by clicking on your left menu <strong><a href='%s'>Products</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'edit.php?post_type=product' ) ) . '</li>';
 			echo '<li>' . sprintf( __( "Edit your profile by clicking on your left menu <strong><a href='%s'>Profile</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'profile.php' ) ) . '</li>';
+			echo '<li>' . sprintf( __( "View your commissions through your left menu <strong><a href='%s'>Commissions</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'edit.php?post_type=alg_mpwc_commission' ) ) . '</li>';
 			echo '</ul>';
 		}
 

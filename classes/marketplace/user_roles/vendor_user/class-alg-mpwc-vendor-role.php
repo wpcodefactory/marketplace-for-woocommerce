@@ -25,7 +25,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			"assign_product_terms"      => true,
 			"upload_files"              => true,
 			'level_0'                   => true,
-			'edit_alg_mpwc_comission'   => true
+			'edit_alg_mpwc_commissions' => true
 		);
 
 		private static $order_caps = array(
@@ -59,52 +59,33 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 				// Handle dashboard widgets
 				add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
-				add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
-			}
 
+				// Change default view to all posts instead of mine
+				add_action( 'load-edit.php', array($this,'set_all_posts_instead_of_mine') );
+			}
 
 		}
 
-
-
 		/**
-		 * Add dashboard widgets
+		 * Selects all tab instead of mine
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
+		 *
 		 */
-		public function add_dashboard_widgets() {
+		public function set_all_posts_instead_of_mine(){
+			global $typenow;
+
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
 				return;
 			}
 
-			$widget_id = 'alg_mpwc_main_widget';
-
-			wp_add_dashboard_widget(
-				$widget_id,         // Widget slug.
-				'Marketplace',         // Title.
-				array( $this, 'alg_mpwc_main_widget' ) // Display function.
-			);
-		}
-
-		/**
-		 * The main dashboard widget
-		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
-		 */
-		public function alg_mpwc_main_widget() {
-			$user = wp_get_current_user();
-
-			// Display whatever it is you want to show.
-			echo __( 'Hello', 'marketplace-for-woocommerce' ) . ' <strong>' . $user->display_name . '</strong>, <br /><br />';
-
-			echo '<ul style="list-style: inside">';
-			echo '<li>' . sprintf( __( "Create/edit products by clicking on your left menu <strong><a href='%s'>Products</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'edit.php?post_type=product' ) ) . '</li>';
-			echo '<li>' . sprintf( __( "Edit your profile by clicking on your left menu <strong><a href='%s'>Profile</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'profile.php' ) ) . '</li>';
-			echo '</ul>';
-
-			//echo 'http://127.0.0.1/wp-tests/wp-admin/edit.php?post_type=product';
+			// Only the Mine tab fills this conditions, redirect
+			if( !isset( $_GET['post_status'] ) && !isset( $_GET['all_posts'] ) )
+			{
+				wp_redirect( admin_url('edit.php?post_type='.$typenow.'&all_posts=1') );
+				exit();
+			}
 		}
 
 		/**
@@ -173,11 +154,29 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
 				return $query;
 			} else {
-				$user_id = get_current_user_id();
-				$query->set( 'author', $user_id );
+				$commission_cpt = new Alg_MPWC_CPT_Commission();
+				$user_id        = get_current_user_id();
 
-				// Fixes the post count
-				add_filter( 'views_edit-product', array( $this, 'views_filter_for_own_posts' ) );
+				if ( isset( $query->query['post_type'] ) && $query->query['post_type'] != $commission_cpt->id ) {
+					$query->set( 'author', $user_id );
+					add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
+						$this,
+						'views_filter_for_own_posts',
+					) );
+				} else {
+					$query->set( 'meta_query', array(
+						array(
+							'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
+							'value'   => array( $user_id ),
+							'compare' => 'IN',
+						),
+					) );
+					add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
+						$this,
+						'views_filter_for_own_posts',
+					) );
+				}
+
 			}
 
 			return $query;
@@ -193,6 +192,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		public function views_filter_for_own_posts( $views ) {
 			$post_type = get_query_var( 'post_type' );
 			$author    = get_current_user_id();
+			$commission_cpt = new Alg_MPWC_CPT_Commission();
 
 			unset( $views['mine'] );
 
@@ -207,10 +207,25 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			);
 
 			foreach ( $new_views as $view => $name ) {
-				$query = array(
-					'author'    => $author,
-					'post_type' => $post_type,
-				);
+
+				if($post_type!=$commission_cpt->id){
+					$query = array(
+						'author'    => $author,
+						'post_type' => $post_type,
+					);
+				}else{
+					$user_id        = get_current_user_id();
+					$query = array(
+						'post_type' => $post_type,
+						'meta_query', array(
+							array(
+								'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
+								'value'   => array( $user_id ),
+								'compare' => 'IN',
+							),
+						)
+					);
+				}
 
 				if ( $view == 'all' ) {
 					$query['all_posts'] = 1;
