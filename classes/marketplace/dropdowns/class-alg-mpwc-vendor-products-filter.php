@@ -110,19 +110,21 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		}
 
 		/**
-		 * Filters things from a specific vendor
+		 * Filters things from a specific vendor.
+		 *
+		 * If post type is commissions, filters by meta_query _alg_mpwc_author_id. Else filters by author id
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
 		public function filter( $query ) {
 			if ( ! $query->query || ! isset( $query->query['post_type'] ) ) {
-				return $query;
+				return;
 			}
 
 			//if ( $query->query['post_type'] != 'product' || ! isset( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
 			if ( ! isset( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
-				return $query;
+				return;
 			}
 
 			// Gets the vendor slug
@@ -133,23 +135,36 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			if ( is_numeric( $vendor ) ) {
 				$user = get_user_by( 'id', $vendor );
 				if ( ! $user ) {
-					return $query;
+					return;
 				}
 				$user_id = $vendor;
 			} else {
 				$user = get_user_by( 'slug', $vendor );
 				if ( ! $user ) {
-					return $query;
+					return;
 				}
 				$user_id = $user->ID;
 			}
 
 			// Cancels if user is not a vendor
 			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
-				return $query;
+				return;
 			}
 
-			$query->set( 'author', $user_id );
+			$commission = new Alg_MPWC_CPT_Commission();
+
+			if($query->query['post_type'] == $commission->id){
+				$query->set( 'meta_query', array(
+					array(
+						'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
+						'value'   => array( $user_id ),
+						'compare' => 'IN',
+					),
+				) );
+			}else{
+				$query->set( 'author', $user_id );
+			}
+
 		}
 	}
 }

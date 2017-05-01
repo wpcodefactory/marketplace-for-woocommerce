@@ -38,7 +38,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 */
 		public function show_total_commissions_value($show){
 			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
-				return $columns;
+				return $show;
 			}
 
 			$vendor_query_vars = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 */
 		public function show_commissions_by_vendor_filter($show){
 			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
-				return $columns;
+				return $show;
 			}
 
 			$show=true;
