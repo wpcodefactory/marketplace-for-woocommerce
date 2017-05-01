@@ -111,16 +111,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			}
 		}
 
-		/**
-		 * Displays the commission value on post edit column
-		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
-		 */
-		public function display_commission_value_column( $field_args, $field ) {
-			echo wc_price( $field->escaped_value() );
-		}
-
 		public function add_commission_status_cmb() {
 			$status_tax = new Alg_MPWC_Commission_Status_Tax();
 
@@ -129,7 +119,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'title'        => __( 'Status', 'marketplace-for-woocommerce' ),
 				'object_types' => array( $this->commission_manager->id ),
 				'context'      => 'side',
-				'priority'     => 'low'
+				'priority'     => 'low',
 			) );
 
 			$cmb_demo->add_field( array(
@@ -138,7 +128,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'type'             => 'taxonomy_radio_inline',
 				'default'          => 'unpaid',
 				'taxonomy'         => $status_tax->id,
-				'remove_default'   => 'true'
+				'remove_default'   => 'true',
+				'display_cb'       => array( $this, 'display_status_column' ),
+				'column'           => array( 'position' => 6, 'name' => 'Status' ),
 			) );
 		}
 
@@ -202,8 +194,44 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'attributes' => array(
 					'style' => 'width: 99%',
 				),
+				'display_cb'=>array($this,'display_products_column'),
+				'column'     => array( 'position' => 5 ),
 			) );
 
+		}
+
+		/**
+		 * Displays the commission value on post edit column
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function display_commission_value_column( $field_args, $field ) {
+			echo wc_price( $field->escaped_value() );
+		}
+
+		/**
+		 * Displays the products column
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function display_products_column( $field_args, $field ) {
+			$values = $field->value;
+			wp_reset_postdata();
+			if ( is_array( $values ) && count( $values ) > 0 ) {
+				$posts       = get_posts( array(
+					'post_type'      => 'product',
+					'posts_per_page' => - 1,
+					'post__in'       => $values,
+				) );
+				$post_titles = array();
+				foreach ( $posts as $post ) {
+					$post_titles[] = $post->post_title;
+				}
+				wp_reset_postdata();
+				echo implode( ', ', $post_titles );
+			}
 		}
 
 		/**
@@ -212,9 +240,22 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function display_vendor_column($field_args, $field){
-			//echo 's';
-			echo get_userdata($field->escaped_value())->display_name;
+		public function display_vendor_column( $field_args, $field ) {
+			echo get_userdata( $field->escaped_value() )->display_name;
+		}
+
+		/**
+		 * Displays the status column
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function display_status_column($field_args, $field){
+			if ( $field->object_id ) {
+				$tax  = new Alg_MPWC_Commission_Status_Tax();
+				$terms = wp_get_post_terms( $field->object_id, $tax->id, array( 'fields' => 'names' ) );
+				echo implode( ', ', $terms );
+			}
 		}
 
 
