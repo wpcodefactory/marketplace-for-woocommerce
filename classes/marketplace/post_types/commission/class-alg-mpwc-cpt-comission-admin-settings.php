@@ -44,6 +44,45 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		}
 
 		/**
+		 * Display the sum of commissions values in edit.php page
+		 *
+		 * Called on Alg_MPWC_CPT_Commission::display_commission_value_column()
+		 *
+		 * @param $defaults
+		 *
+		 * @return mixed
+		 */
+		public function get_total_value_in_edit_columns($defaults){
+			global $wp_query;
+
+			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', false );
+
+			if ( ! $show_total_commissions_value ) {
+				return $defaults;
+			}
+
+			$args = $wp_query->query_vars;
+			$args['nopaging']=true;
+			$the_query = new WP_Query( $args );
+
+			// The Loop
+			if ( $the_query->have_posts() ) {
+				$total_value = 0;
+				while ( $the_query->have_posts() ) {
+					$the_query->the_post();
+					$total_value += get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_VALUE, true );
+				}
+
+				/* Restore original Post Data */
+				wp_reset_postdata();
+
+				$total_value                                       = '<strong>' . wc_price( $total_value ) . '</strong>';
+				$defaults[ Alg_MPWC_Post_Metas::COMMISSION_VALUE ] = "Value ({$total_value})";
+			}
+			return $defaults;
+		}
+
+		/**
 		 * Gets products
 		 *
 		 * @version 1.0.0
@@ -94,13 +133,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			) );
 
 			$cmb_demo->add_field( array(
-				'name'             => __( 'Order ID', 'marketplace-for-woocommerce' ),
 				'id'               => Alg_MPWC_Post_Metas::COMMISSION_STATUS,
 				'show_option_none' => false,
 				'type'             => 'taxonomy_radio_inline',
+				'default'          => 'unpaid',
 				'taxonomy'         => $status_tax->id,
 				'remove_default'   => 'true'
-				//'column'     => array( 'position' => 2 ),
 			) );
 		}
 
@@ -140,7 +178,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					'type'  => 'number',
 					'style' => 'width: 99%',
 				),
-				'column'     => array( 'position' => 3 ),
+				'column'    => array( 'position' => 3),
 				'display_cb' => array( $this, 'display_commission_value_column' ),
 			) );
 
@@ -175,6 +213,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @since   1.0.0
 		 */
 		public function display_vendor_column($field_args, $field){
+			//echo 's';
 			echo get_userdata($field->escaped_value())->display_name;
 		}
 

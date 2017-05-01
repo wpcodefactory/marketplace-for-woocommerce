@@ -46,6 +46,7 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
         'Alg_MPWC_Vendor_Role' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php',
         'Alg_MPWC_Vendor_User' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php',
         'Alg_WP_Plugin' => __DIR__ . '/../..' . '/classes/wordpress/class-alg-wp-plugin.php',
+        'Alg_WP_WPDB' => __DIR__ . '/../..' . '/classes/wordpress/class-alg-wp-wpdb.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
         'Composer\\Installers\\AnnotateCmsInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',

@@ -41,12 +41,26 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$this->set_args();
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
-			add_action( 'cmb2_admin_init', array( $this, 'handle_admin_settings' ) );
+			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action('admin_init',array($this,'remove_add_new_from_menu'));
+			add_filter('manage_'.$this->id.'_posts_columns', array($this,'display_total_value_in_edit_columns'),999);
 		}
 
 		/**
-		 * Removes add new from menu
+		 * Displays the commission value on post edit column
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function display_total_value_in_edit_columns($defaults){
+			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
+			$admin_settings->set_args($this);
+			$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
+			return $defaults;
+		}
+
+		/**
+		 * Removes add new from left menu
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -57,16 +71,20 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		}
 
 		/**
-		 * Creates values from admin
+		 * Creates custom meta boxes for commissions
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function handle_admin_settings() {
+		public function add_custom_meta_boxes() {
 			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
 			$admin_settings->set_args( $this );
 			$admin_settings->add_commission_details_cmb();
 			$admin_settings->add_commission_status_cmb();
+		}
+
+		public function handle_admin_settings(){
+
 		}
 
 		/**

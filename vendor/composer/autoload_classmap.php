@@ -26,6 +26,7 @@ return array(
     'Alg_MPWC_Vendor_Role' => $baseDir . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php',
     'Alg_MPWC_Vendor_User' => $baseDir . '/classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php',
     'Alg_WP_Plugin' => $baseDir . '/classes/wordpress/class-alg-wp-plugin.php',
+    'Alg_WP_WPDB' => $baseDir . '/classes/wordpress/class-alg-wp-wpdb.php',
     'Composer\\Installers\\AglInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AglInstaller.php',
     'Composer\\Installers\\AimeosInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
     'Composer\\Installers\\AnnotateCmsInstaller' => $vendorDir . '/composer/installers/src/Composer/Installers/AnnotateCmsInstaller.php',

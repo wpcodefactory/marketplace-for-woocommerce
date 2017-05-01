@@ -64,12 +64,25 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					'display_marketplace_widget',
 				) );
 
-				// Change default view to all posts instead of mine
-				add_action( 'load-edit.php', array( $this, 'set_all_posts_instead_of_mine' ) );
+				add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
 			}
 
 			// Redirects user to dashboard instead of the profile page
 			add_action( 'wp_login', array( $this, 'redirect_to_dashboard_after_login' ), 10, 2 );
+		}
+
+		/**
+		 * Show total commissions value if current user is a vendor
+		 *
+		 * @param $show
+		 *
+		 * @return bool
+		 */
+		public function show_total_commissions_value($show){
+			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				$show=true;
+			}
+			return $show;
 		}
 
 		/**
@@ -105,27 +118,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			}
 
 			return $display;
-		}
-
-		/**
-		 * Selects all tab instead of mine
-		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
-		 *
-		 */
-		public function set_all_posts_instead_of_mine() {
-			global $typenow;
-
-			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
-				return;
-			}
-
-			// Only the Mine tab fills this conditions, redirect
-			if ( ! isset( $_GET['post_status'] ) && ! isset( $_GET['all_posts'] ) ) {
-				wp_redirect( admin_url( 'edit.php?post_type=' . $typenow . '&all_posts=1' ) );
-				exit();
-			}
 		}
 
 		/**
@@ -193,31 +185,33 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		public function limit_access_to_own_posts_only( $query ) {
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
 				return $query;
-			} else {
-				$commission_cpt = new Alg_MPWC_CPT_Commission();
-				$user_id        = get_current_user_id();
-
-				if ( isset( $query->query['post_type'] ) && $query->query['post_type'] != $commission_cpt->id ) {
-					$query->set( 'author', $user_id );
-					add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
-						$this,
-						'views_filter_for_own_posts',
-					) );
-				} else {
-					$query->set( 'meta_query', array(
-						array(
-							'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
-							'value'   => array( $user_id ),
-							'compare' => 'IN',
-						),
-					) );
-					add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
-						$this,
-						'views_filter_for_own_posts',
-					) );
-				}
-
 			}
+
+			$commission_cpt = new Alg_MPWC_CPT_Commission();
+			$user_id        = get_current_user_id();
+
+			if ( isset( $query->query['post_type'] ) && $query->query['post_type'] != $commission_cpt->id ) {
+				$query->set( 'author', $user_id );
+				add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
+					$this,
+					'views_filter_for_own_posts',
+				) );
+			} else {
+				unset( $query->query['author'] );
+				unset( $query->query_vars['author'] );
+				$query->set( 'meta_query', array(
+					array(
+						'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
+						'value'   => array( $user_id ),
+						'compare' => 'IN',
+					),
+				) );
+				add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
+					$this,
+					'views_filter_for_own_posts',
+				) );
+			}
+
 
 			return $query;
 		}

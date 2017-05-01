@@ -12,6 +12,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 	class Alg_MPWC_Shop_Manager_User {
 
 		const ROLE_SHOP_MANAGER = 'shop_manager';
+		const CAP_MANAGE_WOOCOMMERCE='manage_woocommerce';
 
 		/**
 		 * Constructor
@@ -32,7 +33,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 * @return array
 		 */
 		function add_author_column( $columns ) {
-			if ( ! current_user_can( 'edit_others_products' ) ) {
+			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
 				return $columns;
 			}
 
