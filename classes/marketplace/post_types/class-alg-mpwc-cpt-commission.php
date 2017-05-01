@@ -42,8 +42,34 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
-			add_action('admin_init',array($this,'remove_add_new_from_menu'));
-			add_filter('manage_'.$this->id.'_posts_columns', array($this,'display_total_value_in_edit_columns'),999);
+			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
+			add_filter( 'manage_'.$this->id.'_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
+			add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_posts' ), 10, 2 );
+		}
+
+		/**
+		 * Creates a dropdown filter to show commissions from a specific vendor user
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $post_type
+		 * @param $which
+		 */
+		public function restrict_manage_posts( $post_type, $which ) {
+			if ( $post_type != $this->id ) {
+				return;
+			}
+
+			$show_dropdown = apply_filters( 'alg_mpwc_show_commissions_by_vendor_filter', false );
+			if ( ! $show_dropdown ) {
+				return;
+			}
+
+			$dropdown = new Alg_MPWC_Vendor_Products_Filter();
+			echo $dropdown->get_html( array(
+				'get_dropdown_only' => true,
+			) );
 		}
 
 		/**
@@ -170,16 +196,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		public function register() {
 			$args = $this->args;
 			register_post_type( $this->id, $args );
-
-			//add_action( 'registered_post_type', array($this,'registered_post_type'),10,2 );
-			//$GLOBALS['wp_post_types'][$this->id]->cap->create_posts='test';
-			//error_log(print_r($GLOBALS['wp_post_types'][$this->id],true));
 		}
-
-		/*public function registered_post_type($post_type, $post_type_object){
-
-		}*/
-
 
 	}
 }

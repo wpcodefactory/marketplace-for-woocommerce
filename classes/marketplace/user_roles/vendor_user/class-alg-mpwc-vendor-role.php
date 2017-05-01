@@ -69,11 +69,28 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			// Redirects user to dashboard instead of the profile page
 			add_action( 'wp_login', array( $this, 'redirect_to_dashboard_after_login' ), 10, 2 );
+
+			// Add query vars
+			add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+		}
+
+		/**
+		 * Add query vars
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function add_query_vars( $vars ) {
+			$vars[] = Alg_MPWC_Query_Vars::VENDOR;
+
+			return $vars;
 		}
 
 		/**
 		 * Show total commissions value if current user is a vendor
 		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
 		 * @param $show
 		 *
 		 * @return bool

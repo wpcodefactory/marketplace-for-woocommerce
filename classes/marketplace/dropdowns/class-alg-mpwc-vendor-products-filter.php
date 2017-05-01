@@ -29,7 +29,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function get_html() {
+		public function get_html($params=null) {
+			$params = wp_parse_args($params,array(
+				'get_dropdown_only'=>false
+			));
+
 			$users_with_role = get_users( array(
 				'fields' => 'id',
 				'role'   => Alg_MPWC_Vendor_Role::ROLE_VENDOR,
@@ -50,6 +54,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			$args = array(
 				'show_option_none' => __( 'Select a vendor', 'marketplace-for-woocommerce' ),
 				'class'            => 'alg-mpwc-vendor-products-filter',
+				'name'             => Alg_MPWC_Query_Vars::VENDOR,
 				'selected'         => $vendor_query_vars,
 				'include_selected' => true,
 				'echo'             => false,
@@ -57,15 +62,18 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			if(is_array($users_with_role) && count($users_with_role)>0){
 				$args['include'] = $users_with_role;
 			}
-			$return_str .= wp_dropdown_users($args);
 
-			$shop_page_id = wc_get_page_id( 'shop' );
+			if ( ! $params['get_dropdown_only'] ) {
+				$shop_page_id = wc_get_page_id( 'shop' );
+				$return_str .= '<form class="alg-mpwc-vendor-products-filter-form">';
+				$return_str .= wp_dropdown_users($args);
+				$return_str .= '<input type="hidden" name="page_id" value="' . $shop_page_id . '">';
+				$return_str .= '</form>';
+				$return_str .= '<style>.alg-mpwc-vendor-products-filter{width:100%}</style>';
+			}else{
+				$return_str = wp_dropdown_users($args);
+			}
 
-			$return_str .= '<form class="alg-mpwc-vendor-products-filter-form">';
-			$return_str .= '<input type="hidden" name="page_id" value="' . $shop_page_id . '">';
-			$return_str .= '<input type="hidden" class="alg-mpwc-vendor-slug-input" name="' . Alg_MPWC_Query_Vars::VENDOR . '" value="">';
-			$return_str .= '</form>';
-			$return_str .= '<style>.alg-mpwc-vendor-products-filter{width:100%}</style>';
 
 			return $return_str;
 		}
@@ -77,12 +85,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		 * @since   1.0.0
 		 */
 		public function enqueue_scripts() {
-			$js = "
+			$js = "				
 				jQuery(document).ready(function($){
 					$('.alg-mpwc-vendor-products-filter').change(function(){
 						var val = $(this).val();
-						$(this).parent().find('.alg-mpwc-vendor-slug-input').attr('value',val);
-						$(this).parent().find('.alg-mpwc-vendor-products-filter-form').submit();
+						if(val!='-1'){
+							$(this).parent().submit();
+						}
 					});
 				});
 			";
@@ -96,23 +105,24 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		 * @since   1.0.0
 		 */
 		public function setup() {
-			add_action( 'woocommerce_product_query', array( $this, 'woocommerce_product_query' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'pre_get_posts', array( $this, 'filter' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ),999 );
 		}
 
 		/**
-		 * Filters products from a specific vendor
+		 * Filters things from a specific vendor
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function woocommerce_product_query( $query ) {
+		public function filter( $query ) {
 			if ( ! $query->query || ! isset( $query->query['post_type'] ) ) {
-				return;
+				return $query;
 			}
 
-			if ( $query->query['post_type'] != 'product' || ! isset( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
-				return;
+			//if ( $query->query['post_type'] != 'product' || ! isset( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
+			if ( ! isset( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
+				return $query;
 			}
 
 			// Gets the vendor slug
@@ -123,20 +133,20 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			if ( is_numeric( $vendor ) ) {
 				$user = get_user_by( 'id', $vendor );
 				if ( ! $user ) {
-					return;
+					return $query;
 				}
 				$user_id = $vendor;
 			} else {
 				$user = get_user_by( 'slug', $vendor );
 				if ( ! $user ) {
-					return;
+					return $query;
 				}
 				$user_id = $user->ID;
 			}
 
 			// Cancels if user is not a vendor
 			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
-				return;
+				return $query;
 			}
 
 			$query->set( 'author', $user_id );

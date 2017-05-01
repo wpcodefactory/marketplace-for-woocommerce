@@ -23,6 +23,43 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 */
 		function __construct() {
 			add_filter( 'manage_product_posts_columns', array( $this, 'add_author_column' ) );
+			add_filter( 'alg_mpwc_show_commissions_by_vendor_filter', array( $this, 'show_commissions_by_vendor_filter' ) );
+			add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
+		}
+
+		/**
+		 * Show total commissions value if current user is a shop manager and a vendor is selected
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 * @param $show
+		 *
+		 * @return bool
+		 */
+		public function show_total_commissions_value($show){
+			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
+				return $columns;
+			}
+
+			$vendor_query_vars = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
+			if ( $vendor_query_vars ) {
+				$show=true;
+			}
+
+			return $show;
+		}
+
+		/**
+		 * Shows the dropdowns that filters commissions by vendor user.
+		 */
+		public function show_commissions_by_vendor_filter($show){
+			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
+				return $columns;
+			}
+
+			$show=true;
+
+			return $show;
 		}
 
 		/**

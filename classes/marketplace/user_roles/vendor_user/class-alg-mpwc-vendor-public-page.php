@@ -19,7 +19,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		 */
 		function __construct() {
 			if ( ! is_admin() ) {
-				add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+
 				add_action( 'template_include', array( $this, 'template_include' ) );
 				add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
 				add_action( 'template_redirect', array( $this, 'template_redirect' ) );
@@ -146,18 +146,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			// Puts WooCommerce products from vendor id on query
 			$query->set( 'post_type', 'product' );
 			$query->set( 'author', $user->ID );
-		}
-
-		/**
-		 * Add query vars
-		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
-		 */
-		public function add_query_vars( $vars ) {
-			$vars[] = Alg_MPWC_Query_Vars::VENDOR;
-
-			return $vars;
 		}
 
 		/**
