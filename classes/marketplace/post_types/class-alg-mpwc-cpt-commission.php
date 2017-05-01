@@ -44,7 +44,37 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
 			add_filter( 'manage_'.$this->id.'_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
-			add_action( 'restrict_manage_posts', array( $this, 'restrict_manage_posts' ), 10, 2 );
+			add_action( 'restrict_manage_posts', array( $this, 'create_vendor_filter' ), 10, 2 );
+			add_action( 'restrict_manage_posts', array( $this, 'create_status_filter' ), 10, 2 );
+		}
+
+		/**
+		 * Creates a status filter on commissions edit.php page
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $post_type
+		 * @param $which
+		 */
+		public function create_status_filter( $post_type, $which ) {
+			if ( $post_type != $this->id ) {
+				return;
+			}
+
+			$status_tax = new Alg_MPWC_Commission_Status_Tax();
+			wp_dropdown_categories( array(
+				'show_option_all' => 'Select a status',
+				'name'            => $status_tax->id,
+				'taxonomy'        => $status_tax->id,
+				'selected'        => get_query_var( $status_tax->id ),
+				'value_field'     => 'slug'
+			) );
+
+			/*$dropdown = new Alg_MPWC_Vendor_Products_Filter();
+			echo $dropdown->get_html( array(
+				'get_dropdown_only' => true,
+			) );*/
 		}
 
 		/**
@@ -56,7 +86,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @param $post_type
 		 * @param $which
 		 */
-		public function restrict_manage_posts( $post_type, $which ) {
+		public function create_vendor_filter( $post_type, $which ) {
 			if ( $post_type != $this->id ) {
 				return;
 			}

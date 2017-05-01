@@ -29,11 +29,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		);
 
 		private static $order_caps = array(
-			"edit_published_shop_orders" => true,
+			//"edit_published_shop_orders" => true,
 			"edit_shop_orders"           => true,
-			"delete_shop_orders"         => true,
-			"read_shop_orders"           => true,
-			'create_shop_orders'         => false,
+			//"delete_shop_orders"         => true,
+			//"read_shop_orders"           => true,
+			//'create_shop_orders'         => false,
 		);
 
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				add_filter( 'woocommerce_prevent_admin_access', array( $this, 'allow_admin_access' ) );
 
 				// Limits the vendor user to see only his own posts, media, etc
-				add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
+				//add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
 
 				// Changes role options based on admin settings
 				$id      = 'alg_mpwc';
