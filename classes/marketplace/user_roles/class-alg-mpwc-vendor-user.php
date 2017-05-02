@@ -24,6 +24,19 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			// Manages vendor user (Create role, manages access)
 			$vendor_role = new Alg_MPWC_Vendor_Role();
 			$vendor_role->init();
+
+			add_action( 'cmb2_admin_init', array( $this, 'add_admin_fields' ) );
 		}
+
+		public function add_admin_fields(){
+			$admin_fields = new Alg_MPWC_Vendor_Admin_Fields();
+			$admin_fields->add_fields();
+			$admin_fields->setup_custom_css();
+
+
+
+		}
+
+
 	}
 }
