@@ -65,8 +65,8 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			new Alg_MPWC_Shop_Manager_User();
 			add_action( 'widgets_init', array( $this, 'create_widgets' ) );
 			add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
-			add_action( 'init', array( $this, 'create_post_types' ) );
-			add_action( 'init', array( $this, 'create_taxonomies' ), 0 );
+			add_action( 'init', array( $this, 'manage_post_types' ), 3 );
+			add_action( 'init', array( $this, 'manage_taxonomies' ), 0 );
 		}
 
 		/**
@@ -75,7 +75,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function create_taxonomies() {
+		public function manage_taxonomies() {
 			$tax = new Alg_MPWC_Commission_Status_Tax();
 			$tax->setup();
 			$tax->register();
@@ -87,7 +87,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function create_post_types() {
+		public function manage_post_types() {
 			$cpt = new Alg_MPWC_CPT_Commission();
 			$cpt->setup();
 			$cpt->register();

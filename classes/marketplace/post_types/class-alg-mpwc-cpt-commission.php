@@ -45,7 +45,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
 			add_filter( 'manage_'.$this->id.'_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
 			add_action( 'restrict_manage_posts', array( $this, 'create_vendor_filter' ), 10, 2 );
-			add_action( 'restrict_manage_posts', array( $this, 'create_status_filter' ), 10, 2 );
+			add_action( 'restrict_manage_posts', array( $this, 'create_status_filter' ), 10 );
 		}
 
 		/**
@@ -55,9 +55,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 *
 		 * @param $post_type
-		 * @param $which
 		 */
-		public function create_status_filter( $post_type, $which ) {
+		public function create_status_filter( $post_type ) {
 			if ( $post_type != $this->id ) {
 				return;
 			}
@@ -70,11 +69,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				'selected'        => get_query_var( $status_tax->id ),
 				'value_field'     => 'slug'
 			) );
-
-			/*$dropdown = new Alg_MPWC_Vendor_Products_Filter();
-			echo $dropdown->get_html( array(
-				'get_dropdown_only' => true,
-			) );*/
 		}
 
 		/**
@@ -185,7 +179,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				'new_item'           => __( 'New Commission', 'marketplace-for-woocommerce' ),
 				'edit_item'          => __( 'Edit Commission', 'marketplace-for-woocommerce' ),
 				'view_item'          => __( 'View Commission', 'marketplace-for-woocommerce' ),
-				'all_items'          => __( 'All Commissions', 'marketplace-for-woocommerce' ),
+				'all_items'          => __( 'Commissions', 'marketplace-for-woocommerce' ),
 				'search_items'       => __( 'Search Commissions', 'marketplace-for-woocommerce' ),
 				'parent_item_colon'  => __( 'Parent Commissions:', 'marketplace-for-woocommerce' ),
 				'not_found'          => __( 'No Commissions found.', 'marketplace-for-woocommerce' ),

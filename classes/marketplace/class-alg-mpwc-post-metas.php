@@ -19,5 +19,7 @@ if ( ! class_exists( 'Alg_MPWC_Post_Metas' ) ) {
 
 		// Order Meta fields
 		const ORDER_COMISSIONS_EVALUATED = '_alg_mpwc_comissions_evaluated';
+		const ORDER_RELATED_VENDOR       = '_alg_mpwc_related_vendor';
+
 	}
 }

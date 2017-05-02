@@ -29,10 +29,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		);
 
 		private static $order_caps = array(
-			//"edit_published_shop_orders" => true,
+			"read_shop_orders"           => true,
 			"edit_shop_orders"           => true,
+			//"edit_published_shop_orders" => true,
+			//'edit_others_shop_orders'    =>true,
 			//"delete_shop_orders"         => true,
-			//"read_shop_orders"           => true,
 			//'create_shop_orders'         => false,
 		);
 
@@ -64,14 +65,72 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					'display_marketplace_widget',
 				) );
 
+				// Show total commissions value
 				add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
+
+				// Adds items in marketplace menu
+				add_filter( 'register_post_type_args', array( $this, 'add_items_in_marketplace_menu' ), 10, 2 );
 			}
+
+			// Adds vendors related to an order
+			add_action( 'save_post', array( $this, 'add_vendors_related_to_an_order' ) );
 
 			// Redirects user to dashboard instead of the profile page
 			add_action( 'wp_login', array( $this, 'redirect_to_dashboard_after_login' ), 10, 2 );
 
 			// Add query vars
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+		}
+
+		/**
+		 * Adds items in marketplace menu
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $post_id
+		 */
+		public function add_items_in_marketplace_menu( $args, $post_type ) {
+			$commissions_cpt = new Alg_MPWC_CPT_Commission();
+			if ( $post_type == $commissions_cpt->id || $post_type == 'product' || $post_type == 'shop_order' ) {
+				if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+					$args['show_in_menu'] = 'alg_mpwc_marketplace';
+				}
+			}
+
+			return $args;
+		}
+
+		/**
+		 * Adds vendors related to an order
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $post_id
+		 */
+		public function add_vendors_related_to_an_order( $post_id ) {
+			$post_type = get_post_type( $post_id );
+
+			if ( "shop_order" != $post_type ) {
+				return;
+			}
+
+			$order = wc_get_order( $post_id );
+
+			$vendors = array();
+			foreach ( $order->get_items() as $item ) {
+				$post                   = get_post( $item->get_product_id() );
+				$vendor_id              = $post->post_author;
+				$vendors [ $vendor_id ] = $vendor_id;
+			}
+
+			if ( count( $vendors ) > 0 ) {
+				delete_post_meta( $post_id, Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR );
+				foreach ( $vendors as $vendor ) {
+					add_post_meta( $post_id, Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR, $vendor );
+				}
+			}
 		}
 
 		/**
@@ -207,13 +266,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 			$user_id        = get_current_user_id();
 
-			if ( isset( $query->query['post_type'] ) && $query->query['post_type'] != $commission_cpt->id ) {
-				$query->set( 'author', $user_id );
-				add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
-					$this,
-					'views_filter_for_own_posts',
-				) );
-			} else {
+			if(!isset( $query->query['post_type'] )){
+				return $query;
+			}
+
+			$post_type = $query->query['post_type'];
+
+			// COMMISSIONS
+			if ( $post_type == $commission_cpt->id ) {
 				unset( $query->query['author'] );
 				unset( $query->query_vars['author'] );
 				$query->set( 'meta_query', array(
@@ -223,12 +283,28 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 						'compare' => 'IN',
 					),
 				) );
-				add_filter( 'views_edit-' . $query->query['post_type'] . '', array(
-					$this,
-					'views_filter_for_own_posts',
+
+			// SHOP ORDERS
+			} else if ( $post_type == 'shop_order' ) {
+				unset( $query->query['author'] );
+				unset( $query->query_vars['author'] );
+				$query->set( 'meta_query', array(
+					array(
+						'key'     => Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR,
+						'value'   => array( $user_id ),
+						'compare' => 'IN',
+					),
 				) );
+
+			// EVERYTHING ELSE
+			} else {
+				$query->set( 'author', $user_id );
 			}
 
+			add_filter( 'views_edit-' . $post_type . '', array(
+				$this,
+				'views_filter_for_own_posts',
+			),999 );
 
 			return $query;
 		}
@@ -257,16 +333,28 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				'trash'   => __( 'Trash' ),
 			);
 
+			if ( $post_type == 'shop_order' ) {
+
+				unset( $new_views['publish'] );
+				unset( $new_views['private'] );
+				unset( $new_views['pending'] );
+				unset( $new_views['future'] );
+				unset( $new_views['draft'] );
+
+				$order_views = array(
+					'wc-processing' => __( 'Processing', 'woocommerce' ),
+					'wc-on-hold'    => __( 'On hold', 'woocommerce' ),
+					'wc-completed'  => __( 'Completed', 'woocommerce' ),
+				);
+				$new_views   = array_merge( $new_views, $order_views );
+			}
+
+			$user_id = get_current_user_id();
+
 			foreach ( $new_views as $view => $name ) {
 
-				if ( $post_type != $commission_cpt->id ) {
+				if ( $post_type == $commission_cpt->id ) {
 					$query = array(
-						'author'    => $author,
-						'post_type' => $post_type,
-					);
-				} else {
-					$user_id = get_current_user_id();
-					$query   = array(
 						'post_type' => $post_type,
 						'meta_query',
 						array(
@@ -277,13 +365,32 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 							),
 						),
 					);
+				} else if ( $post_type == 'shop_order' ) {
+					$query = array(
+						'post_type' => $post_type,
+						'meta_query',
+						array(
+							array(
+								'key'     => Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR,
+								'value'   => array( $user_id ),
+								'compare' => 'IN',
+							),
+						),
+					);
+				} else {
+					$query = array(
+						'author'    => $author,
+						'post_type' => $post_type,
+					);
 				}
 
 				if ( $view == 'all' ) {
 					$query['all_posts'] = 1;
 					$class              = ( get_query_var( 'all_posts' ) == 1 || get_query_var( 'post_status' ) == '' ) ? ' class="current"' : '';
 					$url_query_var      = 'all_posts=1';
-
+					if($post_type == 'shop_order'){
+						$query['post_status'] = $view;
+					}
 				} else {
 					$query['post_status'] = $view;
 					$class                = ( get_query_var( 'post_status' ) == $view ) ? ' class="current"' : '';

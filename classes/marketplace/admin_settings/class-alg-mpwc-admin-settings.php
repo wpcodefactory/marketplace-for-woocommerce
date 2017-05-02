@@ -26,6 +26,19 @@ if ( ! class_exists( 'Alg_MPWC_Admin_Settings' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 			new Alg_MPWC_Settings_General();
 			new Alg_MPWC_Settings_Vendor();
+			add_action( 'admin_menu', array( $this, 'create_admin_marketplace_menu' ), 99 );
+		}
+
+		/**
+		 * Creates a marketplace menu for vendors
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $post_id
+		 */
+		public function create_admin_marketplace_menu(){
+			add_menu_page( 'Marketplace', 'Marketplace', Alg_MPWC_Vendor_Role::ROLE_VENDOR, 'alg_mpwc_marketplace', '','dashicons-cart' );
 		}
 
 		/**
