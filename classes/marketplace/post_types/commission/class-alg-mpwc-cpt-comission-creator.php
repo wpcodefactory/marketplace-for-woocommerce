@@ -128,10 +128,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				}
 
 				// Override commission base and value
-				$commission_base_override = sanitize_text_field(get_user_meta( $vendor_id, $user_fields->meta_commission_base, true ));
-				$commission_value_override = (float)get_user_meta( $vendor_id, $user_fields->meta_commission_value, true );
-				$commission_base = $commission_base_override ? $commission_base_override : $commission_base;
-				$commission_value = $commission_value_override ? $commission_value_override : $commission_value;
+				$commission_base_override  = sanitize_text_field( get_user_meta( $vendor_id, $user_fields->meta_commission_base, true ) );
+				$commission_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_value, true );
+				$commission_base           = $commission_base_override ? $commission_base_override : $commission_base;
+				$commission_value          = $commission_value_override ? $commission_value_override : $commission_value;
 
 				// Sets comission title
 				$title = implode( ', ', $title_arr );
@@ -141,10 +141,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				// Calculates comission value
 				switch ( $commission_base ) {
 					case 'percentage':
-						$comission_value = $subtotal * ( (float) $commission_value / 100 );
+						$comission_value_final = $subtotal * ( (float) $commission_value / 100 );
 					break;
 					case 'fixed_value':
-						$comission_value = $this->commission_manager->comission_value;
+						$comission_value_final = $this->commission_manager->comission_value;
+					break;
+					default:
+						$comission_value_final = $subtotal * ( (float) $commission_value / 100 );
 					break;
 				}
 
@@ -155,10 +158,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 					'post_type'   => $this->commission_manager->id,
 					'post_status' => 'publish',
 					'meta_input'  => array(
-						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID   => $vendor_id,
-						Alg_MPWC_Post_Metas::COMMISSION_VALUE       => $comission_value,
-						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID    => $order_id,
-						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS => $product_ids,
+						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID      => $vendor_id,
+						Alg_MPWC_Post_Metas::COMMISSION_VALUE          => $comission_value_final,
+						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID       => $order_id,
+						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS    => $product_ids,
+						Alg_MPWC_Post_Metas::COMMISSION_BASE           => $commission_base,
+						Alg_MPWC_Post_Metas::COMMISSION_ORIGINAL_VALUE => $commission_value,
 					),
 					'tax_input'   => array(
 						$status_tax->id => array( $status_unpaid_term->term_id ),

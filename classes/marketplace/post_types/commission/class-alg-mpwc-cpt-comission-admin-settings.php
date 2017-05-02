@@ -175,6 +175,34 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			) );
 
 			$cmb_demo->add_field( array(
+				'name'       => __( 'Base', 'marketplace-for-woocommerce' ),
+				'desc'       => __( 'The base that was commonly agreed between the vendor and the admin when the sale was made', 'marketplace-for-woocommerce' ),
+				'id'         => Alg_MPWC_Post_Metas::COMMISSION_BASE,
+				'type'       => 'pw_select',
+				'options'    => array(
+					'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
+					'fixed_value' => sprintf( __( 'By fixed value (in %s)', 'marketplace-for-woocommerce' ), '<strong>' . get_woocommerce_currency() . '</strong>' ),
+				),
+				'attributes' => array(
+					'style' => 'width: 99%',
+				),
+			) );
+
+			$cmb_demo->add_field( array(
+				'name'       => __( 'Base value', 'marketplace-for-woocommerce' ),
+				'desc'       => __( 'The value that was commonly agreed between the vendor and the admin when the sale was made', 'marketplace-for-woocommerce' ),
+				'id'         => Alg_MPWC_Post_Metas::COMMISSION_ORIGINAL_VALUE,
+				'type'       => 'text',
+				'attributes' => array(
+					'step'  => '0.001',
+					'type'  => 'number',
+					'style' => 'width: 99%',
+				),
+				'display_cb'=>array($this,'display_base_value_column'),
+				'column'     => array( 'position' => 4 ),
+			) );
+
+			$cmb_demo->add_field( array(
 				'name'       => __( 'Vendor', 'marketplace-for-woocommerce' ),
 				'id'         => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
 				'type'       => 'pw_select',
@@ -183,7 +211,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					'style' => 'width: 99%',
 				),
 				'display_cb' => array( $this, 'display_vendor_column' ),
-				'column'     => array( 'position' => 4 ),
+				'column'     => array( 'position' => 5 ),
 			) );
 
 			$cmb_demo->add_field( array(
@@ -195,9 +223,33 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					'style' => 'width: 99%',
 				),
 				'display_cb'=>array($this,'display_products_column'),
-				'column'     => array( 'position' => 5 ),
+				'column'     => array( 'position' => 6 ),
 			) );
 
+
+
+
+		}
+
+		/**
+		 * Displays the base value on post edit column
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function display_base_value_column( $field_args, $field ) {
+			if ( $field->object_id ) {
+				$base = sanitize_text_field( get_post_meta( $field->object_id, Alg_MPWC_Post_Metas::COMMISSION_BASE, true ) );
+				switch ( $base ) {
+					case 'percentage':
+						echo (float) get_post_meta( $field->object_id, Alg_MPWC_Post_Metas::COMMISSION_ORIGINAL_VALUE, true ) . '%';
+					break;
+					case 'fixed_value':
+						echo __( 'Fixed value' );
+					break;
+				}
+
+			}
 		}
 
 		/**
