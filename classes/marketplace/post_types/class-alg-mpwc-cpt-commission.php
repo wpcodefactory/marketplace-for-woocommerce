@@ -133,10 +133,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$admin_settings->add_commission_status_cmb();
 		}
 
-		public function handle_admin_settings(){
-
-		}
-
 		/**
 		 * Gets values from admin
 		 *

@@ -93,8 +93,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
-			$status_tax            = new Alg_MPWC_Commission_Status_Tax();
+			$status_tax         = new Alg_MPWC_Commission_Status_Tax();
 			$status_unpaid_term = get_term_by( 'slug', 'unpaid', $status_tax->id );
+			$user_fields = new Alg_MPWC_Vendor_Admin_Fields();
 
 			// Only creates commissions automatically if the corresponding order has not been processed yet
 			$comissions_evaluated = filter_var( get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true ), FILTER_VALIDATE_BOOLEAN );
@@ -104,6 +105,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 
 			// An array of products from an order filtered by vendors
 			$products_by_vendor = $this->get_order_items_filtered_by_vendor( $order_id );
+
+			// Gets commission base and balue
+			$commission_base = $this->commission_manager->comission_base;
+			$commission_value = $this->commission_manager->comission_value;
 
 			foreach ( $products_by_vendor as $comissions ) {
 
@@ -122,15 +127,21 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 					$order_id      = $comission['order_id'];
 				}
 
+				// Override commission base and value
+				$commission_base_override = sanitize_text_field(get_user_meta( $vendor_id, $user_fields->meta_commission_base, true ));
+				$commission_value_override = (float)get_user_meta( $vendor_id, $user_fields->meta_commission_value, true );
+				$commission_base = $commission_base_override ? $commission_base_override : $commission_base;
+				$commission_value = $commission_value_override ? $commission_value_override : $commission_value;
+
 				// Sets comission title
 				$title = implode( ', ', $title_arr );
 				$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
 				$title .= ' (' . sprintf( __( 'Order %s' ), $order_id ) . ')';
 
 				// Calculates comission value
-				switch ( $this->commission_manager->comission_base ) {
+				switch ( $commission_base ) {
 					case 'percentage':
-						$comission_value = $subtotal * ( (float) $this->commission_manager->comission_value / 100 );
+						$comission_value = $subtotal * ( (float) $commission_value / 100 );
 					break;
 					case 'fixed_value':
 						$comission_value = $this->commission_manager->comission_value;

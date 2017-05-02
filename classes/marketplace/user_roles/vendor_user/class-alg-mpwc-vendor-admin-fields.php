@@ -27,7 +27,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		public $meta_iban = '_alg_mpwc_iban';
 		public $meta_account_holder_name = '_alg_mpwc_account_holder_name';
 		public $meta_paypal_email = '_alg_mpwc_paypal_email';
-		public $meta_commission_amount = '_alg_mpwc_commission_amount';
+		public $meta_commission_value = '_alg_mpwc_commission_value';
 		public $meta_commission_base = '_alg_mpwc_commission_base';
 		public $meta_block_vendor = '_alg_mpwc_block_vendor';
 
@@ -74,8 +74,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			<style type="text/css" media="screen">
 				#cmb2-metabox-alg_mpwc_vendor_admin_fields{
 					border-top: 2px #ccc dashed;
-					margin: 35px 0 48px;
-					padding: 30px 0;
+					margin: 35px 0 50px;
+					padding: 20px 0 35px;
 					border-bottom: 2px #ccc dashed;
 				}
 				#cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-type-title{
@@ -155,8 +155,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'on_front' => false,
 			) );
 
-
-
 			$cmb_user->add_field( array(
 				'name'     => __( 'Address', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_address,
@@ -185,8 +183,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'on_front' => false,
 			) );
 
-
-
 			$cmb_user->add_field( array(
 				'name'     => __( 'Payment details', 'marketplace-for-woocommerce' ),
 				'id'       => 'alg_mpwc_title_payment',
@@ -210,15 +206,15 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			) );
 
 			$cmb_user->add_field( array(
-				'name'     => __( 'ABA routing number', 'marketplace-for-woocommerce' ),
-				'id'       => $this->meta_aba_routing_number,
+				'name'     => __( 'Bank address', 'marketplace-for-woocommerce' ),
+				'id'       => $this->meta_bank_address,
 				'type'     => 'text',
 				'on_front' => false,
 			) );
 
 			$cmb_user->add_field( array(
-				'name'     => __( 'Bank address', 'marketplace-for-woocommerce' ),
-				'id'       => $this->meta_bank_address,
+				'name'     => __( 'ABA routing number', 'marketplace-for-woocommerce' ),
+				'id'       => $this->meta_aba_routing_number,
 				'type'     => 'text',
 				'on_front' => false,
 			) );
@@ -247,17 +243,23 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			$cmb_user->add_field( array(
 				'name'       => __( 'Commission base', 'marketplace-for-woocommerce' ),
 				'id'         => $this->meta_commission_base,
-				'type'       => 'text',
+				'default'    => 'percentage',
+				'options'    => array(
+					'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
+					'fixed_value' => sprintf( __( 'By fixed value (in %s)', 'marketplace-for-woocommerce' ), '<strong>' . get_woocommerce_currency() . '</strong>' ),
+				),
+				'type'       => 'select',
 				'on_front'   => false,
 				'attributes' => array(
+					'class'  => 'chosen_select',
 					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,
 					'disabled' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'disabled' : false,
 				),
 			) );
 
 			$cmb_user->add_field( array(
-				'name'       => __( 'Commission amount', 'marketplace-for-woocommerce' ),
-				'id'         => $this->meta_commission_amount,
+				'name'       => __( 'Commission value', 'marketplace-for-woocommerce' ),
+				'id'         => $this->meta_commission_value,
 				'type'       => 'text',
 				'attributes' => array(
 					'type'     => 'number',
