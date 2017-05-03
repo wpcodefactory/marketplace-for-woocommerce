@@ -192,14 +192,14 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				'query_var'          => false,
 				'rewrite'            => array( 'slug' => 'commission' ),
 				'capability_type'    => 'alg_mpwc_commission',
-				/*'capabilities'       => array(
-					'create_posts' => 'do_not_allow',
-				),*/
+				'capabilities'       => array(
+					'create_posts' => 'manage_woocommerce',
+				),
 				'map_meta_cap'       => true,
 				'has_archive'        => false,
 				'hierarchical'       => false,
 				'menu_position'      => null,
-				'menu_icon'=>'dashicons-cart',
+				'menu_icon'          => 'dashicons-cart',
 				'supports'           => array( 'title' ),
 			);
 

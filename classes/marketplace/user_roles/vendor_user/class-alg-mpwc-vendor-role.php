@@ -29,8 +29,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		);
 
 		private static $order_caps = array(
-			"read_shop_orders"           => true,
-			"edit_shop_orders"           => true,
+			//"read_shop_orders"           => true,
+			"edit_shop_orders"        => true,
+			'edit_others_shop_orders' => true,
+			'read_shop_order'         => true
 			//"edit_published_shop_orders" => true,
 			//'edit_others_shop_orders'    =>true,
 			//"delete_shop_orders"         => true,
@@ -50,9 +52,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				// Allows the vendor user to access wp-admin
 				add_filter( 'woocommerce_prevent_admin_access', array( $this, 'allow_admin_access' ) );
 
-				// Limits the vendor user to see only his own posts, media, etc
-				add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
-
 				// Changes role options based on admin settings
 				$id      = 'alg_mpwc';
 				$section = 'vendors';
@@ -69,8 +68,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
 
 				// Adds items in marketplace menu
-				add_filter( 'register_post_type_args', array( $this, 'add_items_in_marketplace_menu' ), 10, 2 );
+				add_filter( 'register_post_type_args', array( $this, 'add_items_in_marketplace_menu' ), 99, 2 );
 			}
+
+			// Limits the vendor user to see only his own posts, media, etc
+			add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
 
 			// Adds vendors related to an order
 			add_action( 'save_post', array( $this, 'add_vendors_related_to_an_order' ) );
@@ -80,7 +82,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			// Add query vars
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
+
+			// Manages the order view
+			new Alg_MPWC_Vendor_Order_View();
 		}
+
+
 
 		/**
 		 * Adds items in marketplace menu
@@ -103,6 +110,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 		/**
 		 * Adds vendors related to an order
+		 *
+		 * When an order is created or updated, it saves a post_meta on this order about the related vendors
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -141,7 +150,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 */
 		public function add_query_vars( $vars ) {
 			$vars[] = Alg_MPWC_Query_Vars::VENDOR;
-
 			return $vars;
 		}
 
@@ -150,13 +158,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
+		 *
 		 * @param $show
 		 *
 		 * @return bool
 		 */
-		public function show_total_commissions_value($show){
+		public function show_total_commissions_value( $show ) {
 			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
-				$show=true;
+				$show = true;
 			}
 			return $show;
 		}
@@ -266,7 +275,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 			$user_id        = get_current_user_id();
 
-			if(!isset( $query->query['post_type'] )){
+			if ( ! isset( $query->query['post_type'] ) ) {
 				return $query;
 			}
 
@@ -284,7 +293,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					),
 				) );
 
-			// SHOP ORDERS
+				// SHOP ORDERS
 			} else if ( $post_type == 'shop_order' ) {
 				unset( $query->query['author'] );
 				unset( $query->query_vars['author'] );
@@ -296,7 +305,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					),
 				) );
 
-			// EVERYTHING ELSE
+				// EVERYTHING ELSE
 			} else {
 				$query->set( 'author', $user_id );
 			}
@@ -304,7 +313,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			add_filter( 'views_edit-' . $post_type . '', array(
 				$this,
 				'views_filter_for_own_posts',
-			),999 );
+			), 999 );
 
 			return $query;
 		}
@@ -388,7 +397,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					$query['all_posts'] = 1;
 					$class              = ( get_query_var( 'all_posts' ) == 1 || get_query_var( 'post_status' ) == '' ) ? ' class="current"' : '';
 					$url_query_var      = 'all_posts=1';
-					if($post_type == 'shop_order'){
+					if ( $post_type == 'shop_order' ) {
 						$query['post_status'] = $view;
 					}
 				} else {

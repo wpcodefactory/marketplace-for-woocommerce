@@ -1,6 +1,6 @@
 <?php
 /**
- * Marketplace for WooCommerce - Vendor admin fields
+ * Marketplace for WooCommerce - Vendor admin fields and metaboxes
  *
  * @version 1.0.0
  * @since   1.0.0

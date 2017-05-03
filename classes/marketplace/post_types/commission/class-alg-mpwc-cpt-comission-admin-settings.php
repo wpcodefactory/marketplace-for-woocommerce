@@ -226,9 +226,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'column'     => array( 'position' => 6 ),
 			) );
 
-
-
-
 		}
 
 		/**
