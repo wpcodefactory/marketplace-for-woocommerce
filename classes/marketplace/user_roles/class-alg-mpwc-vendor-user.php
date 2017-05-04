@@ -27,6 +27,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 
 			// Creates vendor admin fields
 			add_action( 'cmb2_admin_init', array( $this, 'add_admin_fields' ) );
+
+			new Alg_MPWC_Vendor_Block_Option();
 		}
 
 		/**

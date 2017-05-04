@@ -29,18 +29,26 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function get_html($params=null) {
-			$params = wp_parse_args($params,array(
-				'get_dropdown_only'=>false
-			));
+		public function get_html( $params = null ) {
 
-			$users_with_role = get_users( array(
-				'fields' => 'id',
-				'role'   => Alg_MPWC_Vendor_Role::ROLE_VENDOR,
+			// Creates custom params
+			$params = wp_parse_args( $params, array(
+				'get_dropdown_only' => false,
 			) );
 
-			$return_str = '';
+			// User fields
+			$user_fields = new Alg_MPWC_Vendor_Admin_Fields();
 
+			$get_users_args = apply_filters( 'alg_mpwc_vendors_dropdown_get_users_args', array(
+				'fields'     => 'id',
+				'role__in'   => array( Alg_MPWC_Vendor_Role::ROLE_VENDOR ),
+			) );
+
+			// Gets vendor users that aren't blocked
+			$users_with_role = get_users($get_users_args);
+
+			// Gets vendor value from query_string
+			$return_str        = '';
 			$vendor_query_vars = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
 			if ( $vendor_query_vars ) {
 				if ( ! is_numeric( $vendor_query_vars ) ) {
@@ -51,6 +59,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 				$vendor_query_vars = - 1;
 			}
 
+			// Setups dropdown params
 			$args = array(
 				'show_option_none' => __( 'Select a vendor', 'marketplace-for-woocommerce' ),
 				'class'            => 'alg-mpwc-vendor-products-filter',
@@ -59,19 +68,19 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 				'include_selected' => true,
 				'echo'             => false,
 			);
-			if(is_array($users_with_role) && count($users_with_role)>0){
+			if ( is_array( $users_with_role ) && count( $users_with_role ) > 0 ) {
 				$args['include'] = $users_with_role;
 			}
 
+			// Creates the HTML
 			if ( ! $params['get_dropdown_only'] ) {
-				$shop_page_id = wc_get_page_id( 'shop' );
-				$return_str .= '<form class="alg-mpwc-vendor-products-filter-form">';
-				$return_str .= wp_dropdown_users($args);
-				$return_str .= '<input type="hidden" name="page_id" value="' . $shop_page_id . '">';
-				$return_str .= '</form>';
-				$return_str .= '<style>.alg-mpwc-vendor-products-filter{width:100%}</style>';
-			}else{
-				$return_str = wp_dropdown_users($args);
+				$return_str   .= '<form class="alg-mpwc-vendor-products-filter-form">';
+				$return_str   .= is_array( $users_with_role ) && count( $users_with_role ) > 0 ? wp_dropdown_users( $args ) : '';
+				$return_str   .= '<input type="hidden" name="post_type" value="product">';
+				$return_str   .= '</form>';
+				$return_str   .= '<style>.alg-mpwc-vendor-products-filter{width:100%}</style>';
+			} else {
+				$return_str = is_array( $users_with_role ) && count( $users_with_role ) > 0 ? wp_dropdown_users( $args ) : '';
 			}
 
 
@@ -87,12 +96,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		public function enqueue_scripts() {
 			$js = "				
 				jQuery(document).ready(function($){
-					$('.alg-mpwc-vendor-products-filter').change(function(){
-						var val = $(this).val();
-						if(val!='-1'){
-							$(this).parent().submit();
-						}
-					});
+					if($('.alg-mpwc-vendor-products-filter').length){
+						$('.alg-mpwc-vendor-products-filter').change(function(){
+							var val = $(this).val();
+							if(val!='-1'){
+								$(this).parent().submit();
+							}
+						});
+					}
 				});
 			";
 			wp_add_inline_script( 'jquery-migrate', $js );
@@ -106,7 +117,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		 */
 		public function setup() {
 			add_action( 'pre_get_posts', array( $this, 'filter' ) );
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ),999 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 999 );
 		}
 
 		/**
@@ -151,9 +162,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 				return;
 			}
 
-			$commission = new Alg_MPWC_CPT_Commission();
+			$allow_user = apply_filters( 'alg_mpwc_vendors_dropdown_allow_user', true, $user_id );
+			if ( ! $allow_user ) {
+				return;
+			}
 
-			if($query->query['post_type'] == $commission->id){
+			// Sets query params
+			$commission = new Alg_MPWC_CPT_Commission();
+			if ( $query->query['post_type'] == $commission->id ) {
 				$query->set( 'meta_query', array(
 					array(
 						'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
@@ -161,7 +177,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 						'compare' => 'IN',
 					),
 				) );
-			}else{
+			} else {
 				$query->set( 'author', $user_id );
 			}
 

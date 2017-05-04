@@ -95,6 +95,23 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		}
 
 		/**
+		 * Sanitizes the option to block a vendor
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $value
+		 * @param $field_args
+		 * @param $field
+		 *
+		 * @return mixed|void
+		 */
+		public function sanitize_vendor_block_option( $value, $field_args, $field ) {
+			$value = apply_filters( 'alg_mpwc_sanitize_block_vendor_option', $value, $field_args, $field );
+			return $value;
+		}
+
+		/**
 		 * Adds vendor user admin fields
 		 *
 		 * @version 1.0.0
@@ -123,6 +140,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'id'         => $this->meta_block_vendor,
 				'type'       => 'checkbox',
 				'on_front'   => false,
+				'sanitization_cb' => array($this,'sanitize_vendor_block_option'), // function should return a sanitized value
 				'show_on_cb' => array($this,'show_block_vendor_field'),
 			) );
 

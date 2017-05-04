@@ -19,7 +19,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		 */
 		function __construct() {
 			if ( ! is_admin() ) {
-
 				add_action( 'template_include', array( $this, 'template_include' ) );
 				add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
 				add_action( 'template_redirect', array( $this, 'template_redirect' ) );
@@ -50,7 +49,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 				return $title;
 			}
 
-			$user                 = get_user_by( 'slug', $vendor );
+			// Gets user
+			if ( is_numeric( $vendor ) ) {
+				$user = get_user_by( 'id', $vendor );
+			} else {
+				$user = get_user_by( 'slug', $vendor );
+			}
+
 			$title['tagline']     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL, 'Marketplace vendor' ) );
 			$title['vendor_name'] = $user->data->display_name;
 
@@ -133,17 +138,29 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			// Gets the vendor slug
 			$vendor = sanitize_text_field( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] );
 
+			// Gets user
+			if ( is_numeric( $vendor ) ) {
+				$user = get_user_by( 'id', $vendor );
+			} else {
+				$user = get_user_by( 'slug', $vendor );
+			}
+
 			// Checks if user is vendor
-			$user = get_user_by( 'slug', $vendor );
 			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
 				$query->set_404();
+				return;
+			}
+
+			$query = apply_filters( 'alg_mpwc_public_page_query', $query, $user->ID );
+
+			if($query->is_404){
 				return;
 			}
 
 			// Sets on query that this vendor is valid
 			$query->query['vendor_valid'] = true;
 
-			// Puts WooCommerce products from vendor id on query
+			// Adds WooCommerce products from vendor id on query
 			$query->set( 'post_type', 'product' );
 			$query->set( 'author', $user->ID );
 		}
@@ -175,11 +192,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 
 			$template_from_admin_settings = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_TEMPLATE ) );
 
-			//error_log($template);
-			// Gets the template
 			$template = Alg_MPWC_Core::get_template( $template_from_admin_settings );
-			//$template = wc_locate_template( $template_from_admin_settings );
-			//error_log(print_r($template,true));
 
 			return $template;
 		}

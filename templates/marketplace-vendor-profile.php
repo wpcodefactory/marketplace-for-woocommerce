@@ -12,7 +12,14 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
-            <?php $vendor = get_query_var('vendor_user'); ?>
+            <?php $vendor_query_string = get_query_var(Alg_MPWC_Query_Vars::VENDOR); ?>
+            <?php
+                if ( is_numeric( $vendor_query_string ) ) {
+	                $vendor = get_user_by( 'id', $vendor_query_string );
+                } else {
+                    $vendor = get_user_by( 'slug', $vendor_query_string );
+                }
+            ?>
 			<h1><?php echo esc_html($vendor->data->display_name); ?></h1>
 
 			<?php if ( have_posts() ) : ?>

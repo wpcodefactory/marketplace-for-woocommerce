@@ -292,9 +292,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 						'compare' => 'IN',
 					),
 				) );
-
-				// SHOP ORDERS
-			} else if ( $post_type == 'shop_order' ) {
+			} // SHOP ORDERS
+			else if ( $post_type == 'shop_order' ) {
 				unset( $query->query['author'] );
 				unset( $query->query_vars['author'] );
 				$query->set( 'meta_query', array(
@@ -304,9 +303,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 						'compare' => 'IN',
 					),
 				) );
-
-				// EVERYTHING ELSE
-			} else {
+			} // EVERYTHING ELSE
+			else {
 				$query->set( 'author', $user_id );
 			}
 
