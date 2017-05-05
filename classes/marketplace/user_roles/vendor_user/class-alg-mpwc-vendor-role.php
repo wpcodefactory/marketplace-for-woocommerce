@@ -86,8 +86,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			new Alg_MPWC_Vendor_Order_View();
 		}
 
-
-
 		/**
 		 * Adds items in marketplace menu
 		 *
@@ -98,7 +96,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 */
 		public function add_items_in_marketplace_menu( $args, $post_type ) {
 			if ( !current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
-				return;
+				return $args;
 			}
 			$commissions_cpt = new Alg_MPWC_CPT_Commission();
 			if ( $post_type == $commissions_cpt->id || $post_type == 'shop_order' ) {
