@@ -19,10 +19,12 @@ if ( ! class_exists( 'Alg_MPWC_Post_Metas' ) ) {
 		const COMMISSION_BASE           = '_alg_mpwc_commission_base';
 		const COMMISSION_STATUS         = '_alg_mpwc_status';
 
-
 		// Order Meta fields
 		const ORDER_COMISSIONS_EVALUATED = '_alg_mpwc_comissions_evaluated';
 		const ORDER_RELATED_VENDOR       = '_alg_mpwc_related_vendor';
+
+		// Order Meta fields
+		const PRODUCT_BLOCKED = '_alg_mpwc_blocked';
 
 	}
 }

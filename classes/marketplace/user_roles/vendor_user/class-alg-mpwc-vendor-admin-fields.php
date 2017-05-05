@@ -11,8 +11,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 
 	class Alg_MPWC_Vendor_Admin_Fields {
 
-		public $cmb_id='alg_mpwc_vendor_admin_fields';
+		public $cmb_id = 'alg_mpwc_vendor_admin_fields';
 
+		// User metas
 		public $meta_description = '_alg_mpwc_description';
 		public $meta_company_name = '_alg_mpwc_company_name';
 		public $meta_address = '_alg_mpwc_address';
@@ -29,8 +30,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		public $meta_paypal_email = '_alg_mpwc_paypal_email';
 		public $meta_commission_value = '_alg_mpwc_commission_value';
 		public $meta_commission_base = '_alg_mpwc_commission_base';
-		public $meta_block_vendor = '_alg_mpwc_block_vendor';
-
+		public $meta_block_vendor = '_alg_mpwc_blocked';
 
 		/**
 		 * Constructor
@@ -63,34 +63,50 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			}
 		}
 
-		public function setup_custom_css(){
+		/**
+		 * Setups custom css
+         *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function setup_custom_css() {
 			$object = 'user'; // post | term
 			$cmb_id = $this->cmb_id;
 			add_action( "cmb2_after_{$object}_form_{$cmb_id}", array( $this, 'custom_css' ), 10, 2 );
 		}
 
+		/**
+		 * Creates custom css
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
 		public function custom_css( $post_id, $cmb ) {
 			?>
-			<style type="text/css" media="screen">
-				#cmb2-metabox-alg_mpwc_vendor_admin_fields{
-					border-top: 2px #ccc dashed;
-					margin: 35px 0 50px;
-					padding: 20px 0 35px;
-					border-bottom: 2px #ccc dashed;
-				}
-				#cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-type-title{
-					margin-bottom:15px !important;
-				}
-				.cmb2-id-alg-mpwc-title-payment{
-					margin-top:40px !important;
-				}
-				#cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-type-checkbox .cmb-td{
-					padding-top:24px !important;
-				}
-				#cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-row:not(.cmb-type-checkbox) .cmb-td{
-					padding-top:20px !important;
-				}
-			</style>
+            <style type="text/css" media="screen">
+                #cmb2-metabox-alg_mpwc_vendor_admin_fields {
+                    border-top: 2px #ccc dashed;
+                    margin: 35px 0 50px;
+                    padding: 20px 0 35px;
+                    border-bottom: 2px #ccc dashed;
+                }
+
+                #cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-type-title {
+                    margin-bottom: 15px !important;
+                }
+
+                .cmb2-id-alg-mpwc-title-payment {
+                    margin-top: 40px !important;
+                }
+
+                #cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-type-checkbox .cmb-td {
+                    padding-top: 24px !important;
+                }
+
+                #cmb2-metabox-alg_mpwc_vendor_admin_fields .cmb-row:not(.cmb-type-checkbox) .cmb-td {
+                    padding-top: 20px !important;
+                }
+            </style>
 			<?php
 		}
 
@@ -136,12 +152,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			) );
 
 			$cmb_user->add_field( array(
-				'name'       => __( 'Block vendor', 'marketplace-for-woocommerce' ),
-				'id'         => $this->meta_block_vendor,
-				'type'       => 'checkbox',
-				'on_front'   => false,
-				'sanitization_cb' => array($this,'sanitize_vendor_block_option'), // function should return a sanitized value
-				'show_on_cb' => array($this,'show_block_vendor_field'),
+				'name'            => __( 'Block vendor', 'marketplace-for-woocommerce' ),
+				'desc'            => __( 'Blocks vendor products and its public page', 'marketplace-for-woocommerce' ),
+				'id'              => $this->meta_block_vendor,
+				'type'            => 'checkbox',
+				'on_front'        => false,
+				'sanitization_cb' => array( $this, 'sanitize_vendor_block_option' ),
+				'show_on_cb'      => array( $this, 'show_block_vendor_field' ),
 			) );
 
 			$cmb_user->add_field( array(
@@ -269,7 +286,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'type'       => 'select',
 				'on_front'   => false,
 				'attributes' => array(
-					'class'  => 'chosen_select',
+					'class'    => 'chosen_select',
 					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,
 					'disabled' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'disabled' : false,
 				),
@@ -289,8 +306,16 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 
 		}
 
-		public function show_block_vendor_field(){
-			return !current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR );
+		/**
+		 * Hides the block vendor option from vendors
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @return bool
+		 */
+		public function show_block_vendor_field() {
+			return ! current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR );
 		}
 	}
 }

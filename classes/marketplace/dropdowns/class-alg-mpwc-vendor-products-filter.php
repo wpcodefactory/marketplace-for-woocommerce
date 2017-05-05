@@ -40,8 +40,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 			$user_fields = new Alg_MPWC_Vendor_Admin_Fields();
 
 			$get_users_args = apply_filters( 'alg_mpwc_vendors_dropdown_get_users_args', array(
-				'fields'     => 'id',
-				'role__in'   => array( Alg_MPWC_Vendor_Role::ROLE_VENDOR ),
+				'fields'   => 'id',
+				'role__in' => array( Alg_MPWC_Vendor_Role::ROLE_VENDOR ),
 			) );
 
 			// Gets vendor users that aren't blocked

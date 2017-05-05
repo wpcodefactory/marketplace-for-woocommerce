@@ -11,8 +11,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 
 	class Alg_MPWC_Vendor_Block_Option {
 		function __construct() {
-			// Single product
-			add_action( 'pre_get_posts', array( $this, 'hide_single_product_from_blocked_users' ) );
+			// Hides products of blocked users
+			add_action( 'pre_get_posts', array( $this, 'hide_products_of_blocked_users' ) );
 
 			// Dropdown
 			add_filter( 'alg_mpwc_vendors_dropdown_allow_user', array(
@@ -32,13 +32,47 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 		}
 
 		/**
-		 * Saves a meta on blocked users products to hide them on loop
+		 * Saves a meta on blocked users products to hide them on loop.
+		 *
+		 * It only happens when the profile page is saved on admin
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function set_products_as_blocked( $value, $field_args, $field ) {
-			//todo:: Create product metas
+		public function set_products_as_blocked( $value, $field_args, CMB2_Field $field ) {
+			$user_id = $field->object_id();
+			if ( ! $user_id ) {
+				return $value;
+			}
+
+			$query_args = array(
+				'post_type'      => 'product',
+				'posts_per_page' => - 1,
+				'author'         => $user_id,
+				'fields'         => 'ids',
+			);
+
+			$user_fields    = new Alg_MPWC_Vendor_Admin_Fields();
+			$previous_value = filter_var( get_user_meta( $user_id, $user_fields->meta_block_vendor, true ), FILTER_VALIDATE_BOOLEAN );
+
+			if ( $value == 'on' && ! $previous_value ) {
+				$the_query = new WP_Query( $query_args );
+				if ( $the_query->have_posts() ) {
+					foreach ( $the_query->posts as $post_id ) {
+						update_post_meta( $post_id, Alg_MPWC_Post_Metas::PRODUCT_BLOCKED, true );
+					}
+					wp_reset_postdata();
+				}
+			} else if ( $value != 'on' && $previous_value ) {
+				$the_query = new WP_Query( $query_args );
+				if ( $the_query->have_posts() ) {
+					foreach ( $the_query->posts as $post_id ) {
+						delete_post_meta( $post_id, Alg_MPWC_Post_Metas::PRODUCT_BLOCKED );
+					}
+					wp_reset_postdata();
+				}
+			}
+
 			return $value;
 		}
 
@@ -90,6 +124,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 					'compare' => 'NOT EXISTS',
 				),
 			);
+
 			return $args;
 		}
 
@@ -114,14 +149,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 		}
 
 		/**
-		 * Hide a single product from being displayed in case its author is blocked
+		 * Hide products from being displayed in case its author is blocked
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
 		 * @param $query
 		 */
-		public function hide_single_product_from_blocked_users( $query ) {
+		public function hide_products_of_blocked_users( $query ) {
 			if ( is_admin() ) {
 				return;
 			}
@@ -134,20 +169,15 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 				return;
 			}
 
-			if ( ! $query->is_single ) {
-				return;
-			}
-
-			// Doesn't show products from blocked users
-			$fields    = new Alg_MPWC_Vendor_Admin_Fields();
-			$post_name = $query->query['name'];
-			$post      = get_page_by_path( $post_name, OBJECT, 'product' );
-			if ( $post ) {
-				$is_user_blocked = filter_var( get_user_meta( $post->post_author, $fields->meta_block_vendor, true ), FILTER_VALIDATE_BOOLEAN );
-				if ( $is_user_blocked ) {
-					$query->set_404();
-				}
-			}
+			$query->set( 'meta_query', array(
+				'relation' => 'OR',
+				array(
+					'key'     => Alg_MPWC_Post_Metas::PRODUCT_BLOCKED,
+					'compare' => 'NOT EXISTS',
+				),
+			) );
 		}
+
+
 	}
 }
