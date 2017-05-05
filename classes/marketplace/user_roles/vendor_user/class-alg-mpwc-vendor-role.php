@@ -23,7 +23,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			"delete_published_products" => true,
 			"edit_published_products"   => true,
 			"assign_product_terms"      => true,
-			"upload_files"              => true,
 			'level_0'                   => true,
 			'edit_alg_mpwc_commissions' => true,
 		);
@@ -236,11 +235,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		public function change_role_options() {
 			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
 			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
+			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
 
 			$args = array(
 				'display_name' => $vendor_label,
 				'caps'         => wp_parse_args( array(
 					'publish_products' => $caps_publish_products,
+					'upload_files'     => $caps_upload_files,
 				), self::$user_caps ),
 			);
 

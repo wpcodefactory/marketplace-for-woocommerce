@@ -19,9 +19,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
 		const OPTION_PUBLIC_PAGE_TEMPLATE           = 'alg_mpwc_opt_public_page_template';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
+		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
 		const OPTION_COMISSIONS_BASE                = 'alg_mpwc_opt_commissions_base';
 		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
+
 
 
 		/**
@@ -128,11 +130,18 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'checkbox',
 				),
 				array(
+					'title'       => __( 'Upload files', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows vendors to upload files', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_CAPABILITIES_UPLOAD_FILES,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
+				),
+				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_caps_opt',
 				),
 
-				// Comi
+				// Commissions
 				array(
 					'title'       => __( 'Comissions', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Data about the money that vendors will receive from sales', 'marketplace-for-woocommerce' ),

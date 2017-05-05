@@ -44,7 +44,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
 			add_filter( 'manage_'.$this->id.'_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
-			add_action( 'restrict_manage_posts', array( $this, 'create_vendor_filter' ), 10, 2 );
+			add_action( 'restrict_manage_posts', array( $this, 'create_vendor_filter' ), 10 );
 			add_action( 'restrict_manage_posts', array( $this, 'create_status_filter' ), 10 );
 		}
 
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @param $post_type
 		 * @param $which
 		 */
-		public function create_vendor_filter( $post_type, $which ) {
+		public function create_vendor_filter( $post_type ) {
 			if ( $post_type != $this->id ) {
 				return;
 			}
