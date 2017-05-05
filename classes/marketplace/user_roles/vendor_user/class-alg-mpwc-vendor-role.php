@@ -67,7 +67,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
 
 				// Adds items in marketplace menu
-				add_filter( 'register_post_type_args', array( $this, 'add_items_in_marketplace_menu' ), 99, 2 );
+				add_filter( 'register_post_type_args', array( $this, 'add_items_in_marketplace_menu' ), 10, 2 );
 			}
 
 			// Limits the vendor user to see only his own posts, media, etc
@@ -97,11 +97,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @param $post_id
 		 */
 		public function add_items_in_marketplace_menu( $args, $post_type ) {
+			if ( !current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				return;
+			}
 			$commissions_cpt = new Alg_MPWC_CPT_Commission();
-			if ( $post_type == $commissions_cpt->id || $post_type == 'product' || $post_type == 'shop_order' ) {
-				if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
-					$args['show_in_menu'] = 'alg_mpwc_marketplace';
-				}
+			if ( $post_type == $commissions_cpt->id || $post_type == 'shop_order' ) {
+			//if ( $post_type == 'product') {
+				$args['show_in_menu'] = 'alg_mpwc_marketplace';
 			}
 
 			return $args;
