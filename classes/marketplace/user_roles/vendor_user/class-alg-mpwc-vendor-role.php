@@ -12,6 +12,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 	class Alg_MPWC_Vendor_Role {
 
 		const ROLE_VENDOR = 'alg_mpwc_vendor';
+		const ROLE_VENDOR_PENDING = 'alg_mpwc_vendor_pending';
+		const ROLE_VENDOR_REJECTED = 'alg_mpwc_vendor_rejected';
 
 		private static $user_caps = array(
 			"read"                      => true,
@@ -442,6 +444,29 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			}
 
 			add_role( self::ROLE_VENDOR, sanitize_text_field( $args['display_name'] ), $args['caps'] );
+
+			self::add_pending_rejected_vendor_roles($args);
+		}
+
+		/**
+		 * Creates the marketplace vendor roles for pending and rejected status
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public static function add_pending_rejected_vendor_roles($args){
+			if ( get_role( self::ROLE_VENDOR_PENDING ) ) {
+				remove_role( self::ROLE_VENDOR_PENDING);
+			}
+
+			if ( get_role( self::ROLE_VENDOR_REJECTED ) ) {
+				remove_role( self::ROLE_VENDOR_REJECTED);
+			}
+
+			$caps = array( 'read' => true );
+
+			add_role( self::ROLE_VENDOR_PENDING, sanitize_text_field( $args['display_name'] ).' ('.__('pending','marketplace-for-woocommerce').')', $caps );
+			add_role( self::ROLE_VENDOR_REJECTED, sanitize_text_field( $args['display_name'] ).' ('.__('rejected','marketplace-for-woocommerce').')', $caps );
 		}
 	}
 }

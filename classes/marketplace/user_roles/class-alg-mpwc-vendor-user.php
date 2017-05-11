@@ -30,6 +30,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 
 			// Setups the block vendor option
 			new Alg_MPWC_Vendor_Block_Option();
+
+			// Setups vendor registry
+			new Alg_MPWC_Vendor_Registry();
+
+			// Setups marketplace tab on my account page
+			//new Alg_MPWC_Vendor_Marketplace_Tab();
 		}
 
 		/**
