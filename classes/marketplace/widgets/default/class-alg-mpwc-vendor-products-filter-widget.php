@@ -40,6 +40,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 		 */
 		public function widget( $args, $instance ) {
 			echo $args['before_widget'];
+
+			$post_type = get_query_var( 'post_type' );
+			if ( ! $post_type || is_singular()) {
+				return;
+			}
+
 			if ( ! empty( $instance['title'] ) ) {
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 			}

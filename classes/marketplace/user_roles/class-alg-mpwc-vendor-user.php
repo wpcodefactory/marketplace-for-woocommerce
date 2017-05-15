@@ -35,7 +35,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			new Alg_MPWC_Vendor_Registry();
 
 			// Setups marketplace tab on my account page
-			//new Alg_MPWC_Vendor_Marketplace_Tab();
+			new Alg_MPWC_Vendor_Marketplace_Tab();
 		}
 
 		/**

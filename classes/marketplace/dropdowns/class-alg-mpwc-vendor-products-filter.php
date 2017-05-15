@@ -83,7 +83,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 				$return_str = is_array( $users_with_role ) && count( $users_with_role ) > 0 ? wp_dropdown_users( $args ) : '';
 			}
 
-
 			return $return_str;
 		}
 
