@@ -121,6 +121,8 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			$tax->set_args();
 			$tax->register();
 			$tax->create_initial_status();
+
+			flush_rewrite_rules();
 		}
 
 		/**

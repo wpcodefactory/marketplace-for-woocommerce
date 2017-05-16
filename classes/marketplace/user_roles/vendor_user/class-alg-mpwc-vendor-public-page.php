@@ -23,8 +23,49 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 				add_action( 'pre_get_posts', array( $this, 'pre_get_posts' ), 99 );
 				add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 				add_filter( 'document_title_parts', array( $this, 'document_title_parts' ) );
+				add_filter( 'body_class', array( $this, 'body_class' ) );
 			}
 			add_action( 'init', array( $this, 'rewrite_rules' ) );
+		}
+
+		/**
+		 * Changes body class.
+		 *
+		 * If is on public page and it has a paged param, removes home class
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 * @param $classes
+		 *
+		 * @return mixed
+		 */
+		public function body_class( $classes ) {
+
+			$paged = get_query_var( 'paged' );
+			if ( ! $paged ) {
+				return $classes;
+			}
+			$vendor = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
+			if ( $vendor ) {
+				$home = array_search( 'home', $classes );
+				if ( false !== $home ) {
+					unset( $classes[ $home ] );
+				}
+
+			}
+			return $classes;
+		}
+
+		/**
+		 * Gets the public page url
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public static function get_public_page_url( $user_id ) {
+			return add_query_arg( array(
+				Alg_MPWC_Query_Vars::VENDOR => $user_id,
+			), get_home_url() . '/' );
 		}
 
 		/**
@@ -57,7 +98,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			}
 
 			$title['tagline']     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL, 'Marketplace vendor' ) );
-			$title['vendor_name'] = $user->data->display_name;
+
+			$fields = new Alg_MPWC_Vendor_Admin_Fields();
+			$page_title = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_public_page_title, true ) );
+			$title['vendor_name'] = $page_title ? $page_title : $user->data->display_name;
 
 			return $title;
 		}
@@ -110,8 +154,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		public static function rewrite_rules() {
 			$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) );
 			add_rewrite_rule(
-				'^' . $vendor_slug . '/([^/]*)?$',
-				'index.php?' . Alg_MPWC_Query_Vars::VENDOR . '=$matches[1]',
+				'^' . $vendor_slug . '/([^/]*)(/page/([0-9]+)?)?/?$',
+				'index.php?' . Alg_MPWC_Query_Vars::VENDOR . '=$matches[1]&paged=$matches[3]',
 				'top'
 			);
 		}
@@ -124,19 +168,24 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		 */
 		public function pre_get_posts( $query ) {
 			$query->query['vendor_valid'] = false;
+			$vendor_qv = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
 
 			// Checks for alg_mpwc_vendor query var
-			if ( ! $query->query || ! isset( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
+			if ( ! $query->query || ! $vendor_qv ) {
+				return;
+			}
+
+			if(is_shop()){
 				return;
 			}
 
 			// Checks if there is only vendor_valid and query_vars_vendor on query
-			if ( count( $query->query ) > 2 ) {
+			/*if ( count( $query->query ) > 2 ) {
 				return;
-			}
+			}*/
 
 			// Gets the vendor slug
-			$vendor = sanitize_text_field( $query->query[ Alg_MPWC_Query_Vars::VENDOR ] );
+			$vendor = $vendor_qv;
 
 			// Gets user
 			if ( is_numeric( $vendor ) ) {
@@ -152,8 +201,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			}
 
 			$query = apply_filters( 'alg_mpwc_public_page_query', $query, $user->ID );
-
-			if($query->is_404){
+			if ( $query->is_404 ) {
 				return;
 			}
 
@@ -163,6 +211,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			// Adds WooCommerce products from vendor id on query
 			$query->set( 'post_type', 'product' );
 			$query->set( 'author', $user->ID );
+
+			//error_log(print_r($query,true));
 		}
 
 		/**

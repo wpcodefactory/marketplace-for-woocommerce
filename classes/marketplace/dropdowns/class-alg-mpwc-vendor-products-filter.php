@@ -97,10 +97,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 				jQuery(document).ready(function($){
 					if($('.alg-mpwc-vendor-products-filter').length){
 						$('.alg-mpwc-vendor-products-filter').change(function(){
-							var val = $(this).val();
-							if(val!='-1'){
-								$(this).parent().submit();
-							}
+							var val = $(this).val();							
+							$(this).parent().submit();							
 						});
 					}
 				});

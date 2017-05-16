@@ -42,7 +42,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 			echo $args['before_widget'];
 
 			$post_type = get_query_var( 'post_type' );
-			if ( ! $post_type || is_singular()) {
+			if ( ! $post_type || ! is_shop() ) {
 				return;
 			}
 

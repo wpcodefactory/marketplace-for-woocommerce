@@ -57,6 +57,7 @@ if ( ! class_exists( 'Alg_MPWC_Dashboard_Widgets' ) ) {
 			echo '<li>' . sprintf( __( "Edit your profile by clicking on your left menu <strong><a href='%s'>Profile</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'profile.php' ) ) . '</li>';
 			echo '<li>' . sprintf( __( "View your commissions through your left menu <strong><a href='%s'>Commissions</a></strong>", 'marketplace-for-woocommerce' ), admin_url( 'edit.php?post_type=alg_mpwc_commission' ) ) . '</li>';
 			echo '<li>' . sprintf( __( "Go to <strong><a href='%s'>My Account</a></strong> page on frontend <strong><a href='%1\$s'>clicking here</a></strong>", 'marketplace-for-woocommerce' ), get_permalink( get_option('woocommerce_myaccount_page_id') ) ) . '</li>';
+			echo '<li>' . sprintf( __( "See your <strong><a href='%s'>Public page</a></strong> on frontend", 'marketplace-for-woocommerce' ), Alg_MPWC_Vendor_Public_Page::get_public_page_url($user->ID) ) . '</li>';
 			echo '</ul>';
 		}
 
