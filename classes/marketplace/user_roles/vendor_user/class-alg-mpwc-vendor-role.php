@@ -27,17 +27,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			"assign_product_terms"      => true,
 			'level_0'                   => true,
 			'edit_alg_mpwc_commissions' => true,
-		);
-
-		private static $order_caps = array(
-			//"read_shop_orders"           => true,
-			"edit_shop_orders"        => true,
-			'edit_others_shop_orders' => true,
-			'read_shop_order'         => true
-			//"edit_published_shop_orders" => true,
-			//'edit_others_shop_orders'    =>true,
-			//"delete_shop_orders"         => true,
-			//'create_shop_orders'         => false,
+			"edit_shop_orders"          => false,
+			'edit_others_shop_orders'   => false,
+			'read_shop_order'           => false
 		);
 
 		/**
@@ -239,12 +231,16 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
 			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
 			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
+			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS ), FILTER_VALIDATE_BOOLEAN );
 
 			$args = array(
 				'display_name' => $vendor_label,
 				'caps'         => wp_parse_args( array(
-					'publish_products' => $caps_publish_products,
-					'upload_files'     => $caps_upload_files,
+					'publish_products'        => $caps_publish_products,
+					'upload_files'            => $caps_upload_files,
+					"edit_shop_orders"        => $view_orders,
+					'edit_others_shop_orders' => $view_orders,
+					'read_shop_order'         => $view_orders,
 				), self::$user_caps ),
 			);
 
@@ -437,8 +433,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				'caps'         => self::$user_caps,
 				'display_name' => __( 'Marketplace vendor', 'marketplace-for-woocommerce' ),
 			) );
-
-			$args['caps'] = array_merge( $args['caps'], self::$order_caps );
 
 			if ( get_role( self::ROLE_VENDOR ) ) {
 				remove_role( self::ROLE_VENDOR );

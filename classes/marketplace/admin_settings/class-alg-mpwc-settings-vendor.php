@@ -17,9 +17,9 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
 		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
-		const OPTION_PUBLIC_PAGE_TEMPLATE           = 'alg_mpwc_opt_public_page_template';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
 		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
+		const OPTION_CAPABILITIES_VIEW_ORDERS       = 'alg_mpwc_opt_vendor_caps_view_orders';
 		const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
 		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
@@ -97,19 +97,6 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'placeholder' => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'type'        => 'text',
 				),
-				/*array(
-					'title'       => __( 'Page template', 'marketplace-for-woocommerce' ),
-					'desc'        => __( "Template used to display the vendor's public page.", 'marketplace-for-woocommerce' ).'<br />'.sprintf( __( 'You can override it following this <a target="_blank" href="%s">WooCommerce guide</a>', 'marketplace-for-woocommerce' ), 'https://docs.woocommerce.com/document/template-structure/' ),
-					'desc_tip'    => __( 'Some templates are from WooCommerce itself. Others are from the Marketplace plugin.', 'marketplace-for-woocommerce' ).'<br /><br />'.__( 'If you intend to override some from Marketplace, you can copy them from from the plugin templates folder and paste in your theme/woocommerce/ folder.', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_PUBLIC_PAGE_TEMPLATE,
-					'default'     => 'archive-product.php',
-					'options'     => array(
-						'marketplace-vendor-profile.php' => 'marketplace-vendor-profile.php (Marketplace)',
-						'archive-product.php' => 'archive-product.php (WooCommerce)'
-					),
-					'type'        => 'select',
-					'class'       => 'chosen_select'
-				),*/
 				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_pp_opt',
@@ -134,6 +121,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'desc'        => __( 'Allows vendors to upload files', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_CAPABILITIES_UPLOAD_FILES,
 					'default'     => 'yes',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'View orders', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows vendors to view orders', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_CAPABILITIES_VIEW_ORDERS,
+					'default'     => 'no',
 					'type'        => 'checkbox',
 				),
 				array(
