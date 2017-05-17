@@ -15,7 +15,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 
 		// User metas
 		public $meta_description = '_alg_mpwc_description';
-		public $meta_public_page_title = '_alg_mpwc_public_page_title';
+		public $meta_store_title = '_alg_mpwc_store_title';
 		public $meta_address = '_alg_mpwc_address';
 		public $meta_city = '_alg_mpwc_city';
 		public $meta_state = '_alg_mpwc_state';
@@ -172,8 +172,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			) );
 
 			$cmb_user->add_field( array(
-				'name'     => __( 'Public page title', 'marketplace-for-woocommerce' ),
-				'id'       => $this->meta_public_page_title,
+				'name'     => __( "Store's name", 'marketplace-for-woocommerce' ),
+				'id'       => $this->meta_store_title,
 				'type'     => 'text',
 				'on_front' => false,
 			) );

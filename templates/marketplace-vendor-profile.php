@@ -39,7 +39,7 @@ get_header(); ?>
                 <?php } ?>
 
                 <?php // Title ?>
-                <?php $title = sanitize_text_field( get_user_meta( $vendor->ID, $fields->meta_public_page_title, true ) ); ?>
+                <?php $title = sanitize_text_field( get_user_meta( $vendor->ID, $fields->meta_store_title, true ) ); ?>
                 <h1 style="display:inline"><?php echo $title ? esc_html( $title ) : esc_html( $vendor->data->display_name ); ?></h1>
 
                 <?php // Description ?>

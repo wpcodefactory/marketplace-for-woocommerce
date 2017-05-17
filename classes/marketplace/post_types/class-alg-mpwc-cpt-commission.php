@@ -140,7 +140,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		protected function get_values_from_admin() {
-			$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMISSIONS_BASE ) );
+			$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
 			$this->comission_value    = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE_VALUE ) );
 			$this->automatic_creation = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION ) );
 		}

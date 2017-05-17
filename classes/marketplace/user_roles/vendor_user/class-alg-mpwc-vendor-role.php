@@ -151,6 +151,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 */
 		public function add_query_vars( $vars ) {
 			$vars[] = Alg_MPWC_Query_Vars::VENDOR;
+			$vars[] = Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE;
 			return $vars;
 		}
 

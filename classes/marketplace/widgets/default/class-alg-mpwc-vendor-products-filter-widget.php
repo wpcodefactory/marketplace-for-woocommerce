@@ -42,7 +42,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 			echo $args['before_widget'];
 
 			$post_type = get_query_var( 'post_type' );
-			if ( ! $post_type || ! is_shop() ) {
+			$is_public_page               = filter_var( get_query_var( Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE ), FILTER_VALIDATE_BOOLEAN );
+
+			if ( ! $post_type || ! is_shop() || $is_public_page) {
 				return;
 			}
 

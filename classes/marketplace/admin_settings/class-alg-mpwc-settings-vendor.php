@@ -20,7 +20,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_PUBLIC_PAGE_TEMPLATE           = 'alg_mpwc_opt_public_page_template';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
 		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
-		const OPTION_COMISSIONS_BASE                = 'alg_mpwc_opt_commissions_base';
+		const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
 		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
 
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'title'       => __( 'Vendors options', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
-					'desc'        => __( 'General options regardind vendors', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'General options regarding vendors', 'marketplace-for-woocommerce' ),
 					'id'          => 'alg_mpwc_vendors_opt',
 				),
 				array(
@@ -97,9 +97,9 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'placeholder' => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'type'        => 'text',
 				),
-				array(
+				/*array(
 					'title'       => __( 'Page template', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Template used to display the vendor public page.', 'marketplace-for-woocommerce' ).'<br />'.sprintf( __( 'You can override it following this <a target="_blank" href="%s">WooCommerce guide</a>', 'marketplace-for-woocommerce' ), 'https://docs.woocommerce.com/document/template-structure/' ),
+					'desc'        => __( "Template used to display the vendor's public page.", 'marketplace-for-woocommerce' ).'<br />'.sprintf( __( 'You can override it following this <a target="_blank" href="%s">WooCommerce guide</a>', 'marketplace-for-woocommerce' ), 'https://docs.woocommerce.com/document/template-structure/' ),
 					'desc_tip'    => __( 'Some templates are from WooCommerce itself. Others are from the Marketplace plugin.', 'marketplace-for-woocommerce' ).'<br /><br />'.__( 'If you intend to override some from Marketplace, you can copy them from from the plugin templates folder and paste in your theme/woocommerce/ folder.', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_PUBLIC_PAGE_TEMPLATE,
 					'default'     => 'archive-product.php',
@@ -109,7 +109,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					),
 					'type'        => 'select',
 					'class'       => 'chosen_select'
-				),
+				),*/
 				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_pp_opt',
@@ -143,15 +143,15 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 				// Commissions
 				array(
-					'title'       => __( 'Comissions', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Data about the money that vendors will receive from sales', 'marketplace-for-woocommerce' ),
+					'title'       => __( 'Commissions', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Money that need to be transferred to vendors after a sale is made', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_comissions_opt',
 				),
 				array(
 					'title'       => __( 'Base', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'How vendors will receive their comissions for sales', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMISSIONS_BASE,
+					'desc'        => __( 'How vendors will receive their commissions for sales', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_BASE,
 					'default'     => 'percentage',
 					'options'     => array(
 						'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
@@ -169,7 +169,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				),
 				array(
 					'title'       => __( 'Automatic creation', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'The moment comissions are created', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'The moment commissions are created', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_AUTOMATIC_CREATION,
 					'default'     => 'order_complete',
 					'options'     => array( 'none'=>'Do not create automatically','order_complete' => 'On order complete', 'order_processing' => 'On order processing' ),
