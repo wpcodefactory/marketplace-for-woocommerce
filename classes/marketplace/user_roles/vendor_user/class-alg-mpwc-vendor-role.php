@@ -78,6 +78,38 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			// Manages the order view
 			new Alg_MPWC_Vendor_Order_View();
+
+			// Manages media deleting
+			add_filter( 'user_has_cap', array( $this, 'manages_media_deleting' ), 10, 3 );
+		}
+
+		/**
+		 * Manages media deleting
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $post_id
+		 */
+		function manages_media_deleting( $user_caps, $req_cap, $args ) {
+
+			// if no post is connected with capabilities check just return original array
+			if ( empty($args[2]) )
+				return $user_caps;
+
+			$post = get_post( $args[2] );
+
+			if ( $post ) {
+				if ( 'attachment' == $post->post_type ) {
+					if ( isset( $req_cap[0] ) ) {
+						$user_caps[ $req_cap[0] ] = true;
+						return $user_caps;
+					}
+				}
+			}
+
+			// for any other post type return original capabilities
+			return $user_caps;
 		}
 
 		/**
@@ -89,12 +121,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @param $post_id
 		 */
 		public function add_items_in_marketplace_menu( $args, $post_type ) {
-			if ( !current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+			if ( ! current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
 				return $args;
 			}
 			$commissions_cpt = new Alg_MPWC_CPT_Commission();
 			if ( $post_type == $commissions_cpt->id || $post_type == 'shop_order' ) {
-			//if ( $post_type == 'product') {
 				$args['show_in_menu'] = 'alg_mpwc_marketplace';
 			}
 
