@@ -46,6 +46,84 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_filter( 'manage_'.$this->id.'_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
 			add_action( 'restrict_manage_posts', array( $this, 'create_vendor_filter' ), 10 );
 			add_action( 'restrict_manage_posts', array( $this, 'create_status_filter' ), 10 );
+
+			// Bulk actions
+			add_filter( "bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_create' ) );
+			add_filter( "handle_bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_handle' ), 10, 3 );
+			add_action( 'admin_notices', array( $this, 'notify_about_bulk_action' ) );
+		}
+
+		/**
+		 * Notifies the user about the bulk actions results
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function notify_about_bulk_action() {
+			if ( ! empty( $_REQUEST['alg_mpwc_commissions_paid'] ) ) {
+				$count = intval( $_REQUEST['alg_mpwc_commissions_paid'] );
+				printf( '<div id="message" class="notice notice-success is-dismissible"><p>' .
+				        _n( 'Set %s commission as paid.',
+					        'Set %s commissions as paid.',
+					        $count,
+					        'marketplace-for-woocommerce'
+				        ) . '</p></div>', $count );
+			}
+
+			if ( ! empty( $_REQUEST['alg_mpwc_commissions_unpaid'] ) ) {
+				$count = intval( $_REQUEST['alg_mpwc_commissions_unpaid'] );
+				printf( '<div id="message" class="notice notice-success is-dismissible"><p>' .
+				        _n( 'Set %s commission as unpaid.',
+					        'Set %s commissions as unpaid.',
+					        $count,
+					        'marketplace-for-woocommerce'
+				        ) . '</p></div>', $count );
+			}
+		}
+
+		/**
+		 * Handle the bulk actions.
+		 *
+		 * Sets all selected commissions as paid or unpaid
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		function bulk_actions_handle( $redirect_to, $doaction, $post_ids ) {
+			$status_tax = new Alg_MPWC_Commission_Status_Tax();
+
+			if ( $doaction == 'alg_mpwc_set_selected_to_paid' ) {
+				$term = get_term_by( 'slug', 'paid', $status_tax->id );
+				if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
+					$redirect_to = add_query_arg( 'alg_mpwc_commissions_paid', count( $post_ids ), $redirect_to );
+				}
+			} else if ( $doaction == 'alg_mpwc_set_selected_to_unpaid' ) {
+				$term = get_term_by( 'slug', 'unpaid', $status_tax->id );
+				if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
+					$redirect_to = add_query_arg( 'alg_mpwc_commissions_unpaid', count( $post_ids ), $redirect_to );
+				}
+
+			} else {
+				return $redirect_to;
+			}
+
+			foreach ( $post_ids as $post_id ) {
+				wp_set_object_terms( $post_id, $term->term_id, $status_tax->id );
+			}
+
+			return $redirect_to;
+		}
+
+		/**
+		 * Creates two more bulk actions labels on bulk actions dropdown
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function bulk_actions_create( $bulk_actions ) {
+			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set selected commissions as paid', 'marketplace-for-woocommerce' ).' ';
+			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set selected commissions as unpaid', 'marketplace-for-woocommerce' ).' &nbsp;';
+			return $bulk_actions;
 		}
 
 		/**
