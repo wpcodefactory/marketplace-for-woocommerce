@@ -27,6 +27,9 @@ Let users sell on your store
 
 == Frequently Asked Questions ==
 
+= Where are the plugin's settings? =
+Visit WooCommerce > Settings > Marketplace.
+
 = Are there any widgets available? =
 **Vendor products filter** - Filters Marketplace vendor products. It is only displayed on shop page
 
@@ -40,7 +43,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 1. Upload the entire 'marketplace-for-woocommerce' folder to the '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Start by visiting plugin settings at WooCommerce > Settings > Wish List.
+3. Start by visiting plugin settings at WooCommerce > Settings > Marketplace.
 
 == Screenshots ==
 
