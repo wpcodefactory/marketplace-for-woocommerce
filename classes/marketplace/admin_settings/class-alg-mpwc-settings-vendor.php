@@ -47,12 +47,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		 * @return string
 		 */
 		function get_profile_page_url_ex() {
-			$user     = wp_get_current_user();
-			$nicename = isset($user->data->user_login) ? $user->data->user_login : '';
-			if ( property_exists( $user->data, 'user_nicename' ) ) {
-				$nicename = $user->data->user_nicename;
-			}
-			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/' . $nicename . '</strong>';
+			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/vendor-user-name</strong>';
 		}
 
 		/**

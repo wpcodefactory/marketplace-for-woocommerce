@@ -125,6 +125,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		public static function get_public_page_url( $user_id ) {
 			return add_query_arg( array(
 				Alg_MPWC_Query_Vars::VENDOR => $user_id,
+				Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE => '1',
+				'post_type'=>'product'
 			), get_home_url() . '/' );
 		}
 
@@ -180,9 +182,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 				return;
 			}
 
+			/*
 			if ( is_shop() ) {
 				return;
 			}
+			*/
 
 			$vendor_from_query_string = sanitize_text_field( $wp_query->get( Alg_MPWC_Query_Vars::VENDOR ) );
 
