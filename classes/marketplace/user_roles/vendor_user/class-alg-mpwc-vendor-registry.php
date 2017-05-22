@@ -64,7 +64,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
             <div style="margin-bottom:35px;">
                 <label class="woocommerce-form__label woocommerce-form__label-for-checkbox">
                     <input class="woocommerce-form__input woocommerce-form__input-checkbox inline" name="alg_mpwc_apply_for_vendor" type="checkbox" id="alg_mpwc_apply_for_vendor"/>
-                    <span><?php _e( 'Apply for becoming a vendor', 'marketplace-for-woocommerce' ); ?></span>
+                    <span><?php echo esc_html( sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_CHECKBOX_TEXT ) ) ); ?></span>
                 </label>
             </div>
 

@@ -94,6 +94,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'checkbox',
 				),
 				array(
+					'title'       => __( 'Checkbox text', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'The text displayed to users that want to become vendors', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_REGISTRY_CHECKBOX_TEXT,
+					'default'     => __('Apply for becoming a vendor', 'marketplace-for-woocommerce' ),
+					'class'       => 'regular-input',
+					'type'        => 'text',
+				),
+				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_registry_opt',
 				),
