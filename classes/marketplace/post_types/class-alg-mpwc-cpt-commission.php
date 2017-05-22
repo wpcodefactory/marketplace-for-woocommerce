@@ -121,6 +121,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		public function bulk_actions_create( $bulk_actions ) {
+			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				return $bulk_actions;
+			}
 			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set selected commissions as paid', 'marketplace-for-woocommerce' ).' ';
 			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set selected commissions as unpaid', 'marketplace-for-woocommerce' ).' &nbsp;';
 			return $bulk_actions;
