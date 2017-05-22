@@ -23,6 +23,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
 		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
+		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
+		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
 
 
 
@@ -75,6 +77,25 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_opt',
+				),
+
+				// Commissions
+				array(
+					'title'       => __( 'Registry', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Options regarding vendors registry', 'marketplace-for-woocommerce' ),
+					'type'        => 'title',
+					'id'          => 'alg_mpwc_registry_opt',
+				),
+				array(
+					'title'       => __( 'Automatic approval', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows users to be automatically approved as vendors on registry, bypassing the pending status', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_REGISTRY_AUTOMATIC_APPROVAL,
+					'default'     => 'no',
+					'type'        => 'checkbox',
+				),
+				array(
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_registry_opt',
 				),
 
 				// Public page

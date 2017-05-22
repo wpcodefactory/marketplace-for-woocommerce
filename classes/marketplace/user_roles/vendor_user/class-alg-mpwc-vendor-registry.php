@@ -39,9 +39,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
                 return;
 			}
 
+			$automatic_approval = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_AUTOMATIC_APPROVAL ), FILTER_VALIDATE_BOOLEAN );
+
 			wp_update_user( array(
-				'ID'       => $user_id,
-				'role' => Alg_MPWC_Vendor_Role::ROLE_VENDOR_PENDING,
+				'ID'   => $user_id,
+				'role' => $automatic_approval ? Alg_MPWC_Vendor_Role::ROLE_VENDOR : Alg_MPWC_Vendor_Role::ROLE_VENDOR_PENDING,
 			) );
 		}
 
