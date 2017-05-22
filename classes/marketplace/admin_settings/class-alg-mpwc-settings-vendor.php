@@ -17,7 +17,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
 		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
-		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_posts';
+		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_products';
+		const OPTION_CAPABILITIES_DELETE_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_delete_products';
 		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
 		const OPTION_CAPABILITIES_VIEW_ORDERS       = 'alg_mpwc_opt_vendor_caps_view_orders';
 		const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
@@ -137,6 +138,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'title'       => __( 'Publish products', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Allows vendors to publish products automatically, bypassing the pending status', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_CAPABILITIES_PUBLISH_PRODUCTS,
+					'default'     => 'no',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'Delete products', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows vendors to delete products', 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( 'Be careful with possible 404 pages', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_CAPABILITIES_DELETE_PRODUCTS,
 					'default'     => 'no',
 					'type'        => 'checkbox',
 				),

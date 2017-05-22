@@ -263,15 +263,19 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
 			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
 			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS ), FILTER_VALIDATE_BOOLEAN );
+			$delete_products       = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_DELETE_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
 
 			$args = array(
 				'display_name' => $vendor_label,
 				'caps'         => wp_parse_args( array(
-					'publish_products'        => $caps_publish_products,
-					'upload_files'            => $caps_upload_files,
-					"edit_shop_orders"        => $view_orders,
-					'edit_others_shop_orders' => $view_orders,
-					'read_shop_order'         => $view_orders,
+					'publish_products'          => $caps_publish_products,
+					'upload_files'              => $caps_upload_files,
+					"edit_shop_orders"          => $view_orders,
+					'edit_others_shop_orders'   => $view_orders,
+					'read_shop_order'           => $view_orders,
+					'delete_products'           => $delete_products,
+					'delete_product'            => $delete_products,
+					'delete_published_products' => $delete_products,
 				), self::$user_caps ),
 			);
 
