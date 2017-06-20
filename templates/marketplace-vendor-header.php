@@ -1,3 +1,13 @@
+<?php
+/**
+ * Header of a vendor public page
+ *
+ * @author  Algoritmika Ltd.
+ * @version 1.0.0
+ * @since   1.0.0
+ */
+?>
+
 <?php // User fields ?>
 <?php $fields = new Alg_MPWC_Vendor_Admin_Fields(); ?>
 

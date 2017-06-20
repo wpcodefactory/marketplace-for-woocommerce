@@ -116,7 +116,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				),
 				array(
 					'title'       => __( 'Page slug', 'marketplace-for-woocommerce' ),
-					'desc'        => sprintf( __( 'Slug for the public page of the vendor. E.g: %s', 'marketplace-for-woocommerce' ), $this->get_profile_page_url_ex() ).'<br />'. '<span style="color:#999">'.sprintf(__( 'If it does not work on the first attempt, please go to <a href="%s">Permalink Settings </a> and save changes', 'marketplace-for-woocommerce' ), admin_url('options-permalink.php') ).'</span>',
+					'desc'        => sprintf( __( 'Slug for the vendor public page. E.g: %s', 'marketplace-for-woocommerce' ), $this->get_profile_page_url_ex() ).'<br />'. '<span style="color:#999">'.sprintf(__( 'If it does not work on the first attempt, please go to <a href="%s">Permalink Settings </a> and save changes', 'marketplace-for-woocommerce' ), admin_url('options-permalink.php') ).'</span>',
 					'id'          => self::OPTION_PUBLIC_PAGE_SLUG,
 					'default'     => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'placeholder' => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),

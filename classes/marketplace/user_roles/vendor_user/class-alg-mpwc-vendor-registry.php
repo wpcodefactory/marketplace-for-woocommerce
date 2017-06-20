@@ -11,6 +11,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 
 	class Alg_MPWC_Vendor_Registry {
 
+	    public static $user_registered=false;
+	    public static $user_registered_args=array();
+
 		/**
 		 * Constructor
 		 *
@@ -22,6 +25,19 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 			add_action( 'woocommerce_edit_account_form', array( $this, 'add_apply_for_checkbox' ), 10 );
 			add_action( 'woocommerce_created_customer', array( $this, 'change_user_role_to_vendor' ), 10 );
 			add_action( 'woocommerce_save_account_details', array( $this, 'change_user_role_to_vendor' ), 10 );
+			add_action( 'shutdown', array( $this, 'trigger_vendor_registration' ), 10, 1 );
+		}
+
+		/**
+		 * Trigger vendor registration hook
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function trigger_vendor_registration() {
+			if ( self::$user_registered ) {
+				do_action( 'alg_mpwc_new_vendor_registration', self::$user_registered_args['user_id'], self::$user_registered_args['role'], self::$user_registered_args['automatic_approval'] );
+			}
 		}
 
 		/**
@@ -41,10 +57,18 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 
 			$automatic_approval = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_AUTOMATIC_APPROVAL ), FILTER_VALIDATE_BOOLEAN );
 
+			$role = $automatic_approval ? Alg_MPWC_Vendor_Role::ROLE_VENDOR : Alg_MPWC_Vendor_Role::ROLE_VENDOR_PENDING;
 			wp_update_user( array(
 				'ID'   => $user_id,
-				'role' => $automatic_approval ? Alg_MPWC_Vendor_Role::ROLE_VENDOR : Alg_MPWC_Vendor_Role::ROLE_VENDOR_PENDING,
+				'role' => $role
 			) );
+
+			self::$user_registered=true;
+			self::$user_registered_args = array(
+				'user_id'            => $user_id,
+				'role'               => $role,
+				'automatic_approval' => $automatic_approval,
+			);
 		}
 
 		/**

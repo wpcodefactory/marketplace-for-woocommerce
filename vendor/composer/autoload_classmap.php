@@ -27,6 +27,7 @@ return array(
     'Alg_MPWC_Vendor_Products_Filter' => $baseDir . '/classes/marketplace/dropdowns/class-alg-mpwc-vendor-products-filter.php',
     'Alg_MPWC_Vendor_Products_Filter_Widget' => $baseDir . '/classes/marketplace/widgets/default/class-alg-mpwc-vendor-products-filter-widget.php',
     'Alg_MPWC_Vendor_Public_Page' => $baseDir . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-public-page.php',
+    'Alg_MPWC_Vendor_Registration_Email' => $baseDir . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-registration-email.php',
     'Alg_MPWC_Vendor_Registry' => $baseDir . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-registry.php',
     'Alg_MPWC_Vendor_Role' => $baseDir . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php',
     'Alg_MPWC_Vendor_User' => $baseDir . '/classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php',

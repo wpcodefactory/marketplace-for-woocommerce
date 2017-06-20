@@ -18,6 +18,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		 * @since   1.0.0
 		 */
 		function __construct() {
+
 			// Manages the public page of the vendor user
 			new Alg_MPWC_Vendor_Public_Page();
 
@@ -40,6 +41,20 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			// Adds info on product about the vendor
 			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display_product_author' ), 9 );
 			add_filter( 'woocommerce_product_tabs', array( $this, 'add_tab_on_product' ) );
+
+			// Add pending vendor email class
+			add_filter( 'woocommerce_email_classes', array( $this, 'add_pending_vendor_email' ) );
+		}
+
+		/**
+		 * Adds pending vendor email class
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function add_pending_vendor_email( $email_classes ) {
+			$email_classes['WC_Vendor_Registration_Email'] = new Alg_MPWC_Vendor_Registration_Email();
+			return $email_classes;
 		}
 
 		/**

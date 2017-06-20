@@ -47,6 +47,7 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
         'Alg_MPWC_Vendor_Products_Filter' => __DIR__ . '/../..' . '/classes/marketplace/dropdowns/class-alg-mpwc-vendor-products-filter.php',
         'Alg_MPWC_Vendor_Products_Filter_Widget' => __DIR__ . '/../..' . '/classes/marketplace/widgets/default/class-alg-mpwc-vendor-products-filter-widget.php',
         'Alg_MPWC_Vendor_Public_Page' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-public-page.php',
+        'Alg_MPWC_Vendor_Registration_Email' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-registration-email.php',
         'Alg_MPWC_Vendor_Registry' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-registry.php',
         'Alg_MPWC_Vendor_Role' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php',
         'Alg_MPWC_Vendor_User' => __DIR__ . '/../..' . '/classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php',

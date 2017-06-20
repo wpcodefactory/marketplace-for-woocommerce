@@ -112,8 +112,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 				return;
 			}
 
-			$template = Alg_MPWC_Core::get_template( 'marketplace-vendor-header.php' );
-			include $template;
+			wc_get_template( 'marketplace-vendor-header.php' );
 		}
 
 		/**

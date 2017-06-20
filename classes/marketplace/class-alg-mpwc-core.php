@@ -67,10 +67,46 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
 			add_action( 'init', array( $this, 'manage_post_types' ), 3 );
 			add_action( 'init', array( $this, 'manage_taxonomies' ), 0 );
+			add_filter( 'woocommerce_locate_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
+			add_filter( 'woocommerce_locate_core_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
+
 		}
 
 		/**
-		 * Create taxonomies
+		 * Override woocommerce locate template
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $template
+		 * @param $template_name
+		 * @param $template_path
+		 *
+		 * @return string
+		 */
+		public function woocommerce_locate_template( $template, $template_name, $template_path ) {
+			if ( strpos( $template_name, 'marketplace' ) !== false ) {
+
+				$template_path = 'woocommerce';
+				$marketplace   = alg_marketplace_for_wc();
+				$default_path  = $marketplace->dir . 'templates' . DIRECTORY_SEPARATOR;
+				$template      = locate_template(
+					array(
+						trailingslashit( $template_path ) . $template_name,
+						$template_name,
+					)
+				);
+
+				// Get default template/
+				if ( ! $template || WC_TEMPLATE_DEBUG_MODE ) {
+					$template = $default_path . $template_name;
+				}
+			}
+			return $template;
+		}
+
+		/**
+		 * Creates taxonomies
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -82,7 +118,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		}
 
 		/**
-		 * Create custom post types
+		 * Creates custom post types
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -94,7 +130,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		}
 
 		/**
-		 * Create dashboard widgets
+		 * Creates dashboard widgets
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -131,7 +167,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public static function get_template( $template_name = '', $default_path = '', $template_path = 'woocommerce' ) {
+		/*public static function get_template( $template_name = '', $default_path = '', $template_path = 'woocommerce' ) {
 			if ( ! $default_path ) {
 				if ( strpos( $template_name, 'marketplace' ) !== false ) {
 					$marketplace  = alg_marketplace_for_wc();
@@ -139,7 +175,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 				}
 			}
 			return wc_locate_template( $template_name, $template_path, $default_path );
-		}
+		}*/
 
 	}
 }
