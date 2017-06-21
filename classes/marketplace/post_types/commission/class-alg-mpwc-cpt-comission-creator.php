@@ -32,21 +32,16 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 		 * @since   1.0.0
 		 */
 		public function handle_automatic_creation() {
-			$comission_creator = new Alg_MPWC_CPT_Commission_Creator();
+			$comission_creator           = new Alg_MPWC_CPT_Commission_Creator();
+			$commissions_creation_status = $this->commission_manager->automatic_creation;
+			if ( is_array( $commissions_creation_status ) ) {
+				foreach ( $commissions_creation_status as $order_status ) {
+					$status = str_replace( 'wc-', '', $order_status );
+					$action = "woocommerce_order_status_{$status}";
 
-			$commissions_creation = $this->commission_manager->automatic_creation;
-			if ( ! empty( $commissions_creation ) && $commissions_creation != 'none' ) {
-				$action = '';
-				switch ( $commissions_creation ) {
-					case 'order_complete':
-						$action = 'woocommerce_order_status_completed';
-					break;
-					case 'order_processing':
-						$action = 'woocommerce_order_status_processing';
-					break;
-				}
-				if ( ! has_action( $action, array( $this, 'create_commission_automatically' ) ) ) {
-					add_action( $action, array( $this, 'create_commission_automatically' ), 10 );
+					if ( ! has_action( $action, array( $this, 'create_commission_automatically' ) ) ) {
+						add_action( $action, array( $this, 'create_commission_automatically' ), 10 );
+					}
 				}
 			}
 		}
@@ -160,6 +155,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 						$status_tax->id => array( $status_unpaid_term->term_id ),
 					),
 				) );
+
+				// Associate related commissions to main order
+				add_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_RELATED_COMISSIONS, $insert_post_response );
 			}
 
 			update_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true );

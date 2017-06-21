@@ -178,18 +178,6 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_comissions_opt',
 				),
-				/*array(
-					'title'       => __( 'Base', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'How vendors will receive their commissions for sales', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_BASE,
-					'default'     => 'percentage',
-					'options'     => array(
-						'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
-						'fixed_value' =>sprintf(  __( 'By fixed value (in %s)', 'marketplace-for-woocommerce' ), '<strong>'.get_woocommerce_currency().'</strong>'),
-					),
-					'type'        => 'select',
-					'class'       =>'chosen_select'
-				),*/
 				array(
 					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Fixed value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
@@ -205,12 +193,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'number',
 				),
 				array(
-					'title'       => __( 'Automatic creation', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'The moment commissions are created', 'marketplace-for-woocommerce' ),
+					'title'       => __( 'Creation status', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'When orders change to one of these status, correspondent commissions will be automatically created', 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( 'Note 1: Leave it empty if you do not want to create commissions automatically', 'marketplace-for-woocommerce' ) . '<br /><br />' . __( 'Note 2: If you select 2 or more status, commissions will not be created twice, no worries.', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_AUTOMATIC_CREATION,
-					'default'     => 'order_complete',
-					'options'     => array( 'none'=>'Do not create automatically','order_complete' => 'On order complete', 'order_processing' => 'On order processing' ),
-					'type'        => 'select',
+					'default'     => array('wc-completed'),
+					'options'     => wc_get_order_statuses(),
+					'type'        => 'multiselect',
 					'class'       => 'chosen_select'
 				),
 				array(

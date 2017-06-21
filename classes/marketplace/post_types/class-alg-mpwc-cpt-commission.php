@@ -30,7 +30,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		public $commission_percentage_value = '';
 
 		// Automatic creation option from admin
-		public $automatic_creation = 'order_complete';
+		public $automatic_creation = array();
 
 		/**
 		 * Setups the post type
@@ -225,7 +225,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			//$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
 			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_FIXED_VALUE ) );
 			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
-			$this->automatic_creation          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION ) );
+			$this->automatic_creation          = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION );
 		}
 
 		/**
