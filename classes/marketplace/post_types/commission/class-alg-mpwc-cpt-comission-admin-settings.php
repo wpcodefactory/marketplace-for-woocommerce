@@ -52,7 +52,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 *
 		 * @return mixed
 		 */
-		public function get_total_value_in_edit_columns($defaults){
+		public function get_total_value_in_edit_columns( $defaults ) {
 			global $wp_query;
 
 			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', false );
@@ -61,23 +61,23 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				return $defaults;
 			}
 
-			$args = $wp_query->query_vars;
-			$args['nopaging']=true;
-			$the_query = new WP_Query( $args );
+			$args             = $wp_query->query_vars;
+			$args['nopaging'] = true;
+			$the_query        = new WP_Query( $args );
 
 			// The Loop
 			if ( $the_query->have_posts() ) {
 				$total_value = 0;
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$total_value += get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_VALUE, true );
+					$total_value += get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, true );
 				}
 
 				/* Restore original Post Data */
 				wp_reset_postdata();
 
-				$total_value                                       = '<strong>' . wc_price( $total_value ) . '</strong>';
-				$defaults[ Alg_MPWC_Post_Metas::COMMISSION_VALUE ] = "Value ({$total_value})";
+				$total_value                                             = '<strong>' . wc_price( $total_value ) . '</strong>';
+				$defaults[ Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE ] = "Value ({$total_value})";
 			}
 			return $defaults;
 		}
@@ -161,45 +161,61 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			) );
 
 			$cmb_demo->add_field( array(
+				'name'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency() . ')',
+				'desc'       => __( 'Fixed value settled when this commission was created', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'id'         => Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE,
+				'type'       => 'text',
+				'attributes' => array(
+					'step'     => '0.001',
+					'type'     => 'number',
+					'style'    => 'width: 99%',
+					//'readonly' => true,
+				),
+			) );
+
+			$cmb_demo->add_field( array(
+				'name'       => __( 'Percentage', 'marketplace-for-woocommerce' ) . ' (%)',
+				'desc'       => __( 'Percentage settled when this commission was created', 'marketplace-for-woocommerce' ) . ' (%)',
+				'id'         => Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE,
+				'type'       => 'text',
+				'attributes' => array(
+					'step'     => '0.001',
+					'type'     => 'number',
+					'style'    => 'width: 99%',
+					//'readonly' => true,
+				),
+			) );
+
+			$cmb_demo->add_field( array(
 				'name'       => __( 'Value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency() . ')',
-				'desc'       => __( 'Commission value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
-				'id'         => Alg_MPWC_Post_Metas::COMMISSION_VALUE,
+				'desc'       => __( 'Final commission value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'id'         => Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE,
 				'type'       => 'text',
 				'attributes' => array(
 					'step'  => '0.001',
 					'type'  => 'number',
 					'style' => 'width: 99%',
 				),
-				'column'    => array( 'position' => 3),
+				'column'     => array( 'position' => 3 ),
 				'display_cb' => array( $this, 'display_commission_value_column' ),
 			) );
 
 			$cmb_demo->add_field( array(
-				'name'       => __( 'Base', 'marketplace-for-woocommerce' ),
-				'desc'       => __( 'The base that was commonly agreed between the vendor and the admin when the sale was made', 'marketplace-for-woocommerce' ),
-				'id'         => Alg_MPWC_Post_Metas::COMMISSION_BASE,
-				'type'       => 'pw_select',
-				'options'    => array(
-					'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
-					'fixed_value' => sprintf( __( 'By fixed value (in %s)', 'marketplace-for-woocommerce' ), '<strong>' . get_woocommerce_currency() . '</strong>' ),
+				'name'          => __( 'Deal', 'marketplace-for-woocommerce' ),
+				'desc'          => __( 'Combination of fixed value / percentage settled when this commission was created', 'marketplace-for-woocommerce' ) . ' (%)',
+				'id'            => Alg_MPWC_Post_Metas::COMMISSION_DEAL,
+				'type'          => 'text',
+				//'escape_cb'   => false,
+				'save_fields'   => false,
+				'render_row_cb' => false,
+				'attributes'    => array(
+					'step'     => '0.001',
+					'type'     => 'number',
+					'style'    => 'width: 99%',
+					'readonly' => true,
 				),
-				'attributes' => array(
-					'style' => 'width: 99%',
-				),
-			) );
-
-			$cmb_demo->add_field( array(
-				'name'       => __( 'Base value', 'marketplace-for-woocommerce' ),
-				'desc'       => __( 'The value that was commonly agreed between the vendor and the admin when the sale was made', 'marketplace-for-woocommerce' ),
-				'id'         => Alg_MPWC_Post_Metas::COMMISSION_ORIGINAL_VALUE,
-				'type'       => 'text',
-				'attributes' => array(
-					'step'  => '0.001',
-					'type'  => 'number',
-					'style' => 'width: 99%',
-				),
-				'display_cb'=>array($this,'display_base_value_column'),
-				'column'     => array( 'position' => 4 ),
+				'column'        => array( 'position' => 4 ),
+				'display_cb'    => array( $this, 'display_deal_column' ),
 			) );
 
 			$cmb_demo->add_field( array(
@@ -222,30 +238,33 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'attributes' => array(
 					'style' => 'width: 99%',
 				),
-				'display_cb'=>array($this,'display_products_column'),
+				'display_cb' => array( $this, 'display_products_column' ),
 				'column'     => array( 'position' => 6 ),
 			) );
 
 		}
 
 		/**
-		 * Displays the base value on post edit column
+		 * Displays the deal settled (percentage + fixed value) when commission was created
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
+		 *
 		 */
-		public function display_base_value_column( $field_args, $field ) {
-			if ( $field->object_id ) {
-				$base = sanitize_text_field( get_post_meta( $field->object_id, Alg_MPWC_Post_Metas::COMMISSION_BASE, true ) );
-				switch ( $base ) {
-					case 'percentage':
-						echo (float) get_post_meta( $field->object_id, Alg_MPWC_Post_Metas::COMMISSION_ORIGINAL_VALUE, true ) . '%';
-					break;
-					case 'fixed_value':
-						echo __( 'Fixed value' );
-					break;
-				}
+		public function display_deal_column( $field_args, $field ) {
+			$post_id          = $field->object_id;
+			$fixed_value      = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE, true );
+			$percentage_value = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE, true );
+			if ( ! empty( $fixed_value ) ) {
+				echo wc_price( $fixed_value );
 
+				if ( ! empty( $percentage_value ) ) {
+					echo ' + ';
+				}
+			}
+
+			if ( ! empty( $percentage_value ) ) {
+				echo $percentage_value . '%';
 			}
 		}
 
@@ -299,9 +318,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function display_status_column($field_args, $field){
+		public function display_status_column( $field_args, $field ) {
 			if ( $field->object_id ) {
-				$tax  = new Alg_MPWC_Commission_Status_Tax();
+				$tax   = new Alg_MPWC_Commission_Status_Tax();
 				$terms = wp_get_post_terms( $field->object_id, $tax->id, array( 'fields' => 'names' ) );
 				echo implode( ', ', $terms );
 			}

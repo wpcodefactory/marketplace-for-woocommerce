@@ -23,10 +23,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		public $comission_creator;
 
 		// Comission base type option from admin (percentage, fixed value, so on)
-		public $comission_base = 'percentage';
+		//public $comission_base = 'percentage';
 
 		// Comission value from admin
-		public $comission_value = '';
+		public $commission_fixed_value = '';
+		public $commission_percentage_value = '';
 
 		// Automatic creation option from admin
 		public $automatic_creation = 'order_complete';
@@ -221,9 +222,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		protected function get_values_from_admin() {
-			$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
-			$this->comission_value    = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE_VALUE ) );
-			$this->automatic_creation = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION ) );
+			//$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
+			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_FIXED_VALUE ) );
+			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
+			$this->automatic_creation          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION ) );
 		}
 
 		/**

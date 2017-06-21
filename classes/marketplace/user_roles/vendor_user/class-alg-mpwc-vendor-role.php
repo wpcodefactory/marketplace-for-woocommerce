@@ -297,13 +297,16 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Limits the user to see only his own posts, media, etc
+		 * Limits the user to see only its own posts, media, etc
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
 		public function limit_access_to_own_posts_only( $query ) {
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
+				return $query;
+			}
+			if ( ! is_admin() ) {
 				return $query;
 			}
 

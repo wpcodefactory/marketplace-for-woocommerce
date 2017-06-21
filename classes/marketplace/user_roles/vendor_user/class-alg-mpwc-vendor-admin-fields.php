@@ -28,8 +28,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		public $meta_iban = '_alg_mpwc_iban';
 		public $meta_account_holder_name = '_alg_mpwc_account_holder_name';
 		public $meta_paypal_email = '_alg_mpwc_paypal_email';
-		public $meta_commission_value = '_alg_mpwc_commission_value';
-		public $meta_commission_base = '_alg_mpwc_commission_base';
+		public $meta_commission_fixed_value = '_alg_mpwc_commission_fixed_value';
+		public $meta_commission_percentage_value = '_alg_mpwc_commission_percentage_value';
+		//public $meta_commission_base = '_alg_mpwc_commission_base';
 		public $meta_block_vendor = '_alg_mpwc_blocked';
 
 		/**
@@ -95,7 +96,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
                     margin-bottom: 15px !important;
                 }
 
-                .cmb2-id-alg-mpwc-title-payment {
+                .cmb2-id-alg-mpwc-title-payment, .cmb2-id-alg-mpwc-commissions-title {
                     margin-top: 40px !important;
                 }
 
@@ -276,25 +277,28 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			) );
 
 			$cmb_user->add_field( array(
-				'name'       => __( 'Commission base', 'marketplace-for-woocommerce' ),
-				'id'         => $this->meta_commission_base,
-				'default'    => 'percentage',
-				'options'    => array(
-					'percentage'  => __( 'By percentage', 'marketplace-for-woocommerce' ),
-					'fixed_value' => sprintf( __( 'By fixed value (in %s)', 'marketplace-for-woocommerce' ), '<strong>' . get_woocommerce_currency() . '</strong>' ),
-				),
-				'type'       => 'select',
-				'on_front'   => false,
-				'attributes' => array(
-					'class'    => 'chosen_select',
-					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,
-					'disabled' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'disabled' : false,
-				),
+				'name'     => __( 'Commission', 'marketplace-for-woocommerce' ),
+				'desc'     => __( 'Commission values', 'marketplace-for-woocommerce' ).'<br />'.__( 'Note: In case of empty values, the default ones will be used from Marketplace settings', 'marketplace-for-woocommerce' ),
+				'id'       => 'alg_mpwc_commissions_title',
+				'type'     => 'title',
+				'on_front' => false,
 			) );
 
 			$cmb_user->add_field( array(
-				'name'       => __( 'Commission value', 'marketplace-for-woocommerce' ),
-				'id'         => $this->meta_commission_value,
+				'name'       => __( 'Fixed value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency() . ')',
+				'id'         => $this->meta_commission_fixed_value,
+				'type'       => 'text',
+				'attributes' => array(
+					'type'     => 'number',
+					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,
+					'disabled' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'disabled' : false,
+				),
+				'on_front'   => false,
+			) );
+
+			$cmb_user->add_field( array(
+				'name'       => __( 'Percentage value', 'marketplace-for-woocommerce' ) . ' (%)',
+				'id'         => $this->meta_commission_percentage_value,
 				'type'       => 'text',
 				'attributes' => array(
 					'type'     => 'number',

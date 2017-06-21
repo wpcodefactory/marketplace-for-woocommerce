@@ -73,13 +73,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 
 				$comission_data = isset( $products_by_vendor[ $vendor_id ] ) ? $products_by_vendor[ $vendor_id ] : array();
 				array_push( $comission_data, array(
-					'subtotal'      => $subtotal,
-					'vendor_id'     => $vendor_id,
-					'product_id'    => $product_id,
-					'product_title' => $post->post_title,
-					'order_id'      => $order_id,
+					'item'      => $item,
+					'vendor_id' => $vendor_id,
 				) );
-
 				$products_by_vendor[ $vendor_id ] = $comission_data;
 			}
 
@@ -107,8 +103,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 			$products_by_vendor = $this->get_order_items_filtered_by_vendor( $order_id );
 
 			// Gets commission base and balue
-			$commission_base = $this->commission_manager->comission_base;
-			$commission_value = $this->commission_manager->comission_value;
+			$commission_fixed_value = $this->commission_manager->commission_fixed_value;
+			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
 
 			foreach ( $products_by_vendor as $comissions ) {
 
@@ -120,36 +116,30 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				$vendor_id       = '';
 				$comission_value = 0;
 				foreach ( $comissions as $comission ) {
-					$vendor_id     = $comission['vendor_id'];
-					$subtotal      += $comission['subtotal'];
-					$product_ids[] = $comission['product_id'];
-					$title_arr[]   = $comission['product_title'];
-					$order_id      = $comission['order_id'];
+					/* @var WC_Order_Item_Product $item */
+					$item          = $comission['item'];
+					$post          = get_post( $item->get_product_id() );
+					$vendor_id     = $post->post_author;
+					$subtotal      += $item->get_subtotal();
+					$product_ids[] = $item->get_product_id();
+					$title_arr[]   = $post->post_title;
+					$order_id      = $item->get_order_id();
 				}
 
-				// Override commission base and value
-				$commission_base_override  = sanitize_text_field( get_user_meta( $vendor_id, $user_fields->meta_commission_base, true ) );
-				$commission_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_value, true );
-				$commission_base           = $commission_base_override ? $commission_base_override : $commission_base;
-				$commission_value          = $commission_value_override ? $commission_value_override : $commission_value;
+				// Override commission values
+				$commission_fixed_value_override      = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_fixed_value, true );
+				$commission_percentage_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_percentage_value, true );
+				$commission_fixed_value               = $commission_fixed_value_override || $commission_fixed_value_override === 0 ? $commission_fixed_value_override : $commission_fixed_value;
+				$commission_percentage_value          = $commission_percentage_value_override || $commission_percentage_value_override === 0 ? $commission_percentage_value_override : $commission_percentage_value;
 
 				// Sets comission title
 				$title = implode( ', ', $title_arr );
 				$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
 				$title .= ' (' . sprintf( __( 'Order %s' ), $order_id ) . ')';
 
-				// Calculates comission value
-				switch ( $commission_base ) {
-					case 'percentage':
-						$comission_value_final = $subtotal * ( (float) $commission_value / 100 );
-					break;
-					case 'fixed_value':
-						$comission_value_final = $this->commission_manager->comission_value;
-					break;
-					default:
-						$comission_value_final = $subtotal * ( (float) $commission_value / 100 );
-					break;
-				}
+				$commission_value_final = 0;
+				$commission_value_final += $commission_fixed_value;
+				$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
 
 				// Creates comission post type programmatically
 				$insert_post_response = wp_insert_post( array(
@@ -158,12 +148,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 					'post_type'   => $this->commission_manager->id,
 					'post_status' => 'publish',
 					'meta_input'  => array(
-						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID      => $vendor_id,
-						Alg_MPWC_Post_Metas::COMMISSION_VALUE          => $comission_value_final,
-						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID       => $order_id,
-						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS    => $product_ids,
-						Alg_MPWC_Post_Metas::COMMISSION_BASE           => $commission_base,
-						Alg_MPWC_Post_Metas::COMMISSION_ORIGINAL_VALUE => $commission_value,
+						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID        => $vendor_id,
+						Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE      => $commission_value_final,
+						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID         => $order_id,
+						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS      => $product_ids,
+						Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE      => $commission_value_final,
+						Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE      => $commission_fixed_value,
+						Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE => $commission_percentage_value
 					),
 					'tax_input'   => array(
 						$status_tax->id => array( $status_unpaid_term->term_id ),

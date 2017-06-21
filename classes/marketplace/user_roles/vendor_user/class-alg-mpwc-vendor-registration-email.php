@@ -102,6 +102,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registration_Email' ) ) {
 				'display_name'  => $this->display_name,
 				'is_pending'    => $this->is_pending,
 				'plain_text'    => false,
+				'user_edit_link'=> admin_url("/user-edit.php?user_id={$this->user_id}"),
 				'email'         => $this,
 				//'sent_to_admin'      => true,
 			));

@@ -21,8 +21,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_CAPABILITIES_DELETE_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_delete_products';
 		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
 		const OPTION_CAPABILITIES_VIEW_ORDERS       = 'alg_mpwc_opt_vendor_caps_view_orders';
-		const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
-		const OPTION_COMMISSIONS_BASE_VALUE         = 'alg_mpwc_opt_commissions_base_value';
+
+		//const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
+		const OPTION_COMMISSIONS_FIXED_VALUE        = 'alg_mpwc_opt_commissions_fixed_value';
+		const OPTION_COMMISSIONS_PERCENTAGE_VALUE   = 'alg_mpwc_opt_commissions_percentage_value';
+
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
 		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
 		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
@@ -82,14 +85,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 				// Commissions
 				array(
-					'title'       => __( 'Registry', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Options regarding vendors registry', 'marketplace-for-woocommerce' ),
+					'title'       => __( 'Registration', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Options regarding vendors registration', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_registry_opt',
 				),
 				array(
 					'title'       => __( 'Automatic approval', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Allows users to be automatically approved as vendors on registry, bypassing the pending status', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows users to be automatically approved as vendors on registration, bypassing the pending status', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_REGISTRY_AUTOMATIC_APPROVAL,
 					'default'     => 'no',
 					'type'        => 'checkbox',
@@ -175,7 +178,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_comissions_opt',
 				),
-				array(
+				/*array(
 					'title'       => __( 'Base', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'How vendors will receive their commissions for sales', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_BASE,
@@ -186,11 +189,18 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					),
 					'type'        => 'select',
 					'class'       =>'chosen_select'
+				),*/
+				array(
+					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Fixed value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_FIXED_VALUE,
+					'default'     => 0,
+					'type'        => 'number',
 				),
 				array(
-					'title'       => __( 'Value', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_BASE_VALUE,
+					'title'       => __( 'Percentage Value', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Percentage value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_PERCENTAGE_VALUE,
 					'default'     => 15,
 					'type'        => 'number',
 				),
