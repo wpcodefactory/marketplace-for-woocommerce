@@ -134,6 +134,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			) );
 		}
 
+		public function display_order_id_column( $field_args, $field ) {
+			$order = wc_get_order( (int) $field->escaped_value() );
+			if ( $order ) {
+				echo apply_filters( 'woocommerce_order_number', $order->get_id(), $order );
+			}
+		}
+
 		/**
 		 * Adds the commission details CMB
 		 *
@@ -158,6 +165,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					'style' => 'width: 99%',
 				),
 				'column'     => array( 'position' => 2 ),
+				'display_cb' => array( $this, 'display_order_id_column' ),
 			) );
 
 			$cmb_demo->add_field( array(

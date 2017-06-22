@@ -31,7 +31,6 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
 
 
-
 		/**
 		 * Constructor.
 		 *
@@ -180,14 +179,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				),
 				array(
 					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Fixed value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Fixed value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_FIXED_VALUE,
 					'default'     => 0,
 					'type'        => 'number',
 				),
 				array(
 					'title'       => __( 'Percentage Value', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Percentage value that will be transfered to vendors after an order is complete', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Percentage value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_PERCENTAGE_VALUE,
 					'default'     => 15,
 					'type'        => 'number',
