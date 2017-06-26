@@ -15,12 +15,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 	class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
-		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
-		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
-		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_products';
-		const OPTION_CAPABILITIES_DELETE_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_delete_products';
-		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
-		const OPTION_CAPABILITIES_VIEW_ORDERS       = 'alg_mpwc_opt_vendor_caps_view_orders';
+		const OPTION_ROLE_LABEL                    = 'alg_mpwc_opt_vendor_role_label';
+		const OPTION_PUBLIC_PAGE_SLUG              = 'alg_mpwc_opt_public_page_slug';
+		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS = 'alg_mpwc_opt_vendor_caps_publish_products';
+		const OPTION_CAPABILITIES_DELETE_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_delete_products';
+		const OPTION_CAPABILITIES_UPLOAD_FILES     = 'alg_mpwc_opt_vendor_caps_upload_files';
+		const OPTION_CAPABILITIES_VIEW_ORDERS      = 'alg_mpwc_opt_vendor_caps_view_orders';
+		const OPTION_HIDE_VENDOR_WP_INFO           = 'alg_mpwc_opt_hide_vendor_wp_info';
 
 		//const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
 		const OPTION_COMMISSIONS_FIXED_VALUE        = 'alg_mpwc_opt_commissions_fixed_value';
@@ -29,7 +30,6 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
 		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
 		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
-
 
 		/**
 		 * Constructor.
@@ -76,6 +76,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'default'     => __( 'Marketplace vendor', 'marketplace-for-woocommerce' ),
 					'placeholder' => __( 'Marketplace vendor', 'marketplace-for-woocommerce' ),
 					'type'        => 'text',
+				),
+				array(
+					'title'       => __( 'Hide WordPress info', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "Hides info about Wordpress on vendor's admin dashboard", 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( 'It hides WordPress logo, footer text "Thank you for creating with WordPress" and disables update notifications', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_HIDE_VENDOR_WP_INFO,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
 				),
 				array(
 					'type'        => 'sectionend',

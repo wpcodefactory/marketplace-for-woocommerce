@@ -62,6 +62,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 				// Adds items in marketplace menu
 				add_filter( 'register_post_type_args', array( $this, 'add_items_in_marketplace_menu' ), 10, 2 );
+
+				// Removes vendor's wordpress dashboard logo
+				add_action( 'admin_bar_menu', array( $this, 'remove_wp_info' ), 999 );
+
+				// Removes vendor's wordpress dashboard footer texts
+				add_filter( 'admin_footer_text', array($this,'remove_footer_text'), 11 );
 			}
 
 			// Limits the vendor user to see only his own posts, media, etc
@@ -81,6 +87,62 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			// Manages media deleting
 			add_filter( 'user_has_cap', array( $this, 'manages_media_deleting' ), 10, 3 );
+
+			// Removes vendor's core updates notifications
+			add_action('after_setup_theme',array($this,'remove_core_updates'));
+		}
+
+		/**
+		 * Removes vendor's core updates notifications
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function remove_core_updates() {
+			if ( ! current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				return;
+			}
+			$remove_wp_info = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_HIDE_VENDOR_WP_INFO ), FILTER_VALIDATE_BOOLEAN );
+			if ( ! $remove_wp_info ) {
+				return;
+			}
+			add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );
+			add_filter( 'pre_option_update_core', '__return_null' );
+			add_filter( 'pre_site_transient_update_core', '__return_null' );
+		}
+
+		/**
+		 * Removes vendor's wordpress dashboard footer text
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		function remove_footer_text() {
+			if ( ! current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				return;
+			}
+			$remove_wp_info = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_HIDE_VENDOR_WP_INFO ), FILTER_VALIDATE_BOOLEAN );
+			if ( ! $remove_wp_info ) {
+				return;
+			}
+			return false;
+		}
+
+		/**
+		 * Removes vendor's wordpress dashboard logo
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		function remove_wp_info( $wp_admin_bar ) {
+			if ( ! current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				return;
+			}
+			$remove_wp_info = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_HIDE_VENDOR_WP_INFO ), FILTER_VALIDATE_BOOLEAN );
+			if ( ! $remove_wp_info ) {
+				return;
+			}
+			$wp_admin_bar->remove_node( 'wp-logo' );
 		}
 
 		/**
