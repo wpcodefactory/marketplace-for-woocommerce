@@ -69,7 +69,6 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			add_action( 'init', array( $this, 'manage_taxonomies' ), 0 );
 			add_filter( 'woocommerce_locate_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
 			add_filter( 'woocommerce_locate_core_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
-
 		}
 
 		/**
@@ -164,22 +163,5 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 
 			flush_rewrite_rules();
 		}
-
-		/**
-		 * Gets the template
-		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
-		 */
-		/*public static function get_template( $template_name = '', $default_path = '', $template_path = 'woocommerce' ) {
-			if ( ! $default_path ) {
-				if ( strpos( $template_name, 'marketplace' ) !== false ) {
-					$marketplace  = alg_marketplace_for_wc();
-					$default_path = $marketplace->dir . 'templates' . DIRECTORY_SEPARATOR;
-				}
-			}
-			return wc_locate_template( $template_name, $template_path, $default_path );
-		}*/
-
 	}
 }
