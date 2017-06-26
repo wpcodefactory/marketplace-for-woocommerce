@@ -14,6 +14,23 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		const ROLE_SHOP_MANAGER = 'shop_manager';
 		const CAP_MANAGE_WOOCOMMERCE='manage_woocommerce';
 
+		private static $user_caps = array(
+			"read"                      => true,
+			"edit_product"              => true,
+			"read_product"              => true,
+			"delete_product"            => true,
+			"edit_products"             => true,
+			"delete_products"           => true,
+			"delete_published_products" => true,
+			"edit_published_products"   => true,
+			"assign_product_terms"      => true,
+			'level_0'                   => true,
+			'edit_alg_mpwc_commissions' => true,
+			"edit_shop_orders"          => false,
+			'edit_others_shop_orders'   => false,
+			'read_shop_order'           => false
+		);
+
 		/**
 		 * Constructor
 		 *

@@ -317,7 +317,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @since   1.0.0
 		 */
 		public function display_vendor_column( $field_args, $field ) {
-			echo get_userdata( $field->escaped_value() )->display_name;
+			if ( $field->escaped_value() ) {
+				echo get_userdata( $field->escaped_value() )->display_name;
+			}
 		}
 
 		/**

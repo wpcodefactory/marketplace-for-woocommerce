@@ -22,15 +22,50 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 */
 		public $comission_creator;
 
-		// Comission base type option from admin (percentage, fixed value, so on)
-		//public $comission_base = 'percentage';
-
 		// Comission value from admin
 		public $commission_fixed_value = '';
 		public $commission_percentage_value = '';
 
 		// Automatic creation option from admin
 		public $automatic_creation = array();
+
+		/**
+		 * Gives full permissions to manage_woocommerce roles.
+		 *
+		 * Called when saving vendor admin settings and on plugin activation
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public static function gives_all_caps_to_roles() {
+			$caps = array(
+				'read_alg_mpwc_commission',
+				'delete_alg_mpwc_commission',
+				'edit_alg_mpwc_commissions',
+				'edit_others_alg_mpwc_commissions',
+				'publish_alg_mpwc_commissions',
+				'read_private_alg_mpwc_commissions',
+				'delete_alg_mpwc_commissions',
+				'delete_private_alg_mpwc_commissions',
+				'delete_published_alg_mpwc_commissions',
+				'delete_others_alg_mpwc_commissions',
+				'edit_private_alg_mpwc_commissions',
+				'edit_published_alg_mpwc_commissions',
+			);
+
+			$editable_roles = get_editable_roles();
+			foreach ( $editable_roles as $role_key => $details ) {
+				$role_obj = get_role( $role_key );
+				if ( ! $role_obj->has_cap( 'manage_woocommerce' ) ) {
+					continue;
+				}
+				foreach ( $caps as $cap ) {
+					if ( ! $role_obj->has_cap( $cap ) ) {
+						$role_obj->add_cap( $cap );
+					}
+				}
+			}
+		}
 
 		/**
 		 * Setups the post type
@@ -52,6 +87,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_filter( "bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_create' ) );
 			add_filter( "handle_bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_handle' ), 10, 3 );
 			add_action( 'admin_notices', array( $this, 'notify_about_bulk_action' ) );
+
+			// Setup role options based on admin settings
+			$id      = 'alg_mpwc';
+			$section = 'vendors';
+			add_action( "woocommerce_update_options_{$id}_{$section}", array( __CLASS__, 'gives_all_caps_to_roles' ) );
 		}
 
 		/**

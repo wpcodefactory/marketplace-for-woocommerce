@@ -152,6 +152,10 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			// Adds the vendor role
 			Alg_MPWC_Vendor_Role::add_vendor_role();
 
+			Alg_MPWC_CPT_Commission::gives_all_caps_to_roles();
+
+			//Alg_MPWC_Shop_Manager_User::config_role();
+
 			// Creates commission status
 			$tax = new Alg_MPWC_Commission_Status_Tax();
 			$tax->set_args();
