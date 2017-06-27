@@ -51,6 +51,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 = 1.0.1 - 27/06/2017 =
 * Remove edit action from commissions bulk actions
+* Add info about public page on admin settings if using ugly permalinks
 
 = 1.0.0 - 18/05/2017 =
 * Initial Release.
@@ -59,3 +60,4 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 = 1.0.1 =
 * Remove edit action from commissions bulk actions
+* Add info about public page on admin settings if using ugly permalinks

@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -46,19 +46,25 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * Gets an example of a profile page url
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
+		 *
+		 * @param bool $use_pretty_permalinks
 		 *
 		 * @return string
 		 */
-		function get_profile_page_url_ex() {
-			return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/vendor-user-name</strong>';
+		function get_profile_page_url_ex( $use_pretty_permalinks = true ) {
+			if ( $use_pretty_permalinks ) {
+				return '<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/vendor-user-name</strong>';
+			} else {
+				return '<strong>'.get_home_url() . '/?alg_mpwc_vendor=1&alg_mpwc_public_page=1&post_type=product'.'</strong>';
+			}
 		}
 
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
@@ -126,7 +132,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				),
 				array(
 					'title'       => __( 'Page slug', 'marketplace-for-woocommerce' ),
-					'desc'        => sprintf( __( 'Slug for the vendor public page. E.g: %s', 'marketplace-for-woocommerce' ), $this->get_profile_page_url_ex() ).'<br />'. '<span style="color:#999">'.sprintf(__( 'If it does not work on the first attempt, please go to <a href="%s">Permalink Settings </a> and save changes', 'marketplace-for-woocommerce' ), admin_url('options-permalink.php') ).'</span>',
+					'desc'        => __( 'Slug for the vendor public page.', 'marketplace-for-woocommerce' ).' '.__( 'E.g', 'marketplace-for-woocommerce' ).'<br />- '.$this->get_profile_page_url_ex().'<br />- '.$this->get_profile_page_url_ex(false).'<br />'.'<span style="color:#999">'.sprintf(__( 'If it does not work on the first attempt, please go to <a href="%s">Permalink Settings </a> and save changes', 'marketplace-for-woocommerce' ), admin_url('options-permalink.php') ).'</span>',
+					//'desc_tip'    => __( 'Possible public page URL examples:', 'marketplace-for-woocommerce' ), $this->get_profile_page_url_ex().'<br />',
 					'id'          => self::OPTION_PUBLIC_PAGE_SLUG,
 					'default'     => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'placeholder' => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
