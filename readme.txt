@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,10 +49,13 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
+= 1.0.1 - 27/06/2017 =
+* Remove edit action from commissions bulk actions
+
 = 1.0.0 - 18/05/2017 =
 * Initial Release.
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-* Initial Release.
+= 1.0.1 =
+* Remove edit action from commissions bulk actions

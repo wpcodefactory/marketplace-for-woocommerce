@@ -19,9 +19,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registration_Email' ) ) {
 		 */
 		function __construct() {
 
-
 			// set ID, this simply needs to be a unique name
-			$this->id = 'wc_vendor_registration_email';
+			$this->id = 'alg_mpwc_vendor_register_email';
 
 			// this is the title in WooCommerce Email settings
 			$this->title = 'Vendor registration';
@@ -53,7 +52,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registration_Email' ) ) {
 			if ( ! $this->recipient ) {
 				$this->recipient = get_option( 'admin_email' );
 			}
-
 
 		}
 

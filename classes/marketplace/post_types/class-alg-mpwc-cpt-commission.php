@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -70,7 +70,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Setups the post type
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
 		 */
 		public function setup() {
@@ -85,6 +85,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 
 			// Bulk actions
 			add_filter( "bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_create' ) );
+			add_filter( "bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_remove' ) );
 			add_filter( "handle_bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_handle' ), 10, 3 );
 			add_action( 'admin_notices', array( $this, 'notify_about_bulk_action' ) );
 
@@ -153,6 +154,17 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			}
 
 			return $redirect_to;
+		}
+
+		/**
+		 * Creates two more bulk actions labels on bulk actions dropdown
+		 *
+		 * @version 1.0.1
+		 * @since   1.0.1
+		 */
+		public function bulk_actions_remove( $bulk_actions ) {
+			unset( $bulk_actions['edit'] );
+			return $bulk_actions;
 		}
 
 		/**
