@@ -101,6 +101,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 			$commission_fixed_value = $this->commission_manager->commission_fixed_value;
 			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
 
+			// Gets order currency
+			$order_currency = get_post_meta($order_id, '_order_currency', true);
+			$commission_convert_value = 1;
+			//$commission_convert_value = function_exists( 'alg_get_currency_exchange_rate' ) ? alg_get_currency_exchange_rate($order_currency) : 1;
+
 			foreach ( $products_by_vendor as $comissions ) {
 
 				// Sets comission vars
@@ -130,11 +135,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				// Sets comission title
 				$title = implode( ', ', $title_arr );
 				$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
-				$title .= ' (' . sprintf( __( 'Order %s' ), $order_id ) . ')';
+				//$title .= ' (' . sprintf( __( 'Order %s' ), $order_id ) . ')';
 
 				$commission_value_final = 0;
 				$commission_value_final += $commission_fixed_value;
 				$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
+				$commission_value_final /= $commission_convert_value;
 
 				// Creates comission post type programmatically
 				$insert_post_response = wp_insert_post( array(

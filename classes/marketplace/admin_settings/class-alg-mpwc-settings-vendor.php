@@ -15,19 +15,17 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 	class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
-		const OPTION_ROLE_LABEL                    = 'alg_mpwc_opt_vendor_role_label';
-		const OPTION_PUBLIC_PAGE_SLUG              = 'alg_mpwc_opt_public_page_slug';
-		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS = 'alg_mpwc_opt_vendor_caps_publish_products';
-		const OPTION_CAPABILITIES_DELETE_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_delete_products';
-		const OPTION_CAPABILITIES_UPLOAD_FILES     = 'alg_mpwc_opt_vendor_caps_upload_files';
-		const OPTION_CAPABILITIES_VIEW_ORDERS      = 'alg_mpwc_opt_vendor_caps_view_orders';
-		const OPTION_HIDE_VENDOR_WP_INFO           = 'alg_mpwc_opt_hide_vendor_wp_info';
-
-		//const OPTION_COMMISSIONS_BASE               = 'alg_mpwc_opt_commissions_base';
+		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
+		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
+		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_products';
+		const OPTION_CAPABILITIES_DELETE_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_delete_products';
+		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
+		const OPTION_CAPABILITIES_VIEW_ORDERS       = 'alg_mpwc_opt_vendor_caps_view_orders';
+		const OPTION_HIDE_VENDOR_WP_INFO            = 'alg_mpwc_opt_hide_vendor_wp_info';
 		const OPTION_COMMISSIONS_FIXED_VALUE        = 'alg_mpwc_opt_commissions_fixed_value';
 		const OPTION_COMMISSIONS_PERCENTAGE_VALUE   = 'alg_mpwc_opt_commissions_percentage_value';
-
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
+		//const OPTION_COMMISSIONS_CURRENCY           = 'alg_mpwc_opt_commissions_currency';
 		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
 		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
 
@@ -192,6 +190,22 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_comissions_opt',
 				),
+				/*array(
+					'title'       => __( 'Currency', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Currency used to pay commissions.', 'marketplace-for-woocommerce' ).'<br />'.sprintf(__( 'If you need multi-currency, this plugin is compatible with <a target="_blank" href="%s">"Currency Switcher for WooCommerce"</a> plugin', 'marketplace-for-woocommerce' ),'https://wordpress.org/plugins/currency-switcher-woocommerce/'),
+					//'desc_tip'    => __( 'You can select the option "Use Order Currency" if your shop uses multi currency', 'marketplace-for-woocommerce' ),
+					//'desc_tip'    => __( 'If you need multi-currency, this plugin is compatible with <a href="http://uol.com.br">"Currency Switcher for WooCommerce"</a> plugin', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_CURRENCY,
+					'options'     => array(
+						'use_order_currency' => __( 'Use Order Currency', 'marketplace-for-woocommerce' ),
+						'use_shop_currency'  => __( 'Use Shop Currency', 'marketplace-for-woocommerce' ),
+					),
+					'default'     => array( 'use_shop_currency' ),
+					//'options'     => array( 'use_order_currency' => __( 'Use Order Currency', 'marketplace-for-woocommerce' ) ) + get_woocommerce_currencies(),
+					//'default'     => array( get_woocommerce_currency() ),
+					'type'        => 'select',
+					'class'       => 'chosen_select'
+				),*/
 				array(
 					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Fixed value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
