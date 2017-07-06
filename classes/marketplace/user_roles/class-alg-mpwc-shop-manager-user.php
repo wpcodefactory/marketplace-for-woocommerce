@@ -39,9 +39,74 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 *
 		 */
 		function __construct() {
+			add_action( 'init', array( $this, 'add_author_support_for_products' ) );
 			add_filter( 'manage_product_posts_columns', array( $this, 'add_author_column' ) );
 			add_filter( 'alg_mpwc_show_commissions_by_vendor_filter', array( $this, 'show_commissions_by_vendor_filter' ) );
 			add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
+
+			// Adds vendors to author dropdown
+			add_action( 'load-post.php', array( $this, 'load_vendor_dropdown_filter' ) );
+			add_action( 'load-post-new.php', array( $this, 'load_vendor_dropdown_filter' ) );
+		}
+
+		/**
+		 * Loads vendor dropdown filter
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		function load_vendor_dropdown_filter() {
+			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
+				return;
+			}
+
+			$screen = get_current_screen();
+
+			if ( empty( $screen->post_type ) || 'product' !== $screen->post_type ) {
+				return;
+			}
+
+			add_filter( 'wp_dropdown_users_args', array( $this, 'add_vendors_to_author_dropdown' ), 10, 2 );
+		}
+
+		/**
+		 * Adds vendors to author dropdown
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 * @param $args
+		 * @param $r
+		 *
+		 * @return mixed
+		 */
+		function add_vendors_to_author_dropdown( $args, $r ) {
+			global $wp_roles, $post;
+			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
+				return $args;
+			}
+
+			// Check that this is the correct drop-down.
+			if ( 'post_author_override' === $r['name'] && 'product' === $post->post_type ) {
+				$args['who']      = '';
+				$args['role__in'] = array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, 'administrator', 'shop_manager' );
+			}
+
+			return $args;
+		}
+
+
+		/**
+		 * Adds author supports for products
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 */
+		public function add_author_support_for_products(){
+			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
+				return;
+			}
+			add_post_type_support( 'product', 'author' );
 		}
 
 		/**
