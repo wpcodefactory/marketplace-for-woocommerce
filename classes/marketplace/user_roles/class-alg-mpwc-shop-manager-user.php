@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Shop manager user manager
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
 		 *
 		 */
@@ -52,8 +52,8 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Loads vendor dropdown filter
 		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
+		 * @version 1.0.1
+		 * @since   1.0.1
 		 */
 		function load_vendor_dropdown_filter() {
 			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
@@ -72,8 +72,8 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Adds vendors to author dropdown
 		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
+		 * @version 1.0.1
+		 * @since   1.0.1
 		 *
 		 * @param $args
 		 * @param $r
@@ -99,8 +99,8 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Adds author supports for products
 		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
+		 * @version 1.0.1
+		 * @since   1.0.1
 		 */
 		public function add_author_support_for_products(){
 			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {

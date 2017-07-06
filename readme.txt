@@ -49,7 +49,8 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
-= 1.0.1 - 27/06/2017 =
+= 1.0.1 - 07/07/2017 =
+* Add option to change product vendor/author
 * Remove edit action from commissions bulk actions
 * Add info about public page on admin settings if using ugly permalinks
 
