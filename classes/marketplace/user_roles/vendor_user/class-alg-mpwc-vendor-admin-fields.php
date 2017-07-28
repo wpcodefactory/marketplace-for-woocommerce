@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor admin fields and metaboxes
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -131,7 +131,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		/**
 		 * Adds vendor user admin fields
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
 		 */
 		public function add_fields() {
@@ -308,6 +308,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'on_front'   => false,
 			) );
 
+			do_action('alg_mpwc_vendor_admin_fields', $cmb_user);
 		}
 
 		/**

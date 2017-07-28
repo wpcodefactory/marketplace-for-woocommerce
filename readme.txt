@@ -49,10 +49,11 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
-= 1.0.1 - 07/07/2017 =
+= 1.0.1 - 28/07/2017 =
 * Add option to change product vendor/author
 * Remove edit action from commissions bulk actions
 * Add info about public page on admin settings if using ugly permalinks
+* Create action 'alg_mpwc_vendor_admin_fields' for optionally adding vendor fields
 
 = 1.0.0 - 18/05/2017 =
 * Initial Release.
@@ -60,5 +61,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Upgrade Notice ==
 
 = 1.0.1 =
+* Add option to change product vendor/author
 * Remove edit action from commissions bulk actions
 * Add info about public page on admin settings if using ugly permalinks
+* Create action 'alg_mpwc_vendor_admin_fields' for optionally adding vendor fields
