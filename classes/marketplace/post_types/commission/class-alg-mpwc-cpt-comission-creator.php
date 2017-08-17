@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission creator
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 		/**
 		 * Creates commission automatically
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
@@ -140,7 +140,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				$commission_value_final = 0;
 				$commission_value_final += $commission_fixed_value;
 				$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
-				$commission_value_final /= $commission_convert_value;
+				$commission_value_final *= $commission_convert_value;
 
 				// Creates comission post type programmatically
 				$insert_post_response = wp_insert_post( array(
@@ -148,19 +148,20 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 					'post_title'  => $title,
 					'post_type'   => $this->commission_manager->id,
 					'post_status' => 'publish',
-					'meta_input'  => array(
+					'meta_input' => array(
 						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID        => $vendor_id,
-						Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE      => $commission_value_final,
 						Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID         => $order_id,
 						Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS      => $product_ids,
-						Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE      => $commission_value_final,
 						Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE      => $commission_fixed_value,
-						Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE => $commission_percentage_value
+						Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE => $commission_percentage_value,
 					),
 					'tax_input'   => array(
 						$status_tax->id => array( $status_unpaid_term->term_id ),
 					),
 				) );
+
+				update_post_meta( $insert_post_response, Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, apply_filters( 'alg_mpwc_commission_value', $commission_value_final, $vendor_id, $insert_post_response, $order_id ) );
+				update_post_meta( $insert_post_response, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, apply_filters( 'alg_mpwc_commission_currency', get_woocommerce_currency(), $vendor_id, $insert_post_response, $order_id ) );
 
 				// Associate related commissions to main order
 				add_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_RELATED_COMISSIONS, $insert_post_response );

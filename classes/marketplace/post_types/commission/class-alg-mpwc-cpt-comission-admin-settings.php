@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission admin settings
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -56,7 +56,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			global $wp_query;
 
 			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', false );
-
 			if ( ! $show_total_commissions_value ) {
 				return $defaults;
 			}
@@ -144,7 +143,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Adds the commission details CMB
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.1
 		 * @since   1.0.0
 		 */
 		public function add_commission_details_cmb() {
@@ -250,6 +249,37 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'column'     => array( 'position' => 6 ),
 			) );
 
+			$cmb_demo->add_field( array(
+				'name'       => __( 'Currency', 'marketplace-for-woocommerce' ),
+				'id'         => Alg_MPWC_Post_Metas::COMMISSION_CURRENCY,
+				'type'       => 'pw_select',
+				'options_cb' => array($this,'get_currency'),
+				'default'    => get_woocommerce_currency(),
+				'attributes' => array(
+					'style'  => 'width: 99%',
+				),
+				//'display_cb' => array( $this, 'display_products_column' ),
+				'column'     => array( 'position' => 7 ),
+			) );
+
+		}
+
+		/**
+		 * Gets currencies
+		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
+		 */
+		public function get_currency( $field ) {
+			$currencies = get_woocommerce_currencies();
+
+			$shop_currency = get_woocommerce_currency();
+			$currency      = apply_filters( 'alg_mpwc_commission_currencies', array(
+				$shop_currency => $currencies[ $shop_currency ] . ' (' . get_woocommerce_currency_symbol( $shop_currency ) . ')'
+			) );
+
+			return $currency;
 		}
 
 		/**

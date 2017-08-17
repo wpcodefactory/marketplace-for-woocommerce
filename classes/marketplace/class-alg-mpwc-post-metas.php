@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Post Metas
  *
- * @version 1.0.0
+ * @version 1.0.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -17,11 +17,11 @@ if ( ! class_exists( 'Alg_MPWC_Post_Metas' ) ) {
 		//const COMMISSION_ORIGINAL_VALUE   = '_alg_mpwc_comission_original_value';
 
 		const COMMISSION_FINAL_VALUE      = '_alg_mpwc_comission_final_value';
-
 		const COMMISSION_FIXED_VALUE      = '_alg_mpwc_comission_fixed_value';
 		const COMMISSION_PERCENTAGE_VALUE = '_alg_mpwc_comission_percentage_value';
 		const COMMISSION_DEAL             = '_alg_mpwc_comission_deal';
 		const COMMISSION_STATUS           = '_alg_mpwc_status';
+		const COMMISSION_CURRENCY         = '_alg_mpwc_currency';
 		//const COMMISSION_BASE           = '_alg_mpwc_commission_base';
 
 		// Order Meta fields
@@ -31,6 +31,8 @@ if ( ! class_exists( 'Alg_MPWC_Post_Metas' ) ) {
 
 		// Order Meta fields
 		const PRODUCT_BLOCKED             = '_alg_mpwc_blocked';
+
+
 
 	}
 }
