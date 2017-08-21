@@ -169,7 +169,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				// Public page
 				array(
 					'title'       => __( 'Public page', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'The public page that displays all info about vendor and some of its products', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "The public page that displays vendor's info and its products", 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_vendors_pp_opt',
 				),
