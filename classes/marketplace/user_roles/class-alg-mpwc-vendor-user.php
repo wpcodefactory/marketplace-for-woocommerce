@@ -38,8 +38,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			// Setups marketplace tab on my account page
 			new Alg_MPWC_Vendor_Marketplace_Tab();
 
-			// Adds info on product about the vendor
-			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display_product_author' ), 9 );
+			// Adds (By vendor name) on product loop
+			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display_product_author_on_loop' ), 9 );
 
 			// Product tab
 			add_filter( 'woocommerce_product_tabs', array( $this, 'add_tab_on_product' ) );
@@ -130,16 +130,21 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * Displays the product's author on product itself
+		 * Displays the product's author on product loop
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.2
 		 * @since   1.0.0
 		 */
-		public function display_product_author() {
+		public function display_product_author_on_loop() {
 			global $post;
 			$user = get_user_by( 'ID', $post->post_author );
+			$authorship_link_enabled = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_AUTHORSHIP_PRODUCT_LOOP, true ), FILTER_VALIDATE_BOOLEAN );
 
-			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
+			if (
+				! $user ||
+				! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ||
+				! $authorship_link_enabled
+			) {
 				return;
 			}
 

@@ -32,6 +32,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_PRODUCT_TAB_TEXT               = 'alg_mpwc_opt_vendor_product_tab_text';
 		const OPTION_PRODUCT_TAB_PRIORITY           = 'alg_mpwc_opt_vendor_product_tab_priority';
 		const OPTION_PRODUCT_TAB_ENABLE             = 'alg_mpwc_opt_vendor_product_tab_enable';
+		const OPTION_AUTHORSHIP_PRODUCT_LOOP        = 'alg_mpwc_opt_authorship_product_loop';
 
 		/**
 		 * Constructor.
@@ -90,6 +91,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'desc'        => __( "Hides info about Wordpress on vendor's admin dashboard", 'marketplace-for-woocommerce' ),
 					'desc_tip'    => __( 'It hides WordPress logo, footer text "Thank you for creating with WordPress" and disables update notifications', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_HIDE_VENDOR_WP_INFO,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'Authorship on product loop', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "Displays a link (By vendor) on product loop pointing to vendor's public page", 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_AUTHORSHIP_PRODUCT_LOOP,
 					'default'     => 'yes',
 					'type'        => 'checkbox',
 				),
