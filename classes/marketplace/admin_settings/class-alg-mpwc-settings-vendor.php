@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.0.1
+ * @version 1.0.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -25,9 +25,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_COMMISSIONS_FIXED_VALUE        = 'alg_mpwc_opt_commissions_fixed_value';
 		const OPTION_COMMISSIONS_PERCENTAGE_VALUE   = 'alg_mpwc_opt_commissions_percentage_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
-		//const OPTION_COMMISSIONS_CURRENCY           = 'alg_mpwc_opt_commissions_currency';
 		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
 		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
+		const OPTION_PRODUCT_TAB_TEXT               = 'alg_mpwc_opt_vendor_product_tab_text';
+		const OPTION_PRODUCT_TAB_PRIORITY           = 'alg_mpwc_opt_vendor_product_tab_priority';
+		const OPTION_PRODUCT_TAB_ENABLE             = 'alg_mpwc_opt_vendor_product_tab_enable';
 
 		/**
 		 * Constructor.
@@ -62,7 +64,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.2
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
@@ -92,6 +94,39 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_vendors_opt',
+				),
+
+				// Product Tab
+				array(
+					'title'       => __( 'Product tab', 'marketplace-for-woocommerce' ),
+					'type'        => 'title',
+					'desc'        => __( "Tab displayed on vendor's product pages with some info about vendor themselves", 'marketplace-for-woocommerce' ),
+					'id'          => 'alg_mpwc_product_tab',
+				),
+				array(
+					'title'       => __( 'Enable', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "Enables the product tab", 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_PRODUCT_TAB_ENABLE,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'Priority', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Controls the tab position. A lower priority will make it appear before other tabs', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_PRODUCT_TAB_PRIORITY,
+					'default'     => 40,
+					'type'        => 'number',
+				),
+				array(
+					'title'       => __( 'Label', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "Text displayed in the tab", 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_PRODUCT_TAB_TEXT,
+					'default'     => __( 'Vendor', 'marketplace-for-woocommerce' ),
+					'type'        => 'text',
+				),
+				array(
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_product_tab',
 				),
 
 				// Commissions

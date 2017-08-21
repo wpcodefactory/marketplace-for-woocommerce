@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor user
  *
- * @version 1.0.0
+ * @version 1.0.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -40,6 +40,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 
 			// Adds info on product about the vendor
 			add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display_product_author' ), 9 );
+
+			// Product tab
 			add_filter( 'woocommerce_product_tabs', array( $this, 'add_tab_on_product' ) );
 
 			// Add pending vendor email class
@@ -58,20 +60,30 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * Create a tab on product page about the vendor
+		 * Create a tab on product page displaying some info about the vendor
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.2
 		 * @since   1.0.0
 		 */
-		public function add_tab_on_product($tabs) {
+		public function add_tab_on_product( $tabs ) {
 			global $post;
-			$user = get_user_by( 'ID', $post->post_author );
-			if ( ! $user || ! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ) {
+			$user                = get_user_by( 'ID', $post->post_author );
+			$product_tab_enabled = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_PRODUCT_TAB_ENABLE, true ), FILTER_VALIDATE_BOOLEAN );
+
+			if (
+				! $product_tab_enabled ||
+				! $user ||
+				! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles )
+			) {
 				return $tabs;
 			}
+
+			$product_tab_priority = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_PRODUCT_TAB_PRIORITY, 40 ), FILTER_SANITIZE_NUMBER_INT );
+			$product_tab_text     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PRODUCT_TAB_TEXT, __( 'Vendor', 'marketplace-for-woocommerce' )));
+
 			$tabs['alg_mpwc_vendor'] = array(
-				'title'    => __( 'Vendor', 'marketplace-for-woocommerce' ),
-				'priority' => 1,
+				'title'    => $product_tab_text,
+				'priority' => $product_tab_priority,
 				'callback' => array( $this, 'vendor_tab' ),
 			);
 
