@@ -84,7 +84,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			$tabs['alg_mpwc_vendor'] = array(
 				'title'    => $product_tab_text,
 				'priority' => $product_tab_priority,
-				'callback' => array( $this, 'vendor_tab' ),
+				'callback' => array( $this, 'create_vendor_tab_template' ),
 			);
 
 			return $tabs;
@@ -96,7 +96,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function vendor_tab() {
+		public function create_vendor_tab_template() {
 			global $post;
 
 			// User

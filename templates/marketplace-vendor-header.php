@@ -3,7 +3,7 @@
  * Header of a vendor public page
  *
  * @author  Algoritmika Ltd.
- * @version 1.0.0
+ * @version 1.0.2
  * @since   1.0.0
  */
 ?>
@@ -19,6 +19,11 @@ if ( is_numeric( $vendor_query_string ) ) {
 } else {
 	$vendor = get_user_by( 'slug', $vendor_query_string );
 }
+
+// Shop link label
+$shop_link_label = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL, __( "See all vendor's products", 'marketplace-for-woocommerce' ) ) );
+$logo_enabled    = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_LOGO, true ), FILTER_VALIDATE_BOOLEAN );
+
 ?>
 
 <?php // Image ?>
@@ -30,7 +35,7 @@ if ( $logo_id ) {
 ?>
 
 <div class="" style="margin-bottom:25px;">
-	<?php if ( $logo_id ) { ?>
+	<?php if ( $logo_id && $logo_enabled ) { ?>
 		<?php echo $image; ?>
 	<?php } ?>
 
@@ -46,8 +51,11 @@ if ( $logo_id ) {
 	), get_home_url() . '/' );
 	?>
 
-    <div>
-        <a href="<?php echo esc_url( $vendor_products_url ); ?>">See vendor's products on shop</a>
-    </div>
+	<?php if ( ! empty( $vendor_products_url ) ): ?>
+        <div>
+            <a href="<?php echo esc_url( $vendor_products_url ); ?>"><?php echo esc_html( $shop_link_label ); ?></a>
+        </div>
+	<?php endif; ?>
+
     <div style="clear: both"></div>
 </div>

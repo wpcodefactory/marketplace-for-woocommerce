@@ -51,6 +51,8 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 = 1.0.2 - 21/08/2017 =
 * Create option to manage product tab
+* Create options to customize vendor's public page
+* Create option to manage vendor link on product loop
 
 = 1.0.1 - 17/08/2017 =
 * Add currency to commission

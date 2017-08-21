@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor public page
  *
- * @version 1.0.0
+ * @version 1.0.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -168,12 +168,17 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		/**
 		 * Redirects to profile page with pretty permalink
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.2
 		 * @since   1.0.0
 		 */
 		public function template_redirect() {
 			global $wp_query;
-			if ( ! isset( $_GET[ Alg_MPWC_Query_Vars::VENDOR ] ) || empty( $_GET[ Alg_MPWC_Query_Vars::VENDOR ] ) ) {
+			if (
+				! isset( $_GET[ Alg_MPWC_Query_Vars::VENDOR ] ) ||
+				empty( $_GET[ Alg_MPWC_Query_Vars::VENDOR ] ) ||
+				! isset( $_GET[ Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE ] ) ||
+				empty( $_GET[ Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE ] )
+			) {
 				return;
 			}
 

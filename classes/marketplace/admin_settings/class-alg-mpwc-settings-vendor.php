@@ -17,6 +17,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
 		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
+		const OPTION_PUBLIC_PAGE_LOGO               = 'alg_mpwc_opt_public_page_logo';
+		const OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL    = 'alg_mpwc_opt_public_page_shop_link_label';
 		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_products';
 		const OPTION_CAPABILITIES_DELETE_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_delete_products';
 		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
@@ -96,6 +98,33 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'id'          => 'alg_mpwc_vendors_opt',
 				),
 
+				// Registration
+				array(
+					'title'       => __( 'Registration', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Options regarding vendors registration', 'marketplace-for-woocommerce' ),
+					'type'        => 'title',
+					'id'          => 'alg_mpwc_registry_opt',
+				),
+				array(
+					'title'       => __( 'Automatic approval', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows users to be automatically approved as vendors on registration, bypassing the pending status', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_REGISTRY_AUTOMATIC_APPROVAL,
+					'default'     => 'no',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'Checkbox text', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'The text displayed to users that want to become vendors', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_REGISTRY_CHECKBOX_TEXT,
+					'default'     => __('Apply for becoming a vendor', 'marketplace-for-woocommerce' ),
+					'class'       => 'regular-input',
+					'type'        => 'text',
+				),
+				array(
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_registry_opt',
+				),
+
 				// Product Tab
 				array(
 					'title'       => __( 'Product tab', 'marketplace-for-woocommerce' ),
@@ -129,37 +158,10 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'id'          => 'alg_mpwc_product_tab',
 				),
 
-				// Commissions
-				array(
-					'title'       => __( 'Registration', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Options regarding vendors registration', 'marketplace-for-woocommerce' ),
-					'type'        => 'title',
-					'id'          => 'alg_mpwc_registry_opt',
-				),
-				array(
-					'title'       => __( 'Automatic approval', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Allows users to be automatically approved as vendors on registration, bypassing the pending status', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_REGISTRY_AUTOMATIC_APPROVAL,
-					'default'     => 'no',
-					'type'        => 'checkbox',
-				),
-				array(
-					'title'       => __( 'Checkbox text', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'The text displayed to users that want to become vendors', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_REGISTRY_CHECKBOX_TEXT,
-					'default'     => __('Apply for becoming a vendor', 'marketplace-for-woocommerce' ),
-					'class'       => 'regular-input',
-					'type'        => 'text',
-				),
-				array(
-					'type'        => 'sectionend',
-					'id'          => 'alg_mpwc_registry_opt',
-				),
-
 				// Public page
 				array(
 					'title'       => __( 'Public page', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'The public page used to display vendor products', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'The public page that displays all info about vendor and some of its products', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_vendors_pp_opt',
 				),
@@ -171,6 +173,21 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'default'     => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'placeholder' => __( 'marketplace-vendor', 'marketplace-for-woocommerce' ),
 					'type'        => 'text',
+				),
+				array(
+					'title'       => __( 'Shop link label', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Text pointing to shop page showing results filtered by vendor', 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( "Leave it empty if you don't want to show it", 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL,
+					'default'     => __( "See all vendor's products", 'marketplace-for-woocommerce' ),
+					'type'        => 'text',
+				),
+				array(
+					'title'       => __( 'Logo', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "Show vendor's logo", 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_PUBLIC_PAGE_LOGO,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
 				),
 				array(
 					'type'        => 'sectionend',
