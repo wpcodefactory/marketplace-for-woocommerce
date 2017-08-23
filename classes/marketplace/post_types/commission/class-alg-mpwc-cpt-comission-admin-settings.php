@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission admin settings
  *
- * @version 1.0.1
+ * @version 1.0.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -46,8 +46,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Display the sum of commissions values in edit.php page
 		 *
-		 * Called on Alg_MPWC_CPT_Commission::display_commission_value_column()
+		 * @version 1.0.0
+		 * @since   1.0.0
 		 *
+		 * Called on Alg_MPWC_CPT_Commission::display_commission_value_column()
+		 * @todo Show the sum of total value converted to default shop currency
 		 * @param $defaults
 		 *
 		 * @return mixed
@@ -143,7 +146,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Adds the commission details CMB
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.3
 		 * @since   1.0.0
 		 */
 		public function add_commission_details_cmb() {
@@ -169,7 +172,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 
 			$cmb_demo->add_field( array(
 				'name'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency() . ')',
-				'desc'       => __( 'Fixed value settled when this commission was created', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'desc'       => __( 'Fixed value settled when this commission was created', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ').'.'<br />'.__( "Note 1: It's registered in shop base currency", 'marketplace-for-woocommerce' ).'<br />'.__( "Note 2: It's converted to currency option to calculate the value field", 'marketplace-for-woocommerce' ),
 				'id'         => Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE,
 				'type'       => 'text',
 				'attributes' => array(
@@ -194,8 +197,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			) );
 
 			$cmb_demo->add_field( array(
-				'name'       => __( 'Value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency() . ')',
-				'desc'       => __( 'Final commission value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency_symbol() . ')',
+				'name'       => __( 'Value', 'marketplace-for-woocommerce' ),
 				'id'         => Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE,
 				'type'       => 'text',
 				'attributes' => array(
@@ -203,6 +205,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					'type'  => 'number',
 					'style' => 'width: 99%',
 				),
+				'after' => array($this,'add_value_description'),
 				'column'     => array( 'position' => 3 ),
 				'display_cb' => array( $this, 'display_commission_value_column' ),
 			) );
@@ -253,7 +256,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				'name'       => __( 'Currency', 'marketplace-for-woocommerce' ),
 				'id'         => Alg_MPWC_Post_Metas::COMMISSION_CURRENCY,
 				'type'       => 'pw_select',
-				'options_cb' => array($this,'get_currency'),
+				'options_cb' => array($this,'get_currencies'),
 				'default'    => get_woocommerce_currency(),
 				'attributes' => array(
 					'style'  => 'width: 99%',
@@ -265,13 +268,36 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		}
 
 		/**
+		 * Outputs the value field description
+		 *
+		 * @version 1.0.3
+		 * @since   1.0.0
+		 *
+		 * @param  object $field_args Current field args
+		 * @param  object $field      Current field object
+		 */
+		public function add_value_description( $field_args, $field ) {
+			//$symbol = get_woocommerce_currency_symbol();
+			$post_id  = $field->object_id;
+
+			$currency = get_post_meta($post_id, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true);
+			$currency = $currency ? $currency : get_woocommerce_currency();
+			$symbol = get_woocommerce_currency_symbol($currency);
+
+			$currency_str = $currency." ({$symbol})";
+
+			$currency = get_woocommerce_currency();
+			echo "<p class='cmb2-metabox-description'>Currency: ".$currency_str."</p>";
+		}
+
+		/**
 		 * Gets currencies
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
 		 */
-		public function get_currency( $field ) {
+		public function get_currencies( $field ) {
 			$currencies = get_woocommerce_currencies();
 
 			$shop_currency = get_woocommerce_currency();
@@ -292,8 +318,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		public function display_deal_column( $field_args, $field ) {
 			$post_id          = $field->object_id;
 			$fixed_value      = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE, true );
+
 			$percentage_value = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE, true );
+			$currency = get_post_meta($post_id, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true);
+			$currency = $currency ? $currency : get_woocommerce_currency();
 			if ( ! empty( $fixed_value ) ) {
+
 				echo wc_price( $fixed_value );
 
 				if ( ! empty( $percentage_value ) ) {
@@ -313,7 +343,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @since   1.0.0
 		 */
 		public function display_commission_value_column( $field_args, $field ) {
-			echo wc_price( $field->escaped_value() );
+			$post_id          = $field->object_id;
+			$currency = get_post_meta($post_id, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true);
+			$currency = $currency ? $currency : get_woocommerce_currency();
+			echo wc_price( $field->escaped_value(),array(
+				'currency'=>$currency
+			) );
 		}
 
 		/**

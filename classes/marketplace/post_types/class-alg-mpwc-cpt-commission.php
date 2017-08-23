@@ -233,13 +233,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Displays the commission value on post edit column
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.3
 		 * @since   1.0.0
 		 */
 		public function display_total_value_in_edit_columns($defaults){
 			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
 			$admin_settings->set_args($this);
-			$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
+			//$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
 			return $defaults;
 		}
 

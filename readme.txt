@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,12 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.3 - 22/08/2017 =
+* Remove filter 'alg_mpwc_commission_value' to filter commission value
+* Remove filter 'alg_mpwc_commission_currency' to filter commission currency
+* Add action 'alg_mpwc_insert_commission' to run immediately after a commission is created
+* Remove total value from commissions
 
 = 1.0.2 - 21/08/2017 =
 * Create option to manage product tab

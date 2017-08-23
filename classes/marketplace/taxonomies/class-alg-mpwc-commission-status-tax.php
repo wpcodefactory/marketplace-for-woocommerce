@@ -10,7 +10,7 @@
 if ( ! class_exists( 'Alg_MPWC_Commission_Status_Tax' ) ) {
 	class Alg_MPWC_Commission_Status_Tax {
 
-		public $id='alg_mpwc_c_status_tax';
+		public $id = 'alg_mpwc_c_status_tax';
 
 		// Taxonomy args
 		protected $labels;
@@ -29,6 +29,8 @@ if ( ! class_exists( 'Alg_MPWC_Commission_Status_Tax' ) ) {
 		/**
 		 * Creates initial status terms for commission taxonomy.
 		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
 		 * Called when the plugin is enabled on Alg_MPWC_Core::on_plugin_activation()
 		 */
 		public function create_initial_status() {
@@ -76,13 +78,13 @@ if ( ! class_exists( 'Alg_MPWC_Commission_Status_Tax' ) ) {
 			);
 
 			$args = array(
-				'hierarchical'      => true,
-				'labels'            => $labels,
-				'show_ui'           => true,
-				'show_admin_column' => false,
+				'hierarchical'       => true,
+				'labels'             => $labels,
+				'show_ui'            => true,
+				'show_admin_column'  => false,
 				'show_in_quick_edit' => false,
-				'query_var'         => true,
-				'rewrite'           => array( 'slug' => 'status' ),
+				'query_var'          => true,
+				'rewrite'            => array( 'slug' => 'status' ),
 			);
 
 			$this->labels = $labels;
