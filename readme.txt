@@ -49,7 +49,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
-= 1.0.3 - 22/08/2017 =
+= 1.0.3 - 23/08/2017 =
 * Remove filter 'alg_mpwc_commission_value' to filter commission value
 * Remove filter 'alg_mpwc_commission_currency' to filter commission currency
 * Add action 'alg_mpwc_insert_commission' to run immediately after a commission is created
