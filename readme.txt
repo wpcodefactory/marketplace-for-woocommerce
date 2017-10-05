@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.4 - 05/09/2017 =
+* Fix bulk author changing
 
 = 1.0.3 - 23/08/2017 =
 * Remove filter 'alg_mpwc_commission_value' to filter commission value

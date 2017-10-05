@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Shop manager user manager
  *
- * @version 1.0.1
+ * @version 1.0.4
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -34,7 +34,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.4
 		 * @since   1.0.0
 		 *
 		 */
@@ -45,34 +45,13 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 			add_filter( 'alg_mpwc_show_total_commissions_value', array( $this, 'show_total_commissions_value' ) );
 
 			// Adds vendors to author dropdown
-			add_action( 'load-post.php', array( $this, 'load_vendor_dropdown_filter' ) );
-			add_action( 'load-post-new.php', array( $this, 'load_vendor_dropdown_filter' ) );
-		}
-
-		/**
-		 * Loads vendor dropdown filter
-		 *
-		 * @version 1.0.1
-		 * @since   1.0.1
-		 */
-		function load_vendor_dropdown_filter() {
-			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
-				return;
-			}
-
-			$screen = get_current_screen();
-
-			if ( empty( $screen->post_type ) || 'product' !== $screen->post_type ) {
-				return;
-			}
-
 			add_filter( 'wp_dropdown_users_args', array( $this, 'add_vendors_to_author_dropdown' ), 10, 2 );
 		}
 
 		/**
 		 * Adds vendors to author dropdown
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.4
 		 * @since   1.0.1
 		 *
 		 * @param $args
@@ -87,14 +66,13 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 			}
 
 			// Check that this is the correct drop-down.
-			if ( 'post_author_override' === $r['name'] && 'product' === $post->post_type ) {
+			if ( 'product' === $post->post_type ) {
 				$args['who']      = '';
 				$args['role__in'] = array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, 'administrator', 'shop_manager' );
 			}
 
 			return $args;
 		}
-
 
 		/**
 		 * Adds author supports for products
