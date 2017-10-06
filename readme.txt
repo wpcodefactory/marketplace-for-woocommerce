@@ -51,6 +51,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 = 1.0.4 - 05/09/2017 =
 * Fix bulk author changing
+* Fix vendor url
 
 = 1.0.3 - 23/08/2017 =
 * Remove filter 'alg_mpwc_commission_value' to filter commission value
@@ -77,11 +78,6 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-* Add currency to commission
-* Add option to change product vendor/author
-* Remove edit action from commissions bulk actions
-* Add info about public page on admin settings if using ugly permalinks
-* Create action 'alg_mpwc_vendor_admin_fields' for optionally adding vendor fields
-* Create filter 'alg_mpwc_commission_value' to filter commission value
-* Create filter 'alg_mpwc_commission_currency' to filter commission currency
+= 1.0.4 =
+* Fix bulk author changing
+* Fix vendor url

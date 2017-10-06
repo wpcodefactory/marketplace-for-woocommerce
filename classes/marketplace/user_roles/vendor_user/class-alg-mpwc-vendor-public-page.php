@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor public page
  *
- * @version 1.0.2
+ * @version 1.0.4
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -118,15 +118,22 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		/**
 		 * Gets the public page url
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.4
 		 * @since   1.0.0
 		 */
 		public static function get_public_page_url( $user_id ) {
-			return add_query_arg( array(
-				Alg_MPWC_Query_Vars::VENDOR => $user_id,
-				Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE => '1',
-				'post_type'=>'product'
-			), get_home_url() . '/' );
+			if ( get_option( 'permalink_structure' ) ) {
+				$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) );
+				$user        = get_user_by( 'id', $user_id );
+				$vendor      = $user->data->user_nicename;
+				return get_home_url() . '/' . $vendor_slug . '/' . $vendor;
+			} else {
+				return add_query_arg( array(
+					Alg_MPWC_Query_Vars::VENDOR             => $user_id,
+					Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE => '1',
+					'post_type'                             => 'product'
+				), get_home_url() . '/' );
+			}
 		}
 
 		/**
