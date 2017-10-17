@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor admin fields and metaboxes
  *
- * @version 1.0.1
+ * @version 1.0.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -79,10 +79,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		/**
 		 * Creates custom css
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 */
 		public function custom_css( $post_id, $cmb ) {
+			if(!is_admin()){
+				return;
+			}
 			?>
             <style type="text/css" media="screen">
                 #cmb2-metabox-alg_mpwc_vendor_admin_fields {
@@ -131,7 +134,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 		/**
 		 * Adds vendor user admin fields
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 */
 		public function add_fields() {
@@ -157,7 +160,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'desc'            => __( 'Blocks vendor products and its public page', 'marketplace-for-woocommerce' ),
 				'id'              => $this->meta_block_vendor,
 				'type'            => 'checkbox',
-				'on_front'        => false,
+				'on_front'        => true,
 				'sanitization_cb' => array( $this, 'sanitize_vendor_block_option' ),
 				'show_on_cb'      => array( $this, 'show_block_vendor_field' ),
 			) );
@@ -169,14 +172,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'options'  => array(
 					'url' => false, // Hide the text input for the url
 				),
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( "Store's name", 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_store_title,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
@@ -188,35 +191,35 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 					'media_buttons' => false,
 					'teeny'         => true,
 				),
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Address', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_address,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'City', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_city,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'State', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_state,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Phone', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_phone,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
@@ -224,56 +227,56 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'id'       => 'alg_mpwc_title_payment',
 				'desc'     => 'Info about the payment details',
 				'type'     => 'title',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Bank account name', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_bank_account_name,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Bank name', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_bank_name,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Bank address', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_bank_address,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'ABA routing number', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_aba_routing_number,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'IBAN', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_iban,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Account holder name', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_account_holder_name,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
 				'name'     => __( 'Paypal email', 'marketplace-for-woocommerce' ),
 				'id'       => $this->meta_paypal_email,
 				'type'     => 'text',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
@@ -281,7 +284,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'desc'     => __( 'Commission values', 'marketplace-for-woocommerce' ).'<br />'.__( 'Note: In case of empty values, the default ones will be used from Marketplace settings', 'marketplace-for-woocommerce' ),
 				'id'       => 'alg_mpwc_commissions_title',
 				'type'     => 'title',
-				'on_front' => false,
+				'on_front' => true,
 			) );
 
 			$cmb_user->add_field( array(
@@ -291,9 +294,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'attributes' => array(
 					'type'     => 'number',
 					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,
-					'disabled' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'disabled' : false,
 				),
-				'on_front'   => false,
+				'on_front'   => true,
 			) );
 
 			$cmb_user->add_field( array(
@@ -302,10 +304,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 				'type'       => 'text',
 				'attributes' => array(
 					'type'     => 'number',
-					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,
-					'disabled' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'disabled' : false,
+					'readonly' => current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ? 'readonly' : false,					
 				),
-				'on_front'   => false,
+				'on_front'   => true,
 			) );
 
 			do_action('alg_mpwc_vendor_admin_fields', $cmb_user);

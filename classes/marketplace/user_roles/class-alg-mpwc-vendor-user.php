@@ -27,7 +27,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			$vendor_role->init();
 
 			// Creates vendor admin fields
-			add_action( 'cmb2_admin_init', array( $this, 'add_admin_fields' ) );
+			add_action( 'cmb2_init', array( $this, 'add_admin_fields' ) );
 
 			// Setups the block vendor option
 			new Alg_MPWC_Vendor_Block_Option();

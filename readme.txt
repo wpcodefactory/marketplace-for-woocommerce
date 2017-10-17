@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
+= 1.0.5 - 16/10/2017 =
+* Allow vendor fiels to be edited on frontend plugin
+
 = 1.0.4 - 05/09/2017 =
 * Fix bulk author changing
 * Fix vendor url
@@ -78,6 +81,5 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.0.4 =
-* Fix bulk author changing
-* Fix vendor url
+= 1.0.5 =
+* Allow vendor fiels to be edited on frontend plugin
