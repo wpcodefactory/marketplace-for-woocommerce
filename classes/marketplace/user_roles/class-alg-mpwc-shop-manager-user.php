@@ -66,10 +66,12 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 			}
 
 			// Check that this is the correct drop-down.
-			if ( 'product' === $post->post_type ) {
-				$args['who']      = '';
-				$args['role__in'] = array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, 'administrator', 'shop_manager' );
-			}
+			if ( $post->post_type ) {
+				if ( 'product' === $post->post_type ) {
+					$args['who']      = '';
+					$args['role__in'] = array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, 'administrator', 'shop_manager' );
+				}
+			}			
 
 			return $args;
 		}
