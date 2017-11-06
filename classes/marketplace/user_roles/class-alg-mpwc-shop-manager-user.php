@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Shop manager user manager
  *
- * @version 1.0.4
+ * @version 1.0.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Adds vendors to author dropdown
 		 *
-		 * @version 1.0.4
+		 * @version 1.0.5
 		 * @since   1.0.1
 		 *
 		 * @param $args
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 					$args['who']      = '';
 					$args['role__in'] = array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, 'administrator', 'shop_manager' );
 				}
-			}			
+			}
 
 			return $args;
 		}
