@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.0.0
+ * @version 1.0.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -260,7 +260,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Redirects user to dashboard instead of the profile page
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 *
 		 * @param $redirect_to
@@ -270,7 +270,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 */
 		public function redirect_to_dashboard_after_login( $user_login, $user ) {
 			if ( in_array( self::ROLE_VENDOR, $user->roles ) ) {
-				exit( wp_redirect( admin_url( 'index.php' ) ) );
+				$redirect_to_admin = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_REDIRECT_TO_ADMIN, true ), FILTER_VALIDATE_BOOLEAN );
+				if ( $redirect_to_admin ) {
+					exit( wp_redirect( admin_url( 'index.php' ) ) );
+				}
 			}
 		}
 

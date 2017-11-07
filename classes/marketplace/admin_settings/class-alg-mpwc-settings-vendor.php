@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.0.2
+ * @version 1.0.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -33,6 +33,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_PRODUCT_TAB_PRIORITY           = 'alg_mpwc_opt_vendor_product_tab_priority';
 		const OPTION_PRODUCT_TAB_ENABLE             = 'alg_mpwc_opt_vendor_product_tab_enable';
 		const OPTION_AUTHORSHIP_PRODUCT_LOOP        = 'alg_mpwc_opt_authorship_product_loop';
+		const OPTION_REDIRECT_TO_ADMIN              = 'alg_mpwc_opt_redirect_to_admin';
 
 		/**
 		 * Constructor.
@@ -67,7 +68,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.0.2
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
@@ -98,6 +99,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'title'       => __( 'Authorship on product loop', 'marketplace-for-woocommerce' ),
 					'desc'        => __( "Displays a link (By vendor) on product loop pointing to vendor's public page", 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_AUTHORSHIP_PRODUCT_LOOP,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'Redirect to admin on login', 'marketplace-for-woocommerce' ),
+					'desc'        => __( "Redirects vendors to admin after login", 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_REDIRECT_TO_ADMIN,
 					'default'     => 'yes',
 					'type'        => 'checkbox',
 				),
