@@ -53,6 +53,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 * Allow vendor fiels to be edited on frontend plugin
 * Fix commissions status not being created automatically
 * Add option to redirect vendors to admin on login
+* Remove all dashboard widgets
 
 = 1.0.4 - 05/09/2017 =
 * Fix bulk author changing
@@ -87,3 +88,4 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 * Allow vendor fiels to be edited on frontend plugin
 * Fix commissions status not being created automatically
 * Add option to redirect vendors to admin on login
+* Remove all dashboard widgets

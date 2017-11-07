@@ -35,7 +35,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Initializes the vendor role manager
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 *
 		 */
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'change_role_options' ) );
 
 				// Handle dashboard widgets
-				add_action( 'admin_init', array( $this, 'remove_dashboard_widgets' ) );
+				add_action( 'wp_dashboard_setup', array( $this, 'remove_dashboard_widgets' ) );
 				add_action( 'alg_mpwc_dashboard_widget_alg_mpwc_main_widget', array(
 					$this,
 					'display_marketplace_widget',
@@ -298,7 +298,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Removes dashboard widgets
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 */
 		function remove_dashboard_widgets() {
@@ -306,15 +306,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				return;
 			}
 
-			remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
-			remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
-			remove_meta_box( 'dashboard_primary', 'dashboard', 'side' );
-			remove_meta_box( 'dashboard_secondary', 'dashboard', 'normal' );
-			remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-			remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-			remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
-			remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
-			remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' );
+			global $wp_meta_boxes;
+			$wp_meta_boxes['dashboard']['normal']['core'] = array();
+			$wp_meta_boxes['dashboard']['side']['core'] = array();
 		}
 
 		/**
