@@ -102,17 +102,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 			$commission_fixed_value = $this->commission_manager->commission_fixed_value;
 			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
 
-			// Gets order currency
-			$order_currency = get_post_meta($order_id, '_order_currency', true);
-			$commission_convert_value = 1;
-			//$commission_convert_value = function_exists( 'alg_get_currency_exchange_rate' ) ? alg_get_currency_exchange_rate($order_currency) : 1;
-
 			foreach ( $products_by_vendor as $comissions ) {
 
 				// Sets comission vars
 				$subtotal        = 0;
 				$product_ids     = array();
-				$order_id        = '';
 				$title_arr       = array();
 				$vendor_id       = '';
 				$comission_value = 0;
@@ -124,24 +118,22 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 					$subtotal      += $item->get_subtotal();
 					$product_ids[] = $item->get_product_id();
 					$title_arr[]   = $post->post_title;
-					$order_id      = $item->get_order_id();
 				}
 
 				// Override commission values
 				$commission_fixed_value_override      = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_fixed_value, true );
 				$commission_percentage_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_percentage_value, true );
 				$commission_fixed_value               = $commission_fixed_value_override || $commission_fixed_value_override === 0 ? $commission_fixed_value_override : $commission_fixed_value;
+				$commission_fixed_value               = apply_filters( 'alg_mpwc_commission_fixed_value', $commission_fixed_value, $order_id );
 				$commission_percentage_value          = $commission_percentage_value_override || $commission_percentage_value_override === 0 ? $commission_percentage_value_override : $commission_percentage_value;
 
 				// Sets comission title
 				$title = implode( ', ', $title_arr );
 				$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
-				//$title .= ' (' . sprintf( __( 'Order %s' ), $order_id ) . ')';
 
 				$commission_value_final = 0;
 				$commission_value_final += $commission_fixed_value;
 				$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
-				$commission_value_final *= $commission_convert_value;
 
 				// Creates comission post type programmatically
 				$insert_post_response = wp_insert_post( array(

@@ -27,6 +27,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_COMMISSIONS_FIXED_VALUE        = 'alg_mpwc_opt_commissions_fixed_value';
 		const OPTION_COMMISSIONS_PERCENTAGE_VALUE   = 'alg_mpwc_opt_commissions_percentage_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
+		const OPTION_INCLUDE_TAXES                  = 'alg_mpwc_opt_commissions_include_taxes';
 		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
 		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
 		const OPTION_PRODUCT_TAB_TEXT               = 'alg_mpwc_opt_vendor_product_tab_text';
@@ -259,20 +260,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'id'          => 'alg_mpwc_comissions_opt',
 				),
 				/*array(
-					'title'       => __( 'Currency', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Currency used to pay commissions.', 'marketplace-for-woocommerce' ).'<br />'.sprintf(__( 'If you need multi-currency, this plugin is compatible with <a target="_blank" href="%s">"Currency Switcher for WooCommerce"</a> plugin', 'marketplace-for-woocommerce' ),'https://wordpress.org/plugins/currency-switcher-woocommerce/'),
-					//'desc_tip'    => __( 'You can select the option "Use Order Currency" if your shop uses multi currency', 'marketplace-for-woocommerce' ),
-					//'desc_tip'    => __( 'If you need multi-currency, this plugin is compatible with <a href="http://uol.com.br">"Currency Switcher for WooCommerce"</a> plugin', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_CURRENCY,
-					'options'     => array(
-						'use_order_currency' => __( 'Use Order Currency', 'marketplace-for-woocommerce' ),
-						'use_shop_currency'  => __( 'Use Shop Currency', 'marketplace-for-woocommerce' ),
-					),
-					'default'     => array( 'use_shop_currency' ),
-					//'options'     => array( 'use_order_currency' => __( 'Use Order Currency', 'marketplace-for-woocommerce' ) ) + get_woocommerce_currencies(),
-					//'default'     => array( get_woocommerce_currency() ),
-					'type'        => 'select',
-					'class'       => 'chosen_select'
+					'title'       => __( 'Include taxes', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Include taxes in commissions', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_INCLUDE_TAXES,
+					'default'     => 'no',
+					'type'        => 'checkbox',
 				),*/
 				array(
 					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),

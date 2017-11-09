@@ -290,6 +290,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 			$cmb_user->add_field( array(
 				'name'       => __( 'Fixed value', 'marketplace-for-woocommerce' ) . ' (' . get_woocommerce_currency() . ')',
 				'id'         => $this->meta_commission_fixed_value,
+				'desc'       => __( 'Note: Use 0 if you do not want fixed values. Empty values will be interpreted as default values from settings', 'marketplace-for-woocommerce' ) . ' (%)',
 				'type'       => 'text',
 				'attributes' => array(
 					'type'     => 'number',
@@ -300,6 +301,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Admin_Fields' ) ) {
 
 			$cmb_user->add_field( array(
 				'name'       => __( 'Percentage value', 'marketplace-for-woocommerce' ) . ' (%)',
+				'desc'       => __( 'Note: Use 0 if you do not want percentages. Empty values will be interpreted as default values from settings', 'marketplace-for-woocommerce' ) . ' (%)',
 				'id'         => $this->meta_commission_percentage_value,
 				'type'       => 'text',
 				'attributes' => array(

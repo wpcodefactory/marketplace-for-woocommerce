@@ -311,21 +311,16 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Displays the deal settled (percentage + fixed value) when commission was created
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.5
 		 * @since   1.0.0
 		 *
 		 */
 		public function display_deal_column( $field_args, $field ) {
 			$post_id          = $field->object_id;
 			$fixed_value      = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE, true );
-
 			$percentage_value = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE, true );
-			$currency = get_post_meta($post_id, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true);
-			$currency = $currency ? $currency : get_woocommerce_currency();
 			if ( ! empty( $fixed_value ) ) {
-
-				echo wc_price( $fixed_value );
-
+				echo wc_price( $fixed_value);
 				if ( ! empty( $percentage_value ) ) {
 					echo ' + ';
 				}
@@ -343,11 +338,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @since   1.0.0
 		 */
 		public function display_commission_value_column( $field_args, $field ) {
-			$post_id          = $field->object_id;
-			$currency = get_post_meta($post_id, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true);
+			$post_id  = $field->object_id;
+			$currency = get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true );
 			$currency = $currency ? $currency : get_woocommerce_currency();
-			echo wc_price( $field->escaped_value(),array(
-				'currency'=>$currency
+			echo wc_price( $field->escaped_value(), array(
+				'currency' => $currency
 			) );
 		}
 
