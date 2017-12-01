@@ -87,7 +87,10 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 		 * @since   1.0.6
 		 */
 		public static function filter( $query ) {
-			$screen                  = get_current_screen();
+			$screen = null;
+			if ( function_exists( 'get_current_screen' ) ) {
+				$screen = get_current_screen();
+			}
 			$query_string_product_id = null;
 			if ( isset( $_REQUEST['alg_mpwc_product'] ) ) {
 				$query_string_product_id = filter_var( $_REQUEST['alg_mpwc_product'], FILTER_SANITIZE_NUMBER_INT );
@@ -106,7 +109,7 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 			$meta_query = array(
 				array(
 					'key'     => Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS,
-					'value'   => '\:\"?'.$query_string_product_id.'"?\;',
+					'value'   => '\:\"?' . $query_string_product_id . '"?\;',
 					'compare' => 'REGEXP',
 				),
 			);
