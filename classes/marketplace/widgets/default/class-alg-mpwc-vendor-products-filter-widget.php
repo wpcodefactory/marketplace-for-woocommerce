@@ -23,7 +23,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 				array( 'description' => esc_html__( 'Filters Marketplace vendor products', 'marketplace-for-woocommerce' ), ) // Args
 			);
 
-			$filter = new Alg_MPWC_Vendor_Products_Filter();
+			$filter = new Alg_MPWC_Vendor_Filter();
 			$filter->setup();
 		}
 
@@ -52,7 +52,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 				echo $args['before_title'] . apply_filters( 'widget_title', $instance['title'] ) . $args['after_title'];
 			}
 
-			$filter = new Alg_MPWC_Vendor_Products_Filter();
+			$filter = new Alg_MPWC_Vendor_Filter();
 			echo $filter->get_html();
 
 			echo $args['after_widget'];

@@ -49,6 +49,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 		/**
 		 * Creates a array of products from an order filtered by vendors
 		 *
+		 * @version 1.0.0
+		 * @since   1.0.0
+		 *
 		 * @param $order_id
 		 *
 		 * @return array
@@ -120,16 +123,16 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 					$title_arr[]   = $post->post_title;
 				}
 
+				// Sets comission title
+				$title = implode( ', ', $title_arr );
+				$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
+
 				// Override commission values
 				$commission_fixed_value_override      = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_fixed_value, true );
 				$commission_percentage_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_percentage_value, true );
 				$commission_fixed_value               = $commission_fixed_value_override || $commission_fixed_value_override === 0 ? $commission_fixed_value_override : $commission_fixed_value;
 				$commission_fixed_value               = apply_filters( 'alg_mpwc_commission_fixed_value', $commission_fixed_value, $order_id );
 				$commission_percentage_value          = $commission_percentage_value_override || $commission_percentage_value_override === 0 ? $commission_percentage_value_override : $commission_percentage_value;
-
-				// Sets comission title
-				$title = implode( ', ', $title_arr );
-				$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
 
 				$commission_value_final = 0;
 				$commission_value_final += $commission_fixed_value;

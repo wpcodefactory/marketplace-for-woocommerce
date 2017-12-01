@@ -277,7 +277,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'title'       => __( 'Percentage Value', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Percentage value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_PERCENTAGE_VALUE,
-					'default'     => 15,
+					'default'     => 80,
 					'type'        => 'number',
 				),
 				array(

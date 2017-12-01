@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
+= 1.0.6 - 01/12/2017 =
+* Add product filter on commissions list page on admin
+
 = 1.0.5 - 06/11/2017 =
 * Allow vendor fiels to be edited on frontend plugin
 * Fix commissions status not being created automatically
@@ -85,9 +88,5 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.0.5 =
-* Allow vendor fiels to be edited on frontend plugin
-* Fix commissions status not being created automatically
-* Add option to redirect vendors to admin on login
-* Remove all dashboard widgets
-* Add filter "alg_mpwc_commission_fixed_value" for commission with fixed values
+= 1.0.6 =
+* Add product filter on commissions list page on admin

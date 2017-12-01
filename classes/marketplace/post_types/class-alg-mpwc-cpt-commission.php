@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.0.1
+ * @version 1.0.6
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -70,18 +70,23 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Setups the post type
 		 *
-		 * @version 1.0.1
+		 * @version 1.0.6
 		 * @since   1.0.0
 		 */
 		public function setup() {
 			$this->set_args();
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
+
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
-			add_filter( 'manage_'.$this->id.'_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
+			add_filter( 'manage_' . $this->id . '_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
 			add_action( 'restrict_manage_posts', array( $this, 'create_vendor_filter' ), 10 );
 			add_action( 'restrict_manage_posts', array( $this, 'create_status_filter' ), 10 );
+
+			//Product filter
+			add_action( 'pre_get_posts', array( 'Alg_MPWC_Product_Filter', 'filter' ) );
+			add_action( 'restrict_manage_posts', array( $this, 'create_product_filter' ), 10 );
 
 			// Bulk actions
 			add_filter( "bulk_actions-edit-{$this->id}", array( $this, 'bulk_actions_create' ) );
@@ -93,6 +98,24 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$id      = 'alg_mpwc';
 			$section = 'vendors';
 			add_action( "woocommerce_update_options_{$id}_{$section}", array( __CLASS__, 'gives_all_caps_to_roles' ) );
+
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_select2_on_comissions_edit_page' ) );
+		}
+
+		/**
+		 * Enqueues select2 style on commissions list page
+		 *
+		 * @version 1.0.6
+		 * @since   1.0.6
+		 */
+		public function enqueue_select2_on_comissions_edit_page( $hook ) {
+			$screen = get_current_screen();
+			if (
+				$screen->id != 'edit-alg_mpwc_commission'
+			) {
+				return;
+			}
+			wp_enqueue_style( 'alg_mpwc_select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css' );
 		}
 
 		/**
@@ -177,8 +200,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
 				return $bulk_actions;
 			}
-			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set selected commissions as paid', 'marketplace-for-woocommerce' ).' ';
-			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set selected commissions as unpaid', 'marketplace-for-woocommerce' ).' &nbsp;';
+			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set selected commissions as paid', 'marketplace-for-woocommerce' ) . ' ';
+			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set selected commissions as unpaid', 'marketplace-for-woocommerce' ) . ' &nbsp;';
 			return $bulk_actions;
 		}
 
@@ -224,8 +247,28 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				return;
 			}
 
-			$dropdown = new Alg_MPWC_Vendor_Products_Filter();
+			$dropdown = new Alg_MPWC_Vendor_Filter();
 			echo $dropdown->get_html( array(
+				'get_dropdown_only' => true,
+			) );
+		}
+
+		/**
+		 * Creates a dropdown filter to show commissions containing a specific product
+		 *
+		 * @version 1.0.6
+		 * @since   1.0.6
+		 *
+		 * @param $post_type
+		 * @param $which
+		 */
+		public function create_product_filter( $post_type ) {
+			if ( $post_type != $this->id ) {
+				return;
+			}
+
+			$dropdown = new Alg_MPWC_Product_Filter();
+			$dropdown->html( array(
 				'get_dropdown_only' => true,
 			) );
 		}
@@ -236,9 +279,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.3
 		 * @since   1.0.0
 		 */
-		public function display_total_value_in_edit_columns($defaults){
+		public function display_total_value_in_edit_columns( $defaults ) {
 			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
-			$admin_settings->set_args($this);
+			$admin_settings->set_args( $this );
 			//$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
 			return $defaults;
 		}
@@ -249,9 +292,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function remove_add_new_from_menu(){
+		public function remove_add_new_from_menu() {
 			global $submenu;
-			unset($submenu['edit.php?post_type='.$this->id.''][10]);
+			unset( $submenu[ 'edit.php?post_type=' . $this->id . '' ][10] );
 		}
 
 		/**

@@ -1,15 +1,15 @@
 <?php
 /**
- * Marketplace for WooCommerce - Frontend
+ * Marketplace for WooCommerce - Vendor filter
  *
- * @version 1.0.0
+ * @version 1.0.6
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Vendor_Filter' ) ) {
 
-	class Alg_MPWC_Vendor_Products_Filter {
+	class Alg_MPWC_Vendor_Filter {
 
 		/**
 		 * Constructor
@@ -74,11 +74,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 
 			// Creates the HTML
 			if ( ! $params['get_dropdown_only'] ) {
-				$return_str   .= '<form class="alg-mpwc-vendor-products-filter-form">';
+				$return_str   .= '<form class="alg-mpwc-vendor-filter-form">';
 				$return_str   .= is_array( $users_with_role ) && count( $users_with_role ) > 0 ? wp_dropdown_users( $args ) : '';
 				$return_str   .= '<input type="hidden" name="post_type" value="product">';
 				$return_str   .= '</form>';
-				$return_str   .= '<style>.alg-mpwc-vendor-products-filter{width:100%}</style>';
+				$return_str   .= '<style>.alg-mpwc-vendor-filter{width:100%}</style>';
 			} else {
 				$return_str = is_array( $users_with_role ) && count( $users_with_role ) > 0 ? wp_dropdown_users( $args ) : '';
 			}
@@ -95,8 +95,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter' ) ) {
 		public function enqueue_scripts() {
 			$js = "				
 				jQuery(document).ready(function($){
-					if($('.alg-mpwc-vendor-products-filter').length){
-						$('.alg-mpwc-vendor-products-filter').change(function(){
+					if($('.alg-mpwc-vendor-filter').length){
+						$('.alg-mpwc-vendor-filter').change(function(){
 							var val = $(this).val();							
 							$(this).parent().submit();							
 						});
