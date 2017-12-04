@@ -55,7 +55,6 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
                     data-allow_clear="true"
                     data-placeholder="Search for a product…" data-action="woocommerce_json_search_products"
                     aria-hidden="true">
-                <option value="-1">Select a product</option>
 				<?php if ( count( $selected_val ) > 0 ) { ?>
                     <option value="<?php echo key( $selected_val ); ?>"
                             selected="selected"><?php echo $selected_val[ key( $selected_val ) ]; ?></option>
