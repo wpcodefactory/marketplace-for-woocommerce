@@ -70,14 +70,29 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				$order_id   = $item->get_order_id();
 
 				$comission_data = isset( $products_by_vendor[ $vendor_id ] ) ? $products_by_vendor[ $vendor_id ] : array();
-				array_push( $comission_data, array(
-					'item'      => $item,
-					'vendor_id' => $vendor_id,
-				) );
+				array_push( $comission_data, $item);
 				$products_by_vendor[ $vendor_id ] = $comission_data;
 			}
 
 			return $products_by_vendor;
+		}
+
+		/**
+		 * Calculate commission by vendor
+		 *
+		 * @version 1.0.5
+		 * @since   1.0.0
+		 */
+		public function calculate_commission(){
+			$commission_fixed_value_override      = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_fixed_value, true );
+			$commission_percentage_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_percentage_value, true );
+			$commission_fixed_value               = $commission_fixed_value_override || $commission_fixed_value_override === 0 ? $commission_fixed_value_override : $commission_fixed_value;
+			$commission_fixed_value               = apply_filters( 'alg_mpwc_commission_fixed_value', $commission_fixed_value, $order_id );
+			$commission_percentage_value          = $commission_percentage_value_override || $commission_percentage_value_override === 0 ? $commission_percentage_value_override : $commission_percentage_value;
+
+			$commission_value_final = 0;
+			$commission_value_final += $commission_fixed_value;
+			$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
 		}
 
 		/**
@@ -101,11 +116,11 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 			// An array of products from an order filtered by vendors
 			$products_by_vendor = $this->get_order_items_filtered_by_vendor( $order_id );
 
-			// Gets commission base and balue
+			// Gets commission base and value
 			$commission_fixed_value = $this->commission_manager->commission_fixed_value;
 			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
 
-			foreach ( $products_by_vendor as $comissions ) {
+			foreach ( $products_by_vendor as $key => $order_items ) {
 
 				// Sets comission vars
 				$subtotal        = 0;
@@ -113,13 +128,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Creator' ) ) {
 				$title_arr       = array();
 				$vendor_id       = '';
 				$comission_value = 0;
-				foreach ( $comissions as $comission ) {
-					/* @var WC_Order_Item_Product $item */
-					$item          = $comission['item'];
-					$post          = get_post( $item->get_product_id() );
+
+				/* @var WC_Order_Item_Product $order_item */
+				foreach ( $order_items as $order_item ) {
+					$post          = get_post( $order_item->get_product_id() );
 					$vendor_id     = $post->post_author;
-					$subtotal      += $item->get_subtotal();
-					$product_ids[] = $item->get_product_id();
+					$subtotal      += $order_item->get_subtotal();
+					$product_ids[] = $order_item->get_product_id();
 					$title_arr[]   = $post->post_title;
 				}
 

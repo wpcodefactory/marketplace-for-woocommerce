@@ -62,7 +62,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Filter' ) ) {
 			// Setups dropdown params
 			$args = array(
 				'show_option_none' => __( 'Select a vendor', 'marketplace-for-woocommerce' ),
-				'class'            => 'alg-mpwc-vendor-products-filter',
+				'class'            => 'alg-mpwc-vendor-filter',
 				'name'             => Alg_MPWC_Query_Vars::VENDOR,
 				'selected'         => $vendor_query_vars,
 				'include_selected' => true,
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Filter' ) ) {
 		 */
 		public function enqueue_scripts() {
 			$js = "				
-				jQuery(document).ready(function($){
+				jQuery(document).ready(function($){				
 					if($('.alg-mpwc-vendor-filter').length){
 						$('.alg-mpwc-vendor-filter').change(function(){
 							var val = $(this).val();							

@@ -49,6 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
+= 1.0.7 - 04/12/2017 =
+* Add option to recalculate commissions
+
 = 1.0.6 - 01/12/2017 =
 * Add product filter on commissions list page on admin
 
