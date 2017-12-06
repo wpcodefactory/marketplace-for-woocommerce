@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.0.7
+ * @version 1.0.9
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -13,7 +13,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * @var Alg_MPWC_CPT_Commission
 		 */
-		private $commission_manager;
+		private $commission_cpt;
 
 		/**
 		 * Set arguments
@@ -21,8 +21,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function set_args( Alg_MPWC_CPT_Commission $commission_manager ) {
-			$this->commission_manager = $commission_manager;
+		public function set_args( Alg_MPWC_CPT_Commission $commission_cpt ) {
+			$this->commission_cpt = $commission_cpt;
 		}
 
 		/**
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		 */
 		public function handle_automatic_creation() {
 			$comission_creator           = new Alg_MPWC_CPT_Commission_Manager();
-			$commissions_creation_status = $this->commission_manager->automatic_creation;
+			$commissions_creation_status = $this->commission_cpt->automatic_creation;
 			if ( is_array( $commissions_creation_status ) ) {
 				foreach ( $commissions_creation_status as $order_status ) {
 					$status = str_replace( 'wc-', '', $order_status );
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates a array of products from an order filtered by vendors
 		 *
-		 * @version 1.0.7
+		 * @version 1.0.9
 		 * @since   1.0.0
 		 *
 		 * @param $order_id
@@ -80,8 +80,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Gets order items from a specific vendor
 		 *
-		 * @version 1.0.7
-		 * @since   1.0.7
+		 * @version 1.0.9
+		 * @since   1.0.9
 		 */
 		protected function get_order_items_by_vendor( $order_id, $vendor_id ) {
 			$order_items_separated_by_vendor = $this->get_order_items_separated_by_vendor( $order_id );
@@ -91,8 +91,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Gets updated commission info
 		 *
-		 * @version 1.0.7
-		 * @since   1.0.7
+		 * @version 1.0.9
+		 * @since   1.0.9
 		 *
 		 * @param        $commission_id
 		 *
@@ -102,8 +102,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		 */
 		public function get_updated_commission_info( $commission_id, $based_on = 'global_settings' ) {
 			// Gets commission base and value
-			$commission_fixed_value      = $this->commission_manager->commission_fixed_value;
-			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
+			$commission_fixed_value      = $this->commission_cpt->commission_fixed_value;
+			$commission_percentage_value = $this->commission_cpt->commission_percentage_value;
 
 			$order_id  = filter_var( get_post_meta( $commission_id, Alg_MPWC_Post_Metas::COMMISSION_ORDER_ID, true ), FILTER_SANITIZE_NUMBER_INT );
 			$vendor_id = filter_var( get_post_meta( $commission_id, Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID, true ), FILTER_SANITIZE_NUMBER_INT );
@@ -144,65 +144,27 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Updates commission values (Final value, fixed value and percentage value)
 		 *
-		 * @version 1.0.7
-		 * @since   1.0.7
+		 * @version 1.0.9
+		 * @since   1.0.9
 		 */
 		public function update_commission_values( $commission_id, $new_values ) {
-			if ( ! empty( $new_values['final_value'] ) ) {
+			if ( isset( $new_values['final_value'] ) ) {
 				update_post_meta( $commission_id, Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, $new_values['final_value'] );
 			}
 
-			if ( ! empty( $new_values['fixed_value'] ) ) {
+			if ( isset( $new_values['fixed_value'] ) ) {
 				update_post_meta( $commission_id, Alg_MPWC_Post_Metas::COMMISSION_FIXED_VALUE, $new_values['fixed_value'] );
 			}
 
-			if ( ! empty( $new_values['percentage_value'] ) ) {
+			if ( isset( $new_values['percentage_value'] ) ) {
 				update_post_meta( $commission_id, Alg_MPWC_Post_Metas::COMMISSION_PERCENTAGE_VALUE, $new_values['percentage_value'] );
 			}
 		}
 
 		/**
-		 * Calculates commission by vendor
-		 *
-		 * @version 1.0.7
-		 * @since   1.0.7
-		 */
-		/*public function calculate_commission_value_from_vendor( $vendor_id, $order_id ) {
-			$user_fields = new Alg_MPWC_Vendor_Admin_Fields();
-
-			// Gets commission base and value
-			$commission_fixed_value      = $this->commission_manager->commission_fixed_value;
-			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
-
-			// Sets commission vars
-			$subtotal  = 0;
-			$title_arr = array();
-
-			// @var WC_Order_Item_Product $order_item
-			foreach ( $order_items as $order_item ) {
-				$subtotal += $order_item->get_subtotal();
-			}
-
-			// Sets comission title
-			$title = implode( ', ', $title_arr );
-			$title = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $title;
-
-			// Override commission values
-			$commission_fixed_value_override      = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_fixed_value, true );
-			$commission_percentage_value_override = (float) get_user_meta( $vendor_id, $user_fields->meta_commission_percentage_value, true );
-			$commission_fixed_value               = $commission_fixed_value_override || $commission_fixed_value_override === 0 ? $commission_fixed_value_override : $commission_fixed_value;
-			$commission_fixed_value               = apply_filters( 'alg_mpwc_commission_fixed_value', $commission_fixed_value, $order_id );
-			$commission_percentage_value          = $commission_percentage_value_override || $commission_percentage_value_override === 0 ? $commission_percentage_value_override : $commission_percentage_value;
-
-			$commission_value_final = 0;
-			$commission_value_final += $commission_fixed_value;
-			$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
-		}*/
-
-		/**
 		 * Creates commission automatically
 		 *
-		 * @version 1.0.5
+		 * @version 1.0.9
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
@@ -221,8 +183,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			$products_by_vendor = $this->get_order_items_separated_by_vendor( $order_id );
 
 			// Gets commission base and value
-			$commission_fixed_value      = $this->commission_manager->commission_fixed_value;
-			$commission_percentage_value = $this->commission_manager->commission_percentage_value;
+			$commission_fixed_value      = $this->commission_cpt->commission_fixed_value;
+			$commission_percentage_value = $this->commission_cpt->commission_percentage_value;
 
 			foreach ( $products_by_vendor as $key => $order_items ) {
 
@@ -261,7 +223,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 				$insert_post_response = wp_insert_post( array(
 					'post_author' => $vendor_id,
 					'post_title'  => $title,
-					'post_type'   => $this->commission_manager->id,
+					'post_type'   => $this->commission_cpt->id,
 					'post_status' => 'publish',
 					'meta_input'  => array(
 						Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID        => $vendor_id,

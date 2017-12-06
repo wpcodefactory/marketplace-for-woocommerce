@@ -10,6 +10,7 @@ return array(
     'Alg_MPWC_CPT_Commission' => $baseDir . '/classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php',
     'Alg_MPWC_CPT_Commission_Admin_Settings' => $baseDir . '/classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php',
     'Alg_MPWC_CPT_Commission_Manager' => $baseDir . '/classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php',
+    'Alg_MPWC_CPT_Commission_Recalculator_Bkg_Process' => $baseDir . '/classes/marketplace/post_types/commission/class-alg-mpwc-cpt-commission-recalculator-bkg-process.php',
     'Alg_MPWC_Commission_Status_Tax' => $baseDir . '/classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php',
     'Alg_MPWC_Core' => $baseDir . '/classes/marketplace/class-alg-mpwc-core.php',
     'Alg_MPWC_Dashboard_Widgets' => $baseDir . '/classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php',

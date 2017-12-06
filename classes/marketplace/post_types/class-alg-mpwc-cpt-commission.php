@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.0.6
+ * @version 1.0.9
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -78,7 +78,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
 
-
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
 			add_filter( 'manage_' . $this->id . '_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
@@ -152,7 +151,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 *
 		 * Sets all selected commissions as paid or unpaid
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.9
 		 * @since   1.0.0
 		 */
 		function bulk_actions_handle( $redirect_to, $doaction, $post_ids ) {
@@ -169,10 +168,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 					$redirect_to = add_query_arg( 'alg_mpwc_commissions_unpaid', count( $post_ids ), $redirect_to );
 				}
 			} elseif ( $doaction == 'alg_mpwc_recalculate' ) {
+				$bkg_process = Alg_MPWC_Core::$bkg_process_commission_recalculator;
 				$redirect_to = add_query_arg( 'alg_mpwc_recalculate', count( $post_ids ), $redirect_to );
 				foreach ( $post_ids as $post_id ) {
-					$info = $this->comission_manager->get_updated_commission_info( $post_id );
+					$bkg_process->push_to_queue($post_id);
 				}
+				$bkg_process->save()->dispatch();
 			} else {
 				return $redirect_to;
 			}
@@ -335,14 +336,14 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Handles automatic commissions creation
 		 *
-		 * @version 1.0.0
+		 * @version 1.0.9
 		 * @since   1.0.0
 		 */
 		protected function handle_automatic_creation() {
-			$commissions_creator     = new Alg_MPWC_CPT_Commission_Manager();
-			$this->comission_manager = $commissions_creator;
-			$commissions_creator->set_args( $this );
-			$commissions_creator->handle_automatic_creation();
+			$commissions_manager     = new Alg_MPWC_CPT_Commission_Manager();
+			$this->comission_manager = $commissions_manager;
+			$commissions_manager->set_args( $this );
+			$commissions_manager->handle_automatic_creation();
 		}
 
 		/**
