@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: Marketplace for WooCommerce
+Plugin Name: Marketplace for WooCommerce - GIT
 Description: Let users sell on your store
-Version: 1.0.6
+Version: 1.0.7
 Author: Algoritmika Ltd
 Author URI: http://algoritmika.com
 Copyright: © 2017 Algoritmika Ltd.
