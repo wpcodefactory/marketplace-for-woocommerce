@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.0.9
+ * @version 1.1.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 *
 		 * Should be called after the set_args() method
 		 *
-		 * @version 1.0.9
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 *
 		 * @param array $args

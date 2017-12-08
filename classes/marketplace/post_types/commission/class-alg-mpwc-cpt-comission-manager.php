@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.0.9
+ * @version 1.1.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates a array of products from an order filtered by vendors
 		 *
-		 * @version 1.0.9
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 *
 		 * @param $order_id
@@ -80,8 +80,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Gets order items from a specific vendor
 		 *
-		 * @version 1.0.9
-		 * @since   1.0.9
+		 * @version 1.1.0
+		 * @since   1.1.0
 		 */
 		protected function get_order_items_by_vendor( $order_id, $vendor_id ) {
 			$order_items_separated_by_vendor = $this->get_order_items_separated_by_vendor( $order_id );
@@ -91,8 +91,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Gets updated commission info
 		 *
-		 * @version 1.0.9
-		 * @since   1.0.9
+		 * @version 1.1.0
+		 * @since   1.1.0
 		 *
 		 * @param        $commission_id
 		 *
@@ -144,8 +144,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Updates commission values (Final value, fixed value and percentage value)
 		 *
-		 * @version 1.0.9
-		 * @since   1.0.9
+		 * @version 1.1.0
+		 * @since   1.1.0
 		 */
 		public function update_commission_values( $commission_id, $new_values ) {
 			if ( isset( $new_values['final_value'] ) ) {
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commission automatically
 		 *
-		 * @version 1.0.9
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {

@@ -2,8 +2,8 @@
 /**
  * Marketplace for WooCommerce - Commission recalculator background process
  *
- * @version 1.0.9
- * @since   1.0.9
+ * @version 1.1.0
+ * @since   1.1.0
  * @author  Algoritmika Ltd.
  */
 

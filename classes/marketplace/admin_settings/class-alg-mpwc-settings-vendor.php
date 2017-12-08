@@ -91,7 +91,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				array(
 					'title'       => __( 'Hide WordPress info', 'marketplace-for-woocommerce' ),
 					'desc'        => __( "Hides info about Wordpress on vendor's admin dashboard", 'marketplace-for-woocommerce' ),
-					'desc_tip'    => __( 'It hides WordPress logo, footer text "Thank you for creating with WordPress" and disables update notifications', 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( 'Hides WordPress logo, footer text "Thank you for creating with WordPress" and disables update notifications', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_HIDE_VENDOR_WP_INFO,
 					'default'     => 'yes',
 					'type'        => 'checkbox',
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 				// Registration
 				array(
 					'title'       => __( 'Registration', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Options regarding vendors registration', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Options regarding vendors registration.', 'marketplace-for-woocommerce' ).'<br /><strong>'.__( 'Note: ', 'marketplace-for-woocommerce' ).'</strong>'.sprintf(__( "It's required to enable <strong>Customer registration</strong> on <a href='%s'>WooCommerce > Settings > Accounts</a>", 'marketplace-for-woocommerce' ),admin_url('admin.php?page=wc-settings&tab=account')),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_registry_opt',
 				),

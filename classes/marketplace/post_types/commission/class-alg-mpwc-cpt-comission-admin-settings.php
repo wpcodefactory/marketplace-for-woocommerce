@@ -49,8 +49,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
-		 * Called on Alg_MPWC_CPT_Commission::display_commission_value_column()
-		 * @todo Show the sum of total value converted to default shop currency
+		 * Called on Alg_MPWC_CPT_Commission::display_total_value_in_edit_columns()		 
 		 * @param $defaults
 		 *
 		 * @return mixed
@@ -58,28 +57,34 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		public function get_total_value_in_edit_columns( $defaults ) {
 			global $wp_query;
 
-			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', false );
+			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', true );
 			if ( ! $show_total_commissions_value ) {
 				return $defaults;
 			}
 
 			$args             = $wp_query->query_vars;
-			$args['nopaging'] = true;
+			//wp_log($args);
+			//$args['nopaging'] = true;
 			$the_query        = new WP_Query( $args );
+
+			$currency_to = apply_filters( 'alg_mpwc_commission_sum_currency_to', get_woocommerce_currency() );
 
 			// The Loop
 			if ( $the_query->have_posts() ) {
 				$total_value = 0;
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$total_value += get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, true );
+					$commission_final_value = get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, true );
+					$commission_currency    = get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true );
+					$commission_final_value = apply_filters( 'alg_mpwc_commission_sum_bit', $commission_final_value, $commission_currency, $currency_to );
+					$total_value            += $commission_final_value;
 				}
 
 				/* Restore original Post Data */
 				wp_reset_postdata();
 
-				$total_value                                             = '<strong>' . wc_price( $total_value ) . '</strong>';
-				$defaults[ Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE ] = "Value ({$total_value})";
+				$total_value                                             = '<strong>' . wc_price( $total_value, array( 'currency' => $currency_to ) ) . '</strong>';
+				$defaults[ Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE ] = "Value - {$total_value}";
 			}
 			return $defaults;
 		}

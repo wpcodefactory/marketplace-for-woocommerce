@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.0.9
+ * @version 1.1.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 *
 		 * Sets all selected commissions as paid or unpaid
 		 *
-		 * @version 1.0.9
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 */
 		function bulk_actions_handle( $redirect_to, $doaction, $post_ids ) {
@@ -292,7 +292,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		public function display_total_value_in_edit_columns( $defaults ) {
 			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
 			$admin_settings->set_args( $this );
-			//$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
+			$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
 			return $defaults;
 		}
 
@@ -336,7 +336,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Handles automatic commissions creation
 		 *
-		 * @version 1.0.9
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 */
 		protected function handle_automatic_creation() {
