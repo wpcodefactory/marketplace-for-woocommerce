@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.0.0
+ * @version 1.1.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -12,17 +12,24 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 	class Alg_MPWC_Core extends Alg_WP_Plugin {
 
 		/**
+		 * @var Alg_MPWC_CPT_Commission_Recalculator_Bkg_Process
+		 */
+		public static $bkg_process_commission_recalculator;
+
+		/**
 		 * Initializes the plugin.
 		 *
 		 * Should be called after the set_args() method
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 *
 		 * @param array $args
 		 */
 		public function init() {
 			parent::init();
+
+			self::$bkg_process_commission_recalculator = new Alg_MPWC_CPT_Commission_Recalculator_Bkg_Process();
 
 			// Init admin part
 			if ( is_admin() ) {

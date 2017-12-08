@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.0.6
+ * @version 1.1.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -18,9 +18,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Manages the creation of commissions
 		 *
-		 * @var Alg_MPWC_CPT_Commission_Creator
+		 * @var Alg_MPWC_CPT_Commission_Manager
 		 */
-		public $comission_creator;
+		public $comission_manager;
 
 		// Comission value from admin
 		public $commission_fixed_value = '';
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 *
 		 * Sets all selected commissions as paid or unpaid
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 */
 		function bulk_actions_handle( $redirect_to, $doaction, $post_ids ) {
@@ -162,18 +162,26 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
 					$redirect_to = add_query_arg( 'alg_mpwc_commissions_paid', count( $post_ids ), $redirect_to );
 				}
-			} else if ( $doaction == 'alg_mpwc_set_selected_to_unpaid' ) {
+			} elseif ( $doaction == 'alg_mpwc_set_selected_to_unpaid' ) {
 				$term = get_term_by( 'slug', 'unpaid', $status_tax->id );
 				if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
 					$redirect_to = add_query_arg( 'alg_mpwc_commissions_unpaid', count( $post_ids ), $redirect_to );
 				}
-
+			} elseif ( $doaction == 'alg_mpwc_recalculate' ) {
+				$bkg_process = Alg_MPWC_Core::$bkg_process_commission_recalculator;
+				$redirect_to = add_query_arg( 'alg_mpwc_recalculate', count( $post_ids ), $redirect_to );
+				foreach ( $post_ids as $post_id ) {
+					$bkg_process->push_to_queue($post_id);
+				}
+				$bkg_process->save()->dispatch();
 			} else {
 				return $redirect_to;
 			}
 
-			foreach ( $post_ids as $post_id ) {
-				wp_set_object_terms( $post_id, $term->term_id, $status_tax->id );
+			if ( $doaction == 'alg_mpwc_set_selected_to_paid' || $doaction == 'alg_mpwc_set_selected_to_unpaid' ) {
+				foreach ( $post_ids as $post_id ) {
+					wp_set_object_terms( $post_id, $term->term_id, $status_tax->id );
+				}
 			}
 
 			return $redirect_to;
@@ -200,8 +208,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
 				return $bulk_actions;
 			}
-			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set selected commissions as paid', 'marketplace-for-woocommerce' ) . ' ';
-			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set selected commissions as unpaid', 'marketplace-for-woocommerce' ) . ' &nbsp;';
+			//$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set as paid', 'marketplace-for-woocommerce' ) . ' ';
+			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set as paid', 'marketplace-for-woocommerce' ) . ' ';
+			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set as unpaid', 'marketplace-for-woocommerce' ) . ' &nbsp;';
+			$bulk_actions['alg_mpwc_recalculate']            = __( 'Recalculate deal and value', 'marketplace-for-woocommerce' ) . ' &nbsp;';
 			return $bulk_actions;
 		}
 
@@ -282,7 +292,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		public function display_total_value_in_edit_columns( $defaults ) {
 			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
 			$admin_settings->set_args( $this );
-			//$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
+			$defaults = $admin_settings->get_total_value_in_edit_columns($defaults);
 			return $defaults;
 		}
 
@@ -316,7 +326,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		protected function get_values_from_admin() {
+		public function get_values_from_admin() {
 			//$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
 			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_FIXED_VALUE ) );
 			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
@@ -326,14 +336,14 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Handles automatic commissions creation
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.0
 		 * @since   1.0.0
 		 */
 		protected function handle_automatic_creation() {
-			$commissions_creator     = new Alg_MPWC_CPT_Commission_Creator();
-			$this->comission_creator = $commissions_creator;
-			$commissions_creator->set_args( $this );
-			$commissions_creator->handle_automatic_creation();
+			$commissions_manager     = new Alg_MPWC_CPT_Commission_Manager();
+			$this->comission_manager = $commissions_manager;
+			$commissions_manager->set_args( $this );
+			$commissions_manager->handle_automatic_creation();
 		}
 
 		/**

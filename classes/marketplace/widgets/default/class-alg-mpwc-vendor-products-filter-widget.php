@@ -18,9 +18,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Products_Filter_Widget' ) ) {
 		 */
 		public function __construct() {
 			parent::__construct(
-				'alg_mpwc_vendor_products_filter_widget', // Base ID
-				esc_html__( 'Vendor products filter', 'marketplace-for-woocommerce' ), // Name
-				array( 'description' => esc_html__( 'Filters Marketplace vendor products', 'marketplace-for-woocommerce' ), ) // Args
+				'alg_mpwc_vendor_filter_widget', // Base ID
+				esc_html__( 'Vendors filter', 'marketplace-for-woocommerce' ), // Name
+				array( 'description' => esc_html__( 'Filters Marketplace vendors products', 'marketplace-for-woocommerce' ), ) // Args
 			);
 
 			$filter = new Alg_MPWC_Vendor_Filter();
