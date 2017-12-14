@@ -63,7 +63,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			}
 
 			$args             = $wp_query->query_vars;
-			//wp_log($args);
 			//$args['nopaging'] = true;
 			$the_query        = new WP_Query( $args );
 

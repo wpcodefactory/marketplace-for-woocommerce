@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Screenshots ==
 
 == Changelog ==
+
+= 1.1.1 - 14/12/2017 =
+* Fix commissions total
 
 = 1.1.0 - 08/12/2017 =
 * Add option to recalculate commissions
@@ -108,6 +111,5 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.1.0 =
-* Add option to recalculate commissions
-* Display commissions total
+= 1.1.1 =
+* Fix commissions total

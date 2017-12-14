@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Product filter
  *
- * @version 1.0.6
+ * @version 1.1.1
  * @since   1.0.6
  * @author  Algoritmika Ltd.
  */
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 		 *
 		 * If post type is commissions, filters by meta_query _alg_mpwc_author_id. Else filters by author id
 		 *
-		 * @version 1.0.6
+		 * @version 1.1.1
 		 * @since   1.0.6
 		 */
 		public static function filter( $query ) {
@@ -105,14 +105,15 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 				return;
 			}
 
-			$meta_query = array(
-				array(
-					'key'     => Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS,
-					'value'   => '\:\"?' . $query_string_product_id . '"?\;',
-					'compare' => 'REGEXP',
-				),
-			);
-
+			$meta_query = $query->get('meta_query');
+			if(!is_array($meta_query)){
+				$meta_query = array();
+            }
+			$meta_query[] = array(
+				'key'     => Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS,
+				'value'   => '\:\"?' . $query_string_product_id . '"?\;',
+				'compare' => 'REGEXP',
+            );
 			$query->set( 'meta_query', $meta_query );
 		}
 	}
