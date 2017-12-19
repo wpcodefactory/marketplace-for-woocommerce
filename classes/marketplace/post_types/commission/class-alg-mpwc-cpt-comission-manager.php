@@ -47,6 +47,36 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		}
 
 		/**
+		 * Handles automatic refund
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 */
+		public function handle_automatic_refund() {
+			$refund_status = $this->commission_cpt->refund_status;
+			if ( is_array( $refund_status ) ) {
+				foreach ( $refund_status as $order_status ) {
+					$status = str_replace( 'wc-', '', $order_status );
+					$action = "woocommerce_order_status_{$status}";
+					if ( ! has_action( $action, array( $this, 'automatically_set_commission_as_need_refund' ) ) ) {
+						add_action( $action, array( $this, 'automatically_set_commission_as_need_refund' ), 10 );
+					}
+				}
+			}
+		}
+
+		public function automatically_set_commission_as_need_refund( $order_id ) {
+			$commissions = get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_RELATED_COMISSIONS, false );
+			if ( is_array( $commissions ) ) {
+				$status_tax       = new Alg_MPWC_Commission_Status_Tax();
+				$need_refund_term = $status_tax->get_term( 'need-refund' );
+				foreach ( $commissions as $commission_id ) {
+					wp_set_post_terms( $commission_id, array( $need_refund_term->term_id ), $status_tax->id );
+				}
+			}
+		}
+
+		/**
 		 * Creates a array of products from an order filtered by vendors
 		 *
 		 * @version 1.1.0
@@ -85,6 +115,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		 */
 		protected function get_order_items_by_vendor( $order_id, $vendor_id ) {
 			$order_items_separated_by_vendor = $this->get_order_items_separated_by_vendor( $order_id );
+
 			return $order_items_separated_by_vendor[ $vendor_id ];
 		}
 
@@ -112,7 +143,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 
 			$order_items = $this->get_order_items_by_vendor( $order_id, $vendor_id );
 
-			$subtotal    = 0;
+			$subtotal = 0;
 
 			foreach ( $order_items as $order_item ) {
 				$subtotal += $order_item->get_subtotal();

@@ -29,6 +29,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		// Automatic creation option from admin
 		public $automatic_creation = array();
 
+		// Refund status
+		public $refund_status = array();
+
 		/**
 		 * Gives full permissions to manage_woocommerce roles.
 		 *
@@ -74,9 +77,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		public function setup() {
+			$commissions_manager     = new Alg_MPWC_CPT_Commission_Manager();
+			$this->comission_manager = $commissions_manager;
+			$this->comission_manager->set_args($this);
 			$this->set_args();
 			$this->get_values_from_admin();
 			$this->handle_automatic_creation();
+			$this->handle_automatic_refund();
 
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
@@ -245,7 +252,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 *
 		 * @param $post_type
-		 * @param $which
 		 */
 		public function create_vendor_filter( $post_type ) {
 			if ( $post_type != $this->id ) {
@@ -323,7 +329,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Gets values from admin
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 */
 		public function get_values_from_admin() {
@@ -331,19 +337,39 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_FIXED_VALUE ) );
 			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
 			$this->automatic_creation          = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION );
+			$this->refund_status               = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_ORDER_REFUND_STATUS );
 		}
 
 		/**
 		 * Handles automatic commissions creation
 		 *
-		 * @version 1.1.0
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 */
 		protected function handle_automatic_creation() {
-			$commissions_manager     = new Alg_MPWC_CPT_Commission_Manager();
-			$this->comission_manager = $commissions_manager;
-			$commissions_manager->set_args( $this );
+			$commissions_manager = $this->comission_manager;
+			if ( ! $commissions_manager ) {
+				$commissions_manager = new Alg_MPWC_CPT_Commission_Manager();
+				$commissions_manager->set_args( $this );
+			}
 			$commissions_manager->handle_automatic_creation();
+		}
+
+		/**
+		 * Handles automatic refund
+		 *
+		 * Sets commission as Need Refund
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 */
+		protected function handle_automatic_refund() {
+			$commissions_manager = $this->comission_manager;
+			if ( ! $commissions_manager ) {
+				$commissions_manager = new Alg_MPWC_CPT_Commission_Manager();
+				$commissions_manager->set_args( $this );
+			}
+			$commissions_manager->handle_automatic_refund();
 		}
 
 		/**

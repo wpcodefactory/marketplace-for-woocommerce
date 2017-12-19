@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.0.5
+ * @version 1.1.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -15,26 +15,27 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 
 	class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
-		const OPTION_ROLE_LABEL                     = 'alg_mpwc_opt_vendor_role_label';
-		const OPTION_PUBLIC_PAGE_SLUG               = 'alg_mpwc_opt_public_page_slug';
-		const OPTION_PUBLIC_PAGE_LOGO               = 'alg_mpwc_opt_public_page_logo';
-		const OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL    = 'alg_mpwc_opt_public_page_shop_link_label';
-		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS  = 'alg_mpwc_opt_vendor_caps_publish_products';
-		const OPTION_CAPABILITIES_DELETE_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_delete_products';
-		const OPTION_CAPABILITIES_UPLOAD_FILES      = 'alg_mpwc_opt_vendor_caps_upload_files';
-		const OPTION_CAPABILITIES_VIEW_ORDERS       = 'alg_mpwc_opt_vendor_caps_view_orders';
-		const OPTION_HIDE_VENDOR_WP_INFO            = 'alg_mpwc_opt_hide_vendor_wp_info';
-		const OPTION_COMMISSIONS_FIXED_VALUE        = 'alg_mpwc_opt_commissions_fixed_value';
-		const OPTION_COMMISSIONS_PERCENTAGE_VALUE   = 'alg_mpwc_opt_commissions_percentage_value';
-		const OPTION_COMMISSIONS_AUTOMATIC_CREATION = 'alg_mpwc_opt_commissions_automatic_creation';
-		const OPTION_INCLUDE_TAXES                  = 'alg_mpwc_opt_commissions_include_taxes';
-		const OPTION_REGISTRY_AUTOMATIC_APPROVAL    = 'alg_mpwc_opt_registry_automatic_approval';
-		const OPTION_REGISTRY_CHECKBOX_TEXT         = 'alg_mpwc_opt_registry_checkbox_text';
-		const OPTION_PRODUCT_TAB_TEXT               = 'alg_mpwc_opt_vendor_product_tab_text';
-		const OPTION_PRODUCT_TAB_PRIORITY           = 'alg_mpwc_opt_vendor_product_tab_priority';
-		const OPTION_PRODUCT_TAB_ENABLE             = 'alg_mpwc_opt_vendor_product_tab_enable';
-		const OPTION_AUTHORSHIP_PRODUCT_LOOP        = 'alg_mpwc_opt_authorship_product_loop';
-		const OPTION_REDIRECT_TO_ADMIN              = 'alg_mpwc_opt_redirect_to_admin';
+		const OPTION_ROLE_LABEL                      = 'alg_mpwc_opt_vendor_role_label';
+		const OPTION_PUBLIC_PAGE_SLUG                = 'alg_mpwc_opt_public_page_slug';
+		const OPTION_PUBLIC_PAGE_LOGO                = 'alg_mpwc_opt_public_page_logo';
+		const OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL     = 'alg_mpwc_opt_public_page_shop_link_label';
+		const OPTION_CAPABILITIES_PUBLISH_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_publish_products';
+		const OPTION_CAPABILITIES_DELETE_PRODUCTS    = 'alg_mpwc_opt_vendor_caps_delete_products';
+		const OPTION_CAPABILITIES_UPLOAD_FILES       = 'alg_mpwc_opt_vendor_caps_upload_files';
+		const OPTION_CAPABILITIES_VIEW_ORDERS        = 'alg_mpwc_opt_vendor_caps_view_orders';
+		const OPTION_HIDE_VENDOR_WP_INFO             = 'alg_mpwc_opt_hide_vendor_wp_info';
+		const OPTION_COMMISSIONS_FIXED_VALUE         = 'alg_mpwc_opt_commissions_fixed_value';
+		const OPTION_COMMISSIONS_PERCENTAGE_VALUE    = 'alg_mpwc_opt_commissions_percentage_value';
+		const OPTION_COMMISSIONS_AUTOMATIC_CREATION  = 'alg_mpwc_opt_commissions_automatic_creation';
+		const OPTION_COMMISSIONS_ORDER_REFUND_STATUS = 'alg_mpwc_opt_commissions_order_refund_status';
+		const OPTION_INCLUDE_TAXES                   = 'alg_mpwc_opt_commissions_include_taxes';
+		const OPTION_REGISTRY_AUTOMATIC_APPROVAL     = 'alg_mpwc_opt_registry_automatic_approval';
+		const OPTION_REGISTRY_CHECKBOX_TEXT          = 'alg_mpwc_opt_registry_checkbox_text';
+		const OPTION_PRODUCT_TAB_TEXT                = 'alg_mpwc_opt_vendor_product_tab_text';
+		const OPTION_PRODUCT_TAB_PRIORITY            = 'alg_mpwc_opt_vendor_product_tab_priority';
+		const OPTION_PRODUCT_TAB_ENABLE              = 'alg_mpwc_opt_vendor_product_tab_enable';
+		const OPTION_AUTHORSHIP_PRODUCT_LOOP         = 'alg_mpwc_opt_authorship_product_loop';
+		const OPTION_REDIRECT_TO_ADMIN               = 'alg_mpwc_opt_redirect_to_admin';
 
 		/**
 		 * Constructor.
@@ -69,7 +70,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.0.5
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
@@ -286,6 +287,16 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'desc_tip'    => __( 'Note 1: Leave it empty if you do not want to create commissions automatically', 'marketplace-for-woocommerce' ) . '<br /><br />' . __( 'Note 2: If you select 2 or more status, commissions will not be created twice, no worries.', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_AUTOMATIC_CREATION,
 					'default'     => array('wc-completed'),
+					'options'     => wc_get_order_statuses(),
+					'type'        => 'multiselect',
+					'class'       => 'chosen_select'
+				),
+				array(
+					'title'       => __( 'Refund status', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'When orders change to one of these status, correspondent commissions will be automatically set as "Need Refund"', 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( 'Note 1: Leave it empty if you do not want to set commissions automatically to "Need Refund"', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_ORDER_REFUND_STATUS,
+					'default'     => array('wc-refunded','wc-cancelled','wc-failed'),
 					'options'     => wc_get_order_statuses(),
 					'type'        => 'multiselect',
 					'class'       => 'chosen_select'

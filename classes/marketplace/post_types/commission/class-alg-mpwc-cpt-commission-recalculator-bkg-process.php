@@ -28,6 +28,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Recalculator_Bkg_Process' ) ) {
 			$cpt->get_values_from_admin();
 			$commissions_manager->set_args( $cpt );
 			$commissions_manager->handle_automatic_creation();
+			$commissions_manager->handle_automatic_refund();
 			$info = $commissions_manager->get_updated_commission_info( $commission_id );
 			$commissions_manager->update_commission_values( $commission_id, $info );
 
