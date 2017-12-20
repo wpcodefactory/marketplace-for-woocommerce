@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission admin settings
  *
- * @version 1.0.3
+ * @version 1.1.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -12,7 +12,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * @var Alg_MPWC_CPT_Commission
 		 */
-		private $commission_manager;
+		private $commission_cpt;
 
 		/**
 		 * Sets arguments
@@ -20,8 +20,87 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function set_args( Alg_MPWC_CPT_Commission $commission_manager ) {
-			$this->commission_manager = $commission_manager;
+		public function set_args( Alg_MPWC_CPT_Commission $commission_cpt ) {
+			$this->commission_cpt = $commission_cpt;
+		}
+
+		/**
+		 * Converts commission sum bit value
+		 *
+		 * @version 1.0.4
+		 * @since   1.0.4
+		 *
+		 * @return float
+		 */
+		public function convert_commission_sum_bit_value( $commission_final_value, $commission_currency, $currency_to ) {
+			$exchange_rate          = Alg_MPWCMA_Multicurrency::get_exchange_rate( $commission_currency, $currency_to );
+			$commission_final_value *= $exchange_rate;
+			return $commission_final_value;
+		}
+
+		/**
+		 * Adds refund summing screen option
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 *
+		 * @param $status
+		 * @param $args
+		 *
+		 * @return string
+		 */
+		public function add_refund_sum_screen_option( $status, $args ) {
+			$return         = $status;
+			$commission_cpt = new Alg_MPWC_CPT_Commission();
+			if (
+				$args->base != 'edit' ||
+				$args->id != "edit-{$commission_cpt->id}"
+			) {
+				return $status;
+			}
+
+			$user_id               = get_current_user_id();
+			$sum_refunded_comm     = !filter_var( get_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN );
+			$sum_refunded_comm_str = $sum_refunded_comm ? 'checked="checked"' : '';
+
+			$return .= "
+            <fieldset class='metabox-prefs'>
+            <legend>Refund commissions</legend>
+            <input {$sum_refunded_comm_str} type='checkbox' name='mpwc_sum_ref_comm_total_val' id='mpwc_sum_ref_comm_total_val' />
+            <label for='mpwc_sum_ref_comm_total_val'>Exclude from total value</label>
+            <br class='clear'>
+            </fieldset>
+            ";
+
+			return $return;
+		}
+
+		/**
+		 * Saves refund summing screen option
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 * @todo Add nonce
+		 * @return string
+		 */
+		public function save_refund_sum_screen_option() {
+			if (
+				! is_admin()
+				|| empty( $_POST['screen-options-apply'] )
+				|| empty($_POST['wp_screen_options'])
+				|| $_POST['wp_screen_options']['option'] != 'edit_alg_mpwc_commission_per_page'
+				|| ! is_user_logged_in()
+			) {
+				return;
+			}
+
+			$user_id = get_current_user_id();
+
+			if ( empty( $_POST['mpwc_sum_ref_comm_total_val'] ) ) {
+				update_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', 'on' );
+			} else {
+				delete_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val' );
+			}
 		}
 
 		/**
@@ -46,7 +125,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Display the sum of commissions values in edit.php page
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 *
 		 * Called on Alg_MPWC_CPT_Commission::display_total_value_in_edit_columns()		 
@@ -56,17 +135,35 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 */
 		public function get_total_value_in_edit_columns( $defaults ) {
 			global $wp_query;
+			$query = $wp_query;
 
 			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', true );
 			if ( ! $show_total_commissions_value ) {
 				return $defaults;
 			}
 
-			$args             = $wp_query->query_vars;
 			//$args['nopaging'] = true;
-			$the_query        = new WP_Query( $args );
 
-			$currency_to = apply_filters( 'alg_mpwc_commission_sum_currency_to', get_woocommerce_currency() );
+			$user_id           = get_current_user_id();
+			$sum_refunded_comm = filter_var( get_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN );
+			if ( ! $sum_refunded_comm ) {
+				$tax_query  = $query->get( 'tax_query' );
+				$status_tax = new Alg_MPWC_Commission_Status_Tax();
+				if ( ! is_array( $tax_query ) ) {
+					$tax_query = array();
+				}
+				$tax_query[] = array(
+					'taxonomy' => $status_tax->id,
+					'field'    => 'slug',
+					'terms'    => array( 'refunded', 'need-refund' ),
+					'operator' => 'NOT IN'
+				);
+				$query->set( 'tax_query', $tax_query );
+			}
+
+			$args = $query->query_vars;
+			$the_query = new WP_Query( $args );
+			$currency_to       = apply_filters( 'alg_mpwc_commission_sum_currency_to', get_woocommerce_currency() );
 
 			// The Loop
 			if ( $the_query->have_posts() ) {
@@ -76,7 +173,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					$commission_final_value = get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, true );
 					$commission_currency    = get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true );
 					$commission_final_value = apply_filters( 'alg_mpwc_commission_sum_bit', $commission_final_value, $commission_currency, $currency_to );
-					$total_value            += $commission_final_value;
+					$total_value += $commission_final_value;
 				}
 
 				/* Restore original Post Data */
@@ -85,6 +182,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				$total_value                                             = '<strong>' . wc_price( $total_value, array( 'currency' => $currency_to ) ) . '</strong>';
 				$defaults[ Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE ] = "Value - {$total_value}";
 			}
+
 			return $defaults;
 		}
 
@@ -123,7 +221,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			$cmb_demo = new_cmb2_box( array(
 				'id'           => 'alg_mpwc_commissions_status_cmb',
 				'title'        => __( 'Status', 'marketplace-for-woocommerce' ),
-				'object_types' => array( $this->commission_manager->id ),
+				'object_types' => array( $this->commission_cpt->id ),
 				'context'      => 'side',
 				'priority'     => 'low',
 			) );
@@ -158,7 +256,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			$cmb_demo = new_cmb2_box( array(
 				'id'           => 'alg_mpwc_commissions_details_cmb',
 				'title'        => __( 'Details', 'marketplace-for-woocommerce' ),
-				'object_types' => array( $this->commission_manager->id ),
+				'object_types' => array( $this->commission_cpt->id ),
 			) );
 
 			$cmb_demo->add_field( array(
@@ -399,6 +497,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				echo implode( ', ', $terms );
 			}
 		}
+
+
 
 
 	}

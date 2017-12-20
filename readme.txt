@@ -49,6 +49,11 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
+= 1.1.2 - 20/12/2017 =
+* Add refund commissions status (need refund and refunded)
+* Add option to exclude refund commissions from totals
+* Add option to bulk update refund commissions status
+
 = 1.1.1 - 14/12/2017 =
 * Fix commissions total
 
@@ -111,5 +116,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.1.1 =
-* Fix commissions total
+= 1.1.2 - 20/12/2017 =
+* Add refund commissions status (need refund and refunded)
+* Add option to exclude refund commissions from totals
+* Add option to bulk update refund commissions status

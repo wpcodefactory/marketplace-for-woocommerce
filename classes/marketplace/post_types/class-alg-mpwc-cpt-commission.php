@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.1.0
+ * @version 1.1.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Setups the post type
 		 *
-		 * @version 1.0.6
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 */
 		public function setup() {
@@ -107,6 +107,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_action( "woocommerce_update_options_{$id}_{$section}", array( __CLASS__, 'gives_all_caps_to_roles' ) );
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_select2_on_comissions_edit_page' ) );
+
+			// Creates screen options
+			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
+			$admin_settings->set_args( $this );
+			add_filter( 'screen_settings', array( $admin_settings, 'add_refund_sum_screen_option' ), 10, 2 );
+			add_action( 'init', array( $admin_settings, 'save_refund_sum_screen_option' ), 10 );
 		}
 
 		/**
@@ -158,36 +164,33 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 *
 		 * Sets all selected commissions as paid or unpaid
 		 *
-		 * @version 1.1.0
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 */
 		function bulk_actions_handle( $redirect_to, $doaction, $post_ids ) {
 			$status_tax = new Alg_MPWC_Commission_Status_Tax();
 
-			if ( $doaction == 'alg_mpwc_set_selected_to_paid' ) {
-				$term = get_term_by( 'slug', 'paid', $status_tax->id );
-				if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-					$redirect_to = add_query_arg( 'alg_mpwc_commissions_paid', count( $post_ids ), $redirect_to );
-				}
-			} elseif ( $doaction == 'alg_mpwc_set_selected_to_unpaid' ) {
-				$term = get_term_by( 'slug', 'unpaid', $status_tax->id );
-				if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
-					$redirect_to = add_query_arg( 'alg_mpwc_commissions_unpaid', count( $post_ids ), $redirect_to );
-				}
-			} elseif ( $doaction == 'alg_mpwc_recalculate' ) {
+			if ( $doaction == 'alg_mpwc_recalculate' ) {
 				$bkg_process = Alg_MPWC_Core::$bkg_process_commission_recalculator;
 				$redirect_to = add_query_arg( 'alg_mpwc_recalculate', count( $post_ids ), $redirect_to );
 				foreach ( $post_ids as $post_id ) {
-					$bkg_process->push_to_queue($post_id);
+					$bkg_process->push_to_queue( $post_id );
 				}
 				$bkg_process->save()->dispatch();
 			} else {
-				return $redirect_to;
-			}
+				$terms = Alg_MPWC_Commission_Status_Tax::$terms_arr;
+				foreach ( $terms as $arr_term ) {
+					$term_slug = $arr_term['slug'];
+					if ( $doaction == "alg_mpwc_set_{$term_slug}" ) {
+						$term = $status_tax->get_term( $term_slug );
 
-			if ( $doaction == 'alg_mpwc_set_selected_to_paid' || $doaction == 'alg_mpwc_set_selected_to_unpaid' ) {
-				foreach ( $post_ids as $post_id ) {
-					wp_set_object_terms( $post_id, $term->term_id, $status_tax->id );
+						if ( is_array( $post_ids ) && count( $post_ids ) > 0 ) {
+							$redirect_to = add_query_arg( "alg_mpwc_set_{$term_slug}", count( $post_ids ), $redirect_to );
+						}
+						foreach ( $post_ids as $post_id ) {
+							wp_set_object_terms( $post_id, $term->term_id, $status_tax->id );
+						}
+					}
 				}
 			}
 
@@ -208,17 +211,24 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Creates two more bulk actions labels on bulk actions dropdown
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.2
 		 * @since   1.0.0
 		 */
 		public function bulk_actions_create( $bulk_actions ) {
 			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
 				return $bulk_actions;
 			}
-			//$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set as paid', 'marketplace-for-woocommerce' ) . ' ';
-			$bulk_actions['alg_mpwc_set_selected_to_paid']   = __( 'Set as paid', 'marketplace-for-woocommerce' ) . ' ';
-			$bulk_actions['alg_mpwc_set_selected_to_unpaid'] = __( 'Set as unpaid', 'marketplace-for-woocommerce' ) . ' &nbsp;';
-			$bulk_actions['alg_mpwc_recalculate']            = __( 'Recalculate deal and value', 'marketplace-for-woocommerce' ) . ' &nbsp;';
+
+			// Add refund terms
+			$terms = Alg_MPWC_Commission_Status_Tax::$terms_arr;
+			foreach ( $terms as $arr_term ) {
+				$term_slug                                 = $arr_term['slug'];
+				$term_label                                = $arr_term['label'];
+				$bulk_actions["alg_mpwc_set_{$term_slug}"] = sprintf( __( 'Set as %s', 'marketplace-for-woocommerce' ), $term_label ) . ' ';
+			}
+
+			$bulk_actions['alg_mpwc_recalculate'] = __( 'Recalculate deal and value', 'marketplace-for-woocommerce' ) . ' &nbsp;';
+
 			return $bulk_actions;
 		}
 

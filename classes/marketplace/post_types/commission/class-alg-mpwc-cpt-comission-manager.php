@@ -65,6 +65,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			}
 		}
 
+		/**
+		 * Automatically set commission as "Need refund"
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 * @param $order_id
+		 */
 		public function automatically_set_commission_as_need_refund( $order_id ) {
 			$commissions = get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_RELATED_COMISSIONS, false );
 			if ( is_array( $commissions ) ) {
