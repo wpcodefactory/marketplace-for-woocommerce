@@ -39,7 +39,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		}
 
 		/**
-		 * Adds refund summing screen option
+		 * Adds screen options about totals
 		 *
 		 * @version 1.1.2
 		 * @since   1.1.2
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 *
 		 * @return string
 		 */
-		public function add_refund_sum_screen_option( $status, $args ) {
+		public function add_totals_screen_option( $status, $args ) {
 			$return         = $status;
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 			if (
@@ -59,17 +59,88 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				return $status;
 			}
 
+			$fields = apply_filters( 'mpwc_totals_screen_option_fields', '' );
+
+			$return .= "
+            <fieldset class='metabox-prefs'>
+            <legend>".__('Totals','marketplace-for-woocommerce')."</legend>
+            {$fields}
+            <br class='clear'>
+            </fieldset>
+            ";
+
+			return $return;
+		}
+
+		/**
+		 * Adds the option to ignore the pagination on total value calculation
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 *
+		 * @param $fields
+		 *
+		 * @return string
+		 */
+		public function add_ignore_pagination_on_total_value_screen_option( $fields ) {
+			$user_id               = get_current_user_id();
+			$ignore_pagination     = filter_var( get_user_meta( $user_id, 'mpwc_ign_pag_total_val', true ), FILTER_VALIDATE_BOOLEAN );
+			$ignore_pagination_str = $ignore_pagination ? 'checked="checked"' : '';
+
+			$fields .= "
+            <input {$ignore_pagination_str} type='checkbox' name='mpwc_ign_pag_total_val' id='mpwc_ign_pag_total_val' />
+            <label for='mpwc_ign_pag_total_val'>Ignore pagination</label>
+            ";
+
+			return $fields;
+		}
+
+		/**
+		 * Saves the option to ignore the pagination on total value calculation
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 * @todo Add nonce
+		 * @return string
+		 */
+		public function save_ignore_pagination_on_total_value_screen_option() {
+			if (
+				! is_admin()
+				|| empty( $_POST['screen-options-apply'] )
+				|| empty( $_POST['wp_screen_options'] )
+				|| $_POST['wp_screen_options']['option'] != 'edit_alg_mpwc_commission_per_page'
+				|| ! is_user_logged_in()
+			) {
+				return;
+			}
+
+			$user_id = get_current_user_id();
+
+			if ( ! empty( $_POST['mpwc_ign_pag_total_val'] ) ) {
+				update_user_meta( $user_id, 'mpwc_ign_pag_total_val', 'on' );
+			} else {
+				delete_user_meta( $user_id, 'mpwc_ign_pag_total_val' );
+			}
+		}
+
+		/**
+		 * Adds refund summing screen option
+		 *
+		 * @version 1.1.2
+		 * @since   1.1.2
+		 *
+		 * @param $return
+		 *
+		 * @return string
+		 */
+		public function add_refund_sum_screen_option( $return ) {
 			$user_id               = get_current_user_id();
 			$sum_refunded_comm     = !filter_var( get_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN );
 			$sum_refunded_comm_str = $sum_refunded_comm ? 'checked="checked"' : '';
 
-			$return .= "
-            <fieldset class='metabox-prefs'>
-            <legend>Refund commissions</legend>
+			$return .= "            
             <input {$sum_refunded_comm_str} type='checkbox' name='mpwc_sum_ref_comm_total_val' id='mpwc_sum_ref_comm_total_val' />
-            <label for='mpwc_sum_ref_comm_total_val'>Exclude from total value</label>
-            <br class='clear'>
-            </fieldset>
+            <label for='mpwc_sum_ref_comm_total_val'>Ignore refund commissions</label>            
             ";
 
 			return $return;
@@ -142,9 +213,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				return $defaults;
 			}
 
-			//$args['nopaging'] = true;
-
 			$user_id           = get_current_user_id();
+
 			$sum_refunded_comm = filter_var( get_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN );
 			if ( ! $sum_refunded_comm ) {
 				$tax_query  = $query->get( 'tax_query' );
@@ -162,6 +232,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			}
 
 			$args = $query->query_vars;
+
+			$ignore_pagination = filter_var( get_user_meta( $user_id, 'mpwc_ign_pag_total_val', true ), FILTER_VALIDATE_BOOLEAN );
+
+			if ( $ignore_pagination ) {
+				$args['nopaging'] = true;
+			}
+
 			$the_query = new WP_Query( $args );
 			$currency_to       = apply_filters( 'alg_mpwc_commission_sum_currency_to', get_woocommerce_currency() );
 

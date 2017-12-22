@@ -85,6 +85,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$this->handle_automatic_creation();
 			$this->handle_automatic_refund();
 
+			// Initializes admin settings
+			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
+			$admin_settings->set_args( $this );
+
 			add_action( 'cmb2_admin_init', array( $this, 'add_custom_meta_boxes' ) );
 			add_action( 'admin_init', array( $this, 'remove_add_new_from_menu' ) );
 			add_filter( 'manage_' . $this->id . '_posts_columns', array( $this, 'display_total_value_in_edit_columns' ), 999 );
@@ -108,10 +112,15 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_select2_on_comissions_edit_page' ) );
 
-			// Creates screen options
-			$admin_settings = new Alg_MPWC_CPT_Commission_Admin_Settings();
-			$admin_settings->set_args( $this );
-			add_filter( 'screen_settings', array( $admin_settings, 'add_refund_sum_screen_option' ), 10, 2 );
+			// Add a screen options regarding totals
+			add_filter( 'screen_settings', array( $admin_settings, 'add_totals_screen_option' ), 10, 2 );
+
+			// Adds admin settings to ignore pagination to calculate total value
+			add_filter( 'mpwc_totals_screen_option_fields', array( $admin_settings, 'add_ignore_pagination_on_total_value_screen_option' ), 10 );
+			add_action( 'init', array( $admin_settings, 'save_ignore_pagination_on_total_value_screen_option' ), 10 );
+
+			// Adds admin settings to exclude refund commissions from total value
+			add_filter( 'mpwc_totals_screen_option_fields', array( $admin_settings, 'add_refund_sum_screen_option' ), 10 );
 			add_action( 'init', array( $admin_settings, 'save_refund_sum_screen_option' ), 10 );
 		}
 
