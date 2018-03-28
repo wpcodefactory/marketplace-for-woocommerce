@@ -98,7 +98,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		 *
 		 * @return bool
 		 */
-		public function show_total_commissions_value($show){
+		public function show_total_commissions_value( $show ){
 			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
 				return $show;
 			}
@@ -114,7 +114,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 		/**
 		 * Shows the dropdowns that filters commissions by vendor user.
 		 */
-		public function show_commissions_by_vendor_filter($show){
+		public function show_commissions_by_vendor_filter( $show ){
 			if ( ! current_user_can( self::CAP_MANAGE_WOOCOMMERCE ) ) {
 				return $show;
 			}

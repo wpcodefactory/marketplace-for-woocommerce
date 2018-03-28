@@ -64,7 +64,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		/**
 		 * Setups the plugin
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.3
 		 * @since   1.0.0
 		 */
 		public function setup_plugin() {
@@ -76,6 +76,49 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			add_action( 'init', array( $this, 'manage_taxonomies' ), 0 );
 			add_filter( 'woocommerce_locate_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
 			add_filter( 'woocommerce_locate_core_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
+			add_action( 'save_post_product', array( $this, 'fix_variations_authorship' ), 10, 3 );
+		}
+
+		/**
+		 * Set the variations to correct author
+		 *
+		 * When the product author changes, the variations don't. It fixes that
+		 *
+		 * @version 1.1.3
+		 * @since   1.1.3
+		 * @param $post_id
+		 * @param $post
+		 * @param $update
+		 */
+		public function fix_variations_authorship( $post_id, $post, $update ) {
+			global $woocommerce;
+			$product = wc_get_product( $post_id );
+			if (
+				! $product ||
+				! is_a( $product, 'WC_Product_Variable' )
+			) {
+
+				return;
+			}
+
+			$user      = wp_get_current_user();
+			$the_query = new WP_Query( array(
+				'post_type'      => 'product_variation',
+				'posts_per_page' => - 1,
+				'post_parent'    => $post_id,
+				'author__not_in' => array( $post->post_author )
+			) );
+
+			if ( $the_query->have_posts() ) {
+				while ( $the_query->have_posts() ) {
+					$the_query->the_post();
+					wp_update_post( array(
+						'ID'          => get_the_ID(),
+						'post_author' => $post->post_author,
+					) );
+				}
+				wp_reset_postdata();
+			}
 		}
 
 		/**
