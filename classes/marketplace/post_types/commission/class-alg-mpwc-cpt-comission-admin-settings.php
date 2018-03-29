@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission admin settings
  *
- * @version 1.1.2
+ * @version 1.1.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -73,57 +73,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		}
 
 		/**
-		 * Adds the option to ignore the pagination on total value calculation
-		 *
-		 * @version 1.1.2
-		 * @since   1.1.2
-		 *
-		 * @param $fields
-		 *
-		 * @return string
-		 */
-		public function add_ignore_pagination_on_total_value_screen_option( $fields ) {
-			$user_id               = get_current_user_id();
-			$ignore_pagination     = filter_var( get_user_meta( $user_id, 'mpwc_ign_pag_total_val', true ), FILTER_VALIDATE_BOOLEAN );
-			$ignore_pagination_str = $ignore_pagination ? 'checked="checked"' : '';
-
-			$fields .= "
-            <input {$ignore_pagination_str} type='checkbox' name='mpwc_ign_pag_total_val' id='mpwc_ign_pag_total_val' />
-            <label for='mpwc_ign_pag_total_val'>Ignore pagination</label>
-            ";
-
-			return $fields;
-		}
-
-		/**
-		 * Saves the option to ignore the pagination on total value calculation
-		 *
-		 * @version 1.1.2
-		 * @since   1.1.2
-		 * @todo Add nonce
-		 * @return string
-		 */
-		public function save_ignore_pagination_on_total_value_screen_option() {
-			if (
-				! is_admin()
-				|| empty( $_POST['screen-options-apply'] )
-				|| empty( $_POST['wp_screen_options'] )
-				|| $_POST['wp_screen_options']['option'] != 'edit_alg_mpwc_commission_per_page'
-				|| ! is_user_logged_in()
-			) {
-				return;
-			}
-
-			$user_id = get_current_user_id();
-
-			if ( ! empty( $_POST['mpwc_ign_pag_total_val'] ) ) {
-				update_user_meta( $user_id, 'mpwc_ign_pag_total_val', 'on' );
-			} else {
-				delete_user_meta( $user_id, 'mpwc_ign_pag_total_val' );
-			}
-		}
-
-		/**
 		 * Adds refund summing screen option
 		 *
 		 * @version 1.1.2
@@ -144,6 +93,43 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
             ";
 
 			return $return;
+		}
+
+		/**
+		 * Ignore refund commissions on admin
+		 *
+		 * @version 1.1.3
+		 * @since   1.1.3
+		 * @param $query
+		 */
+		public function ignore_refund_commissions( $query ) {
+			$screen = null;
+			if ( function_exists( 'get_current_screen' ) ) {
+				$screen = get_current_screen();
+			}
+
+			if (
+				! $query->is_main_query() ||
+				! is_admin() ||
+				! $screen ||
+				$screen->id != 'edit-alg_mpwc_commission' ||
+				filter_var( get_user_meta( get_current_user_id(), 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN )
+			) {
+				return;
+			}
+
+			$tax_query  = $query->get( 'tax_query' );
+			$status_tax = new Alg_MPWC_Commission_Status_Tax();
+			if ( ! is_array( $tax_query ) ) {
+				$tax_query = array();
+			}
+			$tax_query[] = array(
+				'taxonomy' => $status_tax->id,
+				'field'    => 'slug',
+				'terms'    => array( 'refunded', 'need-refund' ),
+				'operator' => 'NOT IN'
+			);
+			$query->set( 'tax_query', $tax_query );
 		}
 
 		/**
@@ -196,7 +182,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Display the sum of commissions values in edit.php page
 		 *
-		 * @version 1.1.2
+		 * @version 1.1.3
 		 * @since   1.0.0
 		 *
 		 * Called on Alg_MPWC_CPT_Commission::display_total_value_in_edit_columns()		 
@@ -206,41 +192,14 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 */
 		public function get_total_value_in_edit_columns( $defaults ) {
 			global $wp_query;
-			$query = $wp_query;
+			$the_query = $wp_query;
 
 			$show_total_commissions_value = apply_filters( 'alg_mpwc_show_total_commissions_value', true );
 			if ( ! $show_total_commissions_value ) {
 				return $defaults;
 			}
 
-			$user_id           = get_current_user_id();
-
-			$sum_refunded_comm = filter_var( get_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN );
-			if ( ! $sum_refunded_comm ) {
-				$tax_query  = $query->get( 'tax_query' );
-				$status_tax = new Alg_MPWC_Commission_Status_Tax();
-				if ( ! is_array( $tax_query ) ) {
-					$tax_query = array();
-				}
-				$tax_query[] = array(
-					'taxonomy' => $status_tax->id,
-					'field'    => 'slug',
-					'terms'    => array( 'refunded', 'need-refund' ),
-					'operator' => 'NOT IN'
-				);
-				$query->set( 'tax_query', $tax_query );
-			}
-
-			$args = $query->query_vars;
-
-			$ignore_pagination = filter_var( get_user_meta( $user_id, 'mpwc_ign_pag_total_val', true ), FILTER_VALIDATE_BOOLEAN );
-
-			if ( $ignore_pagination ) {
-				$args['nopaging'] = true;
-			}
-
-			$the_query = new WP_Query( $args );
-			$currency_to       = apply_filters( 'alg_mpwc_commission_sum_currency_to', get_woocommerce_currency() );
+			$currency_to = apply_filters( 'alg_mpwc_commission_sum_currency_to', get_woocommerce_currency() );
 
 			// The Loop
 			if ( $the_query->have_posts() ) {
@@ -250,7 +209,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 					$commission_final_value = get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_FINAL_VALUE, true );
 					$commission_currency    = get_post_meta( get_the_ID(), Alg_MPWC_Post_Metas::COMMISSION_CURRENCY, true );
 					$commission_final_value = apply_filters( 'alg_mpwc_commission_sum_bit', $commission_final_value, $commission_currency, $currency_to );
-					$total_value += $commission_final_value;
+					$total_value            += $commission_final_value;
 				}
 
 				/* Restore original Post Data */

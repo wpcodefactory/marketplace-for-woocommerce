@@ -49,8 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
-= 1.1.3 - 28/03/2018 =
+= 1.1.3 - 29/03/2018 =
 * Fix variations authorship
+* Fix commissions totals
 
 = 1.1.2 - 22/12/2017 =
 * Add refund commissions status (need refund and refunded)
@@ -120,8 +121,6 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.1.2 =
-* Add refund commissions status (need refund and refunded)
-* Add option to bulk update refund commissions status
-* Add screen option to exclude refund commissions from totals
-* Add screen option to ignore pagination to calculate commissions totals
+= 1.1.3 =
+* Fix variations authorship
+* Fix commissions totals

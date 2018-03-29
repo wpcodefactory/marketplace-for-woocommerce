@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.1.2
+ * @version 1.1.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -73,7 +73,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Setups the post type
 		 *
-		 * @version 1.1.2
+		 * @version 1.1.3
 		 * @since   1.0.0
 		 */
 		public function setup() {
@@ -115,12 +115,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			// Add a screen options regarding totals
 			add_filter( 'screen_settings', array( $admin_settings, 'add_totals_screen_option' ), 10, 2 );
 
-			// Adds admin settings to ignore pagination to calculate total value
-			add_filter( 'mpwc_totals_screen_option_fields', array( $admin_settings, 'add_ignore_pagination_on_total_value_screen_option' ), 10 );
-			add_action( 'init', array( $admin_settings, 'save_ignore_pagination_on_total_value_screen_option' ), 10 );
-
 			// Adds admin settings to exclude refund commissions from total value
 			add_filter( 'mpwc_totals_screen_option_fields', array( $admin_settings, 'add_refund_sum_screen_option' ), 10 );
+			add_action( 'pre_get_posts', array( $admin_settings, 'ignore_refund_commissions' ) );
 			add_action( 'init', array( $admin_settings, 'save_refund_sum_screen_option' ), 10 );
 		}
 

@@ -238,7 +238,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 					$post          = get_post( $order_item->get_product_id() );
 					$vendor_id     = $post->post_author;
 					$subtotal      += $order_item->get_subtotal();
-					$product_ids[] = $order_item->get_product_id();
+					$product_ids[] = (string)$order_item->get_product_id();
 					$title_arr[]   = $post->post_title;
 				}
 
