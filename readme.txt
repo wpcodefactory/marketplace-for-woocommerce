@@ -49,6 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
+= 1.1.5 - 01/04/2018 =
+* Improve the regexp solution to filter products on commissions
+
 = 1.1.4 - 29/03/2018 =
 * Add "WC tested up to"
 * Update "Tested up to"
@@ -126,6 +129,5 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.1.3 =
-* Fix variations authorship
-* Fix commissions totals
+= 1.1.5 =
+* Improve the regexp solution to filter products on commissions
