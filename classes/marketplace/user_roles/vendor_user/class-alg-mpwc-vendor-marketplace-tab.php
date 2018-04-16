@@ -133,10 +133,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 			$user = wp_get_current_user(); ?>
 
             <ul>
-                <li>Manage your Marketplace through the <a href="<?php echo admin_url() ?>"><span
-                                style="text-decoration: underline">admin dashboard</span></a></li>
-                <li>See your <a href="<?php echo Alg_MPWC_Vendor_Public_Page::get_public_page_url( $user->ID ); ?>">public
-                        page</a></li>
+                <li>Manage your Marketplace through the <a href="<?php echo admin_url() ?>"><span style="text-decoration: underline">admin dashboard</span></a></li>
+                <li>See your <a href="<?php echo Alg_MPWC_Vendor_Public_Page::get_public_page_url( $user->ID ); ?>">public page</a></li>
             </ul>
 
 			<?php
