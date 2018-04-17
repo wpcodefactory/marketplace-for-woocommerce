@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Product filter
  *
- * @version 1.1.5
+ * @version 1.1.6
  * @since   1.0.6
  * @author  Algoritmika Ltd.
  */
@@ -35,10 +35,10 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 
 			//return $str;
 			$query_string_product = null;
-			if(isset($_REQUEST['alg_mpwc_product'])){
+			if ( isset( $_REQUEST['alg_mpwc_product'] ) ) {
 				$query_string_product = filter_var( $_REQUEST['alg_mpwc_product'], FILTER_SANITIZE_NUMBER_INT );
-            }
-			$selected_val         = array();
+			}
+			$selected_val = array();
 			if ( ! empty( $query_string_product ) ) {
 				$posts = get_posts( array(
 					'post__in'  => array( $query_string_product ),
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 				<?php } ?>
             </select>
             <script>
-				jQuery(document.body).trigger('wc-enhanced-select-init');
+                jQuery(document.body).trigger('wc-enhanced-select-init');
             </script>
             <style>
                 .select2-container--default .select2-selection--single {
@@ -71,7 +71,7 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 
                 .select2-container {
                     margin-top: 1px;
-                    min-width:200px;
+                    min-width: 200px;
                 }
             </style>
 			<?php
@@ -82,7 +82,7 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 		 *
 		 * If post type is commissions, filters by meta_query _alg_mpwc_author_id. Else filters by author id
 		 *
-		 * @version 1.1.5
+		 * @version 1.1.6
 		 * @since   1.0.6
 		 */
 		public static function filter( $query ) {
@@ -105,21 +105,14 @@ if ( ! class_exists( 'Alg_MPWC_Product_Filter' ) ) {
 				return;
 			}
 
-			$meta_query = $query->get('meta_query');
-			if( ! is_array( $meta_query ) ){
+			$meta_query = $query->get( 'meta_query' );
+			if ( ! is_array( $meta_query ) ) {
 				$meta_query = array();
-            }			
-			$meta_query['relation'] = 'OR';
-			$meta_query[] =
-			array(
-                'key' => Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS,
-                'value' => sprintf(':"%s";', $query_string_product_id),
-                'compare' => 'LIKE'
-            );
-            $meta_query[] = array(
-                'key' => Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS,
-                'value' => sprintf(';i:%d;', $query_string_product_id),
-                'compare' => 'LIKE'
+			}
+			$meta_query[] = array(
+				'key'     => Alg_MPWC_Post_Metas::COMMISSION_PRODUCT_IDS,
+				'value'   => '\:\"?' . $query_string_product_id . '"?\;',
+				'compare' => 'REGEXP',
 			);
 			$query->set( 'meta_query', $meta_query );
 		}
