@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 1.1.4
+Stable tag: 1.1.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,11 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
-= 1.1.6 - 16/04/2018 =
-* Fix white space on template
-
-= 1.1.5 - 01/04/2018 =
+= 1.1.5 - 16/04/2018 =
 * Improve the regexp solution to filter products on commissions
+* Fix white space on template
 
 = 1.1.4 - 29/03/2018 =
 * Add "WC tested up to"
@@ -134,3 +132,4 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 = 1.1.5 =
 * Improve the regexp solution to filter products on commissions
+* Fix white space on template
