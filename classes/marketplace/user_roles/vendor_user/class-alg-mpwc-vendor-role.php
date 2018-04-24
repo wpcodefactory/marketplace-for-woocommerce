@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.0.5
+ * @version 1.1.8
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -344,11 +344,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Allows the vendor user to access wp-admin
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.8
 		 * @since   1.0.0
 		 */
 		public function allow_admin_access( $prevent_access ) {
-			if ( current_user_can( self::ROLE_VENDOR ) ) {
+			if (
+				current_user_can( self::ROLE_VENDOR ) &&
+				get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_ENTER_ADMIN, 'yes' ) === 'yes'
+			) {
 				$prevent_access = false;
 			}
 

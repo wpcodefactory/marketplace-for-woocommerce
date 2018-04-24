@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.1.2
+ * @version 1.1.8
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -23,6 +23,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_CAPABILITIES_DELETE_PRODUCTS    = 'alg_mpwc_opt_vendor_caps_delete_products';
 		const OPTION_CAPABILITIES_UPLOAD_FILES       = 'alg_mpwc_opt_vendor_caps_upload_files';
 		const OPTION_CAPABILITIES_VIEW_ORDERS        = 'alg_mpwc_opt_vendor_caps_view_orders';
+		const OPTION_CAPABILITIES_ENTER_ADMIN        = 'alg_mpwc_opt_vendor_caps_enter_admin';
 		const OPTION_HIDE_VENDOR_WP_INFO             = 'alg_mpwc_opt_hide_vendor_wp_info';
 		const OPTION_COMMISSIONS_FIXED_VALUE         = 'alg_mpwc_opt_commissions_fixed_value';
 		const OPTION_COMMISSIONS_PERCENTAGE_VALUE    = 'alg_mpwc_opt_commissions_percentage_value';
@@ -70,7 +71,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.1.2
+		 * @version 1.1.8
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
@@ -218,6 +219,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'desc'        => __( 'What vendors will be allowed to do', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
 					'id'          => 'alg_mpwc_vendors_caps_opt',
+				),
+				array(
+					'title'       => __( 'Access the dashboard', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Allows vendors to access the admin dashboard', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_CAPABILITIES_ENTER_ADMIN,
+					'default'     => 'yes',
+					'type'        => 'checkbox',
 				),
 				array(
 					'title'       => __( 'Publish products', 'marketplace-for-woocommerce' ),

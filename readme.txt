@@ -3,7 +3,7 @@ Contributors: algoritmika,karzin,anbinder
 Tags: woocommerce,marketplace,multivendor,vendors
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Screenshots ==
 
 == Changelog ==
+
+= 1.1.8 - 24/04/2018 =
+* Add new option to allow vendors to access admin
 
 = 1.1.7 - 23/04/2018 =
 * Fix string 'See your public page'
@@ -136,5 +139,5 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.1.7 =
-* Fix string "See your public page"
+= 1.1.8 =
+* Add new option to allow vendors to access admin
