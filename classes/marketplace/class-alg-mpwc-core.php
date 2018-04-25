@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.1.3
+ * @version 1.1.9
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -64,7 +64,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		/**
 		 * Setups the plugin
 		 *
-		 * @version 1.1.3
+		 * @version 1.1.9
 		 * @since   1.0.0
 		 */
 		public function setup_plugin() {
@@ -77,6 +77,46 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			add_filter( 'woocommerce_locate_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
 			add_filter( 'woocommerce_locate_core_template', array( $this, 'woocommerce_locate_template' ), 10, 3 );
 			add_action( 'save_post_product', array( $this, 'fix_variations_authorship' ), 10, 3 );
+			add_action( 'save_post_product', array( $this, 'fix_empty_variation_product_price' ), 10, 3 );
+		}
+
+		/**
+		 * Fixes variation product price
+		 *
+		 * When the product is saved, all the variations prices are saved to main product '_price' meta
+		 *
+		 * @version 1.1.9
+		 * @since   1.1.9
+		 * @param $post_id
+		 * @param $post
+		 * @param $update
+		 */
+		public function fix_empty_variation_product_price( $post_id, $post, $update ) {
+			global $woocommerce;
+			$product = wc_get_product( $post_id );
+			if (
+				! $product ||
+				! $product->is_type( 'variable' )
+				// || empty( get_post_meta( $post_id, '_price', false ) )
+			) {
+				return;
+			}
+
+			$prices = array();
+			foreach ( $product->get_available_variations() as $variation_values ) {
+				if ( ! empty( $variation_values['display_price'] ) ) {
+					$prices[] = $variation_values['display_price'];
+				}
+				if ( ! empty( $variation_values['display_regular_price'] ) ) {
+					$prices[] = $variation_values['display_regular_price'];
+				}
+			}
+			$min_max_prices[] = min( $prices );
+			$min_max_prices[] = max( $prices );
+			delete_post_meta( $post_id, '_price' );
+			foreach ( $min_max_prices as $price ) {
+				add_post_meta( $post_id, '_price', $price );
+			}
 		}
 
 		/**

@@ -84,3 +84,20 @@ if ( ! function_exists( 'alg_mpwc_register_hooks' ) ) {
 
 // Handles activation, installation and uninstall hooks
 alg_mpwc_register_hooks();
+
+
+/*
+add_action('init',function(){
+	$product_id = 6344;
+	$parent     = wc_get_product( $product_id );
+	//$parent->set_default_attributes( WC_Meta_Box_Product_Data::prepare_set_attributes( $parent->get_attributes(), 'default_attribute_' ) );
+	$parent->save();
+
+
+
+	//$product_id = 6344;
+	//WC_Meta_Box_Product_Data::save_variations( $product_id, get_post( $product_id ) );
+	//$product = wc_get_product($product_id);
+	//$product->save_meta_data();
+});
+*/
