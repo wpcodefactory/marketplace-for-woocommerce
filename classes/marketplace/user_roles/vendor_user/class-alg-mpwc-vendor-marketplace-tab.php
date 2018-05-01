@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Marketplace tab
  *
- * @version 1.1.7
+ * @version 1.1.11
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -115,20 +115,25 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 		/**
 		 * Endpoint HTML content.
          *
-		 * @version 1.1.8
+		 * @version 1.1.11
 		 * @since   1.0.0
 		 */
 		public function endpoint_content() {
-			$user = wp_get_current_user(); ?>
-
-            <ul>
-	            <?php if ( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_ENTER_ADMIN, 'yes' ) === 'yes' ): ?>
-                    <li>Manage your Marketplace through the <a href="<?php echo admin_url() ?>"><span style="text-decoration: underline">admin dashboard</span></a></li>
-                <?php endif; ?>
-                <li>See your <a href="<?php echo Alg_MPWC_Vendor_Public_Page::get_public_page_url( $user->ID ); ?>">public page</a></li>
-            </ul>
-
-			<?php
+			$user = wp_get_current_user();
+			$menu = array();
+			if ( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_ENTER_ADMIN, 'yes' ) === 'yes' ) {
+				$menu['admin_dashboard'] = sprintf(
+					__( 'Manage your Marketplace through the <a href="%s"><span style="text-decoration: underline">admin dashboard</span></a>', 'marketplace-for-woocommerce' ),
+					admin_url()
+				);
+			}
+			$menu['public_page'] = sprintf( __( 'See your <a href="%s">public page</a>', 'marketplace-for-woocommerce' ),
+				Alg_MPWC_Vendor_Public_Page::get_public_page_url( $user->ID ) );
+			$menu                = apply_filters( 'alg_mpwc_vendor_marketplace_tab_menu', $menu );
+			if ( ! empty( $menu ) ) {
+				echo '<ul><li>' . implode( '</li><li>', $menu ) . '</li></ul>';
+			}
+			do_action( 'alg_mpwc_vendor_marketplace_tab_content', $user );
 		}
 	}
 }
