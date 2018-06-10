@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor registry
  *
- * @version 1.0.0
+ * @version 1.1.12
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 		/**
 		 * Adds a checkbox on WooCommerce registry and edit page about becoming a vendor
 		 *
-		 * @version 1.0.0
+		 * @version 1.1.12
 		 * @since   1.0.0
 		 */
 		public function add_apply_for_checkbox() {
@@ -93,8 +93,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 
             <div style="margin-bottom:35px;">
                 <label class="woocommerce-form__label woocommerce-form__label-for-checkbox">
-                    <input class="woocommerce-form__input woocommerce-form__input-checkbox inline" name="alg_mpwc_apply_for_vendor" type="checkbox" id="alg_mpwc_apply_for_vendor"/>
-                    <span><?php echo esc_html( sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_CHECKBOX_TEXT ) ) ); ?></span>
+                    <input class="woocommerce-form__input woocommerce-form__input-checkbox inline" name="alg_mpwc_apply_for_vendor" type="checkbox" id="alg_mpwc_apply_for_vendor"/> <span><?php echo esc_html( sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_CHECKBOX_TEXT ) ) ); ?></span>
                 </label>
             </div>
 
