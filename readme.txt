@@ -51,6 +51,8 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 = 1.1.13 - 15/07/2018 =
 * Commission manager - If commissions is not paid, changing its status to `refunded` (instead of `need-refund`).
+* Commissions - "Default commission status" option added.
+* Commission status taxonomy - "Reserved" status added.
 
 = 1.1.12 - 10/06/2018 =
 * Put input and span on the same line on 'Apply for becoming a vendor'

@@ -202,14 +202,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commission automatically
 		 *
-		 * @version 1.1.0
+		 * @version 1.1.13
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
 			$status_tax = new Alg_MPWC_Commission_Status_Tax();
 			$status_tax->setup();
-			$status_unpaid_term = get_term_by( 'slug', 'unpaid', $status_tax->id );
-			$user_fields        = new Alg_MPWC_Vendor_Admin_Fields();
+			$user_fields = new Alg_MPWC_Vendor_Admin_Fields();
 
 			// Only creates commissions automatically if the corresponding order has not been processed yet
 			$comissions_evaluated = filter_var( get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true ), FILTER_VALIDATE_BOOLEAN );
@@ -223,6 +222,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			// Gets commission base and value
 			$commission_fixed_value      = $this->commission_cpt->commission_fixed_value;
 			$commission_percentage_value = $this->commission_cpt->commission_percentage_value;
+
+			$default_status = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_DEFAULT_STATUS, 'unpaid' );
 
 			foreach ( $products_by_vendor as $key => $order_items ) {
 
@@ -274,7 +275,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 					)
 				) );
 
-				wp_set_object_terms( $insert_post_response, array( $status_unpaid_term->term_id ), $status_tax->id );
+				wp_set_object_terms( $insert_post_response, $default_status, $status_tax->id );
 
 				do_action( 'alg_mpwc_insert_commission', $insert_post_response, $vendor_id, $order_id, $commission_value_final );
 

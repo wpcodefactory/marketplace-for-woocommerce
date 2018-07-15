@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission status taxonomy
  *
- * @version 1.1.2
+ * @version 1.1.13
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -32,7 +32,11 @@ if ( ! class_exists( 'Alg_MPWC_Commission_Status_Tax' ) ) {
 			array(
 				'slug'  => 'refunded',
 				'label' => 'Refunded',
-			)
+			),
+			array(
+				'slug'  => 'reserved',
+				'label' => 'Reserved',
+			),
 		);
 
 		/**

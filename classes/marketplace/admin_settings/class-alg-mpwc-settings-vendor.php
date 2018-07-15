@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.1.8
+ * @version 1.1.13
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -25,6 +25,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_CAPABILITIES_VIEW_ORDERS        = 'alg_mpwc_opt_vendor_caps_view_orders';
 		const OPTION_CAPABILITIES_ENTER_ADMIN        = 'alg_mpwc_opt_vendor_caps_enter_admin';
 		const OPTION_HIDE_VENDOR_WP_INFO             = 'alg_mpwc_opt_hide_vendor_wp_info';
+		const OPTION_COMMISSIONS_DEFAULT_STATUS      = 'alg_mpwc_opt_commissions_default_status';
 		const OPTION_COMMISSIONS_FIXED_VALUE         = 'alg_mpwc_opt_commissions_fixed_value';
 		const OPTION_COMMISSIONS_PERCENTAGE_VALUE    = 'alg_mpwc_opt_commissions_percentage_value';
 		const OPTION_COMMISSIONS_AUTOMATIC_CREATION  = 'alg_mpwc_opt_commissions_automatic_creation';
@@ -71,10 +72,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.1.8
+		 * @version 1.1.13
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
+			$commission_statuses = array();
+			foreach ( Alg_MPWC_Commission_Status_Tax::$terms_arr as $commission_status ) {
+				$commission_statuses[ $commission_status['slug'] ] = $commission_status['label'];
+			}
 			$new_settings = array(
 				array(
 					'title'       => __( 'Vendors options', 'marketplace-for-woocommerce' ),
@@ -275,6 +280,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'default'     => 'no',
 					'type'        => 'checkbox',
 				),*/
+				array(
+					'title'       => __( 'Default commission status', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_DEFAULT_STATUS,
+					'default'     => 'unpaid',
+					'options'     => $commission_statuses,
+					'type'        => 'select',
+					'class'       => 'chosen_select'
+				),
 				array(
 					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),
 					'desc'        => __( 'Fixed value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
