@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.1.0
+ * @version 1.1.13
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -66,19 +66,19 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		}
 
 		/**
-		 * Automatically set commission as "Need refund"
+		 * Automatically set commission as "Need refund" or "Refunded"
 		 *
-		 * @version 1.1.2
+		 * @version 1.1.13
 		 * @since   1.1.2
-		 * @param $order_id
+		 * @param   $order_id
 		 */
 		public function automatically_set_commission_as_need_refund( $order_id ) {
 			$commissions = get_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_RELATED_COMISSIONS, false );
 			if ( is_array( $commissions ) ) {
-				$status_tax       = new Alg_MPWC_Commission_Status_Tax();
-				$need_refund_term = $status_tax->get_term( 'need-refund' );
+				$status_tax = new Alg_MPWC_Commission_Status_Tax();
 				foreach ( $commissions as $commission_id ) {
-					wp_set_post_terms( $commission_id, array( $need_refund_term->term_id ), $status_tax->id );
+					$current_terms = wp_get_object_terms( $commission_id, $status_tax->id, array( 'fields' => 'slugs' ) );
+					wp_set_object_terms( $commission_id, ( in_array( 'paid', $current_terms ) ? 'need-refund' : 'refunded' ), $status_tax->id );
 				}
 			}
 		}
