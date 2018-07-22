@@ -149,7 +149,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 					Alg_MPWC_Vendor_Public_Page::get_public_page_url( $current_user->ID ) );
 				$dashboard_content = apply_filters( 'alg_mpwc_vendor_marketplace_tab_dashboard_section_content', $dashboard_content );
 				if ( ! empty( $dashboard_content ) ) {
-					echo '<p><ul class="alg_mpwc_vendor_marketplace_tab_dashboard_section_content"><li>' . implode( '</li><li>', $dashboard_content ) . '</li></ul></p>';
+					echo '<ul class="alg_mpwc_vendor_marketplace_tab_dashboard_section_content"><li>' . implode( '</li><li>', $dashboard_content ) . '</li></ul>';
 				}
 				do_action( 'alg_mpwc_vendor_marketplace_tab_after_dashboard_section_content', $current_user );
 			} else {
