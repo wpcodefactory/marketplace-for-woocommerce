@@ -120,7 +120,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 		 */
 		public function endpoint_content() {
 			$current_user    = wp_get_current_user();
-			$current_section = ( isset( $_GET['section'] ) ? $_GET['section'] : 'dashboard' );
+			$current_section = ( isset( $_GET['section'] ) ? $_GET['section'] : apply_filters( 'alg_mpwc_vendor_marketplace_tab_default_section', 'dashboard' ) );
 			$sections        = apply_filters( 'alg_mpwc_vendor_marketplace_tab_sections', array(
 				'dashboard' => __( 'Dashboard', 'marketplace-for-woocommerce' ),
 			) );
@@ -128,9 +128,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 				$links = array();
 				foreach ( $sections as $section_id => $section_title ) {
 					$is_active = ( $section_id === $current_section );
-					$links[] = '<li style="display: inline;"' . ( $is_active ? ' class="alg_mpwc_vendor_marketplace_tab_section_active"' : '' ) . '>' .
+					$link      = apply_filters( 'alg_mpwc_vendor_marketplace_tab_section_link', add_query_arg( 'section', $section_id, wc_get_endpoint_url( 'marketplace' ) ), $section_id, $current_user );
+					$links[]   = '<li style="display: inline;"' . ( $is_active ? ' class="alg_mpwc_vendor_marketplace_tab_section_active"' : '' ) . '>' .
 						'<a' . ( $is_active ? ' style="color: black; font-weight: bold;" class="alg_mpwc_vendor_marketplace_tab_section_active"' : '' ) . ' href="' .
-							add_query_arg( 'section', $section_id, wc_get_endpoint_url( 'marketplace' ) ) . '">' . $section_title . '</a>' .
+							$link . '">' . $section_title . '</a>' .
 					'</li>';
 				}
 				echo '<ul class="alg_mpwc_vendor_marketplace_tab_section" style="list-style-type: none; margin: 0; padding: 0;">' . implode( ' | ', $links ) . '</ul>' .
