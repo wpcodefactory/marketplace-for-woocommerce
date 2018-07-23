@@ -50,6 +50,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Changelog ==
 
 = 1.1.13 - 15/07/2018 =
+~* Additional check added in `fix_empty_variation_product_price()`.
 ~* My account "Marketplace" tab content updated.
 * Commission manager - If commissions is not paid, changing its status to `refunded` (instead of `need-refund`).
 * Commissions - "Default commission status" option added.

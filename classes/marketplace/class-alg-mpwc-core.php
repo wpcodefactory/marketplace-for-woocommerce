@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.1.9
+ * @version 1.1.13
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 *
 		 * When the product is saved, all the variations prices are saved to main product '_price' meta
 		 *
-		 * @version 1.1.9
+		 * @version 1.1.13
 		 * @since   1.1.9
 		 * @param $post_id
 		 * @param $post
@@ -111,11 +111,13 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 					$prices[] = $variation_values['display_regular_price'];
 				}
 			}
-			$min_max_prices[] = min( $prices );
-			$min_max_prices[] = max( $prices );
-			delete_post_meta( $post_id, '_price' );
-			foreach ( $min_max_prices as $price ) {
-				add_post_meta( $post_id, '_price', $price );
+			if ( ! empty( $prices ) ) {
+				$min_max_prices[] = min( $prices );
+				$min_max_prices[] = max( $prices );
+				delete_post_meta( $post_id, '_price' );
+				foreach ( $min_max_prices as $price ) {
+					add_post_meta( $post_id, '_price', $price );
+				}
 			}
 		}
 
