@@ -13,7 +13,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 
 		/**
 		 * Custom endpoint name.
-         *
+		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 * @var string
@@ -22,7 +22,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 
 		/**
 		 * Plugin actions.
-         *
+		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
@@ -32,14 +32,14 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 			add_filter( 'query_vars', array( $this, 'add_query_vars' ), 0 );
 			// Change the My Accout page title.
 			add_filter( 'the_title', array( $this, 'endpoint_title' ) );
-			// Insering your new tab/page into the My Account page.
+			// Inserting your new tab/page into the My Account page.
 			add_filter( 'woocommerce_account_menu_items', array( $this, 'new_menu_items' ) );
 			add_action( 'woocommerce_account_' . self::$endpoint . '_endpoint', array( $this, 'endpoint_content' ) );
 		}
 
 		/**
 		 * Register new endpoint to use inside My Account page.
-         *
+		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 * @see https://developer.wordpress.org/reference/functions/add_rewrite_endpoint/
@@ -50,7 +50,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 
 		/**
 		 * Add new query var.
-         *
+		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
@@ -66,7 +66,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 
 		/**
 		 * Set endpoint title.
-         *
+		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
@@ -88,10 +88,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 
 		/**
 		 * Insert the new endpoint into the My Account menu.
-         *
+		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
-         *
+		 *
 		 * @param array $items
 		 *
 		 * @return array
