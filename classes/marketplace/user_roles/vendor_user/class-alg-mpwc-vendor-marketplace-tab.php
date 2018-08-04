@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Marketplace tab
  *
- * @version 1.1.13
+ * @version 1.2.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -115,7 +115,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 		/**
 		 * Endpoint HTML content.
 		 *
-		 * @version 1.1.13
+		 * @version 1.2.0
 		 * @since   1.0.0
 		 */
 		public function endpoint_content() {

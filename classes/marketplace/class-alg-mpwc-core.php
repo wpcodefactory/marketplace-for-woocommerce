@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.1.13
+ * @version 1.2.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -85,7 +85,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 *
 		 * When the product is saved, all the variations prices are saved to main product '_price' meta
 		 *
-		 * @version 1.1.13
+		 * @version 1.2.0
 		 * @since   1.1.9
 		 * @param $post_id
 		 * @param $post

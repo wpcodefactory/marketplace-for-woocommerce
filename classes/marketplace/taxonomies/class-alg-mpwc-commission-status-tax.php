@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission status taxonomy
  *
- * @version 1.1.13
+ * @version 1.2.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */

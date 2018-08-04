@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.1.13
+ * @version 1.2.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -68,7 +68,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Automatically set commission as "Need refund" or "Refunded"
 		 *
-		 * @version 1.1.13
+		 * @version 1.2.0
 		 * @since   1.1.2
 		 * @param   $order_id
 		 */
@@ -202,7 +202,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commission automatically
 		 *
-		 * @version 1.1.13
+		 * @version 1.2.0
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {

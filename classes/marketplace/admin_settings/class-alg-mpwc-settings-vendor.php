@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.1.13
+ * @version 1.2.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.1.13
+		 * @version 1.2.0
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {

@@ -1,9 +1,9 @@
 === Marketplace for WooCommerce ===
-Contributors: algoritmika,karzin,anbinder
-Tags: woocommerce,marketplace,multivendor,vendors
+Contributors: algoritmika, karzin, anbinder
+Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 1.1.12
+Stable tag: 1.2.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,9 +49,9 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Changelog ==
 
-= 1.1.13 - 15/07/2018 =
-~* Additional check added in `fix_empty_variation_product_price()`.
-~* My account "Marketplace" tab content updated.
+= 1.2.0 - 04/08/2018 =
+* Additional check added in `fix_empty_variation_product_price()`.
+* My account "Marketplace" tab content updated.
 * Commission manager - If commissions is not paid, changing its status to `refunded` (instead of `need-refund`).
 * Commissions - "Default commission status" option added.
 * Commission status taxonomy - "Reserved" status added.
