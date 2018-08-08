@@ -29,10 +29,5 @@ if ( ! class_exists( 'Alg_MPWC_Post_Metas' ) ) {
 		const ORDER_RELATED_COMISSIONS    = '_alg_mpwc_related_commissions';
 		const ORDER_RELATED_VENDOR        = '_alg_mpwc_related_vendor';
 
-		// Order Meta fields
-		const PRODUCT_BLOCKED             = '_alg_mpwc_blocked';
-
-
-
 	}
 }
