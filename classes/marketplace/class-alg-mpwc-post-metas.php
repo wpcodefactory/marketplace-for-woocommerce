@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Post Metas
  *
- * @version 1.0.1
+ * @version 1.2.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
