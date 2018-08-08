@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor block option
  *
- * @version 1.0.0
+ * @version 1.2.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -12,68 +12,65 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 	class Alg_MPWC_Vendor_Block_Option {
 		function __construct() {
 			// Hides products of blocked users
-			add_action( 'pre_get_posts', array( $this, 'hide_products_of_blocked_users' ) );
+			add_action( 'pre_get_posts', array( $this, 'hide_blocked_users_products' ) );
 
 			// Dropdown
-			add_filter( 'alg_mpwc_vendors_dropdown_allow_user', array(
-				$this,
-				'make_dropdown_stop_filtering_products',
-			), 10, 2 );
-			add_filter( 'alg_mpwc_vendors_dropdown_get_users_args', array(
-				$this,
-				'make_dropdown_hide_blocked_users',
-			) );
+			add_filter( 'alg_mpwc_vendors_dropdown_allow_user', array( $this, 'make_dropdown_stop_filtering_products' ), 10, 2 );
+			add_filter( 'alg_mpwc_vendors_dropdown_get_users_args', array( $this, 'make_dropdown_hide_blocked_users' ) );
 
 			// Public page
 			add_filter( 'alg_mpwc_public_page_query', array( $this, 'hide_public_page' ), 10, 2 );
 
-			// Sets products from blocked vendors as blocked too
-			add_filter( 'alg_mpwc_sanitize_block_vendor_option', array( $this, 'set_products_as_blocked' ), 10, 3 );
+			// Updates blocked vendor option
+			add_filter( 'update_user_metadata', array( $this, 'add_blocked_vendor' ), 10, 5 );
+			add_filter( 'delete_user_metadata', array( $this, 'unset_blocked_vendor' ), 10, 5 );
 		}
 
 		/**
-		 * Saves a meta on blocked users products to hide them on loop.
+		 * Remove blocked vendor from 'alg_mpwc_blocked_users' option when user meta '_alg_mpwc_blocked' is deleted
 		 *
 		 * It only happens when the profile page is saved on admin
 		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
+		 * @version 1.2.1
+		 * @since   1.2.1
 		 */
-		public function set_products_as_blocked( $value, $field_args, CMB2_Field $field ) {
-			$user_id = $field->object_id();
-			if ( ! $user_id ) {
-				return $value;
+		public function unset_blocked_vendor( $null, $object_id, $meta_key, $meta_value, $prev_value ) {
+			if ( '_alg_mpwc_blocked' != $meta_key ) {
+				return $null;
 			}
 
-			$query_args = array(
-				'post_type'      => 'product',
-				'posts_per_page' => - 1,
-				'author'         => $user_id,
-				'fields'         => 'ids',
-			);
-
-			$user_fields    = new Alg_MPWC_Vendor_Admin_Fields();
-			$previous_value = filter_var( get_user_meta( $user_id, $user_fields->meta_block_vendor, true ), FILTER_VALIDATE_BOOLEAN );
-
-			if ( $value == 'on' && ! $previous_value ) {
-				$the_query = new WP_Query( $query_args );
-				if ( $the_query->have_posts() ) {
-					foreach ( $the_query->posts as $post_id ) {
-						update_post_meta( $post_id, Alg_MPWC_Post_Metas::PRODUCT_BLOCKED, true );
-					}
-					wp_reset_postdata();
-				}
-			} else if ( $value != 'on' && $previous_value ) {
-				$the_query = new WP_Query( $query_args );
-				if ( $the_query->have_posts() ) {
-					foreach ( $the_query->posts as $post_id ) {
-						delete_post_meta( $post_id, Alg_MPWC_Post_Metas::PRODUCT_BLOCKED );
-					}
-					wp_reset_postdata();
-				}
+			$user_id       = $object_id;
+			$blocked_users = get_option( 'alg_mpwc_blocked_users', array() );
+			$index         = array_search( $user_id, $blocked_users );
+			if ( $index !== false ) {
+				unset( $blocked_users[ $index ] );
+				update_option( 'alg_mpwc_blocked_users', $blocked_users );
 			}
 
-			return $value;
+			return $null;
+		}
+
+		/**
+		 * Adds blocked vendor to 'alg_mpwc_blocked_users' option when user meta '_alg_mpwc_blocked' is true
+		 *
+		 * It only happens when the profile page is saved on admin
+		 *
+		 * @version 1.2.1
+		 * @since   1.2.1
+		 */
+		public function add_blocked_vendor( $null, $object_id, $meta_key, $meta_value, $prev_value ) {
+			if ( '_alg_mpwc_blocked' != $meta_key ) {
+				return $null;
+			}
+			if ( true === filter_var( $meta_value, FILTER_VALIDATE_BOOLEAN ) ) {
+				$user_id         = $object_id;
+				$blocked_users   = get_option( 'alg_mpwc_blocked_users', array() );
+				$blocked_users[] = $user_id;
+				$blocked_users   = array_unique( $blocked_users );
+				update_option( 'alg_mpwc_blocked_users', $blocked_users );
+			}
+
+			return $null;
 		}
 
 		/**
@@ -151,33 +148,30 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Block_Option' ) ) {
 		/**
 		 * Hide products from being displayed in case its author is blocked
 		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
+		 * @version 1.2.1
+		 * @since   1.2.1
 		 *
 		 * @param $query
 		 */
-		public function hide_products_of_blocked_users( $query ) {
-			if ( is_admin() ) {
+		public function hide_blocked_users_products( $query ) {
+			if (
+				is_admin() ||
+				! $query->is_main_query() ||
+				$query->get( 'post_type' ) != 'product'
+			) {
 				return;
 			}
 
-			if ( ! $query->is_main_query() ) {
+			$blocked_users = get_option( 'alg_mpwc_blocked_users', array() );
+			if ( empty( $blocked_users ) ) {
 				return;
 			}
 
-			if ( $query->get( 'post_type' ) != 'product' ) {
-				return;
-			}
-
-			$query->set( 'meta_query', array(
-				'relation' => 'OR',
-				array(
-					'key'     => Alg_MPWC_Post_Metas::PRODUCT_BLOCKED,
-					'compare' => 'NOT EXISTS',
-				),
-			) );
+			$author_not_in = $query->get( 'author__not_in' );
+			$author_not_in = empty( $author_not_in ) ? array() : $author_not_in;
+			$author_not_in = array_merge( $blocked_users, $author_not_in );
+			$query->set( 'author__not_in', $author_not_in );
 		}
-
 
 	}
 }
