@@ -63,8 +63,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 				'role' => $role
 			) );
 
-			$commission_fixed_value      = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_FIXED_VALUE, true );
-			$commission_percentage_value = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_PERCENTAGE_VALUE, true );
+			$commission_fixed_value      = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_FIXED_VALUE, true );
+			$commission_percentage_value = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_PERCENTAGE_VALUE, true );
 			$vendor_admin_fields         = new Alg_MPWC_Vendor_Admin_Fields();
 			update_user_meta( $user_id, $vendor_admin_fields->meta_commission_fixed_value, $commission_fixed_value );
 			update_user_meta( $user_id, $vendor_admin_fields->meta_commission_percentage_value, $commission_percentage_value );

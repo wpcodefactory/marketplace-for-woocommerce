@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -48,6 +48,11 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Screenshots ==
 
 == Changelog ==
+
+= 1.2.2 - 24/10/2018 =
+* Create option to group commissions by author
+* Add option to create commissions for each item separately
+* Reorganize commissions settings
 
 = 1.2.1 - 08/08/2018 =
 * Change the way 'blocked vendors' work as it is overwriting meta_query. Now blocked vendors are added to a option called 'alg_mpwc_blocked_users' and it's added to 'author__not_in' wp_query parameter in order to hide their products
@@ -161,5 +166,7 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.2.1 - 08/08/2018 =
-* Change the way 'blocked vendors' work as it is overwriting meta_query. Now blocked vendors are added to a option called 'alg_mpwc_blocked_users' and it's added to 'author__not_in' wp_query parameter in order to hide their products
+= 1.2.2 =
+* Create option to group commissions by author
+* Add option to create commissions for each item separately
+* Reorganize commissions settings

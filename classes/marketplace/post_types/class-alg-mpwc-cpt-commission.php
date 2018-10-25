@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.1.3
+ * @version 1.2.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -345,15 +345,15 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Gets values from admin
 		 *
-		 * @version 1.1.2
+		 * @version 1.2.2
 		 * @since   1.0.0
 		 */
 		public function get_values_from_admin() {
 			//$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
-			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_FIXED_VALUE ) );
-			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
-			$this->automatic_creation          = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_AUTOMATIC_CREATION );
-			$this->refund_status               = get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_ORDER_REFUND_STATUS );
+			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_FIXED_VALUE ) );
+			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
+			$this->automatic_creation          = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_AUTOMATIC_CREATION );
+			$this->refund_status               = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_ORDER_REFUND_STATUS );
 		}
 
 		/**

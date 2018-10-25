@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.2.0
+ * @version 1.2.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -25,11 +25,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		const OPTION_CAPABILITIES_VIEW_ORDERS        = 'alg_mpwc_opt_vendor_caps_view_orders';
 		const OPTION_CAPABILITIES_ENTER_ADMIN        = 'alg_mpwc_opt_vendor_caps_enter_admin';
 		const OPTION_HIDE_VENDOR_WP_INFO             = 'alg_mpwc_opt_hide_vendor_wp_info';
-		const OPTION_COMMISSIONS_DEFAULT_STATUS      = 'alg_mpwc_opt_commissions_default_status';
-		const OPTION_COMMISSIONS_FIXED_VALUE         = 'alg_mpwc_opt_commissions_fixed_value';
-		const OPTION_COMMISSIONS_PERCENTAGE_VALUE    = 'alg_mpwc_opt_commissions_percentage_value';
-		const OPTION_COMMISSIONS_AUTOMATIC_CREATION  = 'alg_mpwc_opt_commissions_automatic_creation';
-		const OPTION_COMMISSIONS_ORDER_REFUND_STATUS = 'alg_mpwc_opt_commissions_order_refund_status';
+
 		const OPTION_INCLUDE_TAXES                   = 'alg_mpwc_opt_commissions_include_taxes';
 		const OPTION_REGISTRY_AUTOMATIC_APPROVAL     = 'alg_mpwc_opt_registry_automatic_approval';
 		const OPTION_REGISTRY_CHECKBOX_TEXT          = 'alg_mpwc_opt_registry_checkbox_text';
@@ -72,14 +68,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.2.0
+		 * @version 1.2.2
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
-			$commission_statuses = array();
-			foreach ( Alg_MPWC_Commission_Status_Tax::$terms_arr as $commission_status ) {
-				$commission_statuses[ $commission_status['slug'] ] = $commission_status['label'];
-			}
+
 			$new_settings = array(
 				array(
 					'title'       => __( 'Vendors options', 'marketplace-for-woocommerce' ),
@@ -266,66 +259,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'id'          => 'alg_mpwc_vendors_caps_opt',
 				),
 
-				// Commissions
-				array(
-					'title'       => __( 'Commissions', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Money that need to be transferred to vendors after a sale is made', 'marketplace-for-woocommerce' ),
-					'type'        => 'title',
-					'id'          => 'alg_mpwc_comissions_opt',
-				),
-				/*array(
-					'title'       => __( 'Include taxes', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Include taxes in commissions', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_INCLUDE_TAXES,
-					'default'     => 'no',
-					'type'        => 'checkbox',
-				),*/
-				array(
-					'title'       => __( 'Default commission status', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_DEFAULT_STATUS,
-					'default'     => 'unpaid',
-					'options'     => $commission_statuses,
-					'type'        => 'select',
-					'class'       => 'chosen_select'
-				),
-				array(
-					'title'       => __( 'Fixed Value', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Fixed value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_FIXED_VALUE,
-					'default'     => 0,
-					'type'        => 'number',
-				),
-				array(
-					'title'       => __( 'Percentage Value', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'Percentage value that will be transfered to vendors after a sale is made', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_PERCENTAGE_VALUE,
-					'default'     => 80,
-					'type'        => 'number',
-				),
-				array(
-					'title'       => __( 'Creation status', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'When orders change to one of these status, correspondent commissions will be automatically created', 'marketplace-for-woocommerce' ),
-					'desc_tip'    => __( 'Note 1: Leave it empty if you do not want to create commissions automatically', 'marketplace-for-woocommerce' ) . '<br /><br />' . __( 'Note 2: If you select 2 or more status, commissions will not be created twice, no worries.', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_AUTOMATIC_CREATION,
-					'default'     => array('wc-completed'),
-					'options'     => wc_get_order_statuses(),
-					'type'        => 'multiselect',
-					'class'       => 'chosen_select'
-				),
-				array(
-					'title'       => __( 'Refund status', 'marketplace-for-woocommerce' ),
-					'desc'        => __( 'When orders change to one of these status, correspondent commissions will be automatically set as "Need Refund"', 'marketplace-for-woocommerce' ),
-					'desc_tip'    => __( 'Note 1: Leave it empty if you do not want to set commissions automatically to "Need Refund"', 'marketplace-for-woocommerce' ),
-					'id'          => self::OPTION_COMMISSIONS_ORDER_REFUND_STATUS,
-					'default'     => array('wc-refunded','wc-cancelled','wc-failed'),
-					'options'     => wc_get_order_statuses(),
-					'type'        => 'multiselect',
-					'class'       => 'chosen_select'
-				),
-				array(
-					'type'        => 'sectionend',
-					'id'          => 'alg_mpwc_comissions_opt',
-				),
+
 			);
 
 			return parent::get_settings( array_merge( $settings, $new_settings ) );
