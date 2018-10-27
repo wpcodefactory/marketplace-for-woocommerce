@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.1.8
+ * @version 1.2.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -14,6 +14,25 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		const ROLE_VENDOR = 'alg_mpwc_vendor';
 		const ROLE_VENDOR_PENDING = 'alg_mpwc_vendor_pending';
 		const ROLE_VENDOR_REJECTED = 'alg_mpwc_vendor_rejected';
+
+		/**
+		 * Is user vendor?
+		 *
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 *
+		 * @param $user_id
+		 *
+		 * @return bool
+		 */
+		public static function is_user_vendor( $user_id ) {
+			$user_meta  = get_userdata( $user_id );
+			$user_roles = $user_meta->roles;
+			if ( in_array( self::ROLE_VENDOR, $user_roles, true ) ) {
+				return true;
+			}
+			return false;
+		}
 
 		private static $user_caps = array(
 			"read"                      => true,

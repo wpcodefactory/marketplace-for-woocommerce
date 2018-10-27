@@ -14,6 +14,7 @@ return array(
     'Alg_MPWC_Commission_Status_Tax' => $baseDir . '/classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php',
     'Alg_MPWC_Core' => $baseDir . '/classes/marketplace/class-alg-mpwc-core.php',
     'Alg_MPWC_Dashboard_Widgets' => $baseDir . '/classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php',
+    'Alg_MPWC_Email' => $baseDir . '/classes/marketplace/class-alg-mpwc-email.php',
     'Alg_MPWC_Post_Metas' => $baseDir . '/classes/marketplace/class-alg-mpwc-post-metas.php',
     'Alg_MPWC_Product_Filter' => $baseDir . '/classes/marketplace/dropdowns/class-alg-mpwc-product-filter.php',
     'Alg_MPWC_Query_Vars' => $baseDir . '/classes/marketplace/class-alg-mpwc-query-vars.php',

@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - General section
  *
- * @version 1.2.2
+ * @version 1.2.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -24,6 +24,9 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 		const OPTION_COMMISSIONS_ORDER_REFUND_STATUS = 'alg_mpwc_opt_commissions_order_refund_status';
 		const OPTION_COMMISSIONS_GROUP_BY_AUTHORS    = 'alg_mpwc_opt_commissions_group_authors';
 		const OPTION_COMMISSIONS_QUANTITY_SEPARATES  = 'alg_mpwc_opt_commissions_quantity_separates';
+		const OPTION_COMMISSIONS_EMAIL_ENABLE        = 'alg_mpwc_opt_commissions_email_enable';
+		const OPTION_COMMISSIONS_EMAIL_MESSAGE       = 'alg_mpwc_opt_commissions_email_message';
+		const OPTION_COMMISSIONS_EMAIL_SUBJECT       = 'alg_mpwc_opt_commissions_email_subject';
 
 		/**
 		 * Constructor.
@@ -48,7 +51,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.2.2
+		 * @version 1.2.3
 		 * @since   1.0.0
 		 *
 		 * @todo Create includes taxes option
@@ -140,6 +143,37 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 				array(
 					'type'        => 'sectionend',
 					'id'          => 'alg_mpwc_comissions_opt',
+				),
+
+				// Email
+				array(
+					'title'       => __( 'Notification email', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Email that will be sent to vendors after a sale is made', 'marketplace-for-woocommerce' ),
+					'type'        => 'title',
+					'id'          => 'alg_mpwc_email_opt',
+				),
+				array(
+					'title'       => __( 'Notification Email', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Enable Notification Email', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_EMAIL_ENABLE,
+					'default'     => 'no',
+					'type'        => 'checkbox',
+				),
+				array(
+					'title'       => __( 'Email subject', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_EMAIL_SUBJECT,
+					'default'     => __( 'You have a new sale from {site_title}', 'marketplace-for-woocommerce' ),
+					'type'        => 'text',
+				),
+				array(
+					'title'       => __( 'Email message', 'marketplace-for-woocommerce' ),
+					'id'          => self::OPTION_COMMISSIONS_EMAIL_MESSAGE,
+					'default'     => __( 'You have a new sale from {site_title}', 'marketplace-for-woocommerce' ),
+					'type'        => 'textarea',
+				),
+				array(
+					'type'        => 'sectionend',
+					'id'          => 'alg_mpwc_email_opt',
 				),
 
 			);

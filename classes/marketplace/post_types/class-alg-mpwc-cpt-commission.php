@@ -119,6 +119,26 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			add_filter( 'mpwc_totals_screen_option_fields', array( $admin_settings, 'add_refund_sum_screen_option' ), 10 );
 			add_action( 'pre_get_posts', array( $admin_settings, 'ignore_refund_commissions' ) );
 			add_action( 'init', array( $admin_settings, 'save_refund_sum_screen_option' ), 10 );
+
+			// Email
+			add_action( 'alg_mpwc_after_insert_commission', array( $this, 'send_commission_email_to_vendors' ) );
+		}
+
+		/**
+		 * Send commission email to vendors
+		 *
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 *
+		 * @param $order_id
+		 */
+		public function send_commission_email_to_vendors( $order_id ) {
+			$commissions_manager = $this->comission_manager;
+			if ( ! $commissions_manager ) {
+				$commissions_manager = new Alg_MPWC_CPT_Commission_Manager();
+				$commissions_manager->set_args( $this );
+			}
+			$commissions_manager->send_commission_email_to_vendors( $order_id );
 		}
 
 		/**

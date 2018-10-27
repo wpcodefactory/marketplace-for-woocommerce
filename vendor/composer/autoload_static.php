@@ -34,6 +34,7 @@ class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
         'Alg_MPWC_Commission_Status_Tax' => __DIR__ . '/../..' . '/classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php',
         'Alg_MPWC_Core' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-core.php',
         'Alg_MPWC_Dashboard_Widgets' => __DIR__ . '/../..' . '/classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php',
+        'Alg_MPWC_Email' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-email.php',
         'Alg_MPWC_Post_Metas' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-post-metas.php',
         'Alg_MPWC_Product_Filter' => __DIR__ . '/../..' . '/classes/marketplace/dropdowns/class-alg-mpwc-product-filter.php',
         'Alg_MPWC_Query_Vars' => __DIR__ . '/../..' . '/classes/marketplace/class-alg-mpwc-query-vars.php',

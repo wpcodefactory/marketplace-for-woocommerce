@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.2.2
+ * @version 1.2.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -99,13 +99,15 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 
 			/* @var WC_Order_Item_Product $item */
 			foreach ( $order->get_items() as $item ) {
-				$post       = get_post( $item->get_product_id() );
-				$vendor_id  = $post->post_author;
-				$subtotal   = $item->get_subtotal();
-				$quantity   = $item->get_quantity();
-				$product_id = $item->get_product_id();
-				$order_id   = $item->get_order_id();
-
+				$post      = get_post( $item->get_product_id() );
+				$vendor_id = $post->post_author;
+				if ( ! Alg_MPWC_Vendor_Role::is_user_vendor( $vendor_id ) ) {
+					continue;
+				}
+				$subtotal       = $item->get_subtotal();
+				$quantity       = $item->get_quantity();
+				$product_id     = $item->get_product_id();
+				$order_id       = $item->get_order_id();
 				$comission_data = isset( $products_by_vendor[ $vendor_id ] ) ? $products_by_vendor[ $vendor_id ] : array();
 				array_push( $comission_data, $item );
 				$products_by_vendor[ $vendor_id ] = $comission_data;
@@ -291,9 +293,166 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		}
 
 		/**
+		 * Gets commissions query
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 * @param array $args
+		 *
+		 * @return WP_Query
+		 */
+		public function get_commissions_query( $args=array() ) {
+			$args = wp_parse_args( $args, array(
+				'post_type'      => $this->commission_cpt->id,
+				'posts_per_page' => - 1
+			) );
+
+			if ( isset( $args['order_id'] ) ) {
+				$args['meta_query'][] = array(
+					'key'     => '_alg_mpwc_order_id',
+					'compare' => $args['order_id'],
+				);
+			}
+
+			if ( isset( $args['vendor_id'] ) ) {
+				$args['meta_query'][] = array(
+					'key'   => '_alg_mpwc_author_id',
+					'value' => $args['vendor_id'],
+				);
+			}
+
+			return new \WP_Query( $args );
+		}
+
+		/**
+		 * Creates email table from commission query
+		 *
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 *
+		 * @param $the_query
+		 *
+		 * @return string
+		 */
+		public function create_email_table_from_commissions_query( $the_query ) {
+			$message = '';
+
+			// The Loop
+			if ( $the_query->have_posts() ) {
+				$message .= '<table class="td" cellspacing="0" border="1">';
+				$message .= '
+				<thead>
+					<tr>
+						<th class="td" scope="col" >'.__( "Product", "woocommerce" ).'</th>
+						<th class="td" scope="col" >'.__( "Commission Value", "marketplace-for-woocommerce" ).'</th>
+					</tr>
+				</thead>
+				<tbody>
+				';
+				$total = 0;
+				while ( $the_query->have_posts() ) {
+					$the_query->the_post();
+					$commission_value = get_post_meta(get_the_ID(),'_alg_mpwc_comission_final_value',true);
+					$total+=$commission_value;
+					$product_ids = get_post_meta(get_the_ID(),'_alg_mpwc_product_ids',true);
+					$product_names=array();
+					foreach ($product_ids as $id){
+						$product = wc_get_product($id);
+						$product_names[]=$product->get_formatted_name();
+					}
+					$message .= '
+					<tr>
+						<td class="td" scope="row" >'.implode(', ', $product_names).'</td>
+						<td class="td" scope="row" >'.wc_price($commission_value).'</td>
+					</tr>
+					';
+				}
+				$message .= '
+					<tr>
+						<th class="td" scope="row" >'.__( "Total", "woocommerce" ).'</th>
+						<td class="td" scope="row" >' . wc_price( $total ) . '</td>
+					</tr>
+				';
+				$message .= '</tbody></table>';
+				wp_reset_postdata();
+			}
+
+			return $message;
+		}
+
+		/**
+		 * Sends commission email to vendors
+		 *
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 * @param $order_id
+		 */
+		public function send_commission_email_to_vendors( $order_id ) {
+			$order                    = wc_get_order( $order_id );
+			$mail_enable              = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_ENABLE, 'no' );
+			$commission_email_message = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_MESSAGE, __( 'You have a new sale from {site_title}', 'marketplace-for-woocommerce' ) );
+			$subject                  = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_SUBJECT, __( 'You have a new sale from {site_title}', 'marketplace-for-woocommerce' ) );
+			$subject                  = str_replace( '{site_title}', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $subject );
+			$commission_email_message = str_replace( '{site_title}', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $commission_email_message );
+			if ( $mail_enable === 'no' ) {
+				return;
+			}
+			$products_by_vendor = $this->get_order_items_separated_by_vendor( $order_id );
+			foreach ( $products_by_vendor as $key => $order_items ) {
+				$vendor_id         = $key;
+				$commissions_query = $this->get_commissions_query( array(
+					'vendor_id' => $vendor_id,
+					'order_id'  => $order_id
+				) );
+				$table             = $this->create_email_table_from_commissions_query( $commissions_query );
+				$final_message     = ! empty( $commission_email_message ) ? '<p>' . $commission_email_message . '</p>' . $table : $table;
+				$user              = get_user_by( 'ID', $vendor_id );
+				$complete_message  = Alg_MPWC_Email::wrap_in_wc_email_template( $final_message, $subject );
+				wc_mail( $user->user_email, $subject, $complete_message );
+			}
+		}
+
+		/**
+		 * Need to create commission from order item?
+		 *
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 *
+		 * @param WC_Order_Item_Product $item
+		 *
+		 * @return bool
+		 */
+		public function need_to_create_commission_from_order_item( WC_Order_Item_Product $item ) {
+			$post    = get_post( $item->get_product_id() );
+			$user_id = $post->post_author;
+			return Alg_MPWC_Vendor_Role::is_user_vendor( $user_id );
+		}
+
+		/**
+		 * Need to create commission from order?
+		 *
+		 * @version 1.2.3
+		 * @since   1.2.3
+		 *
+		 * @param $order_id
+		 *
+		 * @return bool
+		 */
+		public function need_to_create_commission_from_order( $order_id ) {
+			$order = wc_get_order( $order_id );
+
+			/* @var WC_Order_Item_Product $item */
+			foreach ( $order->get_items() as $item ) {
+				if ( $this->need_to_create_commission_from_order_item( $item ) ) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
 		 * Creates commissions without grouping by author
 		 *
-		 * @version 1.2.2
+		 * @version 1.2.3
 		 * @since   1.2.2
 		 *
 		 * @param $order_id
@@ -306,10 +465,13 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 
 			/* @var WC_Order_Item_Product $order_item */
 			foreach ( $order->get_items() as $order_item ) {
-				$post        = get_post( $order_item->get_product_id() );
+				$post = get_post( $order_item->get_product_id() );
+				if ( ! $this->need_to_create_commission_from_order_item( $order_item ) ) {
+					continue;
+				}
+				$vendor_id   = $post->post_author;
 				$subtotal    = $order_item->get_subtotal();
 				$product_ids = array( (string) $order_item->get_product_id() );
-				$vendor_id   = $post->post_author;
 				$title       = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $post->post_title;
 				$repetitions = $quantity_separates ? $order_item->get_quantity() : 1;
 				if ( $quantity_separates ) {
@@ -325,7 +487,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commission automatically
 		 *
-		 * @version 1.2.2
+		 * @version 1.2.3
 		 * @since   1.0.0
 		 */
 		public function create_commission_automatically( $order_id ) {
@@ -344,6 +506,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			}
 
 			update_post_meta( $order_id, Alg_MPWC_Post_Metas::ORDER_COMISSIONS_EVALUATED, true );
+			do_action( 'alg_mpwc_after_insert_commission', $order_id );
 		}
 	}
 }
