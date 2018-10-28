@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.2.3
+ * @version 1.2.4
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -294,7 +294,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 
 		/**
 		 * Gets commissions query
-		 * @version 1.2.3
+		 * @version 1.2.4
 		 * @since   1.2.3
 		 * @param array $args
 		 *
@@ -309,7 +309,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			if ( isset( $args['order_id'] ) ) {
 				$args['meta_query'][] = array(
 					'key'     => '_alg_mpwc_order_id',
-					'compare' => $args['order_id'],
+					'value' => $args['order_id'],
 				);
 			}
 
@@ -326,7 +326,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates email table from commission query
 		 *
-		 * @version 1.2.3
+		 * @version 1.2.4
 		 * @since   1.2.3
 		 *
 		 * @param $the_query
@@ -342,33 +342,34 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 				$message .= '
 				<thead>
 					<tr>
-						<th class="td" scope="col" >'.__( "Product", "woocommerce" ).'</th>
-						<th class="td" scope="col" >'.__( "Commission Value", "marketplace-for-woocommerce" ).'</th>
+						<th class="td" scope="col" >' . __( "Product", "woocommerce" ) . '</th>
+						<th class="td" scope="col" >' . __( "Commission Value", "marketplace-for-woocommerce" ) . '</th>
 					</tr>
 				</thead>
 				<tbody>
 				';
-				$total = 0;
+				$total   = 0;
 				while ( $the_query->have_posts() ) {
 					$the_query->the_post();
-					$commission_value = get_post_meta(get_the_ID(),'_alg_mpwc_comission_final_value',true);
-					$total+=$commission_value;
-					$product_ids = get_post_meta(get_the_ID(),'_alg_mpwc_product_ids',true);
-					$product_names=array();
-					foreach ($product_ids as $id){
-						$product = wc_get_product($id);
-						$product_names[]=$product->get_formatted_name();
+					$commission_value = get_post_meta( get_the_ID(), '_alg_mpwc_comission_final_value', true );
+					$currency         = get_post_meta( get_the_ID(), '_alg_mpwc_currency', true );
+					$total            += $commission_value;
+					$product_ids      = get_post_meta( get_the_ID(), '_alg_mpwc_product_ids', true );
+					$product_names    = array();
+					foreach ( $product_ids as $id ) {
+						$product         = wc_get_product( $id );
+						$product_names[] = $product->get_formatted_name();
 					}
 					$message .= '
 					<tr>
-						<td class="td" scope="row" >'.implode(', ', $product_names).'</td>
-						<td class="td" scope="row" >'.wc_price($commission_value).'</td>
+						<td class="td" scope="row" >' . implode( ', ', $product_names ) . '</td>
+						<td class="td" scope="row" >' . wc_price( $commission_value, array( 'currency' => $currency ) ) . '</td>
 					</tr>
 					';
 				}
 				$message .= '
 					<tr>
-						<th class="td" scope="row" >'.__( "Total", "woocommerce" ).'</th>
+						<th class="td" scope="row" >' . __( "Total", "woocommerce" ) . '</th>
 						<td class="td" scope="row" >' . wc_price( $total ) . '</td>
 					</tr>
 				';
