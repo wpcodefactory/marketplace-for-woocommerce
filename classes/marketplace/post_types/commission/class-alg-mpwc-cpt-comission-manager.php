@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.2.4
+ * @version 1.2.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -326,7 +326,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates email table from commission query
 		 *
-		 * @version 1.2.4
+		 * @version 1.2.5
 		 * @since   1.2.3
 		 *
 		 * @param $the_query
@@ -370,7 +370,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 				$message .= '
 					<tr>
 						<th class="td" scope="row" >' . __( "Total", "woocommerce" ) . '</th>
-						<td class="td" scope="row" >' . wc_price( $total ) . '</td>
+						<td class="td" scope="row" >' . wc_price( $total,array( 'currency' => $currency ) ) . '</td>
 					</tr>
 				';
 				$message .= '</tbody></table>';
@@ -383,17 +383,17 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Sends commission email to vendors
 		 *
-		 * @version 1.2.3
+		 * @version 1.2.5
 		 * @since   1.2.3
 		 * @param $order_id
 		 */
 		public function send_commission_email_to_vendors( $order_id ) {
 			$order                    = wc_get_order( $order_id );
 			$mail_enable              = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_ENABLE, 'no' );
-			$commission_email_message = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_MESSAGE, __( 'You have a new sale from {site_title}', 'marketplace-for-woocommerce' ) );
-			$subject                  = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_SUBJECT, __( 'You have a new sale from {site_title}', 'marketplace-for-woocommerce' ) );
-			$subject                  = str_replace( '{site_title}', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $subject );
-			$commission_email_message = str_replace( '{site_title}', wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES ), $commission_email_message );
+			$commission_email_message = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_MESSAGE, __( 'You have a new sale on {site_title} from {order_date}', 'marketplace-for-woocommerce' ) );
+			$subject                  = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_EMAIL_SUBJECT, __( 'You have a new sale on {site_title} from {order_date}', 'marketplace-for-woocommerce' ) );
+			$subject                  = Alg_MPWC_Email::replace_template_variables( $subject, $order );
+			$commission_email_message = Alg_MPWC_Email::replace_template_variables( $commission_email_message, $order );
 			if ( $mail_enable === 'no' ) {
 				return;
 			}

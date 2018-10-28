@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - General section
  *
- * @version 1.2.3
+ * @version 1.2.5
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.2.4
+		 * @version 1.2.5
 		 * @since   1.0.0
 		 *
 		 * @todo Create includes taxes option
@@ -162,13 +162,13 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 				array(
 					'title'       => __( 'Email subject', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_EMAIL_SUBJECT,
-					'default'     => __( 'You have a new sale on {site_title}', 'marketplace-for-woocommerce' ),
+					'default'     => __( 'You have a new sale on {site_title} from {order_date}', 'marketplace-for-woocommerce' ),
 					'type'        => 'text',
 				),
 				array(
 					'title'       => __( 'Email message', 'marketplace-for-woocommerce' ),
 					'id'          => self::OPTION_COMMISSIONS_EMAIL_MESSAGE,
-					'default'     => __( 'You have a new sale on {site_title}', 'marketplace-for-woocommerce' ),
+					'default'     => __( 'You have a new sale on {site_title} from {order_date}', 'marketplace-for-woocommerce' ),
 					'type'        => 'textarea',
 				),
 				array(
