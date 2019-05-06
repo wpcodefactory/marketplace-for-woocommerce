@@ -240,14 +240,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		 * @since   1.0.0
 		 */
 		public function pre_get_posts( $query ) {
-			$vendor_qv      = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
-			$is_public_page = filter_var( get_query_var( Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE ), FILTER_VALIDATE_BOOLEAN );
-
-			if ( ! $vendor_qv ) {
-				return;
-			}
-
-			if ( ! $is_public_page ) {
+			$vendor_qv = $query->get( 'alg_mpwc_vendor' );
+			$public_page = $query->get( 'alg_mpwc_public_page' );
+			if (
+				empty( $vendor_qv ) ||
+				empty( $public_page )
+			) {
 				return;
 			}
 
