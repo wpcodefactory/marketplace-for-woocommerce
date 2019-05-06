@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor public page
  *
- * @version 1.0.4
+ * @version 1.2.6
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -236,7 +236,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		/**
 		 * Setups the query for profile page
 		 *
-		 * @version 1.0.0
+		 * @version 1.2.6
 		 * @since   1.0.0
 		 */
 		public function pre_get_posts( $query ) {
