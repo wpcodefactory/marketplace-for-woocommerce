@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.2.3
+ * @version 1.2.7
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -114,7 +114,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Removes vendor's core updates notifications
 		 *
-		 * @version 1.0.0
+		 * @version 1.2.7
 		 * @since   1.0.0
 		 */
 		public function remove_core_updates() {
@@ -125,9 +125,19 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			if ( ! $remove_wp_info ) {
 				return;
 			}
-			add_action( 'init', create_function( '$a', "remove_action( 'init', 'wp_version_check' );" ), 2 );
+			add_action( 'init', array( $this, 'remove_wp_version_check_action' ), 2 );
 			add_filter( 'pre_option_update_core', '__return_null' );
 			add_filter( 'pre_site_transient_update_core', '__return_null' );
+		}
+
+		/**
+		 * remove_wp_version_check_action.
+		 *
+		 * @version 1.2.7
+		 * @since   1.2.7
+		 */
+		function remove_wp_version_check_action() {
+			remove_action( 'init', 'wp_version_check' );
 		}
 
 		/**

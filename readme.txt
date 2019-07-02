@@ -2,8 +2,8 @@
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 4.4
-Tested up to: 5.1
-Stable tag: 1.2.6
+Tested up to: 5.2
+Stable tag: 1.2.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,11 +33,11 @@ Visit WooCommerce > Settings > Marketplace.
 = Are there any widgets available? =
 **Vendor products filter** - Filters Marketplace vendor products. It is only displayed on shop page
 
-= How can I contribute? Is there a github repository? =
+= How can I contribute? Is there a GitHub repository? =
 If you are interested in contributing - head over to the [Marketplace for WooCommerce plugin GitHub Repository](https://github.com/algoritmika/marketplace-for-woocommerce) to find out how you can pitch in.
 
 = How can I help translating it? =
-You can do it through [tranlslate.wordpress](https://translate.wordpress.org/projects/wp-plugins/marketplace-for-woocommerce)
+You can do it through [translate.wordpress](https://translate.wordpress.org/projects/wp-plugins/marketplace-for-woocommerce)
 
 == Installation ==
 
@@ -48,6 +48,11 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 == Screenshots ==
 
 == Changelog ==
+
+= 1.2.7 - 02/07/2019 =
+* Fix - `create_function()` calls removed.
+* Dev - Composer updated.
+* Tested up to: 5.2.
 
 = 1.2.6 - 06/05/2019 =
 * Tested up to: 5.1
@@ -182,7 +187,5 @@ You can do it through [tranlslate.wordpress](https://translate.wordpress.org/pro
 
 == Upgrade Notice ==
 
-= 1.2.6 =
-* Tested up to: 5.1
-* WC tested up to: 3.6
-* Fix missing menu on author pages
+= 1.0.0 =
+This is the first release of the plugin.
