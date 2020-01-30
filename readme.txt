@@ -2,7 +2,7 @@
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 4.4
-Tested up to: 5.2
+Tested up to: 5.3
 Stable tag: 1.2.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -41,13 +41,17 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Installation ==
 
-1. Upload the entire 'marketplace-for-woocommerce' folder to the '/wp-content/plugins/' directory.
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Start by visiting plugin settings at WooCommerce > Settings > Marketplace.
+1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the "Plugins" menu in WordPress.
+3. Start by visiting plugin settings at "WooCommerce > Settings > Marketplace".
 
 == Screenshots ==
 
 == Changelog ==
+
+= 1.3.0 - 30/01/2020 =
+* Tested up to: 5.3.
+* WC tested up to: 3.9.
 
 = 1.2.7 - 02/07/2019 =
 * Fix - `create_function()` calls removed.
