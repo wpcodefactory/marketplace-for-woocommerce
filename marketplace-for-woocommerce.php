@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Marketplace for WooCommerce
-Description: Let users sell on your store
+Description: Let users sell on your store.
 Version: 1.3.0-dev
 Author: Algoritmika Ltd
 Author URI: https://algoritmika.com

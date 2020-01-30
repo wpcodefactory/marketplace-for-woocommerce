@@ -50,6 +50,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Changelog ==
 
 = 1.3.0 - 30/01/2020 =
+* Dev - Commissions - "Create zero commissions" option added.
 * Tested up to: 5.3.
 * WC tested up to: 3.9.
 

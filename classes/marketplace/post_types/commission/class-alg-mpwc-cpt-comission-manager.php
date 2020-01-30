@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.2.5
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -204,7 +204,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commission
 		 *
-		 * @version 1.2.2
+		 * @version 1.3.0
 		 * @since   1.2.2
 		 *
 		 * @param $order_id
@@ -231,6 +231,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			$commission_value_final = 0;
 			$commission_value_final += $commission_fixed_value;
 			$commission_value_final += $subtotal * ( (float) $commission_percentage_value / 100 );
+
+			if ( 0 == $commission_value_final && 'no' === get_option( 'alg_mpwc_opt_commissions_create_zero', 'yes' ) ) {
+				return false;
+			}
 
 			// Creates comission post type programmatically
 			$insert_post_response = wp_insert_post( array(

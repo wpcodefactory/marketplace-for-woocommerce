@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - General section
  *
- * @version 1.2.5
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -51,7 +51,7 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 		/**
 		 * get_settings.
 		 *
-		 * @version 1.2.5
+		 * @version 1.3.0
 		 * @since   1.0.0
 		 *
 		 * @todo Create includes taxes option
@@ -139,6 +139,14 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 					'options'     => wc_get_order_statuses(),
 					'type'        => 'multiselect',
 					'class'       => 'wc-enhanced-select'
+				),
+				array(
+					'title'       => __( 'Create zero commissions', 'marketplace-for-woocommerce' ),
+					'desc'        => __( 'Create', 'marketplace-for-woocommerce' ),
+					'desc_tip'    => __( 'Sets if you want the commissions with zero total value to be created (e.g. for orders with zero total sum).', 'marketplace-for-woocommerce' ),
+					'id'          => 'alg_mpwc_opt_commissions_create_zero',
+					'default'     => 'yes',
+					'type'        => 'checkbox',
 				),
 				array(
 					'type'        => 'sectionend',
