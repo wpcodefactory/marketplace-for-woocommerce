@@ -1,7 +1,7 @@
 === Marketplace for WooCommerce ===
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
-Requires at least: 4.4
+Requires at least: 5.0
 Tested up to: 5.3
 Stable tag: 1.2.7
 License: GNU General Public License v3.0
@@ -49,8 +49,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.3.0 - 30/01/2020 =
+= 1.3.0 - 22/02/2020 =
 * Dev - Commissions - "Create zero commissions" option added.
+* Requires at least: 5.0.
 * Tested up to: 5.3.
 * WC tested up to: 3.9.
 
