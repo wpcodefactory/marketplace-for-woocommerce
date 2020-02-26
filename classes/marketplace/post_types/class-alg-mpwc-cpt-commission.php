@@ -22,7 +22,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 */
 		public $comission_manager;
 
-		// Comission value from admin
+		// Commission value from admin
 		public $commission_fixed_value = '';
 		public $commission_percentage_value = '';
 

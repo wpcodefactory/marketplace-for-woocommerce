@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission admin settings
  *
- * @version 1.1.3
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -87,9 +87,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 			$sum_refunded_comm     = !filter_var( get_user_meta( $user_id, 'mpwc_sum_ref_comm_total_val', true ), FILTER_VALIDATE_BOOLEAN );
 			$sum_refunded_comm_str = $sum_refunded_comm ? 'checked="checked"' : '';
 
-			$return .= "            
+			$return .= "
             <input {$sum_refunded_comm_str} type='checkbox' name='mpwc_sum_ref_comm_total_val' id='mpwc_sum_ref_comm_total_val' />
-            <label for='mpwc_sum_ref_comm_total_val'>Ignore refund commissions</label>            
+            <label for='mpwc_sum_ref_comm_total_val'>Ignore refund commissions</label>
             ";
 
 			return $return;
@@ -185,7 +185,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		 * @version 1.1.3
 		 * @since   1.0.0
 		 *
-		 * Called on Alg_MPWC_CPT_Commission::display_total_value_in_edit_columns()		 
+		 * Called on Alg_MPWC_CPT_Commission::display_total_value_in_edit_columns()
 		 * @param $defaults
 		 *
 		 * @return mixed
@@ -511,12 +511,14 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 		/**
 		 * Displays the vendor column
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.0
 		 * @since   1.0.0
 		 */
 		public function display_vendor_column( $field_args, $field ) {
 			if ( $field->escaped_value() ) {
-				echo get_userdata( $field->escaped_value() )->display_name;
+				if ( $user_data = get_userdata( $field->escaped_value() ) ) {
+					echo $user_data->display_name;
+				}
 			}
 		}
 
@@ -533,9 +535,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 				echo implode( ', ', $terms );
 			}
 		}
-
-
-
 
 	}
 }
