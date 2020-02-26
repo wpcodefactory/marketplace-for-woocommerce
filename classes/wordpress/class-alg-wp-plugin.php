@@ -161,6 +161,7 @@ class Alg_WP_Plugin {
 
 		$this->args = $args;
 	}
+
 }
 
 endif;
