@@ -1,8 +1,8 @@
 <?php
 /**
- * Wordpress plugin
+ * Marketplace for WooCommerce - Wordpress plugin class
  *
- * @version 1.0.0
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -25,11 +25,11 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		/**
 		 * Constructor.
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.0
 		 * @since   1.0.0
 		 */
 		protected function __construct() {
-
+			return true;
 		}
 
 		/**
@@ -49,7 +49,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 
 
 		/**
-		 * Setups the plugin (translation, action links, etc)
+		 * Setups the plugin (translation, action links, etc).
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -66,14 +66,14 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		/**
 		 * Initializes the plugin.
 		 *
-		 * Should be called after the set_args() method
+		 * Should be called after the set_args() method.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
 		 * @param array $args
 		 */
-		public function init() {
+		function init() {
 			// Get plugin args
 			$args = $this->args;
 
@@ -82,23 +82,23 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		}
 
 		/**
-		 * Called when plugin is enabled
+		 * Called when plugin is enabled.
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.0
 		 * @since   1.0.0
-		 *
+		 * @todo    [dev] remove this?
 		 */
 		public static function on_plugin_activation() {
-
+			return true;
 		}
 
 		/**
-		 * Handles plugin localization
+		 * Handles plugin localization.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
-		public function handle_localization() {
+		function handle_localization() {
 			$args        = $this->args;
 			$text_domain = sanitize_text_field( $args['translation']['text_domain'] );
 			$locale      = apply_filters( 'plugin_locale', get_locale(), $text_domain );
@@ -107,7 +107,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		}
 
 		/**
-		 * Add action links to plugins page
+		 * Add action links to plugins page.
 		 *
 		 * @param $links
 		 *
@@ -133,14 +133,14 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		}
 
 		/**
-		 * Sets the plugin args
+		 * Sets the plugin args.
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.0
 		 * @since   1.0.0
 		 *
 		 * @param array $args
 		 */
-		public function set_args( $args = array() ) {
+		function set_args( $args = array() ) {
 			$args = wp_parse_args( $args, array(
 				'plugin_file_path' => null,
 				'translation'      => null,
@@ -149,7 +149,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 
 			$args['translation'] = wp_parse_args( $args['translation'], array(
 				'text_domain' => 'my_plugin',
-				'folder'      => 'languages',
+				'folder'      => 'langs',
 			) );
 
 			$args['action_links'] = wp_parse_args( $args['action_links'], array(

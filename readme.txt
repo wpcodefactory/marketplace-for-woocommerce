@@ -58,6 +58,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 * Dev - Duplicate call to `autoload.php` removed from `alg_mpwc_start_plugin()`.
 * Dev - Minor code refactoring and clean up.
 * Dev - Composer dependencies updated.
+* Domain path changed from `languages` to `langs`.
 * Requires at least: 5.0.
 * Tested up to: 5.3.
 * WC tested up to: 3.9.
