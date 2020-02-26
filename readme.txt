@@ -55,8 +55,8 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 * Dev - Orders - "Related Commissions" meta box added.
 * Dev - Commissions - "Create zero commissions" option added.
 * Dev - Admin Settings - Descriptions updated etc.
-* Dev - Code clean up.
-* Dev - Composer updated.
+* Dev - Minor code refactoring and clean up.
+* Dev - Composer dependencies updated.
 * Requires at least: 5.0.
 * Tested up to: 5.3.
 * WC tested up to: 3.9.
