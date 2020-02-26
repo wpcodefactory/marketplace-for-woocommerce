@@ -2,16 +2,14 @@
 /**
  * Marketplace for WooCommerce - Vendor role section
  *
- * @version 1.2.2
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) :
 
 	class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
@@ -48,14 +46,12 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		}
 
 		/**
-		 * Gets an example of a profile page url
+		 * Gets an example of a profile page url.
 		 *
 		 * @version 1.0.1
 		 * @since   1.0.0
-		 *
-		 * @param bool $use_pretty_permalinks
-		 *
-		 * @return string
+		 * @param   bool $use_pretty_permalinks
+		 * @return  string
 		 */
 		function get_profile_page_url_ex( $use_pretty_permalinks = true ) {
 			if ( $use_pretty_permalinks ) {
@@ -72,8 +68,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 		 * @since   1.0.0
 		 */
 		function get_settings( $settings = null ) {
-
 			$new_settings = array(
+
 				array(
 					'title'       => __( 'Vendors options', 'marketplace-for-woocommerce' ),
 					'type'        => 'title',
@@ -259,10 +255,11 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) {
 					'id'          => 'alg_mpwc_vendors_caps_opt',
 				),
 
-
 			);
 
 			return parent::get_settings( array_merge( $settings, $new_settings ) );
 		}
+
 	}
-}
+
+endif;
