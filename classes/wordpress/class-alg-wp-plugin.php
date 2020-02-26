@@ -7,7 +7,7 @@
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
+if ( ! class_exists( 'Alg_WP_Plugin' ) ) :
 
 	class Alg_WP_Plugin {
 
@@ -39,7 +39,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		 * @since   1.0.0
 		 * @return Current_Class_Name
 		 */
-		public static function get_instance() {
+		static function get_instance() {
 			if ( ! isset( static::$instance ) ) {
 				static::$instance = new static;
 			}
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 		 * @since   1.0.0
 		 * @todo    [dev] remove this?
 		 */
-		public static function on_plugin_activation() {
+		static function on_plugin_activation() {
 			return true;
 		}
 
@@ -162,4 +162,5 @@ if ( ! class_exists( 'Alg_WP_Plugin' ) ) {
 			$this->args = $args;
 		}
 	}
-}
+
+endif;
