@@ -53,6 +53,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 * Fix - Vendors - "Call to undefined function get_editable_roles()" error fixed when saving settings.
 * Fix - Commission admin settings - Possible "Trying to get property 'display_name' of non-object" notice fixed.
 * Dev - Commissions - "Create zero commissions" option added.
+* Dev - Orders - "Related Commissions" meta box added.
 * Dev - Code clean up.
 * Dev - Composer updated.
 * Requires at least: 5.0.

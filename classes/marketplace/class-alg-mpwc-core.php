@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.2.0
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 *
 		 * Should be called after the set_args() method
 		 *
-		 * @version 1.1.0
+		 * @version 1.3.0
 		 * @since   1.0.0
 		 *
 		 * @param array $args
@@ -34,11 +34,120 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			// Init admin part
 			if ( is_admin() ) {
 				$this->init_admin_settings();
+				add_action( 'add_meta_boxes', array( $this, 'add_order_meta_box' ) );
 			}
 
 			if ( filter_var( get_option( Alg_MPWC_Settings_General::OPTION_ENABLE_PLUGIN ), FILTER_VALIDATE_BOOLEAN ) ) {
 				$this->setup_plugin();
 			}
+		}
+
+		/**
+		 * add_order_meta_box.
+		 *
+		 * @version 1.3.0
+		 * @since   1.3.0
+		 */
+		public function add_order_meta_box() {
+			if ( get_post_meta( get_the_ID(), '_alg_mpwc_related_commissions', true ) ) {
+				add_meta_box( 'alg-wc-mp-order_meta-box', __( 'Related Commissions', 'marketplace-for-woocommerce' ), array( $this, 'create_order_meta_box' ), 'shop_order' );
+			}
+		}
+
+		/**
+		 * create_order_meta_box.
+		 *
+		 * @version 1.3.0
+		 * @since   1.3.0
+		 */
+		public function create_order_meta_box() {
+			$related_commissions = get_post_meta( get_the_ID(), '_alg_mpwc_related_commissions', true );
+			if ( ! is_array( $related_commissions ) ) {
+				$related_commissions = array( $related_commissions );
+			}
+			$rows = array();
+			foreach ( $related_commissions as $related_commission_id ) {
+				$link             = '<a href="' . admin_url( "post.php?post={$related_commission_id}&action=edit" ) . '">' . '#' . $related_commission_id . '</a>';
+
+				$status           = wp_get_object_terms( $related_commission_id, 'alg_mpwc_c_status_tax', array( 'fields' => 'slugs' ) );
+
+				$author           = get_post_meta( $related_commission_id, '_alg_mpwc_author_id', true );
+				$products         = get_post_meta( $related_commission_id, '_alg_mpwc_product_ids', true );
+				$fixed_value      = get_post_meta( $related_commission_id, '_alg_mpwc_comission_fixed_value', true );
+				$percentage_value = get_post_meta( $related_commission_id, '_alg_mpwc_comission_percentage_value', true );
+				$final_value      = get_post_meta( $related_commission_id, '_alg_mpwc_comission_final_value', true );
+				$currency         = get_post_meta( $related_commission_id, '_alg_mpwc_currency', true );
+
+				if ( $status ) {
+					if ( ! is_array( $status ) ) {
+						$status = array( $status );
+					}
+					$status = implode( ', ', $status );
+				}
+
+				if ( $author && ( $user = get_user_by( 'ID', $author ) ) ) {
+					$author = '<a href="' . admin_url( "user-edit.php?user_id={$author}" ) . '">' . $user->user_nicename . '</a>';
+				}
+
+				if ( $products ) {
+					if ( ! is_array( $products ) ) {
+						$products = array( $products );
+					}
+					$products = array_map( array( $this, 'get_product_link' ), $products );
+					$products = implode( ', ', $products );
+				}
+
+				if ( ! $fixed_value ) {
+					$fixed_value = 0;
+				}
+
+				if ( ! $percentage_value ) {
+					$percentage_value = 0;
+				}
+				$percentage_value .= '%';
+
+				if ( ! $final_value ) {
+					$final_value = 0;
+				}
+				$final_value = wc_price( $final_value, array( 'currency' => $currency ) );
+
+				$row = array(
+					$link,
+					$status,
+					$author,
+					$products,
+					$fixed_value,
+					$percentage_value,
+					$final_value,
+				);
+
+				$rows[] = '<td>' . implode( '</td><td>', $row ) . '</td>';
+			}
+			if ( ! empty( $rows ) ) {
+				$headers = array(
+					__( 'Commission ID', 'marketplace-for-woocommerce' ),
+					__( 'Status', 'marketplace-for-woocommerce' ),
+					__( 'Author', 'marketplace-for-woocommerce' ),
+					__( 'Product(s)', 'marketplace-for-woocommerce' ),
+					__( 'Fixed Value', 'marketplace-for-woocommerce' ),
+					__( 'Percentage Value', 'marketplace-for-woocommerce' ),
+					__( 'Final Value', 'marketplace-for-woocommerce' ),
+				);
+				echo '<table class="widefat striped">' .
+					'<tr>' . '<th>' . implode( '</th><th>', $headers ) . '</th>' . '</tr>' .
+					'<tr>' . implode( '</tr><tr>', $rows ) . '</tr>' .
+				'</table>';
+			}
+		}
+
+		/**
+		 * get_product_link.
+		 *
+		 * @version 1.3.0
+		 * @since   1.3.0
+		 */
+		public function get_product_link( $product_id ) {
+			return '<a href="' . admin_url( "post.php?post={$product_id}&action=edit" ) . '">' . get_the_title( $product_id ) . '</a>';
 		}
 
 		/**

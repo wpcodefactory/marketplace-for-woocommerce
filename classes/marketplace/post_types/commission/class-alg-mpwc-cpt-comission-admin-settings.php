@@ -63,7 +63,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Admin_Settings' ) ) {
 
 			$return .= "
             <fieldset class='metabox-prefs'>
-            <legend>".__('Totals','marketplace-for-woocommerce')."</legend>
+            <legend>" . __( 'Totals', 'marketplace-for-woocommerce' ) . "</legend>
             {$fields}
             <br class='clear'>
             </fieldset>
