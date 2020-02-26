@@ -1,504 +1,784 @@
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: Alg - Marketplace for WooCommerce\n"
-"POT-Creation-Date: 2017-07-28 17:08-0300\n"
-"PO-Revision-Date: 2017-01-17 13:05-0200\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: en\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.1\n"
-"X-Poedit-Basepath: ..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: assets\n"
-"X-Poedit-SearchPathExcluded-1: tasks\n"
-"X-Poedit-SearchPathExcluded-2: vendor\n"
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:28
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:37
 msgid "General"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:41
-msgid "Marketplace options"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:66
+msgid "Marketplace Options"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:46
-msgid "Enable Marketplace"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:47
-#, php-format
-msgid "Enable <strong>\"%s\"</strong> plugin"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:47
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:71
 msgid "Marketplace for WooCommerce"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-page.php:21
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:148
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:101
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:123
-msgid "Marketplace"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:72
+msgid "Enable plugin"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:40
-msgid "Vendors"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:71
-msgid "Vendors options"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:73
-msgid "General options regarding vendors"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:77
-msgid "Vendor label"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:78
-msgid "Vendor role label"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:80
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:81
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:537
-msgid "Marketplace vendor"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:85
-msgid "Hide WordPress info"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:86
-msgid "Hides info about Wordpress on vendor's admin dashboard"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:87
-msgid ""
-"It hides WordPress logo, footer text \"Thank you for creating with "
-"WordPress\" and disables update notifications"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:99
-msgid "Registration"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:100
-msgid "Options regarding vendors registration"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:105
-msgid "Automatic approval"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:106
-msgid ""
-"Allows users to be automatically approved as vendors on registration, "
-"bypassing the pending status"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:112
-msgid "Checkbox text"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:113
-msgid "The text displayed to users that want to become vendors"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:115
-msgid "Apply for becoming a vendor"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:126
-msgid "Public page"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:127
-msgid "The public page used to display vendor products"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:132
-msgid "Page slug"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:133
-msgid "Slug for the vendor public page."
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:133
-msgid "E.g"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:133
-#, php-format
-msgid ""
-"If it does not work on the first attempt, please go to <a href=\"%s"
-"\">Permalink Settings </a> and save changes"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:136
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:137
-msgid "marketplace-vendor"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:147
-msgid "Capabilities"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:148
-msgid "What vendors will be allowed to do"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:153
-msgid "Publish products"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:154
-msgid ""
-"Allows vendors to publish products automatically, bypassing the pending "
-"status"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:160
-msgid "Delete products"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:161
-msgid "Allows vendors to delete products"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:162
-msgid "Be careful with possible 404 pages"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:168
-msgid "Upload files"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:169
-msgid "Allows vendors to upload files"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:175
-msgid "View orders"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:176
-msgid "Allows vendors to view orders"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:188
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:304
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:306
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:313
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:84
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:435
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:437
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:444
 msgid "Commissions"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:189
-msgid "Money that need to be transferred to vendors after a sale is made"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:85
+msgid "Funds that should be transferred to vendors after a sale is made."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:210
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:172
-msgid "Fixed Value"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:90
+msgid "Group by author"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:211
-msgid "Fixed value that will be transfered to vendors after a sale is made"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:91
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:101
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:174
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:155
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:232
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:240
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:248
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:257
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:265
+msgid "Enable"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:217
-msgid "Percentage Value"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:92
+msgid "Groups commissions by author."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:218
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:93
 msgid ""
-"Percentage value that will be transfered to vendors after a sale is made"
+"If an order has products from X unique authors, X commissions will be "
+"created."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:224
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:94
+msgid ""
+"Note: This option doesn't work with <strong>Quantity separates</strong> "
+"option."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:100
+msgid "Quantity separates"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:102
+msgid "Create commissions for each item separately."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:103
+msgid ""
+"If an order has 10 x product A and 15 x product B, 25 commissions will be "
+"created."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:104
+msgid "Note: This option cancels <strong>Group by author</strong> option."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:110
+msgid "Default commission status"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:118
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:291
+msgid "Fixed value"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:119
+msgid "Fixed value that will be transfered to vendors after a sale is made."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:125
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:303
+msgid "Percentage value"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:126
+msgid ""
+"Percentage value that will be transfered to vendors after a sale is made."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:132
 msgid "Creation status"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:225
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:133
 msgid ""
-"When orders change to one of these status, correspondent commissions "
-"will be automatically created"
+"When orders change to one of these status, correspondent commissions will be "
+"automatically created."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:226
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:134
 msgid ""
 "Note 1: Leave it empty if you do not want to create commissions "
-"automatically"
+"automatically."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:226
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:135
 msgid ""
 "Note 2: If you select 2 or more status, commissions will not be created "
 "twice, no worries."
 msgstr ""
 
-#: classes/marketplace/dropdowns/class-alg-mpwc-vendor-products-filter.php:64
-msgid "Select a vendor"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:143
+msgid "Refund status"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:180
-msgid "Set selected commissions as paid"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:144
+msgid ""
+"When orders change to one of these status, correspondent commissions will be "
+"automatically set as \"Need Refund\"."
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:181
-msgid "Set selected commissions as unpaid"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:145
+msgid ""
+"Note: Leave it empty if you do not want to set commissions automatically to "
+"\"Need Refund\"."
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:305
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:307
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-creator.php:137
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:280
-msgid "Commission"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:153
+msgid "Create zero commissions"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:308
-msgid "Add New"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:154
+msgid "Create"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:309
-msgid "Add New Commission"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:155
+msgid ""
+"Sets if you want the commissions with zero total value to be created (e.g. "
+"for orders with zero total sum)."
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:310
-msgid "New Commission"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:167
+msgid "Notification Email"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:311
-msgid "Edit Commission"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:168
+msgid "Email that will be sent to vendors after a sale is made."
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:312
-msgid "View Commission"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:173
+msgid "Notification email"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:314
-msgid "Search Commissions"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:180
+msgid "Email subject"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:315
-msgid "Parent Commissions:"
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:182
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:189
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:397
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:398
+msgid "You have a new sale on {site_title} from {order_date}"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:316
-msgid "No Commissions found."
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:187
+msgid "Email message"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:317
-msgid "No Commissions found in Trash."
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-page.php:21
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:151
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:82
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:108
+msgid "Marketplace"
 msgstr ""
 
-#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:322
-msgid "Description."
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:44
+msgid "Vendors"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:119
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:65
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:66
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:75
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:72
+msgid "Vendors Options"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:74
+msgid "General options regarding vendors."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:78
+msgid "Vendor label"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:79
+msgid "Vendor role label."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:81
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:82
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:566
+msgid "Marketplace vendor"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:86
+msgid "Hide WordPress info"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:87
+msgid "Hide"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:88
+msgid "Hides info about Wordpress on vendor's admin dashboard."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:89
+msgid ""
+"Hides WordPress logo, footer text \"Thank you for creating with WordPress\" "
+"and disables update notifications."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:95
+msgid "Authorship on product loop"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:96
+msgid "Display"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:97
+msgid ""
+"Displays a link (By vendor) on product loop pointing to vendor's public page."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:103
+msgid "Redirect to admin on login"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:104
+msgid "Redirect"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:105
+msgid "Redirects vendors to admin after login."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:117
+msgid "Registration"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:118
+msgid "Options regarding vendors registration."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:119
+msgid "Note:"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:120
+#, php-format
+msgid ""
+"It's required to enable <strong>Customer registration</strong> on <a "
+"href='%s'>WooCommerce > Settings > Accounts</a>."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:126
+msgid "Automatic approval"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:127
+msgid "Allow"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:128
+msgid ""
+"Allows users to be automatically approved as vendors on registration, "
+"bypassing the pending status."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:134
+msgid "Checkbox text"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:135
+msgid "The text displayed to users that want to become vendors."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:137
+msgid "Apply for becoming a vendor"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:148
+msgid "Product Tab"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:150
+msgid ""
+"Tab displayed on vendor's product pages with some info about vendor "
+"themselves."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:154
+msgid "Product tab"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:156
+msgid "Enables the product tab."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:162
+msgid "Priority"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:163
+msgid ""
+"Controls the tab position. A lower priority will make it appear before other "
+"tabs."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:169
+msgid "Label"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:170
+msgid "Text displayed in the tab."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:172
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:370
+#: classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php:82
+msgid "Vendor"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:182
+msgid "Public Page"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:183
+msgid "The public page that displays vendor's info and its products."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:188
+msgid "Page slug"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:189
+msgid "Slug for the vendor public page."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:190
+msgid "E.g.:"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:194
+#, php-format
+msgid ""
+"If it does not work on the first attempt, please go to <a href=\"%s"
+"\">Permalink Settings</a> and save changes."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:198
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:199
+msgid "marketplace-vendor"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:203
+msgid "Shop link label"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:204
+msgid "Text pointing to shop page showing results filtered by vendor."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:205
+msgid "Leave it empty if you don't want to show it."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:207
+#: templates/marketplace-vendor-header.php:24
+msgid "See all vendor's products"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:211
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:169
+msgid "Logo"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:212
+msgid "Show"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:213
+msgid "Shows vendor's logo."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:225
+msgid "Capabilities"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:226
+msgid "What vendors will be allowed to do."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:231
+msgid "Access the dashboard"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:233
+msgid "Allows vendors to access the admin dashboard."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:239
+msgid "Publish products"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:241
+msgid ""
+"Allows vendors to publish products automatically, bypassing the pending "
+"status."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:247
+msgid "Delete products"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:249
+msgid "Allows vendors to delete products."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:250
+msgid "Be careful with possible 404 pages."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:256
+msgid "Upload files"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:258
+msgid "Allows vendors to upload files."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:264
+msgid "View orders"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:266
+msgid "Allows vendors to view orders."
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:53
+msgid "Related Commissions"
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:125
+msgid "Commission ID"
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:126
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:259
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:165
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:166
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:175
 msgid "Status"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:154
+#: classes/marketplace/class-alg-mpwc-core.php:127
+#: classes/marketplace/user_roles/class-alg-mpwc-shop-manager-user.php:139
+msgid "Author"
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:128
+msgid "Product(s)"
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:129
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:312
+msgid "Fixed Value"
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:130
+msgid "Percentage Value"
+msgstr ""
+
+#: classes/marketplace/class-alg-mpwc-core.php:131
+msgid "Final Value"
+msgstr ""
+
+#: classes/marketplace/dropdowns/class-alg-mpwc-vendor-filter.php:64
+msgid "Select a vendor"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:187
+#, php-format
+msgid "Set %s commission as paid."
+msgid_plural "Set %s commissions as paid."
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:197
+#, php-format
+msgid "Set %s commission as unpaid."
+msgid_plural "Set %s commissions as unpaid."
+msgstr[0] ""
+msgstr[1] ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:270
+#, php-format
+msgid "Set as %s"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:273
+msgid "Recalculate deal and value"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:436
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:438
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:293
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:480
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:283
+msgid "Commission"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:439
+msgid "Add New"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:440
+msgid "Add New Commission"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:441
+msgid "New Commission"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:442
+msgid "Edit Commission"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:443
+msgid "View Commission"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:445
+msgid "Search Commissions"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:446
+msgid "Parent Commissions:"
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:447
+msgid "No Commissions found."
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:448
+msgid "No Commissions found in Trash."
+msgstr ""
+
+#: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:453
+msgid "Description."
+msgstr ""
+
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:66
+msgid "Totals"
+msgstr ""
+
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:294
 msgid "Details"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:159
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:299
 msgid "Order ID"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:160
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:300
 msgid "Commission order id"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:173
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:313
 msgid "Fixed value settled when this commission was created"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:185
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:313
+msgid "Note 1: It's registered in shop base currency"
+msgstr ""
+
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:313
+msgid "Note 2: It's converted to currency option to calculate the value field"
+msgstr ""
+
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:325
 msgid "Percentage"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:186
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:326
 msgid "Percentage settled when this commission was created"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:198
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:338
 msgid "Value"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:199
-msgid "Final commission value"
-msgstr ""
-
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:212
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:352
 msgid "Deal"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:213
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:353
 msgid ""
 "Combination of fixed value / percentage settled when this commission was "
 "created"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:230
-#: classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php:73
-msgid "Vendor"
-msgstr ""
-
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:242
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:382
 msgid "Related products"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:37
-msgid "Paid"
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:394
+msgid "Currency"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:47
-msgid "Unpaid"
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:349
+msgid "Product"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:67
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:350
+msgid "Commission Value"
+msgstr ""
+
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:376
+msgid "Total"
+msgstr ""
+
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:167
 msgid "Search Status"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:68
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:168
 msgid "All Status"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:69
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:169
 msgid "Parent Status"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:70
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:170
 msgid "Parent Status:"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:71
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:171
 msgid "Edit Status"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:72
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:172
 msgid "Update Status"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:73
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:173
 msgid "Add New Status"
 msgstr ""
 
-#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:74
+#: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:174
 msgid "New Status Name"
 msgstr ""
 
-#: classes/marketplace/user_roles/class-alg-mpwc-shop-manager-user.php:159
-msgid "Author"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:140
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:143
 msgid "Vendor admin fields"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:149
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:152
 msgid "Fields regarding the Marketplace"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:156
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:159
 msgid "Block vendor"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:157
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:160
 msgid "Blocks vendor products and its public page"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:166
-msgid "Logo"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:176
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:179
 msgid "Store's name"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:183
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:186
 msgid "Description"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:195
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:198
 msgid "Address"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:202
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:205
 msgid "City"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:209
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:212
 msgid "State"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:216
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:219
 msgid "Phone"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:223
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:226
 msgid "Payment details"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:231
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:234
 msgid "Bank account name"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:238
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:241
 msgid "Bank name"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:245
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:248
 msgid "Bank address"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:252
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:255
 msgid "ABA routing number"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:259
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:262
 msgid "IBAN"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:266
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:269
 msgid "Account holder name"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:273
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:276
 msgid "Paypal email"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:281
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:284
 msgid "Commission values"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:281
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:284
 msgid ""
 "Note: In case of empty values, the default ones will be used from "
 "Marketplace settings"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:288
-msgid "Fixed value"
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:293
+msgid ""
+"Note: Use 0 if you do not want fixed values. Empty values will be "
+"interpreted as default values from settings"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:300
-msgid "Percentage value"
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:304
+msgid ""
+"Note: Use 0 if you do not want percentages. Empty values will be interpreted "
+"as default values from settings"
+msgstr ""
+
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:125
+msgid "Dashboard"
+msgstr ""
+
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:145
+#, php-format
+msgid ""
+"Manage your Marketplace through the <a href=\"%s\"><span style=\"text-"
+"decoration: underline\">admin dashboard</span></a>"
+msgstr ""
+
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:149
+#, php-format
+msgid "See your <a href=\"%s\">public page</a>"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-registration-email.php:142
@@ -508,51 +788,51 @@ msgid ""
 "Leave blank to use the default heading: <code>%s</code>."
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:437
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:466
 msgid "All"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:438
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:467
 msgid "Published"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:439
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:468
 msgid "Private"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:440
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:469
 msgid "Pending Review"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:441
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:470
 msgid "Scheduled"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:442
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:471
 msgid "Draft"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:443
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:472
 msgid "Trash"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:455
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:484
 msgid "Processing"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:456
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:485
 msgid "On hold"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:457
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:486
 msgid "Completed"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:566
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:595
 msgid "pending"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:567
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:596
 msgid "rejected"
 msgstr ""
 
@@ -593,15 +873,31 @@ msgstr ""
 msgid "See your <strong><a href='%s'>Public page</a></strong> on frontend"
 msgstr ""
 
-#: marketplace-for-woocommerce.php:34
+#: classes/marketplace/widgets/default/class-alg-mpwc-vendor-products-filter-widget.php:22
+msgid "Vendors filter"
+msgstr ""
+
+#: classes/marketplace/widgets/default/class-alg-mpwc-vendor-products-filter-widget.php:23
+msgid "Filters Marketplace vendors products"
+msgstr ""
+
+#: classes/marketplace/widgets/default/class-alg-mpwc-vendor-products-filter-widget.php:71
+msgid "Filter vendor products"
+msgstr ""
+
+#: classes/marketplace/widgets/default/class-alg-mpwc-vendor-products-filter-widget.php:74
+msgid "Title:"
+msgstr ""
+
+#: marketplace-for-woocommerce.php:31
 msgid "Settings"
 msgstr ""
 
 #: templates/emails/marketplace-vendor-registration.php:13
 #, php-format
 msgid ""
-"The user <a href=\"%s\" target=\"_blank\">%s</a> has just registered as "
-"a Vendor."
+"The user <a href=\"%s\" target=\"_blank\">%s</a> has just registered as a "
+"Vendor."
 msgstr ""
 
 #: templates/emails/marketplace-vendor-registration.php:17
