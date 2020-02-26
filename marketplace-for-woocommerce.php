@@ -14,9 +14,7 @@ WC requires at least: 3.0.0
 WC tested up to: 3.9
 */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 	/**
@@ -30,17 +28,9 @@ if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 		$marketplace = Alg_MPWC_Core::get_instance();
 		$marketplace->set_args( array(
 			'plugin_file_path' => __FILE__,
-			'action_links'     => array(
-				array(
-					'url'  => admin_url( 'admin.php?page=wc-settings&tab=alg_mpwc' ),
-					'text' => __( 'Settings', 'woocommerce' ),
-				),
-			),
-			'translation'      => array(
-				'text_domain' => 'marketplace-for-woocommerce',
-			),
+			'action_links'     => array( array( 'url' => admin_url( 'admin.php?page=wc-settings&tab=alg_mpwc' ), 'text' => __( 'Settings', 'woocommerce' ) ) ),
+			'translation'      => array( 'text_domain' => 'marketplace-for-woocommerce' ),
 		) );
-
 		return $marketplace;
 	}
 }
@@ -49,16 +39,12 @@ if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 add_action( 'plugins_loaded', 'alg_mpwc_start_plugin' );
 if ( ! function_exists( 'alg_mpwc_start_plugin' ) ) {
 	/**
-	 * Starts the plugin
+	 * Starts the plugin.
 	 *
-	 * @version 1.0.0
+	 * @version 1.3.0
 	 * @since   1.0.0
 	 */
 	function alg_mpwc_start_plugin() {
-
-		// Includes composer dependencies and autoloads classes
-		require __DIR__ . '/vendor/autoload.php';
-
 		// Initializes the plugin
 		$marketplace = alg_marketplace_for_wc();
 		$marketplace->init();
@@ -67,7 +53,7 @@ if ( ! function_exists( 'alg_mpwc_start_plugin' ) ) {
 
 if ( ! function_exists( 'alg_mpwc_register_hooks' ) ) {
 	/**
-	 * Handles activation, installation and uninstall hooks
+	 * Handles activation, installation and uninstall hooks.
 	 *
 	 * @version 1.0.0
 	 * @since   1.0.0

@@ -55,8 +55,8 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	 */
 	function get_profile_page_url_ex( $use_pretty_permalinks = true ) {
 		return ( $use_pretty_permalinks ?
-			'<strong>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/vendor-user-name</strong>' :
-			'<strong>' . get_home_url() . '/?alg_mpwc_vendor=1&alg_mpwc_public_page=1&post_type=product' . '</strong>' );
+			'<code>' . get_home_url() . '/' . sanitize_text_field( get_option( self::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) ) . '/vendor-user-name</code>' :
+			'<code>' . get_home_url() . '/?alg_mpwc_vendor=1&alg_mpwc_public_page=1&post_type=product' . '</code>' );
 	}
 
 	/**

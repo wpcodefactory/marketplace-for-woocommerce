@@ -7,28 +7,28 @@ Stable tag: 1.2.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Let users sell on your store
+Let users sell on your store.
 
 == Description ==
 
-**Marketplace for WooCommerce** lets users sell on your store once they become vendors, earning commissions for their sales
+**Marketplace for WooCommerce** lets users sell on your store once they become vendors, earning commissions for their sales.
 
 **Check some of its features:**
 
-* Vendors can customize their public pages
-* Admins can setup the url slug of vendors public pages
-* Admins can choose a custom label for vendors
-* Users have to apply to become vendors
-* Admins can setup vendors capabilities to upload files, view orders, publish products automatically and more
-* Admins can block vendors at any time
-* Setup commissions by percentage or fixed value,
+* Vendors can customize their public pages.
+* Admins can setup the url slug of vendors public pages.
+* Admins can choose a custom label for vendors.
+* Users have to apply to become vendors.
+* Admins can setup vendors capabilities to upload files, view orders, publish products automatically and more.
+* Admins can block vendors at any time.
+* Setup commissions by percentage or fixed value.
 * Commissions can be manually or automatically created on order complete, processing, you choose it.
-* Vendor's products have a tab displaying info about the vendor, like its logo and description
+* Vendor's products have a tab displaying info about the vendor, like its logo and description.
 
 == Frequently Asked Questions ==
 
 = Where are the plugin's settings? =
-Visit WooCommerce > Settings > Marketplace.
+Visit "WooCommerce > Settings > Marketplace".
 
 = Are there any widgets available? =
 **Vendor products filter** - Filters Marketplace vendor products. It is only displayed on shop page.
@@ -55,6 +55,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 * Dev - Orders - "Related Commissions" meta box added.
 * Dev - Commissions - "Create zero commissions" option added.
 * Dev - Admin Settings - Descriptions updated etc.
+* Dev - Duplicate call to `autoload.php` removed from `alg_mpwc_start_plugin()`.
 * Dev - Minor code refactoring and clean up.
 * Dev - Composer dependencies updated.
 * Requires at least: 5.0.
