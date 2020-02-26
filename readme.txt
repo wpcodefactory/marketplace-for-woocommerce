@@ -31,13 +31,13 @@ Let users sell on your store
 Visit WooCommerce > Settings > Marketplace.
 
 = Are there any widgets available? =
-**Vendor products filter** - Filters Marketplace vendor products. It is only displayed on shop page
+**Vendor products filter** - Filters Marketplace vendor products. It is only displayed on shop page.
 
 = How can I contribute? Is there a GitHub repository? =
 If you are interested in contributing - head over to the [Marketplace for WooCommerce plugin GitHub Repository](https://github.com/algoritmika/marketplace-for-woocommerce) to find out how you can pitch in.
 
 = How can I help translating it? =
-You can do it through [translate.wordpress](https://translate.wordpress.org/projects/wp-plugins/marketplace-for-woocommerce)
+You can do it through [translate.wordpress](https://translate.wordpress.org/projects/wp-plugins/marketplace-for-woocommerce).
 
 == Installation ==
 
