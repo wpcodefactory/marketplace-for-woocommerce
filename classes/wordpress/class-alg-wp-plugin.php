@@ -1,6 +1,6 @@
 <?php
 /**
- * Marketplace for WooCommerce - Wordpress plugin class
+ * Marketplace for WooCommerce - Wordpress Plugin Class
  *
  * @version 1.3.0
  * @since   1.0.0
