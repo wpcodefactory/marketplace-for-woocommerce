@@ -61,7 +61,7 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 * @since   1.3.0
 		 */
 		public function create_order_meta_box() {
-			$related_commissions = get_post_meta( get_the_ID(), '_alg_mpwc_related_commissions', true );
+			$related_commissions = get_post_meta( get_the_ID(), '_alg_mpwc_related_commissions' );
 			if ( ! is_array( $related_commissions ) ) {
 				$related_commissions = array( $related_commissions );
 			}
