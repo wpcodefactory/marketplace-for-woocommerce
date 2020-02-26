@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.2.2
+ * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -37,7 +37,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 *
 		 * Called when saving vendor admin settings and on plugin activation
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.0
 		 * @since   1.0.0
 		 */
 		public static function gives_all_caps_to_roles() {
@@ -56,7 +56,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 				'edit_published_alg_mpwc_commissions',
 			);
 
-			$editable_roles = get_editable_roles();
+			$editable_roles = self::get_editable_roles();
 			foreach ( $editable_roles as $role_key => $details ) {
 				$role_obj = get_role( $role_key );
 				if ( ! $role_obj->has_cap( 'manage_woocommerce' ) ) {
@@ -67,6 +67,23 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 						$role_obj->add_cap( $cap );
 					}
 				}
+			}
+		}
+
+		/**
+		 * get_editable_roles.
+		 *
+		 * @version 1.3.0
+		 * @since   1.3.0
+		 * @see     wp-admin/includes/user.php
+		 */
+		public static function get_editable_roles() {
+			if ( function_exists( 'get_editable_roles' ) ) {
+				return get_editable_roles();
+			} else {
+				$all_roles = wp_roles()->roles;
+				$editable_roles = apply_filters( 'editable_roles', $all_roles );
+				return $editable_roles;
 			}
 		}
 
