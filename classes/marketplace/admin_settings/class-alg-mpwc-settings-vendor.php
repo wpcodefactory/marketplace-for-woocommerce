@@ -64,6 +64,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	 *
 	 * @version 1.2.2
 	 * @since   1.0.0
+	 * @todo    [fix] (now) Registration section description: "WooCommerce > Settings > Accounts" to "WooCommerce > Settings > Accounts & Privacy"; "Customer registration" to "Allow customers to create an account..."?
 	 */
 	function get_settings( $settings = null ) {
 		$new_settings = array(
