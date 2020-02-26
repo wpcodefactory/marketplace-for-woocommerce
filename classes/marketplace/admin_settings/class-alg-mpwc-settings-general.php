@@ -1,17 +1,15 @@
 <?php
 /**
- * Marketplace for WooCommerce - General section
+ * Marketplace for WooCommerce - General Section Settings
  *
  * @version 1.3.0
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) :
 
 	class Alg_MPWC_Settings_General extends Alg_MPWC_Settings_Section {
 
@@ -202,4 +200,5 @@ if ( ! class_exists( 'Alg_MPWC_Settings_General' ) ) {
 			return parent::get_settings( array_merge( $settings, $new_settings ) );
 		}
 	}
-}
+
+endif;
