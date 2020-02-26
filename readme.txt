@@ -52,7 +52,8 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 = 1.3.0 - 26/02/2020 =
 * Fix - Vendors - "Call to undefined function get_editable_roles()" error fixed when saving settings.
 * Dev - Commissions - "Create zero commissions" option added.
-* Composer updated.
+* Dev - Code clean up.
+* Dev - Composer updated.
 * Requires at least: 5.0.
 * Tested up to: 5.3.
 * WC tested up to: 3.9.

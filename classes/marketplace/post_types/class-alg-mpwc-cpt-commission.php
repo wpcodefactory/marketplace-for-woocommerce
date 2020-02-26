@@ -386,7 +386,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		 * @since   1.0.0
 		 */
 		public function get_values_from_admin() {
-			//$this->comission_base     = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_COMMISSIONS_BASE ) );
 			$this->commission_fixed_value      = sanitize_text_field( get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_FIXED_VALUE ) );
 			$this->commission_percentage_value = sanitize_text_field( get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_PERCENTAGE_VALUE ) );
 			$this->automatic_creation          = get_option( Alg_MPWC_Settings_General::OPTION_COMMISSIONS_AUTOMATIC_CREATION );
