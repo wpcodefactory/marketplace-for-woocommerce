@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ca817e9f1cc80498955babb33c5fb8dd' => $vendorDir . '/webdevstudios/cmb2/init.php',
+    '6ef8ea58001028204198fc1e51feca5c' => $vendorDir . '/cmb2/cmb2/init.php',
     'c8694b2f4fde35225b93debc1b3bd5ef' => $vendorDir . '/mustardBees/cmb-field-select2/cmb-field-select2.php',
 );

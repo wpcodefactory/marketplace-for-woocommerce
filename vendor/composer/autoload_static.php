@@ -7,7 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit7003821f0accea2cdebfc98326c6023d
 {
     public static $files = array (
-        'ca817e9f1cc80498955babb33c5fb8dd' => __DIR__ . '/..' . '/webdevstudios/cmb2/init.php',
+        '6ef8ea58001028204198fc1e51feca5c' => __DIR__ . '/..' . '/cmb2/cmb2/init.php',
         'c8694b2f4fde35225b93debc1b3bd5ef' => __DIR__ . '/..' . '/mustardBees/cmb-field-select2/cmb-field-select2.php',
     );
 
