@@ -49,8 +49,11 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.3.2 - 27/02/2020 =
+~ * Fix - Vendor emails - Not sending empty table emails anymore (in case of zero order total and "Create zero commissions" option disabled).
+
 = 1.3.1 - 26/02/2020 =
-* Fix - Composer - `webdevstudios/cmb2` replaced with `cmb2/cmb2`.
+* Fix - Composer - `webdevstudios/cmb2` replaced with `cmb2/cmb2`
 
 = 1.3.0 - 26/02/2020 =
 * Fix - Vendors - "Call to undefined function get_editable_roles()" error fixed when saving settings.

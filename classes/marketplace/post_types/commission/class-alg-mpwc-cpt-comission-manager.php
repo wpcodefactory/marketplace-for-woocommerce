@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.3.0
+ * @version 1.3.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -387,9 +387,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Sends commission email to vendors
 		 *
-		 * @version 1.2.5
+		 * @version 1.3.2
 		 * @since   1.2.3
-		 * @param $order_id
+		 * @param   $order_id
 		 */
 		public function send_commission_email_to_vendors( $order_id ) {
 			$order                    = wc_get_order( $order_id );
@@ -409,10 +409,12 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 					'order_id'  => $order_id
 				) );
 				$table             = $this->create_email_table_from_commissions_query( $commissions_query );
-				$final_message     = ! empty( $commission_email_message ) ? '<p>' . $commission_email_message . '</p>' . $table : $table;
-				$user              = get_user_by( 'ID', $vendor_id );
-				$complete_message  = Alg_MPWC_Email::wrap_in_wc_email_template( $final_message, $subject );
-				wc_mail( $user->user_email, $subject, $complete_message );
+				if ( ! empty( $table ) ) {
+					$final_message     = ! empty( $commission_email_message ) ? '<p>' . $commission_email_message . '</p>' . $table : $table;
+					$user              = get_user_by( 'ID', $vendor_id );
+					$complete_message  = Alg_MPWC_Email::wrap_in_wc_email_template( $final_message, $subject );
+					wc_mail( $user->user_email, $subject, $complete_message );
+				}
 			}
 		}
 

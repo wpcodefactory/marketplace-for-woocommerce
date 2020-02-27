@@ -2,7 +2,7 @@
 /*
 Plugin Name: Marketplace for WooCommerce
 Description: Let users sell on your store.
-Version: 1.3.1
+Version: 1.3.2-dev
 Author: Algoritmika Ltd
 Author URI: https://algoritmika.com
 Copyright: © 2020 Algoritmika Ltd.
