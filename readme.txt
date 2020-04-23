@@ -2,7 +2,7 @@
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: 1.3.2
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,6 +48,11 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Screenshots ==
 
 == Changelog ==
+
+= 1.3.3 - 23/04/2020 =
+* Dev - Orders - "Related Commissions" meta box - Now checking if related commission post exists (and "No related commissions found" message added).
+* Tested up to: 5.4.
+* WC tested up to: 4.0.
 
 = 1.3.2 - 03/03/2020 =
 * Fix - Vendor emails - Not sending empty table emails anymore (in case of zero order total and "Create zero commissions" option disabled).

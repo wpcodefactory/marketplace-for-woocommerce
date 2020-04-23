@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.3.0
+ * @version 1.3.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -57,13 +57,18 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		/**
 		 * create_order_meta_box.
 		 *
-		 * @version 1.3.0
+		 * @version 1.3.3
 		 * @since   1.3.0
 		 */
 		public function create_order_meta_box() {
 			$related_commissions = get_post_meta( get_the_ID(), '_alg_mpwc_related_commissions' );
 			$rows = array();
 			foreach ( $related_commissions as $related_commission_id ) {
+
+				if ( false === get_post_status( $related_commission_id ) ) {
+					continue;
+				}
+
 				$link             = '<a href="' . admin_url( "post.php?post={$related_commission_id}&action=edit" ) . '">' . '#' . $related_commission_id . '</a>';
 
 				$status           = wp_get_object_terms( $related_commission_id, 'alg_mpwc_c_status_tax', array( 'fields' => 'slugs' ) );
@@ -134,6 +139,8 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 					'<tr>' . '<th>' . implode( '</th><th>', $headers ) . '</th>' . '</tr>' .
 					'<tr>' . implode( '</tr><tr>', $rows ) . '</tr>' .
 				'</table>';
+			} else {
+				echo '<em>' . __( 'No related commissions found.', 'marketplace-for-woocommerce' ) . '</em>';
 			}
 		}
 
