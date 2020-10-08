@@ -51,6 +51,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 = 1.3.3 - 08/10/2020 =
 * Dev - Orders - "Related Commissions" meta box - Now checking if related commission post exists (and "No related commissions found" message added).
+* Dev - Composer update.
 * Tested up to: 5.5.
 * WC tested up to: 4.5.
 
