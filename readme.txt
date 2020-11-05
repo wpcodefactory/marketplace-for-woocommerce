@@ -49,6 +49,10 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.3.4 - 06/11/2020 =
+* Fix - `Alg_MPWC_Vendor_Role()` - `manages_media_deleting()` - Fixed.
+* WC tested up to: 4.6.
+
 = 1.3.3 - 08/10/2020 =
 * Dev - Orders - "Related Commissions" meta box - Now checking if related commission post exists (and "No related commissions found" message added).
 * Dev - Composer update.

@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.2.7
+ * @version 1.3.4
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Initializes the vendor role manager
 		 *
-		 * @version 1.0.5
+		 * @version 1.3.4
 		 * @since   1.0.0
 		 *
 		 */
@@ -105,7 +105,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			new Alg_MPWC_Vendor_Order_View();
 
 			// Manages media deleting
-			add_filter( 'user_has_cap', array( $this, 'manages_media_deleting' ), 10, 3 );
+			add_filter( 'user_has_cap', array( $this, 'manages_media_deleting' ), 10, 4 );
 
 			// Removes vendor's core updates notifications
 			add_action('after_setup_theme',array($this,'remove_core_updates'));
@@ -177,16 +177,22 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Manages media deleting
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.4
 		 * @since   1.0.0
 		 *
 		 * @param $post_id
 		 */
-		function manages_media_deleting( $user_caps, $req_cap, $args ) {
+		function manages_media_deleting( $user_caps, $req_cap, $args, $user ) {
+
+			// if not `alg_mpwc_vendor` just return original array
+			if ( ! $user || ! in_array( 'alg_mpwc_vendor', ( array ) $user->roles ) ) {
+				return $user_caps;
+			}
 
 			// if no post is connected with capabilities check just return original array
-			if ( empty($args[2]) )
+			if ( empty( $args[2] ) ) {
 				return $user_caps;
+			}
 
 			$post = get_post( $args[2] );
 

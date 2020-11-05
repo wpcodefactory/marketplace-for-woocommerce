@@ -2,7 +2,7 @@
 /*
 Plugin Name: Marketplace for WooCommerce
 Description: Let users sell on your store.
-Version: 1.3.3
+Version: 1.3.4-dev
 Author: Algoritmika Ltd
 Author URI: https://algoritmika.com
 Copyright: © 2020 Algoritmika Ltd.
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: marketplace-for-woocommerce
 Domain Path: /langs
 WC requires at least: 3.0.0
-WC tested up to: 4.5
+WC tested up to: 4.6
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
