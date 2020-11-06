@@ -199,8 +199,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			if ( $post ) {
 				if ( 'attachment' == $post->post_type ) {
 					if ( isset( $req_cap[0] ) ) {
-						$user_caps[ $req_cap[0] ] = true;
-						return $user_caps;
+						if ( $post->post_author == $user->ID ) {
+							$user_caps[ $req_cap[0] ] = true;
+							return $user_caps;
+						}
 					}
 				}
 			}
