@@ -2,8 +2,8 @@
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
-Tested up to: 5.5
-Stable tag: 1.3.3
+Tested up to: 5.6
+Stable tag: 1.3.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,9 +49,10 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.3.4 - 06/11/2020 =
+= 1.3.4 - 23/12/2020 =
 * Fix - `Alg_MPWC_Vendor_Role()` - `manages_media_deleting()` - Fixed.
-* WC tested up to: 4.6.
+* WC tested up to: 4.8.
+* Tested up to: 5.6.
 
 = 1.3.3 - 08/10/2020 =
 * Dev - Orders - "Related Commissions" meta box - Now checking if related commission post exists (and "No related commissions found" message added).
