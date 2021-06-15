@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: marketplace-for-woocommerce
 Domain Path: /langs
 WC requires at least: 3.0.0
-WC tested up to: 4.8
+WC tested up to: 5.4
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
