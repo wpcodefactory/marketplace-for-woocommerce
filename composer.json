@@ -1,16 +1,5 @@
 {
-	"name": "algoritmika/marketplace-for-woocommerce",
-	"description": "Let users sell on your store",
-	"keywords": [
-		"wordpress",
-		"plugin",
-		"woocommerce",
-		"marketplace",
-		"multivendor",
-		"vendor",
-		"algoritmika"
-	],
-	"license": "MIT",
+	"name": "algoritmika/marketplace-for-woocommerce",		
 	"authors": [
 		{
 			"name": "Tomas Anbinderis",
@@ -24,28 +13,17 @@
 	"config": {
 		"preferred-install": "dist",
 		"optimize-autoloader": true
-	},
-	"type": "wordpress-plugin",
+	},	
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/mustardBees/cmb-field-select2"
+			"url": "https://github.com/wpcodefactory/cmb-field-select2"
 		}
 	],
-	"require": {
-		"php": ">=5.3.2",
-		"composer/installers": ">=v1.2.0",
+	"require": {		
 		"cmb2/cmb2": "dev-master",
-		"mustardBees/cmb-field-select2": "dev-master"
-	},
-	"extra": {
-		"installer-paths": {
-			"vendor/{$vendor}/{$name}": [
-				"type:wordpress-plugin",
-				"type:wordpress-muplugin"
-			]
-		}
-	},
+		"mustardbees/cmb-field-select2": "dev-master"
+	},	
 	"autoload": {
 		"files": [
 			"vendor/cmb2/cmb2/init.php",

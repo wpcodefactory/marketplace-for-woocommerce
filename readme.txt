@@ -2,7 +2,7 @@
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
-Tested up to: 5.6
+Tested up to: 5.7
 Stable tag: 1.3.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -48,6 +48,12 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Screenshots ==
 
 == Changelog ==
+
+= 1.3.5 - 15/06/2021 =
+* Fix - Warnings from CMB2 and cmb-field-select2 Composer packages in php 8.0.
+* Simplify composer setup.
+* WC tested up to: 5.4.
+* Tested up to: 5.7.
 
 = 1.3.4 - 23/12/2020 =
 * Fix - `Alg_MPWC_Vendor_Role()` - `manages_media_deleting()` - Fixed.
