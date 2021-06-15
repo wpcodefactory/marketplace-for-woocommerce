@@ -6,9 +6,13 @@
 tasks/node_modules
 tasks/node_modules/*
 
-vendor/webdevstudios/**/languages
-vendor/webdevstudios/**/tests
-vendor/webdevstudios/**/*.clover
-!vendor/webdevstudios/**/languages/*.pot
+vendor/cmb2/cmb2/languages
+vendor/cmb2/cmb2/tests
+vendor/cmb2/cmb2/*.clover
+vendor/cmb2/cmb2/*.txt
+vendor/cmb2/cmb2/package-lock.json
+vendor/cmb2/cmb2/example-functions.php
+vendor/cmb2/cmb2/*.md
+!vendor/cmb2/cmb2/languages/*.pot
 
 **/*.log
