@@ -49,8 +49,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.3.5 - 15/06/2021 =
+= 1.3.5 - 17/06/2021 =
 * Fix - Warnings from CMB2 and cmb-field-select2 Composer packages in php 8.0.
+* Fix - Check if WooCommerce exists.
 * Simplify composer setup.
 * WC tested up to: 5.4.
 * Tested up to: 5.7.

@@ -16,6 +16,16 @@ WC tested up to: 5.4
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+// Handle is_plugin_active function
+if ( ! function_exists( 'is_plugin_active' ) ) {
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+}
+
+// Check for active plugins
+if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+	return;
+}
+
 if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 	/**
 	 * Returns the main instance of Alg_MP_WC_Core to prevent the need to use globals.
