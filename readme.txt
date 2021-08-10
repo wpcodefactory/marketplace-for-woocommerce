@@ -2,8 +2,8 @@
 Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
-Tested up to: 5.7
-Stable tag: 1.3.4
+Tested up to: 5.8
+Stable tag: 1.3.5
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -28,15 +28,19 @@ Let users sell on your store.
 == Frequently Asked Questions ==
 
 = Where are the plugin's settings? =
+
 Visit "WooCommerce > Settings > Marketplace".
 
 = Are there any widgets available? =
+
 **Vendor products filter** - Filters Marketplace vendor products. It is only displayed on shop page.
 
 = How can I contribute? Is there a GitHub repository? =
+
 If you are interested in contributing - head over to the [Marketplace for WooCommerce plugin GitHub Repository](https://github.com/algoritmika/marketplace-for-woocommerce) to find out how you can pitch in.
 
 = How can I help translating it? =
+
 You can do it through [translate.wordpress](https://translate.wordpress.org/projects/wp-plugins/marketplace-for-woocommerce).
 
 == Installation ==
@@ -49,12 +53,12 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.3.5 - 17/06/2021 =
+= 1.3.5 - 10/08/2021 =
 * Fix - Warnings from CMB2 and cmb-field-select2 Composer packages in php 8.0.
 * Fix - Check if WooCommerce exists.
 * Simplify composer setup.
-* WC tested up to: 5.4.
-* Tested up to: 5.7.
+* WC tested up to: 5.5.
+* Tested up to: 5.8.
 
 = 1.3.4 - 23/12/2020 =
 * Fix - `Alg_MPWC_Vendor_Role()` - `manages_media_deleting()` - Fixed.

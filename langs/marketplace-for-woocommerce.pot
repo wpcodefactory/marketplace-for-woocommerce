@@ -206,7 +206,7 @@ msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:82
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:83
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:566
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:574
 msgid "Marketplace vendor"
 msgstr ""
 
@@ -792,51 +792,51 @@ msgid ""
 "Leave blank to use the default heading: <code>%s</code>."
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:466
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:474
 msgid "All"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:467
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:475
 msgid "Published"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:468
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:476
 msgid "Private"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:469
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:477
 msgid "Pending Review"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:470
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:478
 msgid "Scheduled"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:471
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:479
 msgid "Draft"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:472
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:480
 msgid "Trash"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:484
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:492
 msgid "Processing"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:485
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:493
 msgid "On hold"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:486
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:494
 msgid "Completed"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:595
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:603
 msgid "pending"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:596
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:604
 msgid "rejected"
 msgstr ""
 
@@ -893,7 +893,7 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: marketplace-for-woocommerce.php:31
+#: marketplace-for-woocommerce.php:39
 msgid "Settings"
 msgstr ""
 

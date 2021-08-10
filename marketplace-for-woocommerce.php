@@ -1,17 +1,15 @@
 <?php
 /*
 Plugin Name: Marketplace for WooCommerce
+Plugin URI: https://wordpress.org/plugins/marketplace-for-woocommerce/
 Description: Let users sell on your store.
-Version: 1.3.5-dev
+Version: 1.3.5
 Author: Algoritmika Ltd
 Author URI: https://algoritmika.com
-Copyright: © 2021 Algoritmika Ltd.
-License: GNU General Public License v3.0
-License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: marketplace-for-woocommerce
 Domain Path: /langs
 WC requires at least: 3.0.0
-WC tested up to: 5.4
+WC tested up to: 5.5
 */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
