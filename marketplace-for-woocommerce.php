@@ -12,15 +12,12 @@ WC requires at least: 3.0.0
 WC tested up to: 5.5
 */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-// Handle is_plugin_active function
-if ( ! function_exists( 'is_plugin_active' ) ) {
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-}
+defined( 'ABSPATH' ) || exit;
 
 // Check for active plugins
-if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+$is_wc_active = ( in_array( 'woocommerce/woocommerce.php', (array) get_option( 'active_plugins', array() ), true ) ||
+	( is_multisite() && array_key_exists( 'woocommerce/woocommerce.php', (array) get_site_option( 'active_sitewide_plugins', array() ) ) ) );
+if ( ! $is_wc_active ) {
 	return;
 }
 
@@ -30,6 +27,7 @@ if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 	 *
 	 * @version 1.0.0
 	 * @since   1.0.0
+	 *
 	 * @return  Alg_MPWC_Core
 	 */
 	function alg_marketplace_for_wc() {
@@ -51,6 +49,8 @@ if ( ! function_exists( 'alg_mpwc_start_plugin' ) ) {
 	 *
 	 * @version 1.3.0
 	 * @since   1.0.0
+	 *
+	 * @todo    [next] (dev) use `function_exists( 'WC' )` instead of `is_plugin_active()`?
 	 */
 	function alg_mpwc_start_plugin() {
 		// Initializes the plugin

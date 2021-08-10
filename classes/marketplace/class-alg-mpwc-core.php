@@ -348,7 +348,6 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
-		 *
 		 */
 		public static function on_plugin_activation() {
 			parent::on_plugin_activation();
