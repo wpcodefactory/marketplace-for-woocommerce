@@ -893,7 +893,7 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: marketplace-for-woocommerce.php:39
+#: marketplace-for-woocommerce.php:37
 msgid "Settings"
 msgstr ""
 
