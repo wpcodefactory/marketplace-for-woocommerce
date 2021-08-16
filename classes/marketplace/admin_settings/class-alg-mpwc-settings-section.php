@@ -2,14 +2,13 @@
 /**
  * Marketplace for WooCommerce - Settings Section
  *
- * @version 1.0.0
+ * @version 1.3.6
  * @since   1.0.0
+ *
  * @author  Algoritmika Ltd.
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_MPWC_Settings_Section' ) ) :
 

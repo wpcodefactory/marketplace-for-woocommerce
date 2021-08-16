@@ -2,10 +2,13 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.3.3
+ * @version 1.3.6
  * @since   1.0.0
+ *
  * @author  Algoritmika Ltd.
  */
+
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 

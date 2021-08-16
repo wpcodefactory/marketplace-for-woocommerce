@@ -2,13 +2,13 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.3.0
+ * @version 1.3.6
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
  */
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+defined( 'ABSPATH' ) || exit;
 
 if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) :
 
@@ -67,8 +67,8 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	 * @version 1.2.2
 	 * @since   1.0.0
 	 *
-	 * @todo    [fix] (now) `flush_rewrite_rules()` on settings saved (for the "Page slug"?)
-	 * @todo    [fix] (now) Registration section description: "WooCommerce > Settings > Accounts" to "WooCommerce > Settings > Accounts & Privacy"; "Customer registration" to "Allow customers to create an account..."?
+	 * @todo    [now] (fix) `flush_rewrite_rules()` on settings saved (for the "Page slug"?)
+	 * @todo    [now] (fix) Registration section description: "WooCommerce > Settings > Accounts" to "WooCommerce > Settings > Accounts & Privacy"; "Customer registration" to "Allow customers to create an account..."?
 	 */
 	function get_settings( $settings = null ) {
 		$new_settings = array(

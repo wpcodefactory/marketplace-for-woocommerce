@@ -54,7 +54,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Changelog ==
 
 = 1.3.6 - 16/08/2021 =
-* Dev - Flushing rewrite rules on version update now.
+* Fix - Flushing rewrite rules on version update now.
+* Fix - Flushing rewrite rules on saved settings now.
+* Dev - Minor code refactoring and clean up.
 
 = 1.3.5 - 10/08/2021 =
 * Fix - Warnings from CMB2 and cmb-field-select2 Composer packages in php 8.0.
