@@ -10,7 +10,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Core' ) ) :
 
 	class Alg_MPWC_Core extends Alg_WP_Plugin {
 
@@ -368,4 +368,5 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) {
 			flush_rewrite_rules();
 		}
 	}
-}
+
+endif;
