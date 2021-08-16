@@ -56,6 +56,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 = 1.3.6 - 16/08/2021 =
 * Fix - Flushing rewrite rules on version update now.
 * Fix - Flushing rewrite rules on saved settings now.
+* Fix - Admin settings description fixed (in "Vendors > Registration").
 * Dev - Minor code refactoring and clean up.
 
 = 1.3.5 - 10/08/2021 =

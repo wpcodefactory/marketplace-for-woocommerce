@@ -67,8 +67,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	 * @version 1.2.2
 	 * @since   1.0.0
 	 *
-	 * @todo    [now] (fix) `flush_rewrite_rules()` on settings saved (for the "Page slug"?)
-	 * @todo    [now] (fix) Registration section description: "WooCommerce > Settings > Accounts" to "WooCommerce > Settings > Accounts & Privacy"; "Customer registration" to "Allow customers to create an account..."?
+	 * @todo    [next] (desc) remove "If it does not work on the first attempt, please go to Permalink Settings and save changes."
 	 */
 	function get_settings( $settings = null ) {
 		$new_settings = array(
@@ -121,9 +120,10 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 			array(
 				'title'       => __( 'Registration', 'marketplace-for-woocommerce' ),
 				'desc'        => __( 'Options regarding vendors registration.', 'marketplace-for-woocommerce' ) . ' ' .
-					'<strong>' . __( 'Note:', 'marketplace-for-woocommerce' ) . ' ' . '</strong>' .
-					sprintf( __( "It's required to enable <strong>Customer registration</strong> on <a href='%s'>WooCommerce > Settings > Accounts</a>.", 'marketplace-for-woocommerce' ),
-						admin_url( 'admin.php?page=wc-settings&tab=account' ) ),
+					'<strong>' . __( 'Note:', 'marketplace-for-woocommerce' ) . ' ' . '</strong>' . sprintf( __( "It's required to enable %s option in %s.", 'marketplace-for-woocommerce' ),
+						'<strong>' . __( 'Allow customers to create an account on the "My account" page', 'woocommerce' ) . '</strong>',
+						'<a href="' . admin_url( 'admin.php?page=wc-settings&tab=account' ) . '">' .
+							__( 'WooCommerce', 'woocommerce' ) .' > ' . __( 'Settings', 'woocommerce' ) . ' > ' . __( 'Accounts &amp; Privacy', 'woocommerce' ) . '</a>' ),
 				'type'        => 'title',
 				'id'          => 'alg_mpwc_registry_opt',
 			),

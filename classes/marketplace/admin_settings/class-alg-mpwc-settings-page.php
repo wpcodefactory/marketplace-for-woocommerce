@@ -19,6 +19,8 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Page' ) ) {
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
+		 *
+		 * @todo    [next] (dev) add "Reset Settings" sections
 		 */
 		function __construct() {
 			$this->id    = 'alg_mpwc';
