@@ -3,7 +3,7 @@
 Plugin Name: Marketplace for WooCommerce
 Plugin URI: https://wordpress.org/plugins/marketplace-for-woocommerce/
 Description: Let users sell on your store.
-Version: 1.3.5
+Version: 1.3.6-dev
 Author: Algoritmika Ltd
 Author URI: https://algoritmika.com
 Text Domain: marketplace-for-woocommerce
@@ -14,7 +14,11 @@ WC tested up to: 5.5
 
 defined( 'ABSPATH' ) || exit;
 
-// Check for active plugins
+defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.3.6-dev-20210816-1815' );
+
+/**
+ * Check for active plugins.
+ */
 $is_wc_active = ( in_array( 'woocommerce/woocommerce.php', (array) get_option( 'active_plugins', array() ), true ) ||
 	( is_multisite() && array_key_exists( 'woocommerce/woocommerce.php', (array) get_site_option( 'active_sitewide_plugins', array() ) ) ) );
 if ( ! $is_wc_active ) {
@@ -41,7 +45,32 @@ if ( ! function_exists( 'alg_marketplace_for_wc' ) ) {
 	}
 }
 
-// Starts the plugin
+/**
+ * Version update.
+ *
+ * @version 1.3.6
+ * @since   1.3.6
+ */
+if ( get_option( 'alg_wc_marketplace_version', '' ) !== ALG_WC_MARKETPLACE_VERSION ) {
+	add_action( 'init', 'alg_mpwc_version_updated' );
+}
+
+if ( ! function_exists( 'alg_mpwc_version_updated' ) ) {
+	/**
+	 * alg_mpwc_version_updated.
+	 *
+	 * @version 1.3.6
+	 * @since   1.3.6
+	 */
+	function alg_mpwc_version_updated() {
+		update_option( 'alg_wc_marketplace_version', ALG_WC_MARKETPLACE_VERSION );
+		flush_rewrite_rules();
+	}
+}
+
+/**
+ * Starts the plugin.
+ */
 add_action( 'plugins_loaded', 'alg_mpwc_start_plugin' );
 if ( ! function_exists( 'alg_mpwc_start_plugin' ) ) {
 	/**
@@ -76,5 +105,7 @@ if ( ! function_exists( 'alg_mpwc_register_hooks' ) ) {
 	}
 }
 
-// Handles activation, installation and uninstall hooks
+/**
+ * Handles activation, installation and uninstall hooks.
+ */
 alg_mpwc_register_hooks();
