@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.3.6
+ * @version 1.3.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -349,7 +349,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	/**
 	 * Called when plugin is enabled
 	 *
-	 * @version 1.0.0
+	 * @version 1.3.7
 	 * @since   1.0.0
 	 */
 	public static function on_plugin_activation() {
@@ -365,7 +365,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 		$tax->register();
 		$tax->create_initial_status();
 
-		flush_rewrite_rules();
+		delete_option( 'alg_wc_marketplace_version' ); // this will `flush_rewrite_rules()`
 	}
 }
 
