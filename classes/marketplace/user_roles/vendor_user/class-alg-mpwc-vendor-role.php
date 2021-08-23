@@ -4,6 +4,7 @@
  *
  * @version 1.3.4
  * @since   1.0.0
+ *
  * @author  Algoritmika Ltd.
  */
 
@@ -34,19 +35,22 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			return false;
 		}
 
+		/**
+		 * user_caps.
+		 */
 		private static $user_caps = array(
-			"read"                      => true,
-			"edit_product"              => true,
-			"read_product"              => true,
-			"delete_product"            => true,
-			"edit_products"             => true,
-			"delete_products"           => true,
-			"delete_published_products" => true,
-			"edit_published_products"   => true,
-			"assign_product_terms"      => true,
+			'read'                      => true,
+			'edit_product'              => true,
+			'read_product'              => true,
+			'delete_product'            => true,
+			'edit_products'             => true,
+			'delete_products'           => true,
+			'delete_published_products' => true,
+			'edit_published_products'   => true,
+			'assign_product_terms'      => true,
 			'level_0'                   => true,
 			'edit_alg_mpwc_commissions' => true,
-			"edit_shop_orders"          => false,
+			'edit_shop_orders'          => false,
 			'edit_others_shop_orders'   => false,
 			'read_shop_order'           => false
 		);
@@ -353,6 +357,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
+		 *
+		 * @todo    [now] (fix) run this on `version_updated()`?
+		 * @todo    [now] (fix) http://example.com/wp-admin/admin.php?page=woocommerce
+		 * @todo    [now] (dev) media: show only vendor's media?
 		 */
 		public function change_role_options() {
 			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
@@ -366,7 +374,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				'caps'         => wp_parse_args( array(
 					'publish_products'          => $caps_publish_products,
 					'upload_files'              => $caps_upload_files,
-					"edit_shop_orders"          => $view_orders,
+					'edit_shop_orders'          => $view_orders,
 					'edit_others_shop_orders'   => $view_orders,
 					'read_shop_order'           => $view_orders,
 					'delete_products'           => $delete_products,
