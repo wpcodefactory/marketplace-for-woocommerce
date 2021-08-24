@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.3.7
+ * @version 1.4.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Initializes the vendor role manager.
 		 *
-		 * @version 1.3.7
+		 * @version 1.4.0
 		 * @since   1.0.0
 		 */
 		public function init() {
@@ -518,7 +518,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * This function is called when the plugin is enabled. Therefore, it's called on the method Alg_MPWC_Core::on_plugin_activation()
 		 *
-		 * @version 1.3.7
+		 * @version 1.4.0
 		 * @since   1.0.0
 		 *
 		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
