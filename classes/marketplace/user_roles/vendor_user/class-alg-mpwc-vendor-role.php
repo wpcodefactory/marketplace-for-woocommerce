@@ -36,30 +36,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * user_caps.
-		 *
-		 * @version 1.3.7
-		 */
-		private static $user_caps = array(
-			'publish_products'          => false,
-			'upload_files'              => true,
-			'read'                      => true,
-			'edit_product'              => true,
-			'read_product'              => true,
-			'delete_product'            => true,
-			'edit_products'             => true,
-			'delete_products'           => true,
-			'delete_published_products' => true,
-			'edit_published_products'   => true,
-			'assign_product_terms'      => true,
-			'level_0'                   => true,
-			'edit_alg_mpwc_commissions' => true,
-			'edit_shop_orders'          => false,
-			'edit_others_shop_orders'   => false,
-			'read_shop_order'           => false
-		);
-
-		/**
 		 * Initializes the vendor role manager.
 		 *
 		 * @version 1.3.7
@@ -547,10 +523,30 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
 		 * @todo    [now] (dev) caps: media: show only vendor's media?
+		 * @todo    [now] (dev) remove `$default_user_caps`
 		 */
 		public static function add_vendor_role() {
 
-			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
+			$default_user_caps = array(
+				'publish_products'          => false,
+				'upload_files'              => true,
+				'read'                      => true,
+				'edit_product'              => true,
+				'read_product'              => true,
+				'delete_product'            => true,
+				'edit_products'             => true,
+				'delete_products'           => true,
+				'delete_published_products' => true,
+				'edit_published_products'   => true,
+				'assign_product_terms'      => true,
+				'level_0'                   => true,
+				'edit_alg_mpwc_commissions' => true,
+				'edit_shop_orders'          => false,
+				'edit_others_shop_orders'   => false,
+				'read_shop_order'           => false,
+			);
+
+			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL, __( 'Marketplace vendor', 'marketplace-for-woocommerce' ) ) );
 			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
 			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
 			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS ), FILTER_VALIDATE_BOOLEAN );
@@ -567,13 +563,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					'delete_products'           => $delete_products,
 					'delete_product'            => $delete_products,
 					'delete_published_products' => $delete_products,
-				), self::$user_caps ),
+				), $default_user_caps ),
 			);
-
-			$args = wp_parse_args( $args, array(
-				'caps'         => self::$user_caps,
-				'display_name' => __( 'Marketplace vendor', 'marketplace-for-woocommerce' ),
-			) );
 
 			if ( get_role( self::ROLE_VENDOR ) ) {
 				remove_role( self::ROLE_VENDOR );
