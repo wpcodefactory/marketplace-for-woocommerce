@@ -522,8 +522,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @since   1.0.0
 		 *
 		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
-		 * @todo    [now] (dev) caps: media: show only vendor's media?
-		 * @todo    [now] (dev) remove `$default_user_caps`
+		 * @todo    [next] (dev) caps: media: show only vendor's media?
+		 * @todo    [next] (dev) remove `$default_user_caps`?
 		 */
 		public static function add_vendor_role() {
 
@@ -547,10 +547,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			);
 
 			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL, __( 'Marketplace vendor', 'marketplace-for-woocommerce' ) ) );
-			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
-			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
-			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS ), FILTER_VALIDATE_BOOLEAN );
-			$delete_products       = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_DELETE_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
+			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS, 'no' ),  FILTER_VALIDATE_BOOLEAN );
+			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES,     'yes' ), FILTER_VALIDATE_BOOLEAN );
+			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS,      'no' ),  FILTER_VALIDATE_BOOLEAN );
+			$delete_products       = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_DELETE_PRODUCTS,  'no' ),  FILTER_VALIDATE_BOOLEAN );
 
 			$args = array(
 				'display_name' => $vendor_label,

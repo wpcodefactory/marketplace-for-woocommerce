@@ -13,7 +13,7 @@ if ( ! class_exists( 'Alg_MPWC_Shop_Manager_User' ) ) {
 	class Alg_MPWC_Shop_Manager_User {
 
 		const ROLE_SHOP_MANAGER      = 'shop_manager';
-		const CAP_MANAGE_WOOCOMMERCE ='manage_woocommerce';
+		const CAP_MANAGE_WOOCOMMERCE = 'manage_woocommerce';
 
 		private static $user_caps = array(
 			'read'                      => true,
