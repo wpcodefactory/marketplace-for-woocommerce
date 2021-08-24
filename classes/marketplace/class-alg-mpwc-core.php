@@ -28,8 +28,6 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @since   1.0.0
 	 *
 	 * @param   array $args
-	 *
-	 * @todo    [now] (feature) `wc_get_rating_html` on `woocommerce_archive_description`
 	 */
 	public function init() {
 		parent::init();
@@ -180,7 +178,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	}
 
 	/**
-	 * Setups the plugin
+	 * Setups the plugin.
 	 *
 	 * @version 1.1.9
 	 * @since   1.0.0
@@ -371,6 +369,48 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 
 		delete_option( 'alg_wc_marketplace_version' ); // this will `flush_rewrite_rules()`
 	}
+
+	/**
+	 * display_vendor_rating.
+	 *
+	 * @version 1.4.0
+	 * @since   1.4.0
+	 *
+	 * @todo    [now] (desc) `.alg_mpwc_vendor_rating .star-rating { margin: auto; }`
+	 * @todo    [now] (dev) customizable template
+	 * @todo    [next] (dev) customizable transient expiration
+	 * @todo    [next] (feature) show this in product tab as well
+	 * @todo    [next] (dev) pre-calculate in cron
+	 * @todo    [next] (dev) move this to some other class
+	 */
+	public function display_vendor_rating( $vendor_id ) {
+		if ( ! ( $rating_data = get_transient( 'alg_mpwc_vendor_rating_' . $vendor_id ) ) ) {
+			$rating_data = array( 'rating' => 0, 'count' => 0, 'rated_products' => 0, 'total_products' => 0 );
+			foreach ( wc_get_products( array( 'limit' => -1, 'author' => $vendor_id ) ) as $product ) {
+				if ( ( $count = $product->get_rating_count() ) > 0 ) {
+					$rating_data['count'] += $count;
+					$rating_data['rating'] += $count * $product->get_average_rating();
+					$rating_data['rated_products']++;
+				}
+				$rating_data['total_products']++;
+			}
+			if ( 0 != $rating_data['count'] ) {
+				$rating_data['rating'] = round( $rating_data['rating'] / $rating_data['count'], 2 );
+			}
+			$expiration = 3600;
+			set_transient( 'alg_mpwc_vendor_rating_' . $vendor_id, $rating_data, $expiration );
+		}
+		$template     = '<div class="alg_mpwc_vendor_rating">%rating_html%</div>';
+		$placeholders = array(
+			'%rating_html%'    => wc_get_rating_html( $rating_data['rating'], $rating_data['count'] ),
+			'%rating%'         => $rating_data['rating'],
+			'%count%'          => $rating_data['count'],
+			'%rated_products%' => $rating_data['rated_products'],
+			'%total_products%' => $rating_data['total_products'],
+		);
+		echo str_replace( array_keys( $placeholders ), $placeholders, $template );
+	}
+
 }
 
 endif;
