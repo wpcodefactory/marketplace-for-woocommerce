@@ -229,6 +229,19 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'type'        => 'checkbox',
 			),
 			array(
+				'desc'        => __( 'Template', 'marketplace-for-woocommerce' ) . '<br>' .
+					sprintf( __( 'Placeholders: %s.', 'marketplace-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
+							'%rating_html%',
+							'%rating%',
+							'%count%',
+							'%rated_products%',
+							'%total_products%',
+						) ) . '</code>' ),
+				'id'          => 'alg_mpwc_opt_public_page_rating_template',
+				'default'     => '<div class="alg_mpwc_vendor_rating">%rating_html%</div>',
+				'type'        => 'textarea',
+			),
+			array(
 				'type'        => 'sectionend',
 				'id'          => 'alg_mpwc_vendors_pp_opt',
 			),

@@ -376,14 +376,14 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @version 1.4.0
 	 * @since   1.4.0
 	 *
-	 * @todo    [now] (desc) `.alg_mpwc_vendor_rating .star-rating { margin: auto; }`
-	 * @todo    [now] (dev) customizable template
-	 * @todo    [next] (dev) customizable transient expiration
 	 * @todo    [next] (feature) show this in product tab as well
+	 * @todo    [next] (dev) add option to manually clear the transients?
+	 * @todo    [next] (dev) customizable transient expiration
 	 * @todo    [next] (dev) pre-calculate in cron
 	 * @todo    [next] (dev) move this to some other class
+	 * @todo    [next] (desc) `.alg_mpwc_vendor_rating .star-rating { margin: auto; }`
 	 */
-	public function display_vendor_rating( $vendor_id ) {
+	public function display_vendor_rating( $vendor_id, $template ) {
 		if ( ! ( $rating_data = get_transient( 'alg_mpwc_vendor_rating_' . $vendor_id ) ) ) {
 			$rating_data = array( 'rating' => 0, 'count' => 0, 'rated_products' => 0, 'total_products' => 0 );
 			foreach ( wc_get_products( array( 'limit' => -1, 'author' => $vendor_id ) ) as $product ) {
@@ -400,7 +400,6 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			$expiration = 3600;
 			set_transient( 'alg_mpwc_vendor_rating_' . $vendor_id, $rating_data, $expiration );
 		}
-		$template     = '<div class="alg_mpwc_vendor_rating">%rating_html%</div>';
 		$placeholders = array(
 			'%rating_html%'    => wc_get_rating_html( $rating_data['rating'], $rating_data['count'] ),
 			'%rating%'         => $rating_data['rating'],
