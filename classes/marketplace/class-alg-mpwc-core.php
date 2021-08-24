@@ -27,7 +27,9 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @version 1.3.0
 	 * @since   1.0.0
 	 *
-	 * @param array $args
+	 * @param   array $args
+	 *
+	 * @todo    [now] (feature) `wc_get_rating_html` on `woocommerce_archive_description`
 	 */
 	public function init() {
 		parent::init();
@@ -197,12 +199,13 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	}
 
 	/**
-	 * Fixes variation product price
+	 * Fixes variation product price.
 	 *
 	 * When the product is saved, all the variations prices are saved to main product '_price' meta
 	 *
 	 * @version 1.2.0
 	 * @since   1.1.9
+	 *
 	 * @param $post_id
 	 * @param $post
 	 * @param $update
@@ -238,12 +241,13 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	}
 
 	/**
-	 * Set the variations to correct author
+	 * Set the variations to correct author.
 	 *
 	 * When the product author changes, the variations don't. It fixes that
 	 *
 	 * @version 1.1.3
 	 * @since   1.1.3
+	 *
 	 * @param $post_id
 	 * @param $post
 	 * @param $update
