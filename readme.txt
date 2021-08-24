@@ -55,7 +55,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 = 1.3.7 - 24/08/2021 =
 * Fix - Properly flushing rewrite rules on plugin activation now.
-* Fix - Default user caps fixed (`publish_products` and `upload_files` added).
+* Fix - Vendor caps fixed.
 * WC tested up to: 5.6.
 
 = 1.3.6 - 17/08/2021 =

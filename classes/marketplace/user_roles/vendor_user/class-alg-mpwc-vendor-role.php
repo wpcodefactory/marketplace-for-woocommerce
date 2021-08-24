@@ -60,11 +60,10 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		);
 
 		/**
-		 * Initializes the vendor role manager
+		 * Initializes the vendor role manager.
 		 *
-		 * @version 1.3.4
+		 * @version 1.3.7
 		 * @since   1.0.0
-		 *
 		 */
 		public function init() {
 
@@ -75,7 +74,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				// Changes role options based on admin settings
 				$id      = 'alg_mpwc';
 				$section = 'vendors';
-				add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'change_role_options' ) );
+				add_action( "woocommerce_update_options_{$id}_{$section}", array( $this, 'add_vendor_role' ) );
 
 				// Handle dashboard widgets
 				add_action( 'wp_dashboard_setup', array( $this, 'remove_dashboard_widgets' ) );
@@ -120,7 +119,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Removes vendor's core updates notifications
+		 * Removes vendor's core updates notifications.
 		 *
 		 * @version 1.2.7
 		 * @since   1.0.0
@@ -149,7 +148,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Removes vendor's wordpress dashboard footer text
+		 * Removes vendor's wordpress dashboard footer text.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -357,39 +356,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Changes role options based on admin settings.
-		 *
-		 * @version 1.0.0
-		 * @since   1.0.0
-		 *
-		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
-		 * @todo    [now] (dev) caps: media: show only vendor's media?
-		 */
-		public function change_role_options() {
-			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
-			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
-			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
-			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS ), FILTER_VALIDATE_BOOLEAN );
-			$delete_products       = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_DELETE_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
-
-			$args = array(
-				'display_name' => $vendor_label,
-				'caps'         => wp_parse_args( array(
-					'publish_products'          => $caps_publish_products,
-					'upload_files'              => $caps_upload_files,
-					'edit_shop_orders'          => $view_orders,
-					'edit_others_shop_orders'   => $view_orders,
-					'read_shop_order'           => $view_orders,
-					'delete_products'           => $delete_products,
-					'delete_product'            => $delete_products,
-					'delete_published_products' => $delete_products,
-				), self::$user_caps ),
-			);
-
-			self::add_vendor_role( $args );
-		}
-
-		/**
 		 * Allows the vendor user to access wp-admin
 		 *
 		 * @version 1.1.8
@@ -572,16 +538,38 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Creates the marketplace vendor role
+		 * Creates the marketplace vendor role.
 		 *
 		 * This function is called when the plugin is enabled. Therefore, it's called on the method Alg_MPWC_Core::on_plugin_activation()
 		 *
-		 * @version 1.0.0
+		 * @version 1.3.7
 		 * @since   1.0.0
 		 *
-		 * @todo    [now] (dev) use caps options instead of default ones
+		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
+		 * @todo    [now] (dev) caps: media: show only vendor's media?
 		 */
-		public static function add_vendor_role( $args = null ) {
+		public static function add_vendor_role() {
+
+			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
+			$caps_publish_products = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_PUBLISH_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
+			$caps_upload_files     = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_UPLOAD_FILES ), FILTER_VALIDATE_BOOLEAN );
+			$view_orders           = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_VIEW_ORDERS ), FILTER_VALIDATE_BOOLEAN );
+			$delete_products       = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_DELETE_PRODUCTS ), FILTER_VALIDATE_BOOLEAN );
+
+			$args = array(
+				'display_name' => $vendor_label,
+				'caps'         => wp_parse_args( array(
+					'publish_products'          => $caps_publish_products,
+					'upload_files'              => $caps_upload_files,
+					'edit_shop_orders'          => $view_orders,
+					'edit_others_shop_orders'   => $view_orders,
+					'read_shop_order'           => $view_orders,
+					'delete_products'           => $delete_products,
+					'delete_product'            => $delete_products,
+					'delete_published_products' => $delete_products,
+				), self::$user_caps ),
+			);
+
 			$args = wp_parse_args( $args, array(
 				'caps'         => self::$user_caps,
 				'display_name' => __( 'Marketplace vendor', 'marketplace-for-woocommerce' ),
