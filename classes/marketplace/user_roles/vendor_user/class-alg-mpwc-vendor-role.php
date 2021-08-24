@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.3.4
+ * @version 1.3.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -12,8 +12,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 	class Alg_MPWC_Vendor_Role {
 
-		const ROLE_VENDOR = 'alg_mpwc_vendor';
-		const ROLE_VENDOR_PENDING = 'alg_mpwc_vendor_pending';
+		const ROLE_VENDOR          = 'alg_mpwc_vendor';
+		const ROLE_VENDOR_PENDING  = 'alg_mpwc_vendor_pending';
 		const ROLE_VENDOR_REJECTED = 'alg_mpwc_vendor_rejected';
 
 		/**
@@ -37,8 +37,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 		/**
 		 * user_caps.
+		 *
+		 * @version 1.3.7
 		 */
 		private static $user_caps = array(
+			'publish_products'          => false,
+			'upload_files'              => true,
 			'read'                      => true,
 			'edit_product'              => true,
 			'read_product'              => true,
@@ -465,11 +469,11 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Fixes the post count
+		 * Fixes the post count.
 		 *
-		 * https://wordpress.stackexchange.com/a/178250/25264
+		 * @see     https://wordpress.stackexchange.com/a/178250/25264
 		 *
-		 * @return mixed
+		 * @return  mixed
 		 */
 		public function views_filter_for_own_posts( $views ) {
 			$post_type      = get_query_var( 'post_type' );
@@ -571,10 +575,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Creates the marketplace vendor role
 		 *
-		 * This function is called when the plugin is enabled. Therefore, its called on the method Alg_MPWC_Core::on_plugin_activation()
+		 * This function is called when the plugin is enabled. Therefore, it's called on the method Alg_MPWC_Core::on_plugin_activation()
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
+		 *
+		 * @todo    [now] (dev) use caps options instead of default ones
 		 */
 		public static function add_vendor_role( $args = null ) {
 			$args = wp_parse_args( $args, array(
@@ -588,7 +594,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			add_role( self::ROLE_VENDOR, sanitize_text_field( $args['display_name'] ), $args['caps'] );
 
-			self::add_pending_rejected_vendor_roles($args);
+			self::add_pending_rejected_vendor_roles( $args );
 		}
 
 		/**
