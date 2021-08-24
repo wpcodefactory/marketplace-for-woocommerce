@@ -74,7 +74,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 		 *
 		 * @return string
 		 */
-		public function page_title($title){
+		public function page_title( $title ){
 			global $wp_query;
 
 			// Checks if vendor is valid
@@ -228,7 +228,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Public_Page' ) ) {
 			$vendor_slug = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_PUBLIC_PAGE_SLUG, 'marketplace-vendor' ) );
 			add_rewrite_rule(
 				'^' . $vendor_slug . '/([^/]*)(/page/([0-9]+)?)?/?$',
-				'index.php?' . Alg_MPWC_Query_Vars::VENDOR . '=$matches[1]&paged=$matches[3]&post_type=product&'.Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE.'=1',
+				'index.php?' . Alg_MPWC_Query_Vars::VENDOR . '=$matches[1]&paged=$matches[3]&post_type=product&' . Alg_MPWC_Query_Vars::VENDOR_PUBLIC_PAGE . '=1',
 				'top'
 			);
 		}
