@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.3.6
+ * @version 1.4.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -218,6 +218,14 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'desc_tip'    => __( "Shows vendor's logo.", 'marketplace-for-woocommerce' ),
 				'id'          => self::OPTION_PUBLIC_PAGE_LOGO,
 				'default'     => 'yes',
+				'type'        => 'checkbox',
+			),
+			array(
+				'title'       => __( 'Rating', 'marketplace-for-woocommerce' ),
+				'desc'        => __( 'Show', 'marketplace-for-woocommerce' ),
+				'desc_tip'    => __( "Shows vendor's rating.", 'marketplace-for-woocommerce' ),
+				'id'          => 'alg_mpwc_opt_public_page_rating',
+				'default'     => 'no',
 				'type'        => 'checkbox',
 			),
 			array(

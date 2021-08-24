@@ -56,6 +56,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 = 1.4.0 - 24/08/2021 =
 * Fix - Properly flushing rewrite rules on plugin activation now.
 * Fix - Vendor caps fixed.
+* Dev - Vendors - Public Page - "Rating" options added.
 * WC tested up to: 5.6.
 
 = 1.3.6 - 17/08/2021 =

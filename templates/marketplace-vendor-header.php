@@ -2,9 +2,10 @@
 /**
  * Header of a vendor public page
  *
- * @author  Algoritmika Ltd.
- * @version 1.0.2
+ * @version 1.4.0
  * @since   1.0.0
+ *
+ * @author  Algoritmika Ltd.
  */
 ?>
 
@@ -52,10 +53,14 @@ if ( $logo_id ) {
 	?>
 
 	<?php if ( ! empty( $vendor_products_url ) ): ?>
-        <div>
-            <a href="<?php echo esc_url( $vendor_products_url ); ?>"><?php echo esc_html( $shop_link_label ); ?></a>
-        </div>
+		<div>
+			<a href="<?php echo esc_url( $vendor_products_url ); ?>"><?php echo esc_html( $shop_link_label ); ?></a>
+		</div>
 	<?php endif; ?>
 
-    <div style="clear: both"></div>
+	<?php if ( 'yes' === get_option( 'alg_mpwc_opt_public_page_rating', 'no' ) ) {
+		alg_marketplace_for_wc()->display_vendor_rating( $vendor->ID );
+	} ?>
+
+	<div style="clear: both"></div>
 </div>
