@@ -357,14 +357,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Changes role options based on admin settings
+		 * Changes role options based on admin settings.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 *
-		 * @todo    [now] (fix) run this on `version_updated()`?
-		 * @todo    [now] (fix) http://example.com/wp-admin/admin.php?page=woocommerce
-		 * @todo    [now] (dev) media: show only vendor's media?
+		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
+		 * @todo    [now] (dev) caps: media: show only vendor's media?
 		 */
 		public function change_role_options() {
 			$vendor_label          = sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_ROLE_LABEL ) );
@@ -598,12 +597,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Creates the marketplace vendor roles for pending and rejected status
+		 * Creates the marketplace vendor roles for pending and rejected status.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
 		 */
 		public static function add_pending_rejected_vendor_roles( $args ) {
+
 			if ( get_role( self::ROLE_VENDOR_PENDING ) ) {
 				remove_role( self::ROLE_VENDOR_PENDING );
 			}
@@ -614,7 +614,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			$caps = array( 'read' => true );
 
-			add_role( self::ROLE_VENDOR_PENDING, sanitize_text_field( $args['display_name'] ) . ' (' . __( 'pending', 'marketplace-for-woocommerce' ) . ')', $caps );
+			add_role( self::ROLE_VENDOR_PENDING,  sanitize_text_field( $args['display_name'] ) . ' (' . __( 'pending', 'marketplace-for-woocommerce' )  . ')', $caps );
 			add_role( self::ROLE_VENDOR_REJECTED, sanitize_text_field( $args['display_name'] ) . ' (' . __( 'rejected', 'marketplace-for-woocommerce' ) . ')', $caps );
 		}
 	}
