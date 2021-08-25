@@ -91,7 +91,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			add_filter( 'user_has_cap', array( $this, 'manages_media_deleting' ), 10, 4 );
 
 			// Removes vendor's core updates notifications
-			add_action('after_setup_theme',array($this,'remove_core_updates'));
+			add_action( 'after_setup_theme', array( $this, 'remove_core_updates' ) );
 		}
 
 		/**
