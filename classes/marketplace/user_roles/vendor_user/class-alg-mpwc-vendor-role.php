@@ -94,7 +94,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			add_action( 'after_setup_theme', array( $this, 'remove_core_updates' ) );
 
 			// Remove WooCommerce menu
-			add_action( 'admin_init', array( $this, 'remove_woocommerce_menu' ) );
+			add_action( 'admin_menu', array( $this, 'remove_woocommerce_menu' ) );
 		}
 
 		/**
@@ -370,6 +370,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @since   1.0.0
 		 */
 		public function limit_access_to_own_posts_only( $query ) {
+
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
 				return $query;
 			}
