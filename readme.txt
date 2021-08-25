@@ -56,7 +56,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 = 1.4.1 - 25/08/2021 =
 * Fix - Remove WooCommerce menu from admin for vendors.
 * Fix - Improve methods of preventing vendor role from accessing not allowed content.
-* Dev - Setup auto deploy on github.
+* Dev - Setup auto deploy on GitHub.
 
 = 1.4.0 - 25/08/2021 =
 * Fix - Properly flushing rewrite rules on plugin activation now.
