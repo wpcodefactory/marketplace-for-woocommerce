@@ -72,8 +72,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				add_filter( 'admin_footer_text', array($this,'remove_footer_text'), 11 );
 			}
 
-			// Limits the vendor user to see only his own posts, media, etc
-			add_filter( 'pre_get_posts', array( $this, 'limit_access_to_own_posts_only' ) );
+			// Manages admin access to the content from the vendor role.
+			add_filter( 'pre_get_posts', array( $this, 'handle_admin_loop_content_access_from_vendor' ) );
+			add_action( 'admin_init', array( $this, 'handle_admin_single_content_access_from_vendor' ) );
 
 			// Adds vendors related to an order
 			add_action( 'save_post', array( $this, 'add_vendors_related_to_an_order' ) );
@@ -95,6 +96,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			// Remove WooCommerce menu
 			add_action( 'admin_menu', array( $this, 'remove_woocommerce_menu' ) );
+
 		}
 
 		/**
@@ -364,22 +366,23 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
-		 * Limits the user to see only its own posts, media, etc
+		 * Limits the vendor to see only its own posts, media, and related commissions and orders on admin loop.
 		 *
-		 * @version 1.0.0
+		 * @todo check why DOING_AJAX check was necessary. Right now it doesn't work with the media library page using the grid mode.
+		 *
+		 * @version 1.4.1
 		 * @since   1.0.0
 		 */
-		public function limit_access_to_own_posts_only( $query ) {
-
+		public function handle_admin_loop_content_access_from_vendor( $query ) {
 			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
 				return $query;
 			}
 			if ( ! is_admin() ) {
 				return $query;
 			}
-			if( defined( 'DOING_AJAX' ) && DOING_AJAX ){
+			/*if( defined( 'DOING_AJAX' ) && DOING_AJAX ){
 				return $query;
-			}
+			}*/
 
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 			$user_id        = get_current_user_id();
@@ -423,6 +426,40 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			), 999 );
 
 			return $query;
+		}
+
+		/**
+		 * Limits the vendor to see only its own posts, media, and related commissions and orders on admin single content.
+		 *
+		 * @version 1.4.1
+		 * @since   1.4.1
+		 */
+		function handle_admin_single_content_access_from_vendor() {
+			if (
+				current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) &&
+				(
+					( isset( $_REQUEST['post'] ) && ! empty( $post_id = $_REQUEST['post'] ) ) ||
+					( isset( $_REQUEST['post_id'] ) && ! empty( $post_id = $_REQUEST['post_id'] ) ) ||
+					( isset( $_REQUEST['post_ID'] ) && ! empty( $post_id = $_REQUEST['post_ID'] ) )
+				)
+			) {
+				$commission_cpt = new Alg_MPWC_CPT_Commission();
+				if (
+					(
+						$commission_cpt->id === get_post_type( $post_id ) &&
+						(float) get_current_user_id() !== (float) get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID, true )
+					)
+					||
+					(
+						'shop_order' === get_post_type( $post_id ) &&
+						(float) get_current_user_id() !== (float) get_post_meta( $post_id, Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR, true )
+					)
+					||
+					(float) get_current_user_id() !== (float) get_post_meta( 'post_author', $post_id, true )
+				) {
+					wp_die( __( 'Sorry, you are not allowed to edit this item.', 'marketplace-for-woocommerce' ) );
+				}
+			}
 		}
 
 		/**
