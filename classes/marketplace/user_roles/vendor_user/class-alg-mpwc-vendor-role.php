@@ -380,10 +380,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			if ( ! is_admin() ) {
 				return $query;
 			}
-			/*if( defined( 'DOING_AJAX' ) && DOING_AJAX ){
-				return $query;
-			}*/
-
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 			$user_id        = get_current_user_id();
 
