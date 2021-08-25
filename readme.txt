@@ -53,6 +53,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.4.1 - 25/08/2021 =
+* Fix - Remove WooCommerce menu from admin for vendors.
+
 = 1.4.0 - 25/08/2021 =
 * Fix - Properly flushing rewrite rules on plugin activation now.
 * Fix - Vendor caps fixed.

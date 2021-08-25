@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.4.0
+ * @version 1.4.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Initializes the vendor role manager.
 		 *
-		 * @version 1.4.0
+		 * @version 1.4.1
 		 * @since   1.0.0
 		 */
 		public function init() {
@@ -92,6 +92,21 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 
 			// Removes vendor's core updates notifications
 			add_action( 'after_setup_theme', array( $this, 'remove_core_updates' ) );
+
+			// Remove WooCommerce menu
+			add_action( 'admin_init', array( $this, 'remove_woocommerce_menu' ) );
+		}
+
+		/**
+		 * remove_woocommerce_menu.
+		 *
+		 * @version 1.4.1
+		 * @since   1.4.1
+		 */
+		function remove_woocommerce_menu(){
+			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				remove_menu_page( 'woocommerce' );
+			}
 		}
 
 		/**
