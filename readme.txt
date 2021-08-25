@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 1.3.6
+Stable tag: 1.4.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -53,7 +53,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.4.0 - 24/08/2021 =
+= 1.4.0 - 25/08/2021 =
 * Fix - Properly flushing rewrite rules on plugin activation now.
 * Fix - Vendor caps fixed.
 * Dev - Vendors - Public Page - "Rating" options added.

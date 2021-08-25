@@ -354,7 +354,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @version 1.4.0
 	 * @since   1.0.0
 	 */
-	public static function on_plugin_activation() {
+	public static function on_plugin_activation( $do_version_update = true ) {
 		parent::on_plugin_activation();
 
 		// Adds the vendor role
@@ -367,7 +367,12 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 		$tax->register();
 		$tax->create_initial_status();
 
-		delete_option( 'alg_wc_marketplace_version' ); // this will `flush_rewrite_rules()`
+		// Flush rewrite rules
+		flush_rewrite_rules();
+
+		if ( $do_version_update ) {
+			delete_option( 'alg_wc_marketplace_version' );
+		}
 	}
 
 	/**

@@ -521,7 +521,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @version 1.4.0
 		 * @since   1.0.0
 		 *
-		 * @todo    [now] (fix) remove `edit_others_shop_orders`?
+		 * @todo    [next] (dev) remove `edit_others_shop_orders`?
 		 * @todo    [next] (dev) caps: media: show only vendor's media?
 		 * @todo    [next] (dev) remove `$default_user_caps`?
 		 */

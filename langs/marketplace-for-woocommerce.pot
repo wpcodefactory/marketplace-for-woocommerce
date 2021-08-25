@@ -33,11 +33,11 @@ msgstr ""
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:101
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:174
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:160
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:237
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:245
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:253
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:262
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:270
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:258
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:266
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:274
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:283
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:291
 msgid "Enable"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:85
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:86
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:574
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:549
 msgid "Marketplace vendor"
 msgstr ""
 
@@ -400,7 +400,7 @@ msgid "Leave it empty if you don't want to show it."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:212
-#: templates/marketplace-vendor-header.php:24
+#: templates/marketplace-vendor-header.php:25
 msgid "See all vendor's products"
 msgstr ""
 
@@ -410,6 +410,7 @@ msgid "Logo"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:217
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:225
 msgid "Show"
 msgstr ""
 
@@ -417,57 +418,74 @@ msgstr ""
 msgid "Shows vendor's logo."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:230
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:224
+msgid "Rating"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:226
+msgid "Shows vendor's rating."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:232
+msgid "Template"
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:233
+#, php-format
+msgid "Placeholders: %s."
+msgstr ""
+
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:251
 msgid "Capabilities"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:231
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:252
 msgid "What vendors will be allowed to do."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:236
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:257
 msgid "Access the dashboard"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:238
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:259
 msgid "Allows vendors to access the admin dashboard."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:244
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:265
 msgid "Publish products"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:246
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:267
 msgid ""
 "Allows vendors to publish products automatically, bypassing the pending "
 "status."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:252
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:273
 msgid "Delete products"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:254
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:275
 msgid "Allows vendors to delete products."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:255
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:276
 msgid "Be careful with possible 404 pages."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:261
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:282
 msgid "Upload files"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:263
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:284
 msgid "Allows vendors to upload files."
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:269
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:290
 msgid "View orders"
 msgstr ""
 
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:271
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:292
 msgid "Allows vendors to view orders."
 msgstr ""
 
@@ -488,7 +506,7 @@ msgid "Status"
 msgstr ""
 
 #: classes/marketplace/class-alg-mpwc-core.php:135
-#: classes/marketplace/user_roles/class-alg-mpwc-shop-manager-user.php:139
+#: classes/marketplace/user_roles/class-alg-mpwc-shop-manager-user.php:140
 msgid "Author"
 msgstr ""
 
@@ -807,51 +825,51 @@ msgid ""
 "Leave blank to use the default heading: <code>%s</code>."
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:474
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:427
 msgid "All"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:475
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:428
 msgid "Published"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:476
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:429
 msgid "Private"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:477
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:430
 msgid "Pending Review"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:478
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:431
 msgid "Scheduled"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:479
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:432
 msgid "Draft"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:480
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:433
 msgid "Trash"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:492
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:445
 msgid "Processing"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:493
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:446
 msgid "On hold"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:494
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:447
 msgid "Completed"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:603
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:596
 msgid "pending"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:604
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:597
 msgid "rejected"
 msgstr ""
 
