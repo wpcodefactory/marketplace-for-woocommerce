@@ -8,12 +8,12 @@
  * @author  Algoritmika Ltd.
  */
 
-if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
+if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) :
 
 	class Alg_MPWC_Vendor_User {
 
 		/**
-		 * Constructor
+		 * Constructor.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -50,7 +50,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * Adds pending vendor email class
+		 * Adds pending vendor email class.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * Create a tab on product page displaying some info about the vendor
+		 * Create a tab on product page displaying some info about the vendor.
 		 *
 		 * @version 1.0.2
 		 * @since   1.0.0
@@ -97,7 +97,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		 * @version 1.4.2
 		 * @since   1.0.0
 		 *
-		 * @todo    [now] (feature) customizable content
+		 * @todo    [now] (feature) customizable content || rating: add options: enable/disable, content
+		 * @todo    [now] (dev) class `alg_mpwc_vendor_rating` to `alg-mpwc-vendor-rating`
 		 */
 		public function create_vendor_tab_template() {
 			global $post;
@@ -115,7 +116,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			$logo_id = filter_var( get_user_meta( $user->ID, $fields->meta_logo . '_id', true ), FILTER_VALIDATE_INT );
 			if ( $logo_id ) {
 				$image = wp_get_attachment_image( $logo_id, 'full', false, array( 'style' => 'max-width:38%;float:left;margin:0 15px 0 0' ) );
-
 				echo '<a href="' . $user_public_page_url . '">' . $image . '</a>';
 			}
 
@@ -134,7 +134,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * Displays the product's author on product loop
+		 * Displays the product's author on product loop.
 		 *
 		 * @version 1.0.2
 		 * @since   1.0.0
@@ -161,7 +161,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * Creates vendor admin fields
+		 * Creates vendor admin fields.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -171,5 +171,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			$admin_fields->add_fields();
 			$admin_fields->setup_custom_css();
 		}
+
 	}
-}
+
+endif;
