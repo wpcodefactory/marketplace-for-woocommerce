@@ -383,8 +383,6 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 *
 	 * @version 1.4.2
 	 * @since   1.4.2
-	 *
-	 * @todo    [now] (dev) `$post->post_author`: check if `vendor` user role
 	 */
 	public function vendor_rating_shortcode( $atts, $content = '' ) {
 		$atts = shortcode_atts( array(
@@ -398,13 +396,14 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			} else {
 				// Try to get `vendor_id` from post author, e.g. vendor product tab
 				global $post;
-				if ( ! empty( $post->post_author ) ) {
+				if ( ! empty( $post->post_author ) && ( $user = get_user_by( 'ID', $post->post_author ) ) && in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, ( array ) $user->roles ) ) {
 					$atts['vendor_id'] = $post->post_author;
-				} else {
-					// Exiting - no `vendor_id` found
-					return '';
 				}
 			}
+		}
+		if ( empty( $atts['vendor_id'] ) ) {
+			// Exiting - no `vendor_id` found
+			return '';
 		}
 		if ( '' === $content ) {
 			$content = '<div class="alg-mpwc-vendor-rating">%rating_html%</div>';
