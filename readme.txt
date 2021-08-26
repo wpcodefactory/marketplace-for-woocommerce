@@ -53,6 +53,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.4.2 - 26/08/2021 =
+* Dev - Vendors - Public Page - Rating - `%vendor_id%` placeholder added (for debugging).
+
 = 1.4.1 - 25/08/2021 =
 * Fix - Remove WooCommerce menu from admin for vendors.
 * Fix - Improve methods of preventing vendor role from accessing not allowed content.

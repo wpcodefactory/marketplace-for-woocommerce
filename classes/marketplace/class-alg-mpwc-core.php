@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.4.0
+ * @version 1.4.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -378,7 +378,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	/**
 	 * display_vendor_rating.
 	 *
-	 * @version 1.4.0
+	 * @version 1.4.2
 	 * @since   1.4.0
 	 *
 	 * @todo    [next] (feature) show this in product tab as well
@@ -411,6 +411,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			'%count%'          => $rating_data['count'],
 			'%rated_products%' => $rating_data['rated_products'],
 			'%total_products%' => $rating_data['total_products'],
+			'%vendor_id%'      => $vendor_id, // for debugging
 		);
 		echo str_replace( array_keys( $placeholders ), $placeholders, $template );
 	}
