@@ -2,8 +2,9 @@
 /**
  * Marketplace for WooCommerce - Vendor user
  *
- * @version 1.0.2
+ * @version 1.4.2
  * @since   1.0.0
+ *
  * @author  Algoritmika Ltd.
  */
 
@@ -91,10 +92,12 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 		}
 
 		/**
-		 * The html for vendor tab on product
+		 * The html for vendor tab on product.
 		 *
-		 * @version 1.0.0
+		 * @version 1.4.2
 		 * @since   1.0.0
+		 *
+		 * @todo    [now] (feature) customizable content
 		 */
 		public function create_vendor_tab_template() {
 			global $post;
@@ -113,20 +116,21 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_User' ) ) {
 			if ( $logo_id ) {
 				$image = wp_get_attachment_image( $logo_id, 'full', false, array( 'style' => 'max-width:38%;float:left;margin:0 15px 0 0' ) );
 
-				echo '<a href="'.$user_public_page_url.'">'.$image.'</a>';
+				echo '<a href="' . $user_public_page_url . '">' . $image . '</a>';
 			}
 
 			// Title
 			$store_title = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_store_title, true ) );
 			$title = $store_title ? $store_title : $user->display_name;
-			echo '<h2 style="display:inline">'.$title.'</h2>';
+			echo '<h2 style="display:inline">' . $title . '</h2>';
 
 			// Description
 			$description = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_description, true ) );
 			echo $description ? apply_filters( 'the_content', $description ) : '';
 
 			// See all products
-			echo '<div class="alg-mpwc-product-author"><a href="' . $user_public_page_url . '">Go to ' . $title . '</a></div>';
+			echo '<div class="alg-mpwc-product-author"><a href="' . $user_public_page_url . '">' . sprintf( __( 'Go to %s', 'marketplace-for-woocommerce' ), $title ) . '</a></div>';
+
 		}
 
 		/**
