@@ -383,14 +383,27 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 *
 	 * @version 1.4.2
 	 * @since   1.4.2
+	 *
+	 * @todo    [now] (dev) `$post->post_author`: check if `vendor` user role
 	 */
 	public function vendor_rating_shortcode( $atts, $content = '' ) {
+		$atts = shortcode_atts( array(
+				'vendor_id' => 0,
+			), $atts, 'vendor_rating' );
 		if ( empty( $atts['vendor_id'] ) ) {
+			// Try to get `vendor_id` from query
 			$vendor_query_string = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
 			if ( ( $vendor = get_user_by( ( is_numeric( $vendor_query_string ) ? 'id' : 'slug' ), $vendor_query_string ) ) ) {
 				$atts['vendor_id'] = $vendor->ID;
 			} else {
-				return '';
+				// Try to get `vendor_id` from post author
+				global $post;
+				if ( ! empty( $post->post_author ) ) {
+					$atts['vendor_id'] = $post->post_author;
+				} else {
+					// Exiting - no `vendor_id` found
+					return '';
+				}
 			}
 		}
 		if ( '' === $content ) {
@@ -405,7 +418,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @version 1.4.2
 	 * @since   1.4.0
 	 *
-	 * @todo    [next] (feature) show this in product tab as well
+	 * @todo    [now] (feature) show this in product tab as well
 	 * @todo    [next] (dev) add option to manually clear the transients?
 	 * @todo    [next] (dev) customizable transient expiration
 	 * @todo    [next] (dev) pre-calculate in cron
