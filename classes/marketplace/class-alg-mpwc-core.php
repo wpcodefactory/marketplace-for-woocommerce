@@ -407,7 +407,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			}
 		}
 		if ( '' === $content ) {
-			$content = '<div class="alg_mpwc_vendor_rating">%rating_html%</div>';
+			$content = '<div class="alg-mpwc-vendor-rating">%rating_html%</div>';
 		}
 		return $this->get_vendor_rating( $atts['vendor_id'], $content );
 	}
@@ -422,7 +422,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @todo    [next] (dev) customizable transient expiration
 	 * @todo    [next] (dev) pre-calculate in cron
 	 * @todo    [next] (dev) move this to some other class
-	 * @todo    [next] (desc) `.alg_mpwc_vendor_rating .star-rating { margin: auto; }`
+	 * @todo    [next] (desc) `.alg-mpwc-vendor-rating .star-rating { margin: auto; }`
 	 */
 	public function get_vendor_rating( $vendor_id, $template ) {
 		if ( ! ( $rating_data = get_transient( 'alg_mpwc_vendor_rating_' . $vendor_id ) ) ) {
@@ -447,7 +447,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			'%count%'          => $rating_data['count'],
 			'%rated_products%' => $rating_data['rated_products'],
 			'%total_products%' => $rating_data['total_products'],
-			'%vendor_id%'      => $vendor_id, // for debugging
+			'%vendor_id%'      => $vendor_id,
 		);
 		return str_replace( array_keys( $placeholders ), $placeholders, $template );
 	}

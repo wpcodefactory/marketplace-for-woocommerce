@@ -172,10 +172,30 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 			),
 			array(
 				'title'       => __( 'Label', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Text displayed in the tab.', 'marketplace-for-woocommerce' ),
+				'desc'        => __( 'Tab title.', 'marketplace-for-woocommerce' ),
 				'id'          => self::OPTION_PRODUCT_TAB_TEXT,
 				'default'     => __( 'Vendor', 'marketplace-for-woocommerce' ),
 				'type'        => 'text',
+			),
+			array(
+				'title'       => __( 'Content', 'marketplace-for-woocommerce' ),
+				'desc'        => __( 'Tab content.', 'marketplace-for-woocommerce' ) . '<br>' .
+					sprintf( __( 'Available placeholders: %s.', 'marketplace-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
+							'%image%',
+							'%image_link%',
+							'%title%',
+							'%formatted_title%',
+							'%description%',
+							'%public_page_url%',
+							'%public_page_link%',
+							'%formatted_public_page_link%',
+							'%vendor_id%',
+						) ) . '</code>' ) . '<br>' .
+					sprintf( __( 'You can also use shortcodes here, e.g. %s.', 'marketplace-for-woocommerce' ), '<code>[vendor_rating]</code>' ),
+				'id'          => 'alg_mpwc_opt_vendor_product_tab_content',
+				'default'     => '%image_link%' . PHP_EOL . PHP_EOL . '%formatted_title%' . PHP_EOL . PHP_EOL . '%description%' . PHP_EOL . PHP_EOL . '%formatted_public_page_link%',
+				'type'        => 'textarea',
+				'css'         => 'height:150px;',
 			),
 			array(
 				'type'        => 'sectionend',
@@ -225,14 +245,14 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'desc'        => __( 'Show', 'marketplace-for-woocommerce' ),
 				'desc_tip'    => __( "Shows vendor's rating.", 'marketplace-for-woocommerce' ) . '<br>' .
 					sprintf( __( 'Alternatively you can use shortcode: %s', 'marketplace-for-woocommerce' ),
-						'<code>' . esc_html( '[vendor_rating]<div class="alg_mpwc_vendor_rating">%rating_html%</div>[/vendor_rating]' ) . '</code>' ),
+						'<code>' . esc_html( '[vendor_rating]<div class="alg-mpwc-vendor-rating">%rating_html%</div>[/vendor_rating]' ) . '</code>' ),
 				'id'          => 'alg_mpwc_opt_public_page_rating',
 				'default'     => 'no',
 				'type'        => 'checkbox',
 			),
 			array(
-				'desc'        => __( 'Template', 'marketplace-for-woocommerce' ) . '<br>' .
-					sprintf( __( 'Placeholders: %s.', 'marketplace-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
+				'desc'        => __( 'Template.', 'marketplace-for-woocommerce' ) . '<br>' .
+					sprintf( __( 'Available placeholders: %s.', 'marketplace-for-woocommerce' ), '<code>' . implode( '</code>, <code>', array(
 							'%rating_html%',
 							'%rating%',
 							'%count%',
@@ -241,7 +261,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 							'%vendor_id%',
 						) ) . '</code>' ),
 				'id'          => 'alg_mpwc_opt_public_page_rating_template',
-				'default'     => '<div class="alg_mpwc_vendor_rating">%rating_html%</div>',
+				'default'     => '<div class="alg-mpwc-vendor-rating">%rating_html%</div>',
 				'type'        => 'textarea',
 			),
 			array(

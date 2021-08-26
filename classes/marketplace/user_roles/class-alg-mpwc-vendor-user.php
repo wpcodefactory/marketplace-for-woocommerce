@@ -96,41 +96,52 @@ class Alg_MPWC_Vendor_User {
 	 *
 	 * @version 1.4.2
 	 * @since   1.0.0
-	 *
-	 * @todo    [now] (feature) customizable content || rating: add options: enable/disable, content
-	 * @todo    [now] (dev) class `alg_mpwc_vendor_rating` to `alg-mpwc-vendor-rating`
 	 */
 	public function create_vendor_tab_template() {
 		global $post;
 
 		// User
-		$user = get_user_by( 'ID', $post->post_author );
+		$user                       = get_user_by( 'ID', $post->post_author );
 
 		// Public page url
-		$user_public_page_url = Alg_MPWC_Vendor_Public_Page::get_public_page_url( $post->post_author );
+		$public_page_url            = Alg_MPWC_Vendor_Public_Page::get_public_page_url( $post->post_author );
 
 		// User fields
-		$fields = new Alg_MPWC_Vendor_Admin_Fields();
+		$fields                     = new Alg_MPWC_Vendor_Admin_Fields();
 
 		// Logo
-		$logo_id = filter_var( get_user_meta( $user->ID, $fields->meta_logo . '_id', true ), FILTER_VALIDATE_INT );
-		if ( $logo_id ) {
-			$image = wp_get_attachment_image( $logo_id, 'full', false, array( 'style' => 'max-width:38%;float:left;margin:0 15px 0 0' ) );
-			echo '<a href="' . $user_public_page_url . '">' . $image . '</a>';
-		}
+		$logo_id                    = filter_var( get_user_meta( $user->ID, $fields->meta_logo . '_id', true ), FILTER_VALIDATE_INT );
+		$image                      = ( $logo_id ? wp_get_attachment_image( $logo_id, 'full', false, array( 'style' => 'max-width:38%;float:left;margin:0 15px 0 0' ) ) : '' );
+		$image_link                 = ( $image ? '<a href="' . $public_page_url . '">' . $image . '</a>' : '' );
 
 		// Title
-		$store_title = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_store_title, true ) );
-		$title = $store_title ? $store_title : $user->display_name;
-		echo '<h2 style="display:inline">' . $title . '</h2>';
+		$store_title                = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_store_title, true ) );
+		$title                      = ( $store_title ? $store_title : $user->display_name );
+		$formatted_title            = '<h2 style="display:inline">' . $title . '</h2>';
 
 		// Description
-		$description = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_description, true ) );
-		echo $description ? apply_filters( 'the_content', $description ) : '';
+		$description                = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_description, true ) );
+		$description                = ( $description ? apply_filters( 'the_content', $description ) : '' );
 
 		// See all products
-		echo '<div class="alg-mpwc-product-author"><a href="' . $user_public_page_url . '">' . sprintf( __( 'Go to %s', 'marketplace-for-woocommerce' ), $title ) . '</a></div>';
+		$public_page_link           = '<a href="' . $public_page_url . '">' . sprintf( __( 'Go to %s', 'marketplace-for-woocommerce' ), $title ) . '</a>';
+		$formatted_public_page_link = '<div class="alg-mpwc-product-author">' . $public_page_link . '</div>';
 
+		// Output
+		$placeholders = array(
+			'%image%'                      => $image,
+			'%image_link%'                 => $image_link,
+			'%title%'                      => $title,
+			'%formatted_title%'            => $formatted_title,
+			'%description%'                => $description,
+			'%public_page_url%'            => $public_page_url,
+			'%public_page_link%'           => $public_page_link,
+			'%formatted_public_page_link%' => $formatted_public_page_link,
+			'%vendor_id%'                  => $user->ID,
+		);
+		$template = get_option( 'alg_mpwc_opt_vendor_product_tab_content',
+			'%image_link%' . PHP_EOL . PHP_EOL . '%formatted_title%' . PHP_EOL . PHP_EOL . '%description%' . PHP_EOL . PHP_EOL . '%formatted_public_page_link%' );
+		echo do_shortcode( str_replace( array_keys( $placeholders ), $placeholders, $template) );
 	}
 
 	/**

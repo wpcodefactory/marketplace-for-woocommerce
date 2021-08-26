@@ -60,7 +60,7 @@ if ( $logo_id ) {
 
 	<?php if ( 'yes' === get_option( 'alg_mpwc_opt_public_page_rating', 'no' ) ) {
 		echo alg_marketplace_for_wc()->get_vendor_rating( $vendor->ID, get_option( 'alg_mpwc_opt_public_page_rating_template',
-			'<div class="alg_mpwc_vendor_rating">%rating_html%</div>' ) );
+			'<div class="alg-mpwc-vendor-rating">%rating_html%</div>' ) );
 	} ?>
 
 	<div style="clear: both"></div>
