@@ -391,12 +391,12 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 				'vendor_id' => 0,
 			), $atts, 'vendor_rating' );
 		if ( empty( $atts['vendor_id'] ) ) {
-			// Try to get `vendor_id` from query
+			// Try to get `vendor_id` from query, e.g. vendor public page
 			$vendor_query_string = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
 			if ( ( $vendor = get_user_by( ( is_numeric( $vendor_query_string ) ? 'id' : 'slug' ), $vendor_query_string ) ) ) {
 				$atts['vendor_id'] = $vendor->ID;
 			} else {
-				// Try to get `vendor_id` from post author
+				// Try to get `vendor_id` from post author, e.g. vendor product tab
 				global $post;
 				if ( ! empty( $post->post_author ) ) {
 					$atts['vendor_id'] = $post->post_author;
@@ -418,7 +418,6 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @version 1.4.2
 	 * @since   1.4.0
 	 *
-	 * @todo    [now] (feature) show this in product tab as well
 	 * @todo    [next] (dev) add option to manually clear the transients?
 	 * @todo    [next] (dev) customizable transient expiration
 	 * @todo    [next] (dev) pre-calculate in cron
