@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.4.0
+ * @version 1.4.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -64,7 +64,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.2.2
+	 * @version 1.4.2
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (desc) remove "If it does not work on the first attempt, please go to Permalink Settings and save changes."
@@ -223,7 +223,9 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 			array(
 				'title'       => __( 'Rating', 'marketplace-for-woocommerce' ),
 				'desc'        => __( 'Show', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( "Shows vendor's rating.", 'marketplace-for-woocommerce' ),
+				'desc_tip'    => __( "Shows vendor's rating.", 'marketplace-for-woocommerce' ) . '<br>' .
+					sprintf( __( 'Alternatively you can use shortcode: %s', 'marketplace-for-woocommerce' ),
+						'<code>' . esc_html( '[vendor_rating]<div class="alg_mpwc_vendor_rating">%rating_html%</div>[/vendor_rating]' ) . '</code>' ),
 				'id'          => 'alg_mpwc_opt_public_page_rating',
 				'default'     => 'no',
 				'type'        => 'checkbox',
@@ -236,6 +238,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 							'%count%',
 							'%rated_products%',
 							'%total_products%',
+							'%vendor_id%',
 						) ) . '</code>' ),
 				'id'          => 'alg_mpwc_opt_public_page_rating_template',
 				'default'     => '<div class="alg_mpwc_vendor_rating">%rating_html%</div>',

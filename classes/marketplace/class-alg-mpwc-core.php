@@ -24,7 +24,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 *
 	 * Should be called after the set_args() method
 	 *
-	 * @version 1.3.0
+	 * @version 1.4.2
 	 * @since   1.0.0
 	 *
 	 * @param   array $args
@@ -43,6 +43,9 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 		if ( filter_var( get_option( Alg_MPWC_Settings_General::OPTION_ENABLE_PLUGIN ), FILTER_VALIDATE_BOOLEAN ) ) {
 			$this->setup_plugin();
 		}
+
+		// Shortcodes
+		add_shortcode( 'vendor_rating', array( $this, 'vendor_rating_shortcode' ) );
 	}
 
 	/**
@@ -376,7 +379,28 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	}
 
 	/**
-	 * display_vendor_rating.
+	 * vendor_rating_shortcode.
+	 *
+	 * @version 1.4.2
+	 * @since   1.4.2
+	 */
+	public function vendor_rating_shortcode( $atts, $content = '' ) {
+		if ( empty( $atts['vendor_id'] ) ) {
+			$vendor_query_string = get_query_var( Alg_MPWC_Query_Vars::VENDOR );
+			if ( ( $vendor = get_user_by( ( is_numeric( $vendor_query_string ) ? 'id' : 'slug' ), $vendor_query_string ) ) ) {
+				$atts['vendor_id'] = $vendor->ID;
+			} else {
+				return '';
+			}
+		}
+		if ( '' === $content ) {
+			$content = '<div class="alg_mpwc_vendor_rating">%rating_html%</div>';
+		}
+		return $this->get_vendor_rating( $atts['vendor_id'], $content );
+	}
+
+	/**
+	 * get_vendor_rating.
 	 *
 	 * @version 1.4.2
 	 * @since   1.4.0
@@ -388,7 +412,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	 * @todo    [next] (dev) move this to some other class
 	 * @todo    [next] (desc) `.alg_mpwc_vendor_rating .star-rating { margin: auto; }`
 	 */
-	public function display_vendor_rating( $vendor_id, $template ) {
+	public function get_vendor_rating( $vendor_id, $template ) {
 		if ( ! ( $rating_data = get_transient( 'alg_mpwc_vendor_rating_' . $vendor_id ) ) ) {
 			$rating_data = array( 'rating' => 0, 'count' => 0, 'rated_products' => 0, 'total_products' => 0 );
 			foreach ( wc_get_products( array( 'limit' => -1, 'author' => $vendor_id ) ) as $product ) {
@@ -413,7 +437,7 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			'%total_products%' => $rating_data['total_products'],
 			'%vendor_id%'      => $vendor_id, // for debugging
 		);
-		echo str_replace( array_keys( $placeholders ), $placeholders, $template );
+		return str_replace( array_keys( $placeholders ), $placeholders, $template );
 	}
 
 }
