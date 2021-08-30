@@ -378,7 +378,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				! current_user_can( self::ROLE_VENDOR ) ||
 				! is_admin() ||
 				! isset( $query->query['post_type'] ) ||
-				empty( $post_type = $query->query['post_type'] )
+				empty( $post_type = $query->query['post_type'] ) ||
+				in_array( $post_type, apply_filters( 'alg_mpwc_post_types_allowed_to_vendor_on_admin', array( 'acf-field-group', 'acf-field' ) ) )
 			) {
 				return $query;
 			}
@@ -430,17 +431,19 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					( isset( $_REQUEST['post'] ) && ! empty( $post_id = $_REQUEST['post'] ) ) ||
 					( isset( $_REQUEST['post_id'] ) && ! empty( $post_id = $_REQUEST['post_id'] ) ) ||
 					( isset( $_REQUEST['post_ID'] ) && ! empty( $post_id = $_REQUEST['post_ID'] ) )
-				)
+				) &&
+				! empty( $post_type = get_post_type( $post_id ) ) &&
+				! in_array( $post_type, apply_filters( 'alg_mpwc_post_types_allowed_to_vendor_on_admin', array( 'acf-field-group', 'acf-field' ) ) )
 			) {
 				$commission_cpt = new Alg_MPWC_CPT_Commission();
 				if (
 					(
-						$commission_cpt->id === get_post_type( $post_id ) &&
+						$commission_cpt->id === $post_type &&
 						(float) get_current_user_id() !== (float) get_post_meta( $post_id, Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID, true )
 					)
 					||
 					(
-						'shop_order' === get_post_type( $post_id ) &&
+						'shop_order' === $post_type &&
 						(float) get_current_user_id() !== (float) get_post_meta( $post_id, Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR, true )
 					)
 					||
