@@ -53,7 +53,8 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.4.2 - 26/08/2021 =
+= 1.4.2 - 30/08/2021 =
+* Fix - Vendor can't see his own product on admin.
 * Dev - `[vendor_rating]` shortcode added.
 * Dev - Vendors - Public Page - Rating - `%vendor_id%` placeholder added.
 * Dev - Vendors - Public Page - Rating - Class in the default value updated (from `alg_mpwc_vendor_rating` to `alg-mpwc-vendor-rating`).

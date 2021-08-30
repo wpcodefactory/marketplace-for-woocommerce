@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.4.1
+ * @version 1.4.2
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -370,25 +370,20 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * @todo check why DOING_AJAX check was necessary. Right now it doesn't work with the media library page using the grid mode.
 		 *
-		 * @version 1.4.1
+		 * @version 1.4.2
 		 * @since   1.0.0
 		 */
 		public function handle_admin_loop_content_access_from_vendor( $query ) {
-			if ( ! current_user_can( self::ROLE_VENDOR ) ) {
-				return $query;
-			}
-			if ( ! is_admin() ) {
+			if (
+				! current_user_can( self::ROLE_VENDOR ) ||
+				! is_admin() ||
+				! isset( $query->query['post_type'] ) ||
+				empty( $post_type = $query->query['post_type'] )
+			) {
 				return $query;
 			}
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
 			$user_id        = get_current_user_id();
-
-			if ( ! isset( $query->query['post_type'] ) ) {
-				return $query;
-			}
-
-			$post_type = $query->query['post_type'];
-
 			// COMMISSIONS
 			if ( $post_type == $commission_cpt->id ) {
 				unset( $query->query['author'] );
@@ -401,7 +396,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 					),
 				) );
 			} // SHOP ORDERS
-			else if ( $post_type == 'shop_order' ) {
+			elseif ( $post_type == 'shop_order' ) {
 				unset( $query->query['author'] );
 				unset( $query->query_vars['author'] );
 				$query->set( 'meta_query', array(
@@ -415,19 +410,17 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			else {
 				$query->set( 'author', $user_id );
 			}
-
 			add_filter( 'views_edit-' . $post_type . '', array(
 				$this,
 				'views_filter_for_own_posts',
 			), 999 );
-
 			return $query;
 		}
 
 		/**
 		 * Limits the vendor to see only its own posts, media, and related commissions and orders on admin single content.
 		 *
-		 * @version 1.4.1
+		 * @version 1.4.2
 		 * @since   1.4.1
 		 */
 		function handle_admin_single_content_access_from_vendor() {
@@ -451,7 +444,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 						(float) get_current_user_id() !== (float) get_post_meta( $post_id, Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR, true )
 					)
 					||
-					(float) get_current_user_id() !== (float) get_post_meta( 'post_author', $post_id, true )
+					(float) get_current_user_id() !== (float) get_post_field( 'post_author', $post_id )
 				) {
 					wp_die( __( 'Sorry, you are not allowed to edit this item.', 'marketplace-for-woocommerce' ) );
 				}
