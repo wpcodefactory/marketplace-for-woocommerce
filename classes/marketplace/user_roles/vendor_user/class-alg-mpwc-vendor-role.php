@@ -73,8 +73,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			}
 
 			// Manages admin access to the content from the vendor role.
-			add_filter( 'pre_get_posts', array( $this, 'handle_admin_loop_content_access_from_vendor' ) );
-			add_action( 'admin_init', array( $this, 'handle_admin_single_content_access_from_vendor' ) );
+			add_filter( 'pre_get_posts', array( $this, 'handle_loop_content_access_from_vendor_on_admin' ) );
+			add_action( 'admin_init', array( $this, 'handle_single_content_access_from_vendor_on_admin' ) );
 
 			// Adds vendors related to an order
 			add_action( 'save_post', array( $this, 'add_vendors_related_to_an_order' ) );
@@ -373,7 +373,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @version 1.4.2
 		 * @since   1.0.0
 		 */
-		public function handle_admin_loop_content_access_from_vendor( $query ) {
+		public function handle_loop_content_access_from_vendor_on_admin( $query ) {
 			if (
 				! current_user_can( self::ROLE_VENDOR ) ||
 				! is_admin() ||
@@ -424,7 +424,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 * @version 1.4.2
 		 * @since   1.4.1
 		 */
-		function handle_admin_single_content_access_from_vendor() {
+		function handle_single_content_access_from_vendor_on_admin() {
 			if (
 				current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) &&
 				(
