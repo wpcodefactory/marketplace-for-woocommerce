@@ -53,6 +53,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.4.3 - 30/08/2021 =
+* Fix - Commissions - Fix commission total amount style in value column.
+
 = 1.4.2 - 30/08/2021 =
 * Fix - Vendor can't see his own product on admin.
 * Dev - Vendors - Create `alg_mpwc_post_types_allowed_to_vendor_on_admin` filter to manage the post types allowed to vendor on admin. Default to `array( 'acf-field-group', 'acf-field' )`.

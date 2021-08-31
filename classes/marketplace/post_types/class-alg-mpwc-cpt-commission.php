@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission custom post type
  *
- * @version 1.3.0
+ * @version 1.4.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -90,7 +90,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		/**
 		 * Setups the post type
 		 *
-		 * @version 1.1.3
+		 * @version 1.4.3
 		 * @since   1.0.0
 		 */
 		public function setup() {
@@ -127,7 +127,8 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 			$section = 'vendors';
 			add_action( "woocommerce_update_options_{$id}_{$section}", array( __CLASS__, 'gives_all_caps_to_roles' ) );
 
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_select2_on_comissions_edit_page' ) );
+			// Enqueue scripts
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
 			// Add a screen options regarding totals
 			add_filter( 'screen_settings', array( $admin_settings, 'add_totals_screen_option' ), 10, 2 );
@@ -159,19 +160,31 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission' ) ) {
 		}
 
 		/**
-		 * Enqueues select2 style on commissions list page
+		 * Enqueues scripts.
 		 *
-		 * @version 1.0.6
+		 * @version 1.4.3
 		 * @since   1.0.6
 		 */
-		public function enqueue_select2_on_comissions_edit_page( $hook ) {
+		public function enqueue_scripts( $hook ) {
 			$screen = get_current_screen();
 			if (
 				$screen->id != 'edit-alg_mpwc_commission'
 			) {
 				return;
 			}
+
+			// Enqueues select2 style on commissions list page.
 			wp_enqueue_style( 'alg_mpwc_select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css' );
+
+			// Fixes the total amount style in the value column.
+			?>
+			<style>
+				.wp-list-table th .woocommerce-Price-amount, .wp-list-table th .woocommerce-Price-currencySymbol{
+					float:none !important;
+				}
+			</style>
+			<?php
+
 		}
 
 		/**
