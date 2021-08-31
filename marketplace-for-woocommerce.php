@@ -59,12 +59,12 @@ if ( ! function_exists( 'alg_mpwc_version_updated' ) ) {
 	/**
 	 * alg_mpwc_version_updated.
 	 *
-	 * @version 1.4.0
+	 * @version 1.4.3
 	 * @since   1.3.6
 	 */
 	function alg_mpwc_version_updated() {
 		update_option( 'alg_wc_marketplace_version', ALG_WC_MARKETPLACE_VERSION );
-		Alg_MPWC_Core::on_plugin_activation( false );
+		Alg_MPWC_Core::activate_plugin( false );
 	}
 }
 

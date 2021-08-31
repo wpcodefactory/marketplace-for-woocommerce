@@ -53,7 +53,8 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.4.3 - 30/08/2021 =
+= 1.4.3 - 31/08/2021 =
+* Fix - Properly flushing rewrite rules on plugin activation now.
 * Fix - Commissions - Fix commission total amount style in value column.
 
 = 1.4.2 - 30/08/2021 =

@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Core Class
  *
- * @version 1.4.2
+ * @version 1.4.3
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -352,13 +352,23 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	}
 
 	/**
-	 * Called when plugin is enabled
+	 * Called when plugin is enabled.
 	 *
-	 * @version 1.4.0
+	 * @version 1.4.3
 	 * @since   1.0.0
 	 */
-	public static function on_plugin_activation( $do_version_update = true ) {
+	public static function on_plugin_activation() {
 		parent::on_plugin_activation();
+		Alg_MPWC_Core::activate_plugin( true );
+	}
+
+	/**
+	 * activate_plugin.
+	 *
+	 * @version 1.4.3
+	 * @since   1.4.3
+	 */
+	public static function activate_plugin( $do_version_update ) {
 
 		// Adds the vendor role
 		Alg_MPWC_Vendor_Role::add_vendor_role();
@@ -373,9 +383,11 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 		// Flush rewrite rules
 		flush_rewrite_rules();
 
+		// Trigger version update `alg_mpwc_version_updated()`
 		if ( $do_version_update ) {
 			delete_option( 'alg_wc_marketplace_version' );
 		}
+
 	}
 
 	/**
