@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor's order view
  *
- * @version 1.0.0
+ * @version 1.4.4
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -11,12 +11,16 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Order_View' ) ) {
 
 	class Alg_MPWC_Vendor_Order_View {
 
+		/**
+		 * Alg_MPWC_Vendor_Order_View constructor.
+		 *
+		 * @version  1.4.4
+		 * @since    1.0.0
+		 *
+		 */
 		function __construct() {
 			// Cleans the order page doing some CSS and JS stuff
 			add_action( 'current_screen', array( $this, 'clean_screen' ) );
-
-			// Prevent users from edit or update the order
-			add_action( 'pre_post_update', array( $this, 'prevent_tampering' ), 10, 2 );
 
 			// Remove order metaboxes
 			add_action( 'add_meta_boxes', array( $this, 'remove_meta_boxes' ), 40 );
@@ -211,18 +215,6 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Order_View' ) ) {
 			add_action( 'admin_print_scripts', array( $this, 'admin_print_scripts' ) );
 		}
 
-		/**
-		 * Prevent users from editing or updating the order
-		 *
-		 * @version  1.0.0
-		 * @since    1.0.0
-		 *
-		 */
-		public function prevent_tampering( $post_id, $data ) {
-			if ( $this->is_read_only_user() && get_post_type( $post_id ) == 'shop_order' ) {
-				wp_die();
-			}
-		}
 	}
 
 }
