@@ -14,7 +14,7 @@ WC tested up to: 5.6
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.4.4-dev-20210920-2045' );
+defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.4.4-dev-20210920-2251' );
 
 /**
  * Check for active plugins.

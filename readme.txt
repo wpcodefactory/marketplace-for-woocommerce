@@ -54,6 +54,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Changelog ==
 
 = 1.4.4 - 20/09/2021 =
+* Fix - Commissions - Compute discounts.
 * Fix - Checkout - "SyntaxError: Unexpected end of JSON input".
 
 = 1.4.3 - 31/08/2021 =

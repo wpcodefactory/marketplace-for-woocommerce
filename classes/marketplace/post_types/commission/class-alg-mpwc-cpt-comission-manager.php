@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.3.2
+ * @version 1.4.4
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -86,7 +86,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates a array of products from an order filtered by vendors
 		 *
-		 * @version 1.1.0
+		 * @version 1.4.4
 		 * @since   1.0.0
 		 *
 		 * @param $order_id
@@ -104,7 +104,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 				if ( ! Alg_MPWC_Vendor_Role::is_user_vendor( $vendor_id ) ) {
 					continue;
 				}
-				$subtotal       = $item->get_subtotal();
+				$subtotal       = (float) $item->get_total( 'edit' );
 				$quantity       = $item->get_quantity();
 				$product_id     = $item->get_product_id();
 				$order_id       = $item->get_order_id();
@@ -131,7 +131,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Gets updated commission info
 		 *
-		 * @version 1.1.0
+		 * @version 1.4.4
 		 * @since   1.1.0
 		 *
 		 * @param        $commission_id
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			$subtotal = 0;
 
 			foreach ( $order_items as $order_item ) {
-				$subtotal += $order_item->get_subtotal();
+				$subtotal += (float) $order_item->get_total( 'edit' );
 			}
 
 			// Override commission values
@@ -264,7 +264,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commissions grouping by author
 		 *
-		 * @version 1.2.2
+		 * @version 1.4.4
 		 * @since   1.2.2
 		 * @param $order_id
 		 */
@@ -282,7 +282,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 				/* @var WC_Order_Item_Product $order_item */
 				foreach ( $order_items as $order_item ) {
 					$post          = get_post( $order_item->get_product_id() );
-					$subtotal      += $order_item->get_subtotal();
+					$subtotal      += (float) $order_item->get_total('edit');
 					$product_ids[] = (string) $order_item->get_product_id();
 					$title_arr[]   = $post->post_title;
 					$vendor_id     = $post->post_author;
@@ -459,7 +459,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates commissions without grouping by author
 		 *
-		 * @version 1.2.3
+		 * @version 1.4.4
 		 * @since   1.2.2
 		 *
 		 * @param $order_id
@@ -477,7 +477,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 					continue;
 				}
 				$vendor_id   = $post->post_author;
-				$subtotal    = $order_item->get_subtotal();
+				$subtotal    = (float) $order_item->get_total( 'edit' );
 				$product_ids = array( (string) $order_item->get_product_id() );
 				$title       = __( 'Commission', 'marketplace-for-woocommerce' ) . ' - ' . $post->post_title;
 				$repetitions = $quantity_separates ? $order_item->get_quantity() : 1;
