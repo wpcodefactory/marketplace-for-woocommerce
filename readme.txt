@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -53,7 +53,7 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.4.4 - 20/09/2021 =
+= 1.4.4 - 21/09/2021 =
 * Fix - Commissions - Compute discounts.
 * Fix - Checkout - "SyntaxError: Unexpected end of JSON input".
 
