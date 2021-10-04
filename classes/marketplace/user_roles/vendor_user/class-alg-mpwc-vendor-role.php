@@ -427,7 +427,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		function handle_single_content_access_from_vendor_on_admin() {
 			if (
 				current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) &&
-				( !defined('DOING_AJAX') || ! DOING_AJAX ) &&
+				( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) &&
 				(
 					( isset( $_REQUEST['post'] ) && ! empty( $post_id = $_REQUEST['post'] ) ) ||
 					( isset( $_REQUEST['post_id'] ) && ! empty( $post_id = $_REQUEST['post_id'] ) ) ||
