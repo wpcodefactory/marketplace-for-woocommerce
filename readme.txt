@@ -53,6 +53,10 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.4.5 - 04/10/2021 =
+* Fix - Vendor can't access some content via ajax on frontend.
+* WC tested up to: 5.7.
+
 = 1.4.4 - 21/09/2021 =
 * Fix - Commissions - Compute discounts.
 * Fix - Checkout - "SyntaxError: Unexpected end of JSON input".

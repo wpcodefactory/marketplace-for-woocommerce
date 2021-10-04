@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.4.2
+ * @version 1.4.5
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -421,12 +421,13 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Limits the vendor to see only its own posts, media, and related commissions and orders on admin single content.
 		 *
-		 * @version 1.4.2
+		 * @version 1.4.5
 		 * @since   1.4.1
 		 */
 		function handle_single_content_access_from_vendor_on_admin() {
 			if (
 				current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) &&
+				( !defined('DOING_AJAX') || ! DOING_AJAX ) &&
 				(
 					( isset( $_REQUEST['post'] ) && ! empty( $post_id = $_REQUEST['post'] ) ) ||
 					( isset( $_REQUEST['post_id'] ) && ! empty( $post_id = $_REQUEST['post_id'] ) ) ||
