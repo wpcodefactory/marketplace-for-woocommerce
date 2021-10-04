@@ -1,13 +1,46 @@
+# Copyright (C) 2021 Algoritmika Ltd
+# This file is distributed under the same license as the Marketplace for WooCommerce plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Marketplace for WooCommerce 1.4.5\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/marketplace-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-10-04T20:57:39+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: marketplace-for-woocommerce\n"
+
+#. Plugin Name of the plugin
+#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:71
+msgid "Marketplace for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/marketplace-for-woocommerce/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Let users sell on your store."
+msgstr ""
+
+#. Author of the plugin
+msgid "Algoritmika Ltd"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://algoritmika.com"
+msgstr ""
+
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:37
 msgid "General"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:66
 msgid "Marketplace Options"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:71
-msgid "Marketplace for WooCommerce"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:72
@@ -46,15 +79,11 @@ msgid "Groups commissions by author."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:93
-msgid ""
-"If an order has products from X unique authors, X commissions will be "
-"created."
+msgid "If an order has products from X unique authors, X commissions will be created."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:94
-msgid ""
-"Note: This option doesn't work with <strong>Quantity separates</strong> "
-"option."
+msgid "Note: This option doesn't work with <strong>Quantity separates</strong> option."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:100
@@ -66,9 +95,7 @@ msgid "Create commissions for each item separately."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:103
-msgid ""
-"If an order has 10 x product A and 15 x product B, 25 commissions will be "
-"created."
+msgid "If an order has 10 x product A and 15 x product B, 25 commissions will be created."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:104
@@ -94,8 +121,7 @@ msgid "Percentage value"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:126
-msgid ""
-"Percentage value that will be transfered to vendors after a sale is made."
+msgid "Percentage value that will be transfered to vendors after a sale is made."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:132
@@ -103,21 +129,15 @@ msgid "Creation status"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:133
-msgid ""
-"When orders change to one of these status, correspondent commissions will be "
-"automatically created."
+msgid "When orders change to one of these status, correspondent commissions will be automatically created."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:134
-msgid ""
-"Note 1: Leave it empty if you do not want to create commissions "
-"automatically."
+msgid "Note 1: Leave it empty if you do not want to create commissions automatically."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:135
-msgid ""
-"Note 2: If you select 2 or more status, commissions will not be created "
-"twice, no worries."
+msgid "Note 2: If you select 2 or more status, commissions will not be created twice, no worries."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:143
@@ -125,15 +145,11 @@ msgid "Refund status"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:144
-msgid ""
-"When orders change to one of these status, correspondent commissions will be "
-"automatically set as \"Need Refund\"."
+msgid "When orders change to one of these status, correspondent commissions will be automatically set as \"Need Refund\"."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:145
-msgid ""
-"Note: Leave it empty if you do not want to set commissions automatically to "
-"\"Need Refund\"."
+msgid "Note: Leave it empty if you do not want to set commissions automatically to \"Need Refund\"."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:153
@@ -145,9 +161,7 @@ msgid "Create"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:155
-msgid ""
-"Sets if you want the commissions with zero total value to be created (e.g. "
-"for orders with zero total sum)."
+msgid "Sets if you want the commissions with zero total value to be created (e.g. for orders with zero total sum)."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:167
@@ -206,7 +220,7 @@ msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:85
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:86
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:594
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:595
 msgid "Marketplace vendor"
 msgstr ""
 
@@ -223,9 +237,7 @@ msgid "Hides info about Wordpress on vendor's admin dashboard."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:93
-msgid ""
-"Hides WordPress logo, footer text \"Thank you for creating with WordPress\" "
-"and disables update notifications."
+msgid "Hides WordPress logo, footer text \"Thank you for creating with WordPress\" and disables update notifications."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:99
@@ -237,8 +249,7 @@ msgid "Display"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:101
-msgid ""
-"Displays a link (By vendor) on product loop pointing to vendor's public page."
+msgid "Displays a link (By vendor) on product loop pointing to vendor's public page."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:107
@@ -266,25 +277,7 @@ msgid "Note:"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:123
-#, php-format
 msgid "It's required to enable %s option in %s."
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:124
-msgid "Allow customers to create an account on the \"My account\" page"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:126
-msgid "WooCommerce"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:126
-#: marketplace-for-woocommerce.php:41
-msgid "Settings"
-msgstr ""
-
-#: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:126
-msgid "Accounts &amp; Privacy"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:131
@@ -296,9 +289,7 @@ msgid "Allow"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:133
-msgid ""
-"Allows users to be automatically approved as vendors on registration, "
-"bypassing the pending status."
+msgid "Allows users to be automatically approved as vendors on registration, bypassing the pending status."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:139
@@ -318,9 +309,7 @@ msgid "Product Tab"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:155
-msgid ""
-"Tab displayed on vendor's product pages with some info about vendor "
-"themselves."
+msgid "Tab displayed on vendor's product pages with some info about vendor themselves."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:159
@@ -336,9 +325,7 @@ msgid "Priority"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:168
-msgid ""
-"Controls the tab position. A lower priority will make it appear before other "
-"tabs."
+msgid "Controls the tab position. A lower priority will make it appear before other tabs."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:174
@@ -365,12 +352,10 @@ msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:183
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:255
-#, php-format
 msgid "Available placeholders: %s."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:194
-#, php-format
 msgid "You can also use shortcodes here, e.g. %s."
 msgstr ""
 
@@ -395,10 +380,7 @@ msgid "E.g.:"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:219
-#, php-format
-msgid ""
-"If it does not work on the first attempt, please go to <a href=\"%s"
-"\">Permalink Settings</a> and save changes."
+msgid "If it does not work on the first attempt, please go to <a href=\"%s\">Permalink Settings</a> and save changes."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:223
@@ -446,7 +428,6 @@ msgid "Shows vendor's rating."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:247
-#, php-format
 msgid "Alternatively you can use shortcode: %s"
 msgstr ""
 
@@ -475,9 +456,7 @@ msgid "Publish products"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:290
-msgid ""
-"Allows vendors to publish products automatically, bypassing the pending "
-"status."
+msgid "Allows vendors to publish products automatically, bypassing the pending status."
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:296
@@ -555,21 +534,18 @@ msgid "Select a vendor"
 msgstr ""
 
 #: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:200
-#, php-format
 msgid "Set %s commission as paid."
 msgid_plural "Set %s commissions as paid."
 msgstr[0] ""
 msgstr[1] ""
 
 #: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:210
-#, php-format
 msgid "Set %s commission as unpaid."
 msgid_plural "Set %s commissions as unpaid."
 msgstr[0] ""
 msgstr[1] ""
 
 #: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:283
-#, php-format
 msgid "Set as %s"
 msgstr ""
 
@@ -670,9 +646,7 @@ msgid "Deal"
 msgstr ""
 
 #: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:353
-msgid ""
-"Combination of fixed value / percentage settled when this commission was "
-"created"
+msgid "Combination of fixed value / percentage settled when this commission was created"
 msgstr ""
 
 #: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-admin-settings.php:382
@@ -683,16 +657,8 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:349
-msgid "Product"
-msgstr ""
-
 #: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:350
 msgid "Commission Value"
-msgstr ""
-
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:376
-msgid "Total"
 msgstr ""
 
 #: classes/marketplace/taxonomies/class-alg-mpwc-commission-status-tax.php:167
@@ -728,7 +694,6 @@ msgid "New Status Name"
 msgstr ""
 
 #: classes/marketplace/user_roles/class-alg-mpwc-vendor-user.php:127
-#, php-format
 msgid "Go to %s"
 msgstr ""
 
@@ -809,21 +774,15 @@ msgid "Commission values"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:284
-msgid ""
-"Note: In case of empty values, the default ones will be used from "
-"Marketplace settings"
+msgid "Note: In case of empty values, the default ones will be used from Marketplace settings"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:293
-msgid ""
-"Note: Use 0 if you do not want fixed values. Empty values will be "
-"interpreted as default values from settings"
+msgid "Note: Use 0 if you do not want fixed values. Empty values will be interpreted as default values from settings"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:304
-msgid ""
-"Note: Use 0 if you do not want percentages. Empty values will be interpreted "
-"as default values from settings"
+msgid "Note: Use 0 if you do not want percentages. Empty values will be interpreted as default values from settings"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:125
@@ -831,73 +790,22 @@ msgid "Dashboard"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:145
-#, php-format
-msgid ""
-"Manage your Marketplace through the <a href=\"%s\"><span style=\"text-"
-"decoration: underline\">admin dashboard</span></a>"
+msgid "Manage your Marketplace through the <a href=\"%s\"><span style=\"text-decoration: underline\">admin dashboard</span></a>"
 msgstr ""
 
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-marketplace-tab.php:149
-#, php-format
 msgid "See your <a href=\"%s\">public page</a>"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-registration-email.php:142
-#, php-format
-msgid ""
-"This controls the main heading contained within the email notification. "
-"Leave blank to use the default heading: <code>%s</code>."
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:452
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:453
 msgid "Sorry, you are not allowed to edit this item."
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:472
-msgid "All"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:473
-msgid "Published"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:474
-msgid "Private"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:475
-msgid "Pending Review"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:476
-msgid "Scheduled"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:477
-msgid "Draft"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:478
-msgid "Trash"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:490
-msgid "Processing"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:491
-msgid "On hold"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:492
-msgid "Completed"
-msgstr ""
-
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:641
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:642
 msgid "pending"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:642
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:643
 msgid "rejected"
 msgstr ""
 
@@ -906,35 +814,22 @@ msgid "Hello"
 msgstr ""
 
 #: classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php:56
-#, php-format
-msgid ""
-"Create/edit products by clicking on your left menu <strong><a "
-"href='%s'>Products</a></strong>"
+msgid "Create/edit products by clicking on your left menu <strong><a href='%s'>Products</a></strong>"
 msgstr ""
 
 #: classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php:57
-#, php-format
-msgid ""
-"Edit your profile by clicking on your left menu <strong><a "
-"href='%s'>Profile</a></strong>"
+msgid "Edit your profile by clicking on your left menu <strong><a href='%s'>Profile</a></strong>"
 msgstr ""
 
 #: classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php:58
-#, php-format
-msgid ""
-"View your commissions through your left menu <strong><a "
-"href='%s'>Commissions</a></strong>"
+msgid "View your commissions through your left menu <strong><a href='%s'>Commissions</a></strong>"
 msgstr ""
 
 #: classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php:59
-#, php-format
-msgid ""
-"Go to <strong><a href='%s'>My Account</a></strong> page on frontend "
-"<strong><a href='%1$s'>clicking here</a></strong>"
+msgid "Go to <strong><a href='%s'>My Account</a></strong> page on frontend <strong><a href='%1$s'>clicking here</a></strong>"
 msgstr ""
 
 #: classes/marketplace/widgets/dashboard/class-alg-mpwc-dashboard-widgets.php:60
-#, php-format
 msgid "See your <strong><a href='%s'>Public page</a></strong> on frontend"
 msgstr ""
 
@@ -955,15 +850,9 @@ msgid "Title:"
 msgstr ""
 
 #: templates/emails/marketplace-vendor-registration.php:13
-#, php-format
-msgid ""
-"The user <a href=\"%s\" target=\"_blank\">%s</a> has just registered as a "
-"Vendor."
+msgid "The user <a href=\"%s\" target=\"_blank\">%s</a> has just registered as a Vendor."
 msgstr ""
 
 #: templates/emails/marketplace-vendor-registration.php:17
-#, php-format
-msgid ""
-"Approve <strong>%s</strong> as a Vendor on <a target=\"_blank\" href=\"%s"
-"\">its profile page</a>"
+msgid "Approve <strong>%s</strong> as a Vendor on <a target=\"_blank\" href=\"%s\">its profile page</a>"
 msgstr ""
