@@ -53,6 +53,10 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
+= 1.4.6 - 26/10/2021 =
+* Fix - Links from vendor do not work in some environments.
+* WC tested up to: 5.8.
+
 = 1.4.5 - 04/10/2021 =
 * Fix - Vendor can't access some content via ajax on frontend.
 * WC tested up to: 5.7.

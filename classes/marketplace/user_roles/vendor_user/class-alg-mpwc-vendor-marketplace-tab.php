@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Marketplace tab
  *
- * @version 1.2.0
+ * @version 1.4.6
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -115,7 +115,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 		/**
 		 * Endpoint HTML content.
 		 *
-		 * @version 1.2.0
+		 * @version 1.4.6
 		 * @since   1.0.0
 		 */
 		public function endpoint_content() {
@@ -130,25 +130,28 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Marketplace_Tab' ) ) {
 					$is_active = ( $section_id === $current_section );
 					$link      = apply_filters( 'alg_mpwc_vendor_marketplace_tab_section_link', add_query_arg( 'section', $section_id, wc_get_endpoint_url( 'marketplace' ) ), $section_id, $current_user );
 					$links[]   = '<li style="display: inline;"' . ( $is_active ? ' class="alg_mpwc_vendor_marketplace_tab_section_active"' : '' ) . '>' .
-						'<a' . ( $is_active ? ' style="color: black; font-weight: bold;" class="alg_mpwc_vendor_marketplace_tab_section_active"' : '' ) . ' href="' .
-							$link . '">' . $section_title . '</a>' .
-					'</li>';
+					             '<a' . ( $is_active ? ' style="color: black; font-weight: bold;" class="alg_mpwc_vendor_marketplace_tab_section_active"' : '' ) . ' href="' .
+					             $link . '">' . $section_title . '</a>' .
+					             '</li>';
 				}
 				echo '<ul class="alg_mpwc_vendor_marketplace_tab_section" style="list-style-type: none; margin: 0; padding: 0;">' . implode( ' | ', $links ) . '</ul>' .
-					'<br class="clear">';
+				     '<br class="clear">';
 			}
 			if ( 'dashboard' === $current_section ) {
 				do_action( 'alg_mpwc_vendor_marketplace_tab_before_dashboard_section_content', $current_user );
 				$dashboard_content = array();
-				if ( get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_ENTER_ADMIN, 'yes' ) === 'yes' ) {
-					$dashboard_content['admin_dashboard'] = sprintf(
-						__( 'Manage your Marketplace through the <a href="%s"><span style="text-decoration: underline">admin dashboard</span></a>', 'marketplace-for-woocommerce' ),
-						admin_url()
-					);
+				if ( 'yes' === get_option( Alg_MPWC_Settings_Vendor::OPTION_CAPABILITIES_ENTER_ADMIN, 'yes' ) ) {
+					$dashboard_content['admin_dashboard'] = __( 'Manage your Marketplace through the <a href="{{admin_url}}"><span style="text-decoration: underline">admin dashboard</span></a>', 'marketplace-for-woocommerce' );
 				}
-				$dashboard_content['public_page'] = sprintf( __( 'See your <a href="%s">public page</a>', 'marketplace-for-woocommerce' ),
-					Alg_MPWC_Vendor_Public_Page::get_public_page_url( $current_user->ID ) );
-				$dashboard_content = apply_filters( 'alg_mpwc_vendor_marketplace_tab_dashboard_section_content', $dashboard_content );
+				$dashboard_content['public_page'] = sprintf( __( 'See your <a href="{{vendor_public_page}}">public page</a>', 'marketplace-for-woocommerce' ) );
+				$dashboard_content                = array_map( function ( $value ) {
+					$from_to = array(
+						'{{admin_url}}'          => admin_url(),
+						'{{vendor_public_page}}' => Alg_MPWC_Vendor_Public_Page::get_public_page_url( wp_get_current_user()->ID ),
+					);
+					return str_replace( array_keys( $from_to ), $from_to, $value );
+				}, $dashboard_content );
+				$dashboard_content                = apply_filters( 'alg_mpwc_vendor_marketplace_tab_dashboard_section_content', $dashboard_content );
 				if ( ! empty( $dashboard_content ) ) {
 					echo '<ul class="alg_mpwc_vendor_marketplace_tab_dashboard_section_content"><li>' . implode( '</li><li>', $dashboard_content ) . '</li></ul>';
 				}

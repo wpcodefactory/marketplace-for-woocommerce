@@ -3,13 +3,13 @@
 Plugin Name: Marketplace for WooCommerce
 Plugin URI: https://wordpress.org/plugins/marketplace-for-woocommerce/
 Description: Let users sell on your store.
-Version: 1.4.5
+Version: 1.4.6
 Author: Algoritmika Ltd
 Author URI: https://algoritmika.com
 Text Domain: marketplace-for-woocommerce
 Domain Path: /langs
 WC requires at least: 3.0.0
-WC tested up to: 5.7
+WC tested up to: 5.8
 */
 
 defined( 'ABSPATH' ) || exit;
