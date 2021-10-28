@@ -370,7 +370,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * @todo check why DOING_AJAX check was necessary. Right now it doesn't work with the media library page using the grid mode.
 		 *
-		 * @version 1.4.2
+		 * @version 1.4.6
 		 * @since   1.0.0
 		 */
 		public function handle_loop_content_access_from_vendor_on_admin( $query ) {
