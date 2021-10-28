@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor role
  *
- * @version 1.4.5
+ * @version 1.4.6
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -411,10 +411,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			else {
 				$query->set( 'author', $user_id );
 			}
-			add_filter( 'views_edit-' . $post_type . '', array(
-				$this,
-				'views_filter_for_own_posts',
-			), 999 );
+			add_filter( 'views_edit-' . $post_type . '', array( $this, 'fix_own_vendor_post_statuses', ), 999 );
 			return $query;
 		}
 
@@ -456,106 +453,79 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		}
 
 		/**
+		 * get_query_for_commission_or_order.
+		 *
+		 * @version 1.4.6
+		 * @since   1.4.6
+		 *
+		 * @param null $args
+		 *
+		 * @return array
+		 */
+		function get_query_for_commission_or_order( $args = null ) {
+			$args           = wp_parse_args( $args, array(
+				'post_type'      => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
+				'meta_query_key' => $args['meta_query_key'],
+				'user_id'        => get_current_user_id()
+			) );
+			$post_type      = $args['post_type'];
+			$meta_query_key = $args['meta_query_key'];
+			$user_id        = $args['user_id'];
+			$query          = array(
+				'post_type' => $post_type,
+				'meta_query',
+				array(
+					array(
+						'key'     => $meta_query_key,
+						'value'   => array( $user_id ),
+						'compare' => 'IN',
+					),
+				),
+			);
+			return $query;
+		}
+
+		/**
 		 * Fixes the post count.
 		 *
-		 * @see     https://wordpress.stackexchange.com/a/178250/25264
+		 * @version 1.4.6
+		 * @since   1.4.1
 		 *
-		 * @return  mixed
+		 * @see https://wordpress.stackexchange.com/a/178250/25264
+		 *
+		 * @param $views
+		 *
+		 * @return mixed
 		 */
-		public function views_filter_for_own_posts( $views ) {
+		function fix_own_vendor_post_statuses( $views ) {
 			$post_type      = get_query_var( 'post_type' );
 			$author         = get_current_user_id();
 			$commission_cpt = new Alg_MPWC_CPT_Commission();
-
-			unset( $views['mine'] );
-
-			$new_views = array(
-				'all'     => __( 'All' ),
-				'publish' => __( 'Published' ),
-				'private' => __( 'Private' ),
-				'pending' => __( 'Pending Review' ),
-				'future'  => __( 'Scheduled' ),
-				'draft'   => __( 'Draft' ),
-				'trash'   => __( 'Trash' ),
-			);
-
-			if ( $post_type == 'shop_order' ) {
-
-				unset( $new_views['publish'] );
-				unset( $new_views['private'] );
-				unset( $new_views['pending'] );
-				unset( $new_views['future'] );
-				unset( $new_views['draft'] );
-
-				$order_views = array(
-					'wc-processing' => __( 'Processing', 'woocommerce' ),
-					'wc-on-hold'    => __( 'On hold', 'woocommerce' ),
-					'wc-completed'  => __( 'Completed', 'woocommerce' ),
-				);
-				$new_views   = array_merge( $new_views, $order_views );
-			}
-
-			$user_id = get_current_user_id();
-
-			foreach ( $new_views as $view => $name ) {
-
+			foreach ( $views as $view => $name ) {
 				if ( $post_type == $commission_cpt->id ) {
-					$query = array(
-						'post_type' => $post_type,
-						'meta_query',
-						array(
-							array(
-								'key'     => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID,
-								'value'   => array( $user_id ),
-								'compare' => 'IN',
-							),
-						),
-					);
+					$query = $this->get_query_for_commission_or_order( array(
+						'post_type'      => $post_type,
+						'meta_query_key' => Alg_MPWC_Post_Metas::COMMISSION_AUTHOR_ID
+					) );
 				} else if ( $post_type == 'shop_order' ) {
-					$query = array(
-						'post_type' => $post_type,
-						'meta_query',
-						array(
-							array(
-								'key'     => Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR,
-								'value'   => array( $user_id ),
-								'compare' => 'IN',
-							),
-						),
-					);
+					$query = $this->get_query_for_commission_or_order( array(
+						'post_type'      => $post_type,
+						'meta_query_key' => Alg_MPWC_Post_Metas::ORDER_RELATED_VENDOR
+					) );
 				} else {
 					$query = array(
 						'author'    => $author,
-						'post_type' => $post_type,
+						'post_type' => $post_type
 					);
 				}
-
-				if ( $view == 'all' ) {
-					$query['all_posts'] = 1;
-					$class              = ( get_query_var( 'all_posts' ) == 1 || get_query_var( 'post_status' ) == '' ) ? ' class="current"' : '';
-					$url_query_var      = 'all_posts=1';
-					if ( $post_type == 'shop_order' ) {
-						$query['post_status'] = $view;
-					}
-				} else {
-					$query['post_status'] = $view;
-					$class                = ( get_query_var( 'post_status' ) == $view ) ? ' class="current"' : '';
-					$url_query_var        = 'post_status=' . $view;
-				}
-
-				$result = new WP_Query( $query );
-
+				$query['post_status'] = $view;
+				$result               = new WP_Query( $query );
 				if ( $result->found_posts > 0 ) {
-					$views[ $view ] = sprintf(
-						'<a href="%s"' . $class . '>' . __( $name ) . ' <span class="count">(%d)</span></a>',
-						admin_url( 'edit.php?' . $url_query_var . '&post_type=' . $post_type ),
-						$result->found_posts
-					);
+					$views[ $view ] = preg_replace( '/\(.+\)/U', '(' . $result->found_posts . ')', $views[ $view ] );
 				} else {
 					unset( $views[ $view ] );
 				}
 			}
-
 			return $views;
 		}
 
