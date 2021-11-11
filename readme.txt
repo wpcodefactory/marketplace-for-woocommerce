@@ -53,10 +53,10 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 == Changelog ==
 
-= 1.4.6 - 28/10/2021 =
+= 1.4.6 - 10/11/2021 =
 * Fix - Own vendor post statuses are showing wrong results on admin.
 * Fix - Links from vendor do not work in some environments.
-* WC tested up to: 5.8.
+* WC tested up to: 5.9.
 
 = 1.4.5 - 04/10/2021 =
 * Fix - Vendor can't access some content via ajax on frontend.
