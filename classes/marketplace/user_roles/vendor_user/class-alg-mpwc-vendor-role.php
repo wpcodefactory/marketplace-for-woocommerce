@@ -38,7 +38,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		/**
 		 * Initializes the vendor role manager.
 		 *
-		 * @version 1.4.1
+		 * @version 1.4.6
 		 * @since   1.0.0
 		 */
 		public function init() {
@@ -97,6 +97,25 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 			// Remove WooCommerce menu
 			add_action( 'admin_menu', array( $this, 'remove_woocommerce_menu' ) );
 
+			// Remove bulk actions dropdown from orders admin page.
+			add_filter( 'bulk_actions-edit-' . 'shop_order', array( $this, 'remove_bulk_actions_input' ), 99 );
+		}
+
+		/**
+		 * remove_bulk_actions_input.
+		 *
+		 * @version 1.4.6
+		 * @since   1.4.6
+		 *
+		 * @param $actions
+		 *
+		 * @return array
+		 */
+		function remove_bulk_actions_input( $actions ) {
+			if ( current_user_can( Alg_MPWC_Vendor_Role::ROLE_VENDOR ) ) {
+				$actions = array();
+			}
+			return $actions;
 		}
 
 		/**
