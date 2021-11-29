@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 1.4.6
+Stable tag: 1.4.7
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -27,7 +27,7 @@ Let users sell on your store.
 
 ### **&#x5b;&#x5c;&#x5d;** Shortcodes ###
 
-**`[alg_mpwc_vendor_img]`** : Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content.** Params:
+**`[alg_mpwc_vendor_img]`** : Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content**. Shortcode params:
 
 * **`img_type`**: Type of image returned. Values allowed: `gravatar` or `store_logo`.
 * **`gravatar_size`**: Size of image if `img_type` is set as `gravatar`.
