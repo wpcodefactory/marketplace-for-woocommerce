@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.4.2
+ * @version 1.4.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -64,7 +64,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.4.2
+	 * @version 1.4.7
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (desc) remove "If it does not work on the first attempt, please go to Permalink Settings and save changes."
@@ -96,14 +96,6 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'type'        => 'checkbox',
 			),
 			array(
-				'title'       => __( 'Authorship on product loop', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Display', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( "Displays a link (By vendor) on product loop pointing to vendor's public page.", 'marketplace-for-woocommerce' ),
-				'id'          => self::OPTION_AUTHORSHIP_PRODUCT_LOOP,
-				'default'     => 'yes',
-				'type'        => 'checkbox',
-			),
-			array(
 				'title'       => __( 'Redirect to admin on login', 'marketplace-for-woocommerce' ),
 				'desc'        => __( 'Redirect', 'marketplace-for-woocommerce' ),
 				'desc_tip'    => __( "Redirects vendors to admin after login.", 'marketplace-for-woocommerce' ),
@@ -115,7 +107,34 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'type'        => 'sectionend',
 				'id'          => 'alg_mpwc_vendors_opt',
 			),
-
+			array(
+				'title' => __( 'Product loop info', 'marketplace-for-woocommerce' ),
+				'type'  => 'title',
+				'desc'  => __( 'Some info that can be displayed on vendor\'s product loop about the vendor itself.', 'marketplace-for-woocommerce' ) . '<br />' .
+				           sprintf( __( 'You can find documentation regarding %s shortcode on <a href="%s" target="_blank">wp.org plugin\'s description</a>', 'marketplace-for-woocommerce' ), '<code>[alg_mpwc_vendor_img]</code>', 'https://wordpress.org/plugins/marketplace-for-woocommerce/' ),
+				'id'    => 'alg_mpwc_product_loop_vendor_info_options',
+			),
+			array(
+				'title'       => __( 'Product loop info', 'marketplace-for-woocommerce' ),
+				'desc'        => __( "Display info on vendor's product loop.", 'marketplace-for-woocommerce' ),
+				'id'          => self::OPTION_AUTHORSHIP_PRODUCT_LOOP,
+				'default'     => 'yes',
+				'type'        => 'checkbox',
+			),
+			array(
+				'title'        => __( 'Info\'s content', 'marketplace-for-woocommerce' ),
+				'desc'         => __( 'Template variables:', 'marketplace-for-woocommerce' ) . ' ' . alg_marketplace_for_wc()->convert_array_to_string( array( 'store_url', 'store_title' ), array( 'item_template' => '<code>%{value}%</code>' ) ) . '<br />' .
+				                  __( 'Shortcodes:', 'marketplace-for-woocommerce' ) . ' ' . alg_marketplace_for_wc()->convert_array_to_string( array( '[alg_mpwc_vendor_img]' ), array( 'item_template' => '<code>{value}</code>' ) ),
+				'desc_tip'     => __( "Info displayed on vendor products.", 'marketplace-for-woocommerce' ),
+				'id'           => 'alg_mpwc_product_loop_vendor_info',
+				'alg_mpwc_raw' => true,
+				'default'      => '<div><a href="%store_url%">By %store_title%</a></div>',
+				'type'         => 'text',
+			),
+			array(
+				'type'        => 'sectionend',
+				'id'          => 'alg_mpwc_product_loop_vendor_info_options',
+			),
 			// Registration
 			array(
 				'title'       => __( 'Registration', 'marketplace-for-woocommerce' ),

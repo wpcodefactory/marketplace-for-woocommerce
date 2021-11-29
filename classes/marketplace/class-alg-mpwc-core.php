@@ -15,6 +15,16 @@ if ( ! class_exists( 'Alg_MPWC_Core' ) ) :
 class Alg_MPWC_Core extends Alg_WP_Plugin {
 
 	/**
+	 * vendor_user.
+	 *
+	 * @version 1.4.7
+	 * @since   1.4.7
+	 *
+	 * @var Alg_MPWC_Vendor_User
+	 */
+	public $vendor_user;
+
+	/**
 	 * @var Alg_MPWC_CPT_Commission_Recalculator_Bkg_Process
 	 */
 	public static $bkg_process_commission_recalculator;
@@ -46,6 +56,24 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 
 		// Shortcodes
 		add_shortcode( 'vendor_rating', array( $this, 'vendor_rating_shortcode' ) );
+		add_shortcode( 'alg_mpwc_vendor_img', array( $this, 'alg_mpwc_vendor_img' ) );
+	}
+
+	/**
+	 * alg_mpwc_vendor_img.
+	 *
+	 * @version 1.4.7
+	 * @since   1.4.7
+	 *
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	function alg_mpwc_vendor_img( $atts ) {
+		$atts  = empty( $atts ) ? array() : $atts;
+		$atts  = shortcode_atts( $atts, $atts, 'alg_mpwc_vendor_img' );
+		$image = $this->vendor_user->get_vendor_image( $atts );
+		return $image;
 	}
 
 	/**
@@ -183,11 +211,11 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 	/**
 	 * Setups the plugin.
 	 *
-	 * @version 1.1.9
+	 * @version 1.4.7
 	 * @since   1.0.0
 	 */
 	public function setup_plugin() {
-		new Alg_MPWC_Vendor_User();
+		$this->vendor_user = new Alg_MPWC_Vendor_User();
 		new Alg_MPWC_Shop_Manager_User();
 		add_action( 'widgets_init', array( $this, 'create_widgets' ) );
 		add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widgets' ) );
@@ -461,6 +489,29 @@ class Alg_MPWC_Core extends Alg_WP_Plugin {
 			'%vendor_id%'      => $vendor_id,
 		);
 		return str_replace( array_keys( $placeholders ), $placeholders, $template );
+	}
+
+	/**
+	 * converts array to string.
+	 *
+	 * @version 1.4.7
+	 * @since   1.4.7
+	 *
+	 * @param $arr
+	 * @param array $args
+	 *
+	 * @return string
+	 */
+	function convert_array_to_string( $arr, $args = array() ) {
+		$args            = wp_parse_args( $args, array(
+			'glue'          => ', ',
+			'item_template' => '{value}' //  {key} and {value} allowed
+		) );
+		$transformed_arr = array_map( function ( $key, $value ) use ( $args ) {
+			$item = str_replace( array( '{key}', '{value}' ), array( $key, $value ), $args['item_template'] );
+			return $item;
+		}, array_keys( $arr ), $arr );
+		return implode( $args['glue'], $transformed_arr );
 	}
 
 }

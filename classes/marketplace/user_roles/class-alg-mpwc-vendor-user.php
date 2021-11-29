@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor user
  *
- * @version 1.4.2
+ * @version 1.4.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -147,14 +147,13 @@ class Alg_MPWC_Vendor_User {
 	/**
 	 * Displays the product's author on product loop.
 	 *
-	 * @version 1.0.2
+	 * @version 1.4.7
 	 * @since   1.0.0
 	 */
 	public function display_product_author_on_loop() {
 		global $post;
-		$user = get_user_by( 'ID', $post->post_author );
+		$user                    = get_user_by( 'ID', $post->post_author );
 		$authorship_link_enabled = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_AUTHORSHIP_PRODUCT_LOOP, true ), FILTER_VALIDATE_BOOLEAN );
-
 		if (
 			! $user ||
 			! in_array( Alg_MPWC_Vendor_Role::ROLE_VENDOR, $user->roles ) ||
@@ -162,13 +161,59 @@ class Alg_MPWC_Vendor_User {
 		) {
 			return;
 		}
+		$fields                = new Alg_MPWC_Vendor_Admin_Fields();
+		$user_public_page_url  = Alg_MPWC_Vendor_Public_Page::get_public_page_url( $post->post_author );
+		$store_title           = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_store_title, true ) );
+		$title                 = $store_title ? $store_title : $user->display_name;
+		$array_from_to         = array(
+			'%store_url%'   => esc_url( $user_public_page_url ),
+			'%store_title%' => esc_html( $title ),
+		);
+		$prod_loop_vendor_info = get_option( 'alg_mpwc_product_loop_vendor_info', '<div><a href="%store_url%">By %store_title%</a></div>' );
+		$prod_loop_vendor_info = str_replace( array_keys( $array_from_to ), $array_from_to, $prod_loop_vendor_info );
+		echo wp_kses_post( do_shortcode( $prod_loop_vendor_info ) );
+	}
 
-		$fields               = new Alg_MPWC_Vendor_Admin_Fields();
-		$user_public_page_url = Alg_MPWC_Vendor_Public_Page::get_public_page_url( $post->post_author );
-		$store_title          = sanitize_text_field( get_user_meta( $user->ID, $fields->meta_store_title, true ) );
-		$title                = $store_title ? $store_title : $user->display_name;
-
-		echo '<div class="alg-mpwc-product-author"><a href="' . $user_public_page_url . '">By ' . $title . '</a></div>';
+	/**
+	 * get_vendor_image.
+	 *
+	 * @version 1.4.7
+	 * @since   1.4.7
+	 *
+	 * @param null $args
+	 *
+	 * @return string
+	 */
+	function get_vendor_image( $args = null ) {
+		global $post;
+		$args = wp_parse_args( $args, array(
+			'img_type'    => 'store_logo', //store_logo | gravatar
+			'vendor'        => '',
+			'vendor_id'     => '',
+			'post_id'       => ! empty( $post ) ? $post->ID : '',
+			'gravatar_size' => 32,
+			'logo_style'    => ''
+		) );
+		// Get vendor
+		$vendor = $args['vendor'];
+		if ( ! is_a( $vendor, 'WP_User' ) ) {
+			$vendor_id = ! is_numeric( $args['vendor_id'] ) && is_numeric( $args['post_id'] ) ? get_post_field( 'post_author', intval( $args['post_id'] ) ) : $args['vendor_id'];
+			$vendor = is_numeric( $vendor_id ) ? get_user_by( 'id', intval( $vendor_id ) ) : ( is_numeric( $args['post_id'] ) ? get_post_field( 'post_author', intval( $args['post_id'] ) ) : $vendor );
+		}
+		if ( ! is_a( $vendor, 'WP_User' ) ) {
+			return '';
+		}
+		$fields = new Alg_MPWC_Vendor_Admin_Fields();
+		$image  = '';
+		if ( 'store_logo' === $args['img_type'] ) {
+			$logo_id = filter_var( get_user_meta( $vendor->ID, $fields->meta_logo . '_id', true ), FILTER_VALIDATE_INT );
+			if ( $logo_id ) {
+				$image = wp_get_attachment_image( $logo_id, 'full', false, array( 'style' => sanitize_text_field( $args['logo_style'] ) ) );
+			}
+		} elseif ( 'gravatar' === $args['img_type'] ) {
+			$image = get_avatar( $vendor, intval( $args['gravatar_size'] ) );
+		}
+		return $image;
 	}
 
 	/**

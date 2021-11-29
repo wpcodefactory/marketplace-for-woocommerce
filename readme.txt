@@ -25,6 +25,16 @@ Let users sell on your store.
 * Commissions can be manually or automatically created on order complete, processing, you choose it.
 * Vendor's products have a tab displaying info about the vendor, like its logo and description.
 
+### **&#x5b;&#x5c;&#x5d;** Shortcodes ###
+
+**`[alg_mpwc_vendor_img]`** : Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content.** Params:
+
+* **`img_type`**: Type of image returned. Values allowed: `gravatar` or `store_logo`.
+* **`gravatar_size`**: Size of image if `img_type` is set as `gravatar`.
+* **`logo_style`**: Image style if `img_type` is set as `store_logo`.
+* **`vendor_id`**: Id from vendor.
+* **`post_id`**: Id from product.
+
 == Frequently Asked Questions ==
 
 = Where are the plugin's settings? =
@@ -52,6 +62,10 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Screenshots ==
 
 == Changelog ==
+
+= 1.4.7 - 29/11/2021 =
+* Dev - Create `[alg_mpwc_vendor_img]` shortcode.
+* Dev - Vendors - Product loop info - Create "Info's content" option.
 
 = 1.4.6 - 26/11/2021 =
 * Fix - Remove bulk actions dropdown from vendors orders admin page.

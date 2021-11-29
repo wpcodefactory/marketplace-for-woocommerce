@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Admin settings
  *
- * @version 1.3.6
+ * @version 1.4.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -17,15 +17,36 @@ if ( ! class_exists( 'Alg_MPWC_Admin_Settings' ) ) {
 		/**
 		 * Constructor
 		 *
-		 * @version 1.0.0
+		 * @version 1.4.7
 		 * @since   1.0.0
 		 */
 		function __construct() {
+			add_filter( 'woocommerce_admin_settings_sanitize_option', array( $this, 'sanitize_raw_parameter' ), 10, 3 );
 			add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_woocommerce_settings_tab' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 			new Alg_MPWC_Settings_General();
 			new Alg_MPWC_Settings_Vendor();
 			add_action( 'admin_menu', array( $this, 'create_admin_marketplace_menu' ), 99 );
+		}
+
+		/**
+		 * maybe_unsanitize_option.
+		 *
+		 * @version 1.4.7
+		 * @since   1.4.7
+		 *
+		 * @param $value
+		 * @param $option
+		 * @param $raw_value
+		 *
+		 * @return mixed|string
+		 */
+		function sanitize_raw_parameter( $value, $option, $raw_value ) {
+			if ( ! isset( $option['alg_mpwc_raw'] ) || empty( $option['alg_mpwc_raw'] ) ) {
+				return $value;
+			}
+			$new_value = wp_kses_post( trim( $raw_value ) );
+			return $new_value;
 		}
 
 		/**
