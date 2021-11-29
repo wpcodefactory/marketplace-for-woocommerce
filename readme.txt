@@ -27,7 +27,7 @@ Let users sell on your store.
 
 ### **&#x5b;&#x5c;&#x5d;** Shortcodes ###
 
-**`[alg_mpwc_vendor_img]`** : Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content**. Shortcode params:
+**`[alg_mpwc_vendor_img]`** : Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content** option. Shortcode params:
 
 * **`img_type`**: Type of image returned. Values allowed: `gravatar` or `store_logo`.
 * **`gravatar_size`**: Size of image if `img_type` is set as `gravatar`.
