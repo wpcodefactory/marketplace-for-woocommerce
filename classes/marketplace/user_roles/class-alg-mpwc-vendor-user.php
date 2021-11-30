@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendor user
  *
- * @version 1.4.7
+ * @version 1.4.8
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -15,7 +15,7 @@ class Alg_MPWC_Vendor_User {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.0.0
+	 * @version 1.4.8
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -40,7 +40,7 @@ class Alg_MPWC_Vendor_User {
 		new Alg_MPWC_Vendor_Marketplace_Tab();
 
 		// Adds (By vendor name) on product loop
-		add_action( 'woocommerce_after_shop_loop_item', array( $this, 'display_product_author_on_loop' ), 9 );
+		add_action( apply_filters( 'alg_mpwc_loop_vendor_info_filter', 'woocommerce_after_shop_loop_item' ), array( $this, 'display_product_author_on_loop' ), 9 );
 
 		// Product tab
 		add_filter( 'woocommerce_product_tabs', array( $this, 'add_tab_on_product' ) );
@@ -147,7 +147,7 @@ class Alg_MPWC_Vendor_User {
 	/**
 	 * Displays the product's author on product loop.
 	 *
-	 * @version 1.4.7
+	 * @version 1.4.8
 	 * @since   1.0.0
 	 */
 	public function display_product_author_on_loop() {
@@ -169,7 +169,7 @@ class Alg_MPWC_Vendor_User {
 			'%store_url%'   => esc_url( $user_public_page_url ),
 			'%store_title%' => esc_html( $title ),
 		);
-		$prod_loop_vendor_info = get_option( 'alg_mpwc_product_loop_vendor_info', '<div><a href="%store_url%">By %store_title%</a></div>' );
+		$prod_loop_vendor_info = get_option( 'alg_mpwc_product_loop_vendor_info', '<div class="alg-mpwc-product-author"><a href="%store_url%">By %store_title%</a></div>' );
 		$prod_loop_vendor_info = str_replace( array_keys( $array_from_to ), $array_from_to, $prod_loop_vendor_info );
 		echo wp_kses_post( do_shortcode( $prod_loop_vendor_info ) );
 	}

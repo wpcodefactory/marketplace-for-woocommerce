@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Settings Section
  *
- * @version 1.3.6
+ * @version 1.4.8
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -34,6 +34,20 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Section' ) ) :
 				$this,
 				'get_settings',
 			), PHP_INT_MAX );
+		}
+
+		/**
+		 * generate_faq_question_url.
+		 *
+		 * @version 1.4.8
+		 * @since   1.0.0
+		 *
+		 * @param $question
+		 *
+		 * @return string
+		 */
+		function generate_faq_question_url( $question ) {
+			return 'https://wordpress.org/plugins/marketplace-for-woocommerce/#' . rawurlencode( strtolower( $question ) );
 		}
 
 		/**

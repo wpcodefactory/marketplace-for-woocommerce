@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.4.7
+ * @version 1.4.8
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -14,25 +14,26 @@ if ( ! class_exists( 'Alg_MPWC_Settings_Vendor' ) ) :
 
 class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
-	const OPTION_ROLE_LABEL                      = 'alg_mpwc_opt_vendor_role_label';
-	const OPTION_PUBLIC_PAGE_SLUG                = 'alg_mpwc_opt_public_page_slug';
-	const OPTION_PUBLIC_PAGE_LOGO                = 'alg_mpwc_opt_public_page_logo';
-	const OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL     = 'alg_mpwc_opt_public_page_shop_link_label';
-	const OPTION_CAPABILITIES_PUBLISH_PRODUCTS   = 'alg_mpwc_opt_vendor_caps_publish_products';
-	const OPTION_CAPABILITIES_DELETE_PRODUCTS    = 'alg_mpwc_opt_vendor_caps_delete_products';
-	const OPTION_CAPABILITIES_UPLOAD_FILES       = 'alg_mpwc_opt_vendor_caps_upload_files';
-	const OPTION_CAPABILITIES_VIEW_ORDERS        = 'alg_mpwc_opt_vendor_caps_view_orders';
-	const OPTION_CAPABILITIES_ENTER_ADMIN        = 'alg_mpwc_opt_vendor_caps_enter_admin';
-	const OPTION_HIDE_VENDOR_WP_INFO             = 'alg_mpwc_opt_hide_vendor_wp_info';
+	const OPTION_ROLE_LABEL                       = 'alg_mpwc_opt_vendor_role_label';
+	const OPTION_PUBLIC_PAGE_SLUG                 = 'alg_mpwc_opt_public_page_slug';
+	const OPTION_PUBLIC_PAGE_LOGO                 = 'alg_mpwc_opt_public_page_logo';
+	const OPTION_PUBLIC_PAGE_SHOP_LINK_LABEL      = 'alg_mpwc_opt_public_page_shop_link_label';
+	const OPTION_CAPABILITIES_PUBLISH_PRODUCTS    = 'alg_mpwc_opt_vendor_caps_publish_products';
+	const OPTION_CAPABILITIES_DELETE_PRODUCTS     = 'alg_mpwc_opt_vendor_caps_delete_products';
+	const OPTION_CAPABILITIES_UPLOAD_FILES        = 'alg_mpwc_opt_vendor_caps_upload_files';
+	const OPTION_CAPABILITIES_VIEW_ORDERS         = 'alg_mpwc_opt_vendor_caps_view_orders';
+	const OPTION_CAPABILITIES_ENTER_ADMIN         = 'alg_mpwc_opt_vendor_caps_enter_admin';
+	const OPTION_HIDE_VENDOR_WP_INFO              = 'alg_mpwc_opt_hide_vendor_wp_info';
 
-	const OPTION_INCLUDE_TAXES                   = 'alg_mpwc_opt_commissions_include_taxes';
-	const OPTION_REGISTRY_AUTOMATIC_APPROVAL     = 'alg_mpwc_opt_registry_automatic_approval';
-	const OPTION_REGISTRY_CHECKBOX_TEXT          = 'alg_mpwc_opt_registry_checkbox_text';
-	const OPTION_PRODUCT_TAB_TEXT                = 'alg_mpwc_opt_vendor_product_tab_text';
-	const OPTION_PRODUCT_TAB_PRIORITY            = 'alg_mpwc_opt_vendor_product_tab_priority';
-	const OPTION_PRODUCT_TAB_ENABLE              = 'alg_mpwc_opt_vendor_product_tab_enable';
-	const OPTION_AUTHORSHIP_PRODUCT_LOOP         = 'alg_mpwc_opt_authorship_product_loop';
-	const OPTION_REDIRECT_TO_ADMIN               = 'alg_mpwc_opt_redirect_to_admin';
+	const OPTION_INCLUDE_TAXES                    = 'alg_mpwc_opt_commissions_include_taxes';
+	const OPTION_REGISTRY_AUTOMATIC_APPROVAL      = 'alg_mpwc_opt_registry_automatic_approval';
+	const OPTION_REGISTRY_CHECKBOX_TEXT           = 'alg_mpwc_opt_registry_checkbox_text';
+	const OPTION_PRODUCT_TAB_TEXT                 = 'alg_mpwc_opt_vendor_product_tab_text';
+	const OPTION_PRODUCT_TAB_PRIORITY             = 'alg_mpwc_opt_vendor_product_tab_priority';
+	const OPTION_PRODUCT_TAB_ENABLE               = 'alg_mpwc_opt_vendor_product_tab_enable';
+	const OPTION_AUTHORSHIP_PRODUCT_LOOP          = 'alg_mpwc_opt_authorship_product_loop';
+	const OPTION_PRODUCT_LOOP_VENDOR_INFO_CONTENT = 'alg_mpwc_product_loop_vendor_info';
+	const OPTION_REDIRECT_TO_ADMIN                = 'alg_mpwc_opt_redirect_to_admin';
 
 	/**
 	 * Constructor.
@@ -64,7 +65,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.4.7
+	 * @version 1.4.8
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (desc) remove "If it does not work on the first attempt, please go to Permalink Settings and save changes."
@@ -111,7 +112,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'title' => __( 'Product loop info', 'marketplace-for-woocommerce' ),
 				'type'  => 'title',
 				'desc'  => __( 'Some info that can be displayed on vendor\'s product loop about the vendor itself.', 'marketplace-for-woocommerce' ) . '<br />' .
-				           sprintf( __( 'You can find documentation regarding %s shortcode on <a href="%s" target="_blank">wp.org plugin\'s description</a>', 'marketplace-for-woocommerce' ), '<code>[alg_mpwc_vendor_img]</code>', 'https://wordpress.org/plugins/marketplace-for-woocommerce/' ),
+				           sprintf( __( 'You can use the %s filter to setup where the loop info will be displayed.', 'marketplace-for-woocommerce' ), '<a href="'.$this->generate_faq_question_url('What are the filters available?').'" target="_blank"><code>alg_mpwc_loop_vendor_info_filter</code></a>' ),
 				'id'    => 'alg_mpwc_product_loop_vendor_info_options',
 			),
 			array(
@@ -124,11 +125,11 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 			array(
 				'title'        => __( 'Info\'s content', 'marketplace-for-woocommerce' ),
 				'desc'         => __( 'Template variables:', 'marketplace-for-woocommerce' ) . ' ' . alg_marketplace_for_wc()->convert_array_to_string( array( 'store_url', 'store_title' ), array( 'item_template' => '<code>%{value}%</code>' ) ) . '<br />' .
-				                  __( 'Shortcodes:', 'marketplace-for-woocommerce' ) . ' ' . alg_marketplace_for_wc()->convert_array_to_string( array( '[alg_mpwc_vendor_img]' ), array( 'item_template' => '<code>{value}</code>' ) ),
+				                  __( 'Shortcodes:', 'marketplace-for-woocommerce' ) . ' ' . alg_marketplace_for_wc()->convert_array_to_string( array( '<a href="'.$this->generate_faq_question_url('What are the shortcodes available?').'" target="_blank">[alg_mpwc_vendor_img]</a>' ), array( 'item_template' => '<code>{value}</code>' ) ),
 				'desc_tip'     => __( "Info displayed on vendor products.", 'marketplace-for-woocommerce' ),
-				'id'           => 'alg_mpwc_product_loop_vendor_info',
+				'id'           => self::OPTION_PRODUCT_LOOP_VENDOR_INFO_CONTENT,
 				'alg_mpwc_raw' => true,
-				'default'      => '<div><a href="%store_url%">By %store_title%</a></div>',
+				'default'      => '<div class="alg-mpwc-product-author"><a href="%store_url%">By %store_title%</a></div>',
 				'type'         => 'text',
 			),
 			array(

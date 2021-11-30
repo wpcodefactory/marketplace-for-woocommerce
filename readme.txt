@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -25,16 +25,6 @@ Let users sell on your store.
 * Commissions can be manually or automatically created on order complete, processing, you choose it.
 * Vendor's products have a tab displaying info about the vendor, like its logo and description.
 
-### **&#x5b;&#x5c;&#x5d;** Shortcodes ###
-
-**`[alg_mpwc_vendor_img]`** : Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content** option. Shortcode params:
-
-* **`img_type`**: Type of image returned. Values allowed: `gravatar` or `store_logo`.
-* **`gravatar_size`**: Size of image if `img_type` is set as `gravatar`.
-* **`logo_style`**: Image style if `img_type` is set as `store_logo`.
-* **`vendor_id`**: Id from vendor.
-* **`post_id`**: Id from product.
-
 == Frequently Asked Questions ==
 
 = Where are the plugin's settings? =
@@ -53,6 +43,28 @@ If you are interested in contributing - head over to the [Marketplace for WooCom
 
 You can do it through [translate.wordpress](https://translate.wordpress.org/projects/wp-plugins/marketplace-for-woocommerce).
 
+= What are the shortcodes available? =
+
+**`[alg_mpwc_vendor_img]`**: Vendor image, as store's logo or vendor gravatar, most probably used on **Vendors > Product loop info > Info's content** option. Shortcode params:
+
+* **`img_type`**: Type of image returned. Values allowed: `gravatar` or `store_logo`.
+* **`gravatar_size`**: Size of image if `img_type` is set as `gravatar`.
+* **`logo_style`**: Image style if `img_type` is set as `store_logo`.
+* **`vendor_id`**: Id from vendor.
+* **`post_id`**: Id from product.
+
+= What are the filters available? =
+
+**`alg_mpwc_loop_vendor_info_filter`**: Manages where the vendor info, provided by the **Vendors > Product loop info > Info's content** option, will be displayed on product loop. Default value: `woocommerce_after_shop_loop_item`.
+
+*Example 1:*
+
+`add_filter( 'alg_mpwc_loop_vendor_info_filter', function ( $filter ) {
+	$filter = 'woocommerce_before_shop_loop_item_title';
+	return $filter;
+} );`
+
+
 == Installation ==
 
 1. Upload the entire plugin folder to the `/wp-content/plugins/` directory.
@@ -62,6 +74,9 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 == Screenshots ==
 
 == Changelog ==
+
+= 1.4.8 - 30/11/2021 =
+* Dev - Add `alg_mpwc_loop_vendor_info_filter` to setup where the vendor info will be displayed on product loop.
 
 = 1.4.7 - 29/11/2021 =
 * Dev - Create `[alg_mpwc_vendor_img]` shortcode.
