@@ -55,9 +55,13 @@ You can do it through [translate.wordpress](https://translate.wordpress.org/proj
 
 = What are the filters available? =
 
-**`alg_mpwc_loop_vendor_info_hook`**: Manages where the vendor info, provided by the **Vendors > Product loop info > Info's content** option, will be displayed on product loop. Default value: `woocommerce_after_shop_loop_item`.
+**`alg_mpwc_loop_vendor_info_hook`**: Manages where the vendor info, provided by the **Vendors > Product loop info > Info's content** option, will be displayed on product loop.
 
-*Example 1:*
+Default value:
+
+`woocommerce_after_shop_loop_item`
+
+Example 1:
 
 `add_filter( 'alg_mpwc_loop_vendor_info_hook', function ( $filter ) {
 	$filter = 'woocommerce_before_shop_loop_item_title';
