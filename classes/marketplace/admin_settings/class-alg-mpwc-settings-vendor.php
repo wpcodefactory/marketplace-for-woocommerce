@@ -112,7 +112,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'title' => __( 'Product loop info', 'marketplace-for-woocommerce' ),
 				'type'  => 'title',
 				'desc'  => __( 'Some info that can be displayed on vendor\'s product loop about the vendor itself.', 'marketplace-for-woocommerce' ) . '<br />' .
-				           sprintf( __( 'You can use the %s filter to setup where the loop info will be displayed.', 'marketplace-for-woocommerce' ), '<a href="'.$this->generate_faq_question_url('What are the filters available?').'" target="_blank"><code>alg_mpwc_loop_vendor_info_filter</code></a>' ),
+				           sprintf( __( 'You can use the %s filter to setup where the loop info will be displayed.', 'marketplace-for-woocommerce' ), '<a href="'.$this->generate_faq_question_url('What are the filters available?').'" target="_blank"><code>alg_mpwc_loop_vendor_info_hook</code></a>' ),
 				'id'    => 'alg_mpwc_product_loop_vendor_info_options',
 			),
 			array(
