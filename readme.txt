@@ -63,9 +63,9 @@ Default value:
 
 Example 1:
 
-`add_filter( 'alg_mpwc_loop_vendor_info_hook', function ( $filter ) {
-	$filter = 'woocommerce_before_shop_loop_item_title';
-	return $filter;
+`add_filter( 'alg_mpwc_loop_vendor_info_hook', function ( $hook ) {
+	$hook = 'woocommerce_before_shop_loop_item_title';
+	return $hook;
 } );`
 
 
