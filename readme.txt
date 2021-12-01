@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,9 @@ Example 1:
 == Screenshots ==
 
 == Changelog ==
+
+= 1.4.9 - 01/12/2021 =
+* Dev - Add `alg_mpwc_loop_vendor_info_hook_priority` to setup the priority hook where the vendor info will be displayed on product loop.
 
 = 1.4.8 - 30/11/2021 =
 * Dev - Add `alg_mpwc_loop_vendor_info_hook` to setup where the vendor info will be displayed on product loop.

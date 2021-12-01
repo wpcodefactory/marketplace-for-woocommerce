@@ -15,7 +15,7 @@ class Alg_MPWC_Vendor_User {
 	/**
 	 * Constructor.
 	 *
-	 * @version 1.4.8
+	 * @version 1.4.9
 	 * @since   1.0.0
 	 */
 	function __construct() {
@@ -40,7 +40,7 @@ class Alg_MPWC_Vendor_User {
 		new Alg_MPWC_Vendor_Marketplace_Tab();
 
 		// Adds (By vendor name) on product loop
-		add_action( apply_filters( 'alg_mpwc_loop_vendor_info_hook', 'woocommerce_after_shop_loop_item' ), array( $this, 'display_product_author_on_loop' ), 9 );
+		add_action( apply_filters( 'alg_mpwc_loop_vendor_info_hook', 'woocommerce_after_shop_loop_item' ), array( $this, 'display_product_author_on_loop' ), apply_filters( 'alg_mpwc_loop_vendor_info_hook_priority', 9 ) );
 
 		// Product tab
 		add_filter( 'woocommerce_product_tabs', array( $this, 'add_tab_on_product' ) );
