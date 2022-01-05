@@ -109,7 +109,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				'id'          => 'alg_mpwc_vendors_opt',
 			),
 			array(
-				'title' => __( 'Product loop info', 'marketplace-for-woocommerce' ),
+				'title' => __( 'Product Loop Info', 'marketplace-for-woocommerce' ),
 				'type'  => 'title',
 				'desc'  => __( 'Some info that can be displayed on vendor\'s product loop about the vendor itself.', 'marketplace-for-woocommerce' ) . '<br />' .
 				           sprintf( __( 'You can use the %s filter to setup where the loop info will be displayed.', 'marketplace-for-woocommerce' ), '<a href="'.$this->generate_faq_question_url('What are the filters available?').'" target="_blank"><code>alg_mpwc_loop_vendor_info_hook</code></a>' ),
@@ -128,9 +128,9 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 				                  __( 'Shortcodes:', 'marketplace-for-woocommerce' ) . ' ' . alg_marketplace_for_wc()->convert_array_to_string( array( '<a href="'.$this->generate_faq_question_url('What are the shortcodes available?').'" target="_blank">[alg_mpwc_vendor_img]</a>' ), array( 'item_template' => '<code>{value}</code>' ) ),
 				'desc_tip'     => __( "Info displayed on vendor products.", 'marketplace-for-woocommerce' ),
 				'id'           => self::OPTION_PRODUCT_LOOP_VENDOR_INFO_CONTENT,
-				'alg_mpwc_raw' => true,
 				'default'      => '<div class="alg-mpwc-product-author"><a href="%store_url%">By %store_title%</a></div>',
-				'type'         => 'text',
+				'type'         => 'textarea',
+				'css'          => 'height:150px;',
 			),
 			array(
 				'type'        => 'sectionend',
