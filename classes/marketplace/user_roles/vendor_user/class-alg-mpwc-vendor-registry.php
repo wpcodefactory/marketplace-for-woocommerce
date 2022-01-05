@@ -2,8 +2,9 @@
 /**
  * Marketplace for WooCommerce - Vendor registry
  *
- * @version 1.1.12
+ * @version 1.5.0
  * @since   1.0.0
+ *
  * @author  Algoritmika Ltd.
  */
 
@@ -11,8 +12,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 
 	class Alg_MPWC_Vendor_Registry {
 
-	    public static $user_registered=false;
-	    public static $user_registered_args=array();
+		public static $user_registered = false;
+		public static $user_registered_args = array();
 
 		/**
 		 * Constructor
@@ -52,7 +53,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 			}
 
 			if ( ! filter_var( $_POST['alg_mpwc_apply_for_vendor'], FILTER_VALIDATE_BOOLEAN ) ) {
-                return;
+				return;
 			}
 
 			$automatic_approval = filter_var( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_AUTOMATIC_APPROVAL ), FILTER_VALIDATE_BOOLEAN );
@@ -78,9 +79,9 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 		}
 
 		/**
-		 * Adds a checkbox on WooCommerce registry and edit page about becoming a vendor
+		 * Adds a checkbox on WooCommerce registry and edit page about becoming a vendor.
 		 *
-		 * @version 1.1.12
+		 * @version 1.5.0
 		 * @since   1.0.0
 		 */
 		public function add_apply_for_checkbox() {
@@ -89,16 +90,18 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 					return;
 				}
 			}
+			if ( '' === ( $checkbox_text = get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_CHECKBOX_TEXT, __( 'Apply for becoming a vendor', 'marketplace-for-woocommerce' ) ) ) ) {
+				return;
+			}
 			?>
-
-            <div style="margin-bottom:35px;">
-                <label class="woocommerce-form__label woocommerce-form__label-for-checkbox">
-                    <input class="woocommerce-form__input woocommerce-form__input-checkbox inline" name="alg_mpwc_apply_for_vendor" type="checkbox" id="alg_mpwc_apply_for_vendor"/> <span><?php echo esc_html( sanitize_text_field( get_option( Alg_MPWC_Settings_Vendor::OPTION_REGISTRY_CHECKBOX_TEXT ) ) ); ?></span>
-                </label>
-            </div>
-
+			<div style="margin-bottom:35px;">
+				<label class="woocommerce-form__label woocommerce-form__label-for-checkbox">
+					<input class="woocommerce-form__input woocommerce-form__input-checkbox inline" name="alg_mpwc_apply_for_vendor" type="checkbox" id="alg_mpwc_apply_for_vendor"/> <span><?php echo esc_html( sanitize_text_field( $checkbox_text ) ); ?></span>
+				</label>
+			</div>
 			<?php
 		}
 
 	}
+
 }

@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.4.8
+ * @version 1.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -65,7 +65,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.4.8
+	 * @version 1.5.0
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (desc) remove "If it does not work on the first attempt, please go to Permalink Settings and save changes."
@@ -158,8 +158,9 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 			array(
 				'title'       => __( 'Checkbox text', 'marketplace-for-woocommerce' ),
 				'desc'        => __( 'The text displayed to users that want to become vendors.', 'marketplace-for-woocommerce' ),
+				'desc_tip'    => __( 'Leave empty to disable the checkbox.', 'marketplace-for-woocommerce' ),
 				'id'          => self::OPTION_REGISTRY_CHECKBOX_TEXT,
-				'default'     => __('Apply for becoming a vendor', 'marketplace-for-woocommerce' ),
+				'default'     => __( 'Apply for becoming a vendor', 'marketplace-for-woocommerce' ),
 				'class'       => 'regular-input',
 				'type'        => 'text',
 			),
