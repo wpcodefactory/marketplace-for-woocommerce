@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Admin settings
  *
- * @version 1.4.7
+ * @version 1.5.0
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -30,9 +30,9 @@ if ( ! class_exists( 'Alg_MPWC_Admin_Settings' ) ) {
 		}
 
 		/**
-		 * maybe_unsanitize_option.
+		 * sanitize_raw_parameter.
 		 *
-		 * @version 1.4.7
+		 * @version 1.5.0
 		 * @since   1.4.7
 		 *
 		 * @param $value
@@ -42,11 +42,7 @@ if ( ! class_exists( 'Alg_MPWC_Admin_Settings' ) ) {
 		 * @return mixed|string
 		 */
 		function sanitize_raw_parameter( $value, $option, $raw_value ) {
-			if ( ! isset( $option['alg_mpwc_raw'] ) || empty( $option['alg_mpwc_raw'] ) ) {
-				return $value;
-			}
-			$new_value = wp_kses_post( trim( $raw_value ) );
-			return $new_value;
+			return ( empty( $option['alg_mpwc_raw'] ) ? $value : wp_kses_post( trim( $raw_value ) ) );
 		}
 
 		/**

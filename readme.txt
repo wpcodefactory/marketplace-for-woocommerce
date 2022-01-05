@@ -82,6 +82,8 @@ Example 1:
 = 1.5.0 - 05/01/2022 =
 * Dev - Vendors Options - Registration - Checkbox text - Now checkbox is not displayed, if checkbox text is empty.
 * Dev - Vendors Options - Product Loop Info - Info's content - Admin settings field's type changed to the `textarea`.
+* Dev - Code refactoring.
+* WC tested up to: 6.0.
 
 = 1.4.9 - 01/12/2021 =
 * Dev - Add `alg_mpwc_loop_vendor_info_hook_priority` to setup the priority hook where the vendor info will be displayed on product loop.
