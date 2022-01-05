@@ -16,7 +16,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 		public static $user_registered_args = array();
 
 		/**
-		 * Constructor
+		 * Constructor.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 		}
 
 		/**
-		 * Trigger vendor registration hook
+		 * Trigger vendor registration hook.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Registry' ) ) {
 		}
 
 		/**
-		 * Validate extra register fields
+		 * Validate extra register fields.
 		 *
 		 * @version 1.0.0
 		 * @since   1.0.0
