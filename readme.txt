@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.8
-Stable tag: 1.4.9
+Stable tag: 1.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,7 +79,7 @@ Example 1:
 
 == Changelog ==
 
-= 1.5.0 - 05/01/2022 =
+= 1.5.0 - 10/01/2022 =
 * Dev - Vendors Options - Registration - Checkbox text - Now checkbox is not displayed, if checkbox text is empty.
 * Dev - Vendors Options - Product Loop Info - Info's content - Admin settings field's type changed to the `textarea`.
 * Dev - Code refactoring.
