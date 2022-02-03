@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Vendors Section Settings
  *
- * @version 1.5.0
+ * @version 1.5.1
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -65,7 +65,7 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.5.0
+	 * @version 1.5.1
 	 * @since   1.0.0
 	 *
 	 * @todo    [next] (desc) remove "If it does not work on the first attempt, please go to Permalink Settings and save changes."
@@ -292,51 +292,46 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 
 			// Capabilities
 			array(
-				'title'       => __( 'Capabilities', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'What vendors will be allowed to do.', 'marketplace-for-woocommerce' ),
-				'type'        => 'title',
-				'id'          => 'alg_mpwc_vendors_caps_opt',
+				'title' => __( 'Capabilities', 'marketplace-for-woocommerce' ),
+				'desc'  => __( 'What vendors will be allowed to do', 'marketplace-for-woocommerce' ),
+				'type'  => 'title',
+				'id'    => 'alg_mpwc_vendors_caps_opt',
 			),
 			array(
-				'title'       => __( 'Access the dashboard', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( 'Allows vendors to access the admin dashboard.', 'marketplace-for-woocommerce' ),
-				'id'          => self::OPTION_CAPABILITIES_ENTER_ADMIN,
-				'default'     => 'yes',
-				'type'        => 'checkbox',
+				'title'   => __( 'Access the dashboard', 'marketplace-for-woocommerce' ),
+				'desc'    => __( 'Allow vendors to access the admin dashboard', 'marketplace-for-woocommerce' ),
+				'id'      => self::OPTION_CAPABILITIES_ENTER_ADMIN,
+				'default' => 'yes',
+				'type'    => 'checkbox',
 			),
 			array(
-				'title'       => __( 'Publish products', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( 'Allows vendors to publish products automatically, bypassing the pending status.', 'marketplace-for-woocommerce' ),
-				'id'          => self::OPTION_CAPABILITIES_PUBLISH_PRODUCTS,
-				'default'     => 'no',
-				'type'        => 'checkbox',
+				'title'   => __( 'Publish products', 'marketplace-for-woocommerce' ),
+				'desc'    => __( 'Allow vendors to publish products automatically, bypassing the pending status', 'marketplace-for-woocommerce' ),
+				'id'      => self::OPTION_CAPABILITIES_PUBLISH_PRODUCTS,
+				'default' => 'no',
+				'type'    => 'checkbox',
 			),
 			array(
-				'title'       => __( 'Delete products', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( 'Allows vendors to delete products.', 'marketplace-for-woocommerce' ) . ' ' .
-					__( 'Be careful with possible 404 pages.', 'marketplace-for-woocommerce' ),
-				'id'          => self::OPTION_CAPABILITIES_DELETE_PRODUCTS,
-				'default'     => 'no',
-				'type'        => 'checkbox',
+				'title'   => __( 'Delete products', 'marketplace-for-woocommerce' ),
+				'desc'    => __( 'Allow vendors to delete products', 'marketplace-for-woocommerce' ) . ' ' .
+				             __( 'Be careful with possible 404 pages.', 'marketplace-for-woocommerce' ),
+				'id'      => self::OPTION_CAPABILITIES_DELETE_PRODUCTS,
+				'default' => 'no',
+				'type'    => 'checkbox',
 			),
 			array(
-				'title'       => __( 'Upload files', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( 'Allows vendors to upload files.', 'marketplace-for-woocommerce' ),
-				'id'          => self::OPTION_CAPABILITIES_UPLOAD_FILES,
-				'default'     => 'yes',
-				'type'        => 'checkbox',
+				'title'   => __( 'Upload files', 'marketplace-for-woocommerce' ),
+				'desc'    => __( 'Allow vendors to upload files', 'marketplace-for-woocommerce' ),
+				'id'      => self::OPTION_CAPABILITIES_UPLOAD_FILES,
+				'default' => 'yes',
+				'type'    => 'checkbox',
 			),
 			array(
-				'title'       => __( 'View orders', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( 'Allows vendors to view orders.', 'marketplace-for-woocommerce' ),
-				'id'          => self::OPTION_CAPABILITIES_VIEW_ORDERS,
-				'default'     => 'no',
-				'type'        => 'checkbox',
+				'title'   => __( 'View orders', 'marketplace-for-woocommerce' ),
+				'desc'    => __( 'Allow vendors to view orders', 'marketplace-for-woocommerce' ),
+				'id'      => self::OPTION_CAPABILITIES_VIEW_ORDERS,
+				'default' => 'no',
+				'type'    => 'checkbox',
 			),
 			array(
 				'type'        => 'sectionend',
