@@ -89,17 +89,15 @@ class Alg_MPWC_Settings_Vendor extends Alg_MPWC_Settings_Section {
 			),
 			array(
 				'title'       => __( 'Hide WordPress info', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Hide', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( "Hides info about Wordpress on vendor's admin dashboard.", 'marketplace-for-woocommerce' ) . ' ' .
-					__( 'Hides WordPress logo, footer text "Thank you for creating with WordPress" and disables update notifications.', 'marketplace-for-woocommerce' ),
+				'desc'        => __( 'Hide info about Wordpress on vendor\'s admin dashboard', 'marketplace-for-woocommerce' ),
+				'desc_tip'    => __( 'Hides WordPress logo, footer text "Thank you for creating with WordPress" and disables update notifications.', 'marketplace-for-woocommerce' ),
 				'id'          => self::OPTION_HIDE_VENDOR_WP_INFO,
 				'default'     => 'yes',
 				'type'        => 'checkbox',
 			),
 			array(
 				'title'       => __( 'Redirect to admin on login', 'marketplace-for-woocommerce' ),
-				'desc'        => __( 'Redirect', 'marketplace-for-woocommerce' ),
-				'desc_tip'    => __( "Redirects vendors to admin after login.", 'marketplace-for-woocommerce' ),
+				'desc'        => __( 'Redirect vendors to admin after login', 'marketplace-for-woocommerce' ),
 				'id'          => self::OPTION_REDIRECT_TO_ADMIN,
 				'default'     => 'yes',
 				'type'        => 'checkbox',

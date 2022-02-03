@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - General Section Settings
  *
- * @version 1.3.0
+ * @version 1.5.1
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -55,7 +55,7 @@ class Alg_MPWC_Settings_General extends Alg_MPWC_Settings_Section {
 	/**
 	 * get_settings.
 	 *
-	 * @version 1.3.0
+	 * @version 1.5.1
 	 * @since   1.0.0
 	 * @todo    [feature] (maybe) create "include taxes" option
 	 */
@@ -88,9 +88,8 @@ class Alg_MPWC_Settings_General extends Alg_MPWC_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Group by author', 'marketplace-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip' => __( 'Groups commissions by author.', 'marketplace-for-woocommerce' ) . ' ' .
-					__( 'If an order has products from X unique authors, X commissions will be created.', 'marketplace-for-woocommerce' ) . ' ' .
+				'desc'     => __( 'Group commissions by author', 'marketplace-for-woocommerce' ),
+				'desc_tip' => __( 'If an order has products from X unique authors, X commissions will be created.', 'marketplace-for-woocommerce' ) . '<br />' .
 					__( "Note: This option doesn't work with <strong>Quantity separates</strong> option.", 'marketplace-for-woocommerce' ),
 				'id'       => self::OPTION_COMMISSIONS_GROUP_BY_AUTHORS,
 				'default'  => 'yes',
@@ -98,9 +97,8 @@ class Alg_MPWC_Settings_General extends Alg_MPWC_Settings_Section {
 			),
 			array(
 				'title'    => __( 'Quantity separates', 'marketplace-for-woocommerce' ),
-				'desc'     => __( 'Enable', 'marketplace-for-woocommerce' ),
-				'desc_tip' => __( 'Create commissions for each item separately.', 'marketplace-for-woocommerce' ) . ' ' .
-					__( 'If an order has 10 x product A and 15 x product B, 25 commissions will be created.', 'marketplace-for-woocommerce' ) . ' ' .
+				'desc'     => __( 'Create commissions for each item separately', 'marketplace-for-woocommerce' ),
+				'desc_tip' => __( 'If an order has 10 x product A and 15 x product B, 25 commissions will be created.', 'marketplace-for-woocommerce' ) . '<br />' .
 					__( "Note: This option cancels <strong>Group by author</strong> option.", 'marketplace-for-woocommerce' ),
 				'id'       => self::OPTION_COMMISSIONS_QUANTITY_SEPARATES,
 				'default'  => 'no',
