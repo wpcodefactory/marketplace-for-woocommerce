@@ -80,6 +80,7 @@ Example 1:
 == Changelog ==
 
 = 1.5.1 - 14/02/2022 =
+* Create `alg_mpwc_commission_notification_email_to` filter.
 * Tested up to: 5.9.
 * WC tested up to: 6.2.
 
