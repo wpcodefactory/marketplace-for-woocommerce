@@ -9,12 +9,12 @@ Author URI: https://algoritmika.com
 Text Domain: marketplace-for-woocommerce
 Domain Path: /langs
 WC requires at least: 3.0.0
-WC tested up to: 6.1
+WC tested up to: 6.2
 */
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.5.1-dev-20220203-1556' );
+defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.5.1-dev-20220214-1118' );
 
 /**
  * Check for active plugins.

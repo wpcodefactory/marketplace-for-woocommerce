@@ -79,9 +79,9 @@ Example 1:
 
 == Changelog ==
 
-= 1.5.1 - 03/02/2022 =
+= 1.5.1 - 14/02/2022 =
 * Tested up to: 5.9.
-* WC tested up to: 6.1.
+* WC tested up to: 6.2.
 
 = 1.5.0 - 10/01/2022 =
 * Dev - Vendors Options - Registration - Checkbox text - Now checkbox is not displayed, if checkbox text is empty.
