@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 5.9
-Stable tag: 1.5.0
+Stable tag: 1.5.1
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,7 +79,8 @@ Example 1:
 
 == Changelog ==
 
-= 1.5.1 - 14/02/2022 =
+= 1.5.1 - 16/02/2022 =
+* Fix - Error: Call to a member function get_formatted_name() on bool.
 * Create `alg_mpwc_commission_notification_email_to` filter.
 * Tested up to: 5.9.
 * WC tested up to: 6.2.

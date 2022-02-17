@@ -330,7 +330,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Creates email table from commission query
 		 *
-		 * @version 1.2.5
+		 * @version 1.5.1
 		 * @since   1.2.3
 		 *
 		 * @param $the_query
@@ -362,7 +362,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 					$product_names    = array();
 					foreach ( $product_ids as $id ) {
 						$product         = wc_get_product( $id );
-						$product_names[] = $product->get_formatted_name();
+						$product_names[] = ( is_a( $product, 'WC_Product' ) ? $product->get_formatted_name() : 'NA' );
 					}
 					$message .= '
 					<tr>
