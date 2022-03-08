@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Commission manager
  *
- * @version 1.5.1
+ * @version 1.5.2
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -385,9 +385,9 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		}
 
 		/**
-		 * Sends commission email to vendors
+		 * Sends commission email to vendors.
 		 *
-		 * @version 1.5.1
+		 * @version 1.5.2
 		 * @since   1.2.3
 		 * @param   $order_id
 		 */
@@ -404,18 +404,25 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 			$products_by_vendor = $this->get_order_items_separated_by_vendor( $order_id );
 			foreach ( $products_by_vendor as $key => $order_items ) {
 				$vendor_id         = $key;
+				$vendor_user       = get_user_by( 'ID', $vendor_id );
 				$commissions_query = $this->get_commissions_query( array(
 					'vendor_id' => $vendor_id,
 					'order_id'  => $order_id
 				) );
 				$table             = $this->create_email_table_from_commissions_query( $commissions_query );
-				if ( ! empty( $table ) ) {
+				if (
+					! empty( $vendor_user ) &&
+					apply_filters( 'alg_mpwc_send_commission_notification_email', true, array(
+						'vendor_user' => $vendor_user,
+						'order_id'    => $order_id
+					) ) &&
+					! empty( $table )
+				) {
 					$final_message    = ! empty( $commission_email_message ) ? '<p>' . $commission_email_message . '</p>' . $table : $table;
-					$user             = get_user_by( 'ID', $vendor_id );
 					$complete_message = Alg_MPWC_Email::wrap_in_wc_email_template( $final_message, $subject );
-					wc_mail( apply_filters( 'alg_mpwc_commission_notification_email_to', $user->user_email, array(
+					wc_mail( apply_filters( 'alg_mpwc_commission_notification_email_to', $vendor_user->user_email, array(
 						'order_id' => $order_id,
-						'user'     => $user,
+						'user'     => $vendor_user,
 						'subject'  => $subject
 					) ), $subject, $complete_message );
 				}
