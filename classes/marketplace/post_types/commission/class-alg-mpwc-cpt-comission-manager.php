@@ -1,8 +1,8 @@
 <?php
 /**
- * Marketplace for WooCommerce - Commission manager
+ * Marketplace for WooCommerce - Commission manager.
  *
- * @version 1.5.2
+ * @version 1.5.3
  * @since   1.0.0
  * @author  Algoritmika Ltd.
  */
@@ -297,34 +297,43 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		}
 
 		/**
-		 * Gets commissions query
-		 * @version 1.2.4
+		 * Gets commissions query.
+		 *
+		 * @version 1.5.3
 		 * @since   1.2.3
 		 * @param array $args
 		 *
-		 * @return WP_Query
+		 * @return bool|WP_Query
 		 */
-		public function get_commissions_query( $args=array() ) {
-			$args = wp_parse_args( $args, array(
+		public function get_commissions_query( $args = array() ) {
+			$can_run_query = true;
+			$args          = wp_parse_args( $args, array(
+				'vendor_id'      => '',
+				'order_id'       => '',
 				'post_type'      => $this->commission_cpt->id,
 				'posts_per_page' => - 1
 			) );
-
-			if ( isset( $args['order_id'] ) ) {
+			if ( ! empty( $args['order_id'] ) && is_int( $args['order_id'] ) ) {
 				$args['meta_query'][] = array(
-					'key'     => '_alg_mpwc_order_id',
+					'key'   => '_alg_mpwc_order_id',
 					'value' => $args['order_id'],
 				);
+			} else {
+				$can_run_query = false;
 			}
-
-			if ( isset( $args['vendor_id'] ) ) {
+			if ( ! empty( $args['vendor_id'] ) && is_int( $args['vendor_id'] ) ) {
 				$args['meta_query'][] = array(
 					'key'   => '_alg_mpwc_author_id',
 					'value' => $args['vendor_id'],
 				);
+			} else {
+				$can_run_query = false;
 			}
-
-			return new \WP_Query( $args );
+			if ( $can_run_query ) {
+				return new \WP_Query( $args );
+			} else {
+				return false;
+			}
 		}
 
 		/**
@@ -339,7 +348,6 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		 */
 		public function create_email_table_from_commissions_query( $the_query ) {
 			$message = '';
-
 			// The Loop
 			if ( $the_query->have_posts() ) {
 				$message .= '<table class="td" cellspacing="0" border="1">';
@@ -387,7 +395,7 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 		/**
 		 * Sends commission email to vendors.
 		 *
-		 * @version 1.5.2
+		 * @version 1.5.3
 		 * @since   1.2.3
 		 * @param   $order_id
 		 */
@@ -409,9 +417,10 @@ if ( ! class_exists( 'Alg_MPWC_CPT_Commission_Manager' ) ) {
 					'vendor_id' => $vendor_id,
 					'order_id'  => $order_id
 				) );
-				$table             = $this->create_email_table_from_commissions_query( $commissions_query );
+				$table = false !== $commissions_query ? $this->create_email_table_from_commissions_query( $commissions_query ) : '';
 				if (
 					! empty( $vendor_user ) &&
+					is_a( $order, 'WC_Order' ) &&
 					apply_filters( 'alg_mpwc_send_commission_notification_email', true, array(
 						'vendor_user' => $vendor_user,
 						'order_id'    => $order_id
