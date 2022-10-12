@@ -3,7 +3,7 @@ Contributors: algoritmika, karzin, anbinder
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
 Tested up to: 6.0
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,6 +78,10 @@ Example 1:
 == Screenshots ==
 
 == Changelog ==
+
+= 1.5.4 - 12/10/2022 =
+* Fix - Array to string conversion in `class-alg-mpwc-vendor-role.php` on line 433.
+* WC tested up to: 7.0.
 
 = 1.5.3 - 08/06/2022 =
 * Dev - Add more safe-checks when sending commissions emails.

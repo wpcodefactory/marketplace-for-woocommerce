@@ -1,8 +1,8 @@
 <?php
 /**
- * Marketplace for WooCommerce - Vendor role
+ * Marketplace for WooCommerce - Vendor role.
  *
- * @version 1.4.6
+ * @version 1.5.4
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -389,7 +389,7 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 		 *
 		 * @todo check why DOING_AJAX check was necessary. Right now it doesn't work with the media library page using the grid mode.
 		 *
-		 * @version 1.4.6
+		 * @version 1.5.4
 		 * @since   1.0.0
 		 */
 		public function handle_loop_content_access_from_vendor_on_admin( $query ) {
@@ -397,7 +397,8 @@ if ( ! class_exists( 'Alg_MPWC_Vendor_Role' ) ) {
 				! current_user_can( self::ROLE_VENDOR ) ||
 				! is_admin() ||
 				! isset( $query->query['post_type'] ) ||
-				empty( $post_type = $query->query['post_type'] ) ||
+				empty( $post_type = $query->get( 'post_type' ) ) ||
+				is_array( $post_type ) ||
 				in_array( $post_type, apply_filters( 'alg_mpwc_post_types_allowed_to_vendor_on_admin', array( 'acf-field-group', 'acf-field' ) ) )
 			) {
 				return $query;
