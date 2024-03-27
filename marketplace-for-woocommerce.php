@@ -3,18 +3,18 @@
 Plugin Name: Marketplace for WooCommerce
 Plugin URI: https://wordpress.org/plugins/marketplace-for-woocommerce/
 Description: Let users sell on your store.
-Version: 1.5.6
+Version: 1.5.7
 Author: WPFactory
 Author URI: https://wpfactory.com
 Text Domain: marketplace-for-woocommerce
 Domain Path: /langs
 WC requires at least: 6.4
-WC tested up to: 8.3
+WC tested up to: 8.7
 */
 
 defined( 'ABSPATH' ) || exit;
 
-defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.5.6' );
+defined( 'ALG_WC_MARKETPLACE_VERSION' ) || define( 'ALG_WC_MARKETPLACE_VERSION', '1.5.7' );
 
 /**
  * Check for active plugins.

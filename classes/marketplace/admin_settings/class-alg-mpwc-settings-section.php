@@ -2,7 +2,7 @@
 /**
  * Marketplace for WooCommerce - Settings Section
  *
- * @version 1.4.8
+ * @version 1.5.7
  * @since   1.0.0
  *
  * @author  Algoritmika Ltd.
@@ -13,6 +13,20 @@ defined( 'ABSPATH' ) || exit;
 if ( ! class_exists( 'Alg_MPWC_Settings_Section' ) ) :
 
 	class Alg_MPWC_Settings_Section {
+
+		/**
+		 * Id.
+		 *
+		 * @since 1.5.7
+		 */
+		protected $id;
+
+		/**
+		 * Desc.
+		 *
+		 * @since 1.5.7
+		 */
+		protected $desc;
 
 		protected $settings;
 		protected $handle_autoload = true;
