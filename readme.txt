@@ -79,7 +79,7 @@ Example 1:
 
 == Changelog ==
 
-= 1.5.9 - 14/10/2024 =
+= 1.5.9 - 14/10/2025 =
 * WC tested up to: 10.2.
 * Tested up to: 6.8.
 
