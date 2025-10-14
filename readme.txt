@@ -1,9 +1,9 @@
 === Marketplace for WooCommerce ===
-Contributors: wpcodefactory, anbinder, karzin, omardabbas, kousikmukherjeeli
+Contributors: algoritmika, thankstoit, anbinder, karzin
 Tags: woocommerce, marketplace, multivendor, vendors
 Requires at least: 5.0
-Tested up to: 6.6
-Stable tag: 1.5.8
+Tested up to: 6.8
+Stable tag: 1.5.9
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -79,6 +79,10 @@ Example 1:
 
 == Changelog ==
 
+= 1.5.9 - 14/10/2024 =
+* WC tested up to: 10.2.
+* Tested up to: 6.8.
+
 = 1.5.8 - 30/07/2024 =
 * WC tested up to: 9.1.
 * Tested up to: 6.6.
@@ -88,7 +92,7 @@ Example 1:
 * WC tested up to: 8.7.
 
 = 1.5.6 - 24/11/2023 =
-* Update change log.
+* Fix changelog.
 
 = 1.5.5 - 24/11/2023 =
 * WC tested up to: 8.3.

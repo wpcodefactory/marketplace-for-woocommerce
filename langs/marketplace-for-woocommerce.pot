@@ -1,38 +1,43 @@
-# Copyright (C) 2022 Algoritmika Ltd
+# Copyright (C) 2025 Algoritmika Ltd
 # This file is distributed under the same license as the Marketplace for WooCommerce plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Marketplace for WooCommerce 1.5.2\n"
+"Project-Id-Version: Marketplace for WooCommerce 1.5.9\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/marketplace-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-03-08T22:20:10+01:00\n"
+"POT-Creation-Date: 2025-10-14T16:03:41+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: marketplace-for-woocommerce\n"
 
 #. Plugin Name of the plugin
+#: marketplace-for-woocommerce.php
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:71
 msgid "Marketplace for WooCommerce"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: marketplace-for-woocommerce.php
 msgid "https://wordpress.org/plugins/marketplace-for-woocommerce/"
 msgstr ""
 
 #. Description of the plugin
+#: marketplace-for-woocommerce.php
 msgid "Let users sell on your store."
 msgstr ""
 
 #. Author of the plugin
+#: marketplace-for-woocommerce.php
 msgid "Algoritmika Ltd"
 msgstr ""
 
 #. Author URI of the plugin
-msgid "https://algoritmika.com"
+#: marketplace-for-woocommerce.php
+msgid "https://profiles.wordpress.org/algoritmika/"
 msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:37
@@ -175,8 +180,8 @@ msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:180
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-general.php:187
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:397
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:398
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:405
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:406
 msgid "You have a new sale on {site_title} from {order_date}"
 msgstr ""
 
@@ -213,7 +218,7 @@ msgstr ""
 
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:86
 #: classes/marketplace/admin_settings/class-alg-mpwc-settings-vendor.php:87
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:584
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:585
 msgid "Marketplace vendor"
 msgstr ""
 
@@ -570,7 +575,7 @@ msgstr ""
 #: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:449
 #: classes/marketplace/post_types/class-alg-mpwc-cpt-commission.php:451
 #: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:293
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:493
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:502
 #: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-admin-fields.php:283
 msgid "Commission"
 msgstr ""
@@ -671,7 +676,7 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:350
+#: classes/marketplace/post_types/commission/class-alg-mpwc-cpt-comission-manager.php:358
 msgid "Commission Value"
 msgstr ""
 
@@ -811,15 +816,15 @@ msgstr ""
 msgid "See your <a href=\"{{vendor_public_page}}\">public page</a>"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:469
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:470
 msgid "Sorry, you are not allowed to edit this item."
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:631
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:632
 msgid "pending"
 msgstr ""
 
-#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:632
+#: classes/marketplace/user_roles/vendor_user/class-alg-mpwc-vendor-role.php:633
 msgid "rejected"
 msgstr ""
 
